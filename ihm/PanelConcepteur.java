@@ -101,11 +101,17 @@ public class PanelConcepteur extends JFrame implements ActionListener {
 
 		// Après que l'utilisateur ait cliqué sur "ouvrir"
 
-		int reponse = parcourirFichier.showOpenDialog(null);
-		if(reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
-			this.lblPath.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
-			this.image = parcourirFichier.getSelectedFile();
-		}
+		try {
+			int reponse = parcourirFichier.showOpenDialog(null);
+			if(reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
+				this.lblPath.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
+				this.image = parcourirFichier.getSelectedFile();
+			}
+		} catch(Exception exception) { exception.printStackTrace(); }
+
+
+
+		
 	}
 
 
