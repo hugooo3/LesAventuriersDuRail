@@ -137,7 +137,7 @@ public class PanelConcepteur extends JFrame implements ActionListener {
 				} else if(new File(path + "/Images").exists()) {
 					path += "/Images";
 				}
-
+				ouvrirExploreur(path);
 
 			} else { JOptionPane.showMessageDialog(null, "Votre OS n'est pas supporté !", "Erreur", JOptionPane.ERROR_MESSAGE); }
 		}
