@@ -47,8 +47,12 @@ public class PanelManager extends JFrame implements ActionListener {
 		this.btnConcepteur.setBackground(Color.RED);
 		this.btnJeu.setBackground(Color.RED);
 
+		this.btnConcepteur.setBorderPainted(false);
+		this.btnConcepteur.setFocusPainted(false);
 
-		
+		this.btnJeu.setBorderPainted(false);
+		this.btnJeu.setFocusPainted(false);
+
 
 		// Ajout des composants
 		layout.addLayoutComponent(this.btnConcepteur, layoutCons);

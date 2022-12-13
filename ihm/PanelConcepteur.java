@@ -13,6 +13,9 @@ import java.io.File;
 
 public class PanelConcepteur extends JFrame implements ActionListener {
 
+	public final int HAUTEUR;
+	public final int LARGEUR;
+
 	private File image;
 
 	private JPanel panelContenu;
@@ -49,6 +52,8 @@ public class PanelConcepteur extends JFrame implements ActionListener {
 		this.panelContenu.setBackground(Color.GRAY);
 		this.panelContenu.setLayout(null);
 
+		this.HAUTEUR = (int) this.panelContenu.getSize().getHeight();
+		this.LARGEUR = (int) this.panelContenu.getSize().getWidth();
 		int centreH = (int) this.panelContenu.getSize().getWidth() / 2; // Ces deux paramètres serviront à placer proprement les éléments sur notre panel
 		int centreV = (int) this.panelContenu.getSize().getHeight() / 2;
 
@@ -56,16 +61,35 @@ public class PanelConcepteur extends JFrame implements ActionListener {
 		this.btnFichier = new JButton("Parcourir les fichiers");
 		this.btnFichier.setBackground(Color.LIGHT_GRAY);
 		this.btnFichier.setBorderPainted(false);
+		this.btnFichier.setFocusPainted(false);
+
+		this.btnEnregistrer = new JButton("Enregistrer");
+		this.btnEnregistrer.setBackground(Color.LIGHT_GRAY);
+		this.btnEnregistrer.setBorderPainted(false);
+		this.btnEnregistrer.setFocusPainted(false);
+
+		this.btnPasser = new JButton("Passer (fond d'écran par défaut)");
+		this.btnPasser.setBackground(Color.LIGHT_GRAY);
+		this.btnPasser.setBorderPainted(false);
+		this.btnPasser.setFocusPainted(false);
+
 
 		this.lblPath = new JLabel("(Fichier : \"...\")", JLabel.CENTER);
-		
 
 		this.panelContenu.add(this.btnFichier);
-		this.btnFichier.setBounds(centreH - 125, (centreV / 4), 250, 50);
+		this.btnFichier.setBounds(centreH - 125, (centreV / 4), 250, 65);
 		this.btnFichier.addActionListener(this);
 
+		this.panelContenu.add(this.btnEnregistrer);
+		this.btnEnregistrer.setBounds(centreH - 100, centreV - 60, 200, 50);
+		this.btnEnregistrer.addActionListener(this);
+
+		this.panelContenu.add(this.btnPasser);
+		this.btnPasser.setBounds(this.LARGEUR - 500, this.HAUTEUR - 120, 400, 60);
+		this.btnPasser.addActionListener(this);
+
 		this.panelContenu.add(this.lblPath);
-		this.lblPath.setBounds(centreH -125, (centreV / 4)+50, 250, 40);
+		this.lblPath.setBounds(centreH - this.LARGEUR/2, (centreV / 4)+65, this.LARGEUR, 40);
 
 		this.add(this.panelContenu, BorderLayout.CENTER);
 
@@ -108,35 +132,45 @@ public class PanelConcepteur extends JFrame implements ActionListener {
 				this.image = parcourirFichier.getSelectedFile();
 			}
 		} catch(Exception exception) { exception.printStackTrace(); }
-
-
-
-		
 	}
 
 
 	public void actionPerformed(ActionEvent e) {
 		
+		// Clic sur le bouton Enregistrer
+		if(e.getSource() == this.btnEnregistrer) {
+			this.dispose();
+		}
+
+		// Clic sur le bouton Passer
+		if(e.getSource() == this.btnPasser) {
+			this.image = new File("../images/carteUSA.png");
+			this.dispose();
+		}
+
+
+
 		String nomOs = System.getProperty("os.name").toLowerCase();
 		
 		if(e.getSource() == this.btnFichier) {
 
-			String path = FileSystemView.getFileSystemView().getHomeDirectory().toPath().toString();;
+			String path = FileSystemView.getFileSystemView().getHomeDirectory().toPath().toString();
 
 			// On ouvre directement le répertoire "Images" de l'utilisateur suivant son OS
-			if(nomOs.indexOf("truc") >= 0) { 
+			if(nomOs.indexOf("win") >= 0) {
 				path = path.replace("Desktop", "Pictures");
 				ouvrirExploreur(path);
-			} else if(nomOs.indexOf("mac") >= 0) { 
+			} else if(nomOs.indexOf("mac") >= 0) {
 				path = path.replace("Desktop", "Pictures");
 				ouvrirExploreur(path);
-			} else if(nomOs.indexOf("nux") >= 0 || nomOs.indexOf("nix") >= 0 || nomOs.indexOf("aix") >= 0) { 
-				
+			} else if(nomOs.indexOf("nux") >= 0 || nomOs.indexOf("nix") >= 0 || nomOs.indexOf("aix") >= 0) {
+
 				if(new File(path + "/Pictures").exists()) {
 					path += "/Pictures";
 				} else if(new File(path + "/Images").exists()) {
 					path += "/Images";
 				}
+
 				ouvrirExploreur(path);
 
 			} else { JOptionPane.showMessageDialog(null, "Votre OS n'est pas supporté !", "Erreur", JOptionPane.ERROR_MESSAGE); }
