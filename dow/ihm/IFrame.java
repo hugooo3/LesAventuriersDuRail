@@ -1,4 +1,4 @@
-package ihm;
+package dow.ihm;
 
 public interface IFrame 
 {

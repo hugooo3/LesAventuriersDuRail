@@ -1,4 +1,4 @@
-package ihm;
+package dow.ihm;
 
 import javax.swing.*;
 import javax.swing.filechooser.*;
@@ -47,7 +47,7 @@ public class FrameParam extends JFrame implements ActionListener
 
 		this.panelMappe = new JPanel();
 		this.panelParam = new JPanel();
-		panelParam.setLayout(new GridLayout)
+		panelParam.setLayout(new GridLayout(8,1));
 
 		JLabel lblNbJoueurMin = new JLabel("Nombre de joueurs minimum :");
 		JComboBox<int> JlstNbJoueurMin = new JComboBox<int>(tabNbJoueurMin);
@@ -67,8 +67,20 @@ public class FrameParam extends JFrame implements ActionListener
 
 
 
+
+		//Ajout des composants
+
+		panelParam.add(this.lblNbJoueurMin);
+		panelParam.add(this.JlstNbJoueurMin);
+		panelParam.add(this.lblNbJoueurMax);
+		panelParam.add(this.JlstNbJoueurMax);
+		panelParam.add(this.lblNbJoueurVoieDouble);
+		panelParam.add(this.JlstNbJoueurVoieDouble);
+
 		this.add(this.panelMappe, BorderLayout.WEST);
 		this.add(this.panelParam, BorderLayout.EST);
+
+		
 
 
 

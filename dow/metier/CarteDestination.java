@@ -1,4 +1,4 @@
-package metier;
+package dow.metier;
 
 public class CarteDestination {
 	Noeud noeud1;

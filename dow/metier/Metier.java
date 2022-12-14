@@ -1,4 +1,4 @@
-package metier;
+package dow.metier;
 
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
@@ -6,7 +6,8 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Comparator;
 
-import DOW.Controleur;
+import dow.Controleur;
+
 public class Metier 
 {
     Controleur ctrl;

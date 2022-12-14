@@ -1,7 +1,7 @@
-package DOW;
+package dow;
 
-import metier.*;
-import ihm.*;
+import dow.metier.*;
+import dow.ihm.*;
 
 public class Controleur {
 	Metier metier;
