@@ -9,13 +9,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.*;
 
-public class PanelManager extends JFrame implements ActionListener {
-
+public class FrameManager extends JFrame implements ActionListener 
+{
 	private JButton btnConcepteur;
 	private JButton btnJeu;
 
-	public PanelManager() {
-
+	public FrameManager() 
+	{
 		// Construction de la Frame
 
 		this.setTitle("Les Aventuriers Du Rail");
@@ -33,9 +33,6 @@ public class PanelManager extends JFrame implements ActionListener {
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2 - this.getSize().width/2, dim.height/2 - this.getSize().height/2 - 50);
 
-
-
-
 		// Contenu de la Frame
 
 		this.btnConcepteur = new JButton("Concepteur");
@@ -44,8 +41,8 @@ public class PanelManager extends JFrame implements ActionListener {
 		this.btnConcepteur.setPreferredSize(new Dimension(240, 80));
 		this.btnJeu.setPreferredSize(new Dimension(240, 80));
 
-		this.btnConcepteur.setBackground(Color.RED);
-		this.btnJeu.setBackground(Color.RED);
+		this.btnConcepteur.setBackground(Color.GRAY);
+		this.btnJeu.setBackground(Color.GRAY);
 
 		this.btnConcepteur.setBorderPainted(false);
 		this.btnConcepteur.setFocusPainted(false);
@@ -73,15 +70,18 @@ public class PanelManager extends JFrame implements ActionListener {
 	}
 
 
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 
-		if(e.getSource() == this.btnConcepteur) {
-			new PanelConcepteur();
+		if(e.getSource() == this.btnConcepteur) 
+		{
+			new FrameConcepteur();
 			this.dispose();
 		}
 
-		if(e.getSource() == this.btnJeu) {
-			new PanelJeu();
+		if(e.getSource() == this.btnJeu) 
+		{
+			new FrameJeu();
 			this.dispose();
 		}
 	}

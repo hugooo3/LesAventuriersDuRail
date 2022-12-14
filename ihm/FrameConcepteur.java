@@ -11,7 +11,7 @@ import java.awt.event.*;
 import java.io.File;
 
 
-public class PanelConcepteur extends JFrame implements ActionListener {
+public class FrameConcepteur extends JFrame implements ActionListener {
 
 	public final int HAUTEUR;
 	public final int LARGEUR;
@@ -27,8 +27,8 @@ public class PanelConcepteur extends JFrame implements ActionListener {
 	private JLabel lblPath;
 
 
-	public PanelConcepteur() {
-
+	public FrameConcepteur() 
+	{
 		// Construction de la Frame
 
 		this.setTitle("Concepteur de mappe");
@@ -100,13 +100,15 @@ public class PanelConcepteur extends JFrame implements ActionListener {
 	}
 
 
-	public void ouvrirExploreur(String path) {
-
+	public void ouvrirExploreur(String path) 
+	{
 		// Ici on ouvre l'explorateur de fichiers et on lui applique des paramètres
 
-		try {
+		try 
+		{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch(Exception exception) { exception.printStackTrace(); }
+		} 
+		catch(Exception exception) { exception.printStackTrace(); }
 
 		JFileChooser parcourirFichier = new JFileChooser(path);
 		parcourirFichier.setDialogTitle("Choisissez un fond d'écran");
@@ -118,33 +120,44 @@ public class PanelConcepteur extends JFrame implements ActionListener {
 
 
 		// On lui applique l'UI du pc de l'utilisateur
-		try {
+		try 
+		{
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-		} catch(Exception exception) { exception.printStackTrace(); }
+		} 
+		catch(Exception exception) { exception.printStackTrace(); }
 
 
 		// Après que l'utilisateur ait cliqué sur "ouvrir"
 
-		try {
+		try 
+		{
 			int reponse = parcourirFichier.showOpenDialog(null);
-			if(reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
+			if(reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) 
+			{
 				this.lblPath.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
 				this.image = parcourirFichier.getSelectedFile();
 			}
-		} catch(Exception exception) { exception.printStackTrace(); }
+		} 
+		catch(Exception exception) { exception.printStackTrace(); }
 	}
 
 
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 		
 		// Clic sur le bouton Enregistrer
-		if(e.getSource() == this.btnEnregistrer) {
+		if(e.getSource() == this.btnEnregistrer) 
+		{
+			new FrameParam();
 			this.dispose();
+
 		}
 
 		// Clic sur le bouton Passer
-		if(e.getSource() == this.btnPasser) {
+		if(e.getSource() == this.btnPasser) 
+		{
 			this.image = new File("../images/carteUSA.png");
+			new FrameParam();
 			this.dispose();
 		}
 
@@ -152,28 +165,38 @@ public class PanelConcepteur extends JFrame implements ActionListener {
 
 		String nomOs = System.getProperty("os.name").toLowerCase();
 		
-		if(e.getSource() == this.btnFichier) {
+		if(e.getSource() == this.btnFichier) 
+		{
 
 			String path = FileSystemView.getFileSystemView().getHomeDirectory().toPath().toString();
 
 			// On ouvre directement le répertoire "Images" de l'utilisateur suivant son OS
-			if(nomOs.indexOf("win") >= 0) {
+			if(nomOs.indexOf("win") >= 0) 
+			{
 				path = path.replace("Desktop", "Pictures");
 				ouvrirExploreur(path);
-			} else if(nomOs.indexOf("mac") >= 0) {
+			} 
+			else if(nomOs.indexOf("mac") >= 0) 
+			{
 				path = path.replace("Desktop", "Pictures");
 				ouvrirExploreur(path);
-			} else if(nomOs.indexOf("nux") >= 0 || nomOs.indexOf("nix") >= 0 || nomOs.indexOf("aix") >= 0) {
+			} 
+			else if(nomOs.indexOf("nux") >= 0 || nomOs.indexOf("nix") >= 0 || nomOs.indexOf("aix") >= 0) 
+			{
 
-				if(new File(path + "/Pictures").exists()) {
+				if(new File(path + "/Pictures").exists()) 
+				{
 					path += "/Pictures";
-				} else if(new File(path + "/Images").exists()) {
+				} 
+				else if(new File(path + "/Images").exists()) 
+				{
 					path += "/Images";
 				}
 
 				ouvrirExploreur(path);
 
-			} else { JOptionPane.showMessageDialog(null, "Votre OS n'est pas supporté !", "Erreur", JOptionPane.ERROR_MESSAGE); }
+			} 
+			else { JOptionPane.showMessageDialog(null, "Votre OS n'est pas supporté !", "Erreur", JOptionPane.ERROR_MESSAGE); }
 		}
 	}
 }
