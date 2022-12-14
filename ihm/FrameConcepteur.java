@@ -9,10 +9,9 @@ import java.awt.Color;
 import java.awt.BorderLayout;
 import java.awt.event.*;
 import java.io.File;
-import java.awt.Toolkit;
 
-public class FrameConcepteur extends Frame implements ActionListener {
-
+public class FrameConcepteur extends Frame implements ActionListener 
+{
 	private File image;
 
 	private JPanel panelContenu;
@@ -23,12 +22,13 @@ public class FrameConcepteur extends Frame implements ActionListener {
 
 	private JLabel lblPath;
 
-	public String getNom() {
+	public String getNom() 
+	{
 		return "Concepteur de mappe";
 	}
 
-	public FrameConcepteur() {
-
+	public FrameConcepteur() 
+	{
 		// Contenu du Panel principal
 		this.panelContenu = new JPanel();
 		this.panelContenu.setSize(this.getSize());
@@ -71,15 +71,14 @@ public class FrameConcepteur extends Frame implements ActionListener {
 		this.add(this.panelContenu, BorderLayout.CENTER);
 	}
 
-	public void ouvrirExploreur(String path) {
-
+	public void ouvrirExploreur(String path) 
+	{
 		// Ici on ouvre l'explorateur de fichiers et on lui applique des paramètres
-
-		try {
+		try 
+		{
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
+		} 
+		catch (Exception exception) {exception.printStackTrace();}
 
 		JFileChooser parcourirFichier = new JFileChooser(path);
 		parcourirFichier.setDialogTitle("Choisissez un fond d'écran");
@@ -90,65 +89,76 @@ public class FrameConcepteur extends Frame implements ActionListener {
 		parcourirFichier.setApproveButtonText("Ouvrir");
 
 		// On lui applique l'UI du pc de l'utilisateur
-		try {
+		try 
+		{
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
+		} 
+		catch (Exception exception) {exception.printStackTrace();}
 
 		// Après que l'utilisateur ait cliqué sur "ouvrir", on récupère le fichier
 		// sélectionné
 
-		try {
+		try 
+		{
 			int reponse = parcourirFichier.showOpenDialog(null);
-			if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
+			if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) 
+			{
 				this.lblPath.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
 				this.image = parcourirFichier.getSelectedFile();
 			}
-		} catch (Exception exception) {
-			exception.printStackTrace();
-		}
+		} 
+		catch (Exception exception) {exception.printStackTrace();}
 	}
 
-	public void actionPerformed(ActionEvent e) {
-
+	public void actionPerformed(ActionEvent e) 
+	{
 		// Clic sur le bouton Enregistrer
-		if (e.getSource() == this.btnEnregistrer) {
+		if (e.getSource() == this.btnEnregistrer) 
+		{
 			new FrameParametre(this.image);
 			this.dispose();
 		}
 
 		// Clic sur le bouton Passer
-		if (e.getSource() == this.btnPasser) {
-			this.image = new File("SAE_3.01/images/carteUSA.png");
+		if (e.getSource() == this.btnPasser) 
+		{
+			this.image = new File("images/carteUSA.png");
 			new FrameParametre(this.image);
+			System.out.println(this.image.getAbsolutePath());
 			this.dispose();
 		}
 
 		String nomOs = System.getProperty("os.name").toLowerCase();
 
-		if (e.getSource() == this.btnFichier) {
-
+		if (e.getSource() == this.btnFichier) 
+		{
 			String path = FileSystemView.getFileSystemView().getHomeDirectory().toPath().toString();
 
 			// On ouvre directement le répertoire "Images" de l'utilisateur suivant son OS
-			if (nomOs.indexOf("win") >= 0) {
+			if (nomOs.indexOf("win") >= 0) 
+			{
 				path = path.replace("Desktop", "Pictures");
 				ouvrirExploreur(path);
-			} else if (nomOs.indexOf("mac") >= 0) {
+			} 
+			else if (nomOs.indexOf("mac") >= 0) 
+			{
 				path = path.replace("Desktop", "Pictures");
 				ouvrirExploreur(path);
-			} else if (nomOs.indexOf("nux") >= 0 || nomOs.indexOf("nix") >= 0 || nomOs.indexOf("aix") >= 0) {
-
-				if (new File(path + "/Pictures").exists()) {
+			} 
+			else if (nomOs.indexOf("nux") >= 0 || nomOs.indexOf("nix") >= 0 || nomOs.indexOf("aix") >= 0) 
+			{
+				if (new File(path + "/Pictures").exists())
+				{
 					path += "/Pictures";
-				} else if (new File(path + "/Images").exists()) {
+				} 
+				else if (new File(path + "/Images").exists())
+				{
 					path += "/Images";
 				}
-
 				ouvrirExploreur(path);
-
-			} else {
+			} 
+			else
+			{
 				JOptionPane.showMessageDialog(null, "Votre OS n'est pas supporté !", "Erreur",
 						JOptionPane.ERROR_MESSAGE);
 			}
