@@ -16,7 +16,7 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 	public final int HAUTEUR;
 	public final int LARGEUR;
 
-	private File image;
+	private File imagePath;
 
 	private JPanel panelContenu;
 
@@ -135,7 +135,7 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 			if(reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) 
 			{
 				this.lblPath.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
-				this.image = parcourirFichier.getSelectedFile();
+				this.imagePath = parcourirFichier.getSelectedFile();
 			}
 		} 
 		catch(Exception exception) { exception.printStackTrace(); }
@@ -148,7 +148,7 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 		// Clic sur le bouton Enregistrer
 		if(e.getSource() == this.btnEnregistrer) 
 		{
-			new FrameParam();
+			new FrameParam(this.imagePath);
 			this.dispose();
 
 		}
@@ -156,8 +156,8 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 		// Clic sur le bouton Passer
 		if(e.getSource() == this.btnPasser) 
 		{
-			this.image = new File("../images/carteUSA.png");
-			new FrameParam();
+			this.imagePath = new File("../images/carteUSA.png");
+			new FrameParam(this.imagePath);
 			this.dispose();
 		}
 
