@@ -1,7 +1,6 @@
 package ihm;
 
-public interface IFrame {
-
-	public String getNom();
-	
+public interface IFrame 
+{
+	public String getNom();	
 }

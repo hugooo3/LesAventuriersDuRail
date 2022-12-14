@@ -6,7 +6,6 @@ import java.io.File;
 
 public class PanelMappe extends JPanel 
 {
-
 	private Image img;
 	private int largeur;
 	private int hauteur;

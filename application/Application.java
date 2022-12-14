@@ -3,12 +3,13 @@ package application;
 import ihm.FrameManager;
 import metier.Metier;
 
-public class Application {
-	
+public class Application 
+{	
 	Metier metier;
 	FrameManager frameManager;
 
-	public Application() {
+	public Application()
+	{
 		this.metier       = new Metier(this);
 		this.frameManager = new FrameManager();
 	}

@@ -9,13 +9,13 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.*;
 
-public class FrameManager extends JFrame implements ActionListener {
-
+public class FrameManager extends JFrame implements ActionListener 
+{
 	private JButton btnConcepteur;
 	private JButton btnJeu;
 
-	public FrameManager() {
-
+	public FrameManager() 
+	{
 		// Construction de la Frame
 
 		this.setTitle("Les Aventuriers Du Rail");
@@ -66,14 +66,16 @@ public class FrameManager extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-	public void actionPerformed(ActionEvent e) {
-
-		if (e.getSource() == this.btnConcepteur) {
+	public void actionPerformed(ActionEvent e) 
+	{
+		if (e.getSource() == this.btnConcepteur) 
+		{
 			new FrameConcepteur();
 			this.dispose();
 		}
 
-		if (e.getSource() == this.btnJeu) {
+		if (e.getSource() == this.btnJeu) 
+		{
 			new FrameJeu();
 			this.dispose();
 		}

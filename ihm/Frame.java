@@ -6,9 +6,10 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 
-public class Frame extends JFrame implements IFrame {
-	
-	public String getNom() {
+public class Frame extends JFrame implements IFrame 
+{	
+	public String getNom() 
+	{
 		return null;
 	}
 
@@ -17,8 +18,8 @@ public class Frame extends JFrame implements IFrame {
 	public final int CENTRE_V;
 	public final int CENTRE_H;
 
-	public Frame() {
-		
+	public Frame()
+	{		
 		this.setTitle(this.getName());
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
@@ -35,7 +36,6 @@ public class Frame extends JFrame implements IFrame {
 
 		this.setVisible(true);
 	}
-
 
 	public int getHauteur() { return this.HAUTEUR;  }
 	public int getLargeur() { return this.LARGEUR;  }
