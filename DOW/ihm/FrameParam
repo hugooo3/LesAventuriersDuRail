@@ -5,6 +5,7 @@ import javax.swing.filechooser.*;
 
 import java.awt.Color;
 import java.awt.BorderLayout;
+import java.awt.GridLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.*;
@@ -46,6 +47,7 @@ public class FrameParam extends JFrame implements ActionListener
 
 		this.panelMappe = new JPanel();
 		this.panelParam = new JPanel();
+		panelParam.setLayout(new GridLayout)
 
 		JLabel lblNbJoueurMin = new JLabel("Nombre de joueurs minimum :");
 		JComboBox<int> JlstNbJoueurMin = new JComboBox<int>(tabNbJoueurMin);
@@ -59,10 +61,18 @@ public class FrameParam extends JFrame implements ActionListener
 		JLabel lblNbWagon = new JLabel("Nombre de wagons par joueur :");
 		this.txtNbWagon = new JTextfield();
 
+
+
+
+
+
+
 		this.add(this.panelMappe, BorderLayout.WEST);
 		this.add(this.panelParam, BorderLayout.EST);
 
 
+
+		// Options pour la fermeture/apparence de la Frame
 
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		this.setVisible(true);
