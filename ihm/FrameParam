@@ -57,7 +57,7 @@ public class FrameParam extends JFrame implements ActionListener
 		JComboBox<int> JlstNbJoueurVoieDouble = new JComboBox<int>(tabNbJoueurVoieDouble);
 
 		JLabel lblNbWagon = new JLabel("Nombre de wagons par joueur :");
-		this.txtNbWagon = new JTextfield()
+		this.txtNbWagon = new JTextfield();
 
 		this.add(this.panelMappe, BorderLayout.WEST);
 		this.add(this.panelParam, BorderLayout.EST);
