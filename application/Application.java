@@ -1,7 +1,7 @@
-package fr.ecareus.dow;
+package application;
 
-import fr.ecareus.dow.ihm.PanelManager;
-import fr.ecareus.dow.metier.Metier;
+import ihm.PanelManager;
+import metier.Metier;
 
 public class Application {
 	Metier metier;

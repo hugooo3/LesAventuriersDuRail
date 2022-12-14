@@ -1,7 +1,6 @@
-package fr.ecareus.dow.metier;
+package metier;
 
-import fr.ecareus.dow.Application;
-
+import application.Application;
 public class Metier {
     Application app;
 
