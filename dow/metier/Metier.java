@@ -12,9 +12,24 @@ public class Metier
 {
     Controleur ctrl;
 
+    ArrayList<Noeud> alNoeuds;
+	ArrayList<Arete> alAretes;
+	ArrayList<CarteDestination> alCartesDestination;
+	ArrayList<CarteWagon>       alCartesWagon;
+	String imgMappe;
+	int nbJoueurMin;
+	int nbJoueurMax;
+	int nbJoueurDoubleVoies;
+	int nbWagonJoueur;
+    
     public Metier(Controleur ctrl) 
     {
         this.ctrl = ctrl;
+    }
+
+    public Mappe creerMappe()
+    {
+        return new Mappe(this.alNoeuds, this.alAretes, this.alCartesDestination, this.alCartesWagon, this.imgMappe, this.nbJoueurMin, this.nbJoueurMax, this.nbJoueurDoubleVoies, this.nbWagonJoueur);
     }
 
     public void ecrireXml(Mappe mappe)
@@ -43,7 +58,7 @@ public class Metier
 
 		try
 		{
-			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("sortie/Departement.xml"), "UTF-8"));
+			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("sortie/Mappe.xml"), "UTF-8"));
 
 			pw.println("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
 			pw.println("<liste>");
@@ -96,4 +111,15 @@ public class Metier
 		}
 		catch (Exception e) { e.printStackTrace(); }
 	} 
+
+	public boolean addNoeud(Noeud noeud) 	    						  {return this.alNoeuds.add(noeud);}
+	public boolean addArete(Arete arete) 								  {return this.alAretes.add(arete);}
+	public boolean addCarteDestination(CarteDestination carteDestination) {return this.alCartesDestination.add(carteDestination);}
+	public boolean addCarteWagon	  (CarteWagon carteWagon) 		      {return this.alCartesWagon.add(carteWagon);}
+	
+	public boolean setImgMappe(String imgMappe) 						  {this.imgMappe = imgMappe; return true;}
+	public boolean setNbJoueurMin(int nbJoueurMin) 						  {this.nbJoueurMin = nbJoueurMin; return true;}
+	public boolean setNbJoueurMax(int nbJoueurMax) 						  {this.nbJoueurMax = nbJoueurMax; return true;}
+	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) 		  {this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true;}
+	public boolean setNbWagonJoueur(int nbWagonJoueur) 					  {this.nbWagonJoueur = nbWagonJoueur; return true;}
 }
