@@ -27,25 +27,22 @@ public class FrameManager extends JFrame implements ActionListener {
 		layoutCons.insets = new Insets(0, 150, 0, 150);
 		layout.setConstraints(this, layoutCons);
 
-		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()-250,
-										  (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()-250));
+		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 250,
+				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 250));
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width/2 - this.getSize().width/2, dim.height/2 - this.getSize().height/2 - 50);
-
-
-
+		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2 - 50);
 
 		// Contenu de la Frame
 
 		this.btnConcepteur = new JButton("Concepteur");
 		this.btnJeu = new JButton("Jouer");
-		
+
 		this.btnConcepteur.setPreferredSize(new Dimension(240, 80));
 		this.btnJeu.setPreferredSize(new Dimension(240, 80));
 
-		this.btnConcepteur.setBackground(Color.DARK_GRAY);
-		this.btnJeu.setBackground(Color.DARK_GRAY);
+		this.btnConcepteur.setBackground(Color.GRAY);
+		this.btnJeu.setBackground(Color.GRAY);
 
 		this.btnConcepteur.setBorderPainted(false);
 		this.btnConcepteur.setFocusPainted(false);
@@ -53,18 +50,15 @@ public class FrameManager extends JFrame implements ActionListener {
 		this.btnJeu.setBorderPainted(false);
 		this.btnJeu.setFocusPainted(false);
 
-
 		// Ajout des composants
 		layout.addLayoutComponent(this.btnConcepteur, layoutCons);
 		layout.addLayoutComponent(this.btnJeu, layoutCons);
-		
+
 		this.btnConcepteur.addActionListener(this);
 		this.btnJeu.addActionListener(this);
 
 		this.add(this.btnConcepteur);
 		this.add(this.btnJeu);
-
-
 
 		// Options pour la fermeture/apparence de la Frame
 		this.setLayout(layout);
@@ -72,15 +66,14 @@ public class FrameManager extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-
 	public void actionPerformed(ActionEvent e) {
 
-		if(e.getSource() == this.btnConcepteur) {
+		if (e.getSource() == this.btnConcepteur) {
 			new FrameConcepteur();
 			this.dispose();
 		}
 
-		if(e.getSource() == this.btnJeu) {
+		if (e.getSource() == this.btnJeu) {
 			new FrameJeu();
 			this.dispose();
 		}
