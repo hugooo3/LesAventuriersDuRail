@@ -23,10 +23,6 @@ public class Noeud
 
 	@Override
 	public String toString() {
-		return "{" +
-			" nom='" + getNom() + "'" +
-			", x='" + getX() + "'" +
-			", y='" + getY() + "'" +
-			"}";
+		return this.nom;
 	}
 }

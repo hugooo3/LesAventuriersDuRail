@@ -38,14 +38,24 @@ public class PanelMappe extends JPanel {
 				private NoeudDessin noeudSelec = null;
 
 				@Override
-				public void mousePressed(MouseEvent e) {
+				public void mousePressed(MouseEvent e) 
+				{
+					for (NoeudDessin noeudDessin : PanelMappe.this.alNoeudDessin)
+					{
+						if (noeudDessin.getEllipse2D().contains(e.getPoint()))
+						{
+							JOptionPane.showMessageDialog(frame, "Un noeud existe déjà à cet emplacement");
+							return;
+						}
+					}
+			
 					this.noeudSelec = new NoeudDessin(e.getX() - 20, e.getY() - 20, 20, null);
 					alNoeudDessin.add(this.noeudSelec);
 
 					JLabel lblNom = new JLabel("Nom du Noeud : ");
 					JOptionPane.showInputDialog(frame, lblNom, "Création d'un Noeud", JOptionPane.QUESTION_MESSAGE);
 
-					repaint();
+					repaint();				
 				}
 
 				@Override
