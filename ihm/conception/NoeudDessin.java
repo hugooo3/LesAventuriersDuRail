@@ -3,55 +3,30 @@ package ihm.conception;
 import java.awt.geom.Ellipse2D;
 import metier.Noeud;
 
-public class NoeudDessin {
+public class NoeudDessin extends Noeud
+{
+	private int radius;
+	private Ellipse2D ellipse2D;
 
-    private int posX;
-    private int posY;
-    private int radius;
-    private Noeud noeud;
+	public NoeudDessin(String nom, int x, int y, int radius) 
+	{
+		super(nom, x, y);
 
-    private Ellipse2D ellipse2D;
+		this.radius = radius;
+		this.ellipse2D = new Ellipse2D.Double(x + (radius / 2), y + (radius / 2), radius, radius);
+	}
 
-    public NoeudDessin(int posX, int posY, int radius, Noeud noeud) {
-        this.posX = posX;
-        this.posY = posY;
-        this.radius = radius;
-        this.noeud = noeud;
+	public int getRadius() {return radius;}
+	public Ellipse2D getEllipse2D() {return ellipse2D;}
 
-        this.ellipse2D = new Ellipse2D.Double(posX + (radius / 2), posY + (radius / 2), radius, radius);
-    }
+	@Override
+	public String toString() {
+		return super.toString() +
+			"{" +
+			" radius='" + getRadius() + "'" +
+			", ellipse2D='" + getEllipse2D() + "'" +
+			"}";
+	}
 
-    public Noeud getNoeud() {
-        return noeud;
-    }
 
-    public void setNoeud(Noeud noeud) {
-        this.noeud = noeud;
-    }
-
-    public int getPosX() {
-        return posX;
-    }
-
-    public int getPosY() {
-        return posY;
-    }
-
-    public int getRadius() {
-        return radius;
-    }
-
-    public void setPosX(int posX) {
-        this.posX = posX;
-        this.ellipse2D = new Ellipse2D.Double(posX, posY, radius, radius);
-    }
-
-    public void setPosY(int posY) {
-        this.posY = posY;
-        this.ellipse2D = new Ellipse2D.Double(posX, posY, radius, radius);
-    }
-
-    public Ellipse2D getEllipse2D() {
-        return ellipse2D;
-    }
 }

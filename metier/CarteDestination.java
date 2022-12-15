@@ -1,11 +1,11 @@
 package metier;
 
 public class CarteDestination {
-	Noeud noeud1;
-	Noeud noeud2;
-	int   points;
-	String imgRecto;
-	String imgVerso;
+	private Noeud noeud1;
+	private Noeud noeud2;
+	private int   points;
+	private String imgRecto;
+	private String imgVerso;
 
 	public CarteDestination(Noeud noeud1, Noeud noeud2, int points, String imgRecto, String imgVerso)
 	{

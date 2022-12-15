@@ -10,17 +10,17 @@ import application.Application;
 
 public class Metier 
 {
-    Application app;
+    private Application app;
 
-    ArrayList<Noeud> alNoeuds;
-	ArrayList<Arete> alAretes;
-	ArrayList<CarteDestination> alCartesDestination;
-	ArrayList<CarteWagon>       alCartesWagon;
-	String imgMappe;
-	int nbJoueurMin;
-	int nbJoueurMax;
-	int nbJoueurDoubleVoies;
-	int nbWagonJoueur;
+    private ArrayList<Noeud> alNoeuds;
+	private ArrayList<Arete> alAretes;
+	private ArrayList<CarteDestination> alCartesDestination;
+	private ArrayList<CarteWagon>       alCartesWagon;
+	private String imgMappe;
+	private int nbJoueurMin;
+	private int nbJoueurMax;
+	private int nbJoueurDoubleVoies;
+	private int nbWagonJoueur;
     
     public Metier(Application app) 
     {

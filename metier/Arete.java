@@ -1,11 +1,11 @@
 package metier;
 
 public class Arete {
-	Noeud noeud1;
-	Noeud noeud2;
-	String     couleur;
-	int       troncons;
-	boolean voieDouble;
+	private Noeud noeud1;
+	private Noeud noeud2;
+	private String     couleur;
+	private int       troncons;
+	private boolean voieDouble;
 
 	public Arete(Noeud noeud1, Noeud noeud2, String couleur, int troncons, boolean voieDouble)
 	{

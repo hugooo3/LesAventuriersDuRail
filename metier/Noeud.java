@@ -2,9 +2,9 @@ package metier;
 
 public class Noeud 
 {
-	String nom;
-	int x;
-	int y;
+	protected String nom;
+	protected int x;
+	protected int y;
 
 	public Noeud(String nom, int x, int y)
 	{
