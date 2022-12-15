@@ -4,9 +4,9 @@ import javax.swing.*;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.awt.Window;
 import java.io.File;
-import java.awt.event.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class PanelParam extends JPanel implements ActionListener {
 	private File imagePathParam;
@@ -22,6 +22,7 @@ public class PanelParam extends JPanel implements ActionListener {
 
 	public PanelParam(FrameParametre frame, File imagePath, int largeur, int hauteur) {
 		this.frame = frame;
+
 		this.imagePathParam = imagePath;
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setPreferredSize(new Dimension((int) (largeur * 0.3), hauteur));
@@ -77,19 +78,18 @@ public class PanelParam extends JPanel implements ActionListener {
 
 	public void sendParam() {
 		this.frame.setImgMappe(this.imagePathParam);
-		this.frame.setNbJoueurMin((int)this.cbNbJoueurMin.getSelectedItem());
-		this.frame.setNbJoueurMax((int)this.cbNbJoueurMax.getSelectedItem());
-		this.frame.setNbJoueurDoubleVoies((int)this.cbNbJoueurVD.getSelectedItem());
+		this.frame.setNbJoueurMin((int) this.cbNbJoueurMin.getSelectedItem());
+		this.frame.setNbJoueurMax((int) this.cbNbJoueurMax.getSelectedItem());
+		this.frame.setNbJoueurDoubleVoies((int) this.cbNbJoueurVD.getSelectedItem());
 		this.frame.setNbWagonJoueur(Integer.parseInt(this.txtNbWagon.getText() + ""));
 	}
 
 	public void actionPerformed(ActionEvent e) {
-
 		// Clic sur le bouton Suivant
 		if (e.getSource() == this.btnSuivant) {
 			this.sendParam();
-			this.frame.verifMAJ();
-			new FrameNoeud(this.imagePathParam);
+			this.frame.verifMAJ("param");
+			new FrameNoeud(this.frame.getApp(), this.imagePathParam);
 			this.frame.dispose();
 		}
 	}
