@@ -47,5 +47,7 @@ public class FrameParametre extends Frame {
 	public boolean setNbJoueurMin(int nbJoueurMin) 	               {return this.app.setNbJoueurMin(nbJoueurMin);}
 	public boolean setNbJoueurMax(int nbJoueurMax) 				   {return this.app.setNbJoueurMax(nbJoueurMax);}
 	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {return this.app.setNbJoueurDoubleVoies(nbJoueurDoubleVoies);}
-	public boolean setNbWagonJoueur(int nbWagonJoueur) 			   {return this.app.setNbWagonJoueur(nbWagonJoueur);}	
+	public boolean setNbWagonJoueur(int nbWagonJoueur) 			   {return this.app.setNbWagonJoueur(nbWagonJoueur);}
+	
+	public void verifMAJ() {this.app.verifMAJ();}
 }

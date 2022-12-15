@@ -88,6 +88,7 @@ public class PanelParam extends JPanel implements ActionListener {
 		// Clic sur le bouton Suivant
 		if (e.getSource() == this.btnSuivant) {
 			this.sendParam();
+			this.frame.verifMAJ();
 			new FrameNoeud(this.imagePathParam);
 			this.frame.dispose();
 		}

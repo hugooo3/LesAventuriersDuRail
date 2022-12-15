@@ -25,6 +25,8 @@ public class Application {
 	public boolean setNbJoueurMax(int nbJoueurMax) 				   {return this.metier.setNbJoueurMax(nbJoueurMax);}
 	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {return this.metier.setNbJoueurDoubleVoies(nbJoueurDoubleVoies);}
 	public boolean setNbWagonJoueur(int nbWagonJoueur) 			   {return this.metier.setNbWagonJoueur(nbWagonJoueur);}	
+
+	public void verifMAJ() {this.metier.verifMAJ();}
 }
 
 

@@ -124,5 +124,12 @@ public class Metier
 	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) 		     {this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true;}
 	public boolean setNbWagonJoueur(int nbWagonJoueur) 					     {this.nbWagonJoueur = nbWagonJoueur; return true;}
 
-
+    public void verifMAJ()
+    {
+        System.out.println("imgMappe : " + this.imgMappe);
+        System.out.println("nbJoueurMin : " + this.nbJoueurMin);
+        System.out.println("nbJoueurMax : " + this.nbJoueurMax);
+        System.out.println("nbJoueurDoubleVoies : " + this.nbJoueurDoubleVoies);
+        System.out.println("nbWagonJoueur : " + this.nbWagonJoueur);
+    }
 }
