@@ -28,6 +28,7 @@ public class Frame extends JFrame implements IFrame
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width/2 - this.getSize().width/2, dim.height/2 - this.getSize().height/2 - 50);
+		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
 		this.HAUTEUR = (int) this.getSize().getHeight();
 		this.LARGEUR = (int) this.getSize().getWidth();
