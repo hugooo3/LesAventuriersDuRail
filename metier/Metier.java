@@ -111,12 +111,12 @@ public class Metier
 		}
 		catch (Exception e) { e.printStackTrace(); }
 	} 
-
-	public boolean addNoeud(Noeud noeud) 	    						  {return this.alNoeuds.add(noeud);}
-	public boolean addArete(Arete arete) 								  {return this.alAretes.add(arete);}
-	public boolean addCarteDestination(CarteDestination carteDestination) {return this.alCartesDestination.add(carteDestination);}
-	public boolean addCarteWagon	  (CarteWagon carteWagon) 		      {return this.alCartesWagon.add(carteWagon);}
 	
+    public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds) { this.alNoeuds = ListNoeuds; return true; }
+    public boolean creerAlAretes(ArrayList<Arete> ListAretes) { this.alAretes = ListAretes; return true; }
+    public boolean creerAlCartesDestination(ArrayList<CarteDestination> ListCartesDestination) { this.alCartesDestination = ListCartesDestination; return true; }
+    public boolean creerAlCartesWagon(ArrayList<CarteWagon> ListCartesWagon) { this.alCartesWagon = ListCartesWagon; return true; }
+    
 	public boolean setImgMappe(String imgMappe) 						  {this.imgMappe = imgMappe; return true;}
 	public boolean setNbJoueurMin(int nbJoueurMin) 						  {this.nbJoueurMin = nbJoueurMin; return true;}
 	public boolean setNbJoueurMax(int nbJoueurMax) 						  {this.nbJoueurMax = nbJoueurMax; return true;}
