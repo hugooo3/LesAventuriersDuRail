@@ -10,7 +10,7 @@ import application.Application;
 
 public class Metier 
 {
-    Application ctrl;
+    Application app;
 
     ArrayList<Noeud> alNoeuds;
 	ArrayList<Arete> alAretes;
@@ -22,9 +22,9 @@ public class Metier
 	int nbJoueurDoubleVoies;
 	int nbWagonJoueur;
     
-    public Metier(Application ctrl) 
+    public Metier(Application app) 
     {
-        this.ctrl = ctrl;
+        this.app = app;
     }
 
     public Mappe creerMappe()

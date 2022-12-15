@@ -6,7 +6,7 @@ public class Noeud
 	int x;
 	int y;
 
-	public Noeud(String nom)
+	public Noeud(String nom, int x, int y)
 	{
 		this.nom = nom;
 		this.x = x;
