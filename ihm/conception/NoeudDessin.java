@@ -6,19 +6,20 @@ import metier.Noeud;
 
 public class NoeudDessin extends Noeud
 {
+	private static int TAILLE_CARA_BOX = 15; // Hauteur pour que le rectangle laisse le texte avec un espace satisfesant
+
 	private int radiusEllipse;
 	private int ellipseX;
 	private int ellipseY;
 	private Ellipse2D ellipse2D;
 
 	private int longueurRectangle;
-	private int hauteurRectangle;
 	private int rectangleX;
 	private int rectangleY;
 	private Rectangle2D rectangle2d;
 
-	private int nomX;
-	private int nomY;
+	private int nomDeltaX; // Distance entre les coords du nom et le point
+	private int nomDeltaY; // Distance entre les coords du nom et le point
 
 	public NoeudDessin(String nom, int x, int y, int radius) 
 	{
@@ -27,19 +28,14 @@ public class NoeudDessin extends Noeud
 		this.ellipseX = x;
 		this.ellipseY = y;
 		this.radiusEllipse = radius;
-		this.ellipse2D = new Ellipse2D.Double(this.ellipseX + (this.radiusEllipse / 2), this.ellipseY + (this.radiusEllipse / 2), this.radiusEllipse, this.radiusEllipse);
+		this.majEllipse2D();
 
-		this.longueurRectangle = this.nom.length() * 10;
-		this.hauteurRectangle = this.radiusEllipse - 5;
 		this.rectangleX = this.x;
 		this.rectangleY = this.y;
-		this.rectangle2d = new Rectangle2D.Double(this.rectangleX, this.rectangleY - 15, this.longueurRectangle, this.hauteurRectangle);
+		this.setRectangleLongueur(); // this.majRectangle2d() est execute ici
 
-		this.nomX = this.x + 3;
-		this.nomY = this.y - 4;
-		/*
-		 * POUR LE TEXTE UNE FORME QUE JE DETECTERAIS DANS LE PANEL MAPPE
-		 */
+		this.nomDeltaX = 3;
+		this.nomDeltaY = -4;
 	}
 
 	public int getRadiusEllipse() {return radiusEllipse;}
@@ -49,60 +45,36 @@ public class NoeudDessin extends Noeud
 
 
 	public int getLongueurRectangle() {return this.longueurRectangle;}
-	public int getHauteurRectangle() {return this.hauteurRectangle;}
 	public int getRectangleX() {return this.rectangleX;}
 	public int getRectangleY() {return this.rectangleY;}
 
 	public Rectangle2D getRectangle2d() {return this.rectangle2d;}
 
-	public int getNomX() {return this.nomX;}
-	public int getNomY() {return this.nomY;}
+	public int getNomDeltaX() {return this.x + this.nomDeltaX;}
+	public int getNomDeltaY() {return this.y + this.nomDeltaY;}
 
-	public void setX(int x) {super.x = x - this.radiusEllipse;}
-	public void setY(int y) {super.y = y - this.radiusEllipse;}	
+	public void setX(int x) {this.x = x - this.radiusEllipse; this.setRectangleX();}
+	public void setY(int y) {this.y = y - this.radiusEllipse; this.setRectangleY();}	
 
-	public void setNomX(int nomX) {this.nomX = nomX;}
-	public void setNomY(int nomY) {this.nomY = nomY;}
+	public void setNomDeltaX(int nomX) {this.nomDeltaX = nomX - this.x - this.nom.length() * 2;	this.setRectangleX();}
+	public void setNomDeltaY(int nomY) {this.nomDeltaY = nomY - this.y;							this.setRectangleY();}
 
-	public void setEllipseX(int ellipseX) 
-	{
-		this.ellipseX = ellipseX - this.radiusEllipse;
-		this.majEllipse2D();
-	}
+	public void setEllipseX(int ellipseX) {this.ellipseX = ellipseX - this.radiusEllipse; this.majEllipse2D();}
+	public void setEllipseY(int ellipseY) {this.ellipseY = ellipseY - this.radiusEllipse; this.majEllipse2D();}
 
-	public void setEllipseY(int ellipseY) 
-	{
-		this.ellipseY = ellipseY - this.radiusEllipse;
-		this.majEllipse2D();
-	}
-
-	public void majEllipse2D()
+	public void majEllipse2D() 
 	{
 		this.ellipse2D = new Ellipse2D.Double(this.ellipseX + (radiusEllipse / 2), this.ellipseY + (radiusEllipse / 2), radiusEllipse, radiusEllipse);
 	}
 
+	public void setRectangleX() {this.rectangleX = this.getNomDeltaX() - 3;	this.majRectangle2D();}
+	public void setRectangleY() {this.rectangleY = this.getNomDeltaY() + 4;	this.majRectangle2D();}
 
-	public void setRectangleX(int rectangleX) 
-	{
-		this.rectangleX = rectangleX - this.radiusEllipse;
-		this.majRectangle2D();
-	}
+	public void setRectangleLongueur() {this.longueurRectangle = this.nom.length() * 7 + 5; this.majRectangle2D();} // Si le texte est maj -> Resize la box
 
-	public void setRectangleY(int rectangleY) 
+	public void majRectangle2D() 
 	{
-		this.rectangleY = rectangleY - this.radiusEllipse;
-		this.majRectangle2D();
-	}
-
-	public void setRectangleLongueur()
-	{
-		this.longueurRectangle = this.nom.length() * 10 + 5;;
-		this.majRectangle2D();
-	}
-
-	public void majRectangle2D()
-	{
-		this.rectangle2d = new Rectangle2D.Double(this.rectangleX, this.rectangleY - 15, this.longueurRectangle, this.hauteurRectangle);
+		this.rectangle2d = new Rectangle2D.Double(this.rectangleX, this.rectangleY - NoeudDessin.TAILLE_CARA_BOX, this.longueurRectangle, NoeudDessin.TAILLE_CARA_BOX);
 	}
 
 	@Override

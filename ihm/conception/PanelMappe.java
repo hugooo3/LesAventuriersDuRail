@@ -8,7 +8,8 @@ import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
 
-public class PanelMappe extends JPanel {
+public class PanelMappe extends JPanel 
+{
 	private Image img;
 	private int largeur;
 	private int hauteur;
@@ -21,8 +22,8 @@ public class PanelMappe extends JPanel {
 	public ArrayList<NoeudDessin> alNoeudDessin = new ArrayList<NoeudDessin>();
 	public ArrayList<Noeud> alNoeud = new ArrayList<Noeud>();
 
-	public PanelMappe(Frame frame, File imagePath, int largeur, int hauteur, boolean cliquable) {
-
+	public PanelMappe(Frame frame, File imagePath, int largeur, int hauteur, boolean cliquable) 
+	{
 		this.frame = frame;
 		this.largeur = largeur;
 		this.hauteur = hauteur;
@@ -34,11 +35,15 @@ public class PanelMappe extends JPanel {
 
 		if (this.cliquable) {
 			// Dessin sur le Panel
-			this.addMouseListener(new MouseAdapter() {
+			this.addMouseListener(new MouseAdapter() 
+			{
 				@Override
 				public void mousePressed(MouseEvent e) {
-					for (NoeudDessin noeudDessin : PanelMappe.this.alNoeudDessin) {
-						if (noeudDessin.getEllipse2D().contains(e.getPoint())) {
+					for (NoeudDessin noeudDessin : PanelMappe.this.alNoeudDessin) 
+					{
+						if (noeudDessin.getEllipse2D().contains(e.getPoint())) 
+						{
+							System.out.println("cercle");
 							// JOptionPane.showMessageDialog(frame, "Un noeud existe déjà à cet
 							// emplacement");
 							PanelMappe.this.noeudSelec = noeudDessin;
@@ -46,6 +51,7 @@ public class PanelMappe extends JPanel {
 						}
 						else if (noeudDessin.getRectangle2d().contains(e.getPoint()))
 						{
+							System.out.println("rec");
 							PanelMappe.this.noeudTexteSelec = noeudDessin;
 							return;
 						}
@@ -55,7 +61,8 @@ public class PanelMappe extends JPanel {
 					String nomNoeud = JOptionPane.showInputDialog(PanelMappe.this.frame, lblNom, "Création d'un Noeud",
 							JOptionPane.QUESTION_MESSAGE);
 
-					while (nomNoeud == null || nomNoeud.equals("")) {
+					while (nomNoeud == null || nomNoeud.equals(""))
+					{
 						JOptionPane.showMessageDialog(null, "Le champ saisi ne peut être vide !", "Erreur",
 								JOptionPane.ERROR_MESSAGE);
 
@@ -68,7 +75,8 @@ public class PanelMappe extends JPanel {
 					PanelMappe.this.alNoeud.add(
 							new Noeud(nomNoeud, PanelMappe.this.noeudSelec.getX(), PanelMappe.this.noeudSelec.getY()));
 
-					if (PanelMappe.this.frame instanceof FrameNoeud) {
+					if (PanelMappe.this.frame instanceof FrameNoeud)
+					{
 						((FrameNoeud) PanelMappe.this.frame).majLstNoeuds(PanelMappe.this.alNoeud);
 					}
 
@@ -83,9 +91,21 @@ public class PanelMappe extends JPanel {
 				}
 			});
 
-			this.addMouseMotionListener(new MouseMotionAdapter() {
-				public void mouseDragged(MouseEvent e) {
-					if (PanelMappe.this.noeudSelec != null) {
+			this.addMouseMotionListener(new MouseMotionAdapter() 
+			{
+				public void mouseDragged(MouseEvent e) 
+				{
+					if (PanelMappe.this.noeudTexteSelec != null)
+					{
+						System.out.println("texte");
+						PanelMappe.this.noeudTexteSelec.setNomDeltaX(e.getX());
+						PanelMappe.this.noeudTexteSelec.setNomDeltaY(e.getY());
+
+						repaint();
+					}
+					else if (PanelMappe.this.noeudSelec != null) 
+					{
+						System.out.println("point");
 						PanelMappe.this.noeudSelec.setX(e.getX());
 						PanelMappe.this.noeudSelec.setY(e.getY());
 
@@ -94,44 +114,44 @@ public class PanelMappe extends JPanel {
 
 						repaint();
 					}
-					else if (PanelMappe.this.noeudTexteSelec != null)
-					{
-						PanelMappe.this.noeudTexteSelec.setX(e.getX());
-						PanelMappe.this.noeudTexteSelec.setY(e.getY());
-
-						PanelMappe.this.noeudTexteSelec.setEllipseX(e.getX());
-						PanelMappe.this.noeudTexteSelec.setEllipseY(e.getY());
-
-					}
 				}
 			});
 		}
 	}
 
-	public void setLstNoeud(ArrayList<Noeud> alNoeud) {
+	public void setLstNoeud(ArrayList<Noeud> alNoeud) 
+	{
 		this.alNoeud = alNoeud;
 
-		for (Noeud noeud : this.alNoeud) {
+		for (Noeud noeud : this.alNoeud) 
+		{
 			this.alNoeudDessin.add(new NoeudDessin(noeud.getNom(), noeud.getX(), noeud.getY(), 20));
 		}
 	}
 
-	public void paint(Graphics g) {
+	public void paint(Graphics g) 
+	{
 		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(img, 1, 1, (int) this.getSize().getWidth() - 2, (int) this.getSize().getHeight() - 2, this);
 
-		for (NoeudDessin noeud : this.alNoeudDessin) {
+		for (NoeudDessin noeud : this.alNoeudDessin) 
+		{
+			// Cercle
 			g2d.setColor(Color.RED);
 			g2d.fill(noeud.getEllipse2D());
-			g2d.setColor(Color.YELLOW);
+			g2d.setColor(Color.BLACK);
+			g2d.setStroke(new BasicStroke((float)(2)));
 			g2d.draw(noeud.getEllipse2D());
+
+			// Rectangle
+			g2d.setStroke(new BasicStroke((float)(1)));
 			g2d.setColor(Color.WHITE);
 			g2d.fill(noeud.getRectangle2d());
 			g2d.setColor(Color.BLACK);
 			g2d.draw(noeud.getRectangle2d());
-			g2d.drawString(noeud.getNom(), noeud.getNomX(), noeud.getNomY());
+			g2d.drawString(noeud.getNom(), noeud.getNomDeltaX(), noeud.getNomDeltaY());
 		}
 	}
 }
