@@ -77,10 +77,10 @@ public class PanelParam extends JPanel implements ActionListener {
 
 	public void sendParam() {
 		this.frame.setImgMappe(this.imagePathParam);
-		this.frame.setNbJoueurMin(this.cbNbJoueurMin.getSelectedIndex());
-		this.frame.setNbJoueurMax(this.cbNbJoueurMax.getSelectedIndex());
-		this.frame.setNbJoueurDoubleVoies(this.cbNbJoueurVD.getSelectedIndex());
-		this.frame.setNbWagonJoueur(Integer.parseInt(this.txtNbWagon + ""));
+		this.frame.setNbJoueurMin((int)this.cbNbJoueurMin.getSelectedItem());
+		this.frame.setNbJoueurMax((int)this.cbNbJoueurMax.getSelectedItem());
+		this.frame.setNbJoueurDoubleVoies((int)this.cbNbJoueurVD.getSelectedItem());
+		this.frame.setNbWagonJoueur(Integer.parseInt(this.txtNbWagon.getText() + ""));
 	}
 
 	public void actionPerformed(ActionEvent e) {
