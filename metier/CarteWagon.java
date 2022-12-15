@@ -1,9 +1,9 @@
 package metier;
 
 public class CarteWagon {
-	String couleur;
-	String imgRecto;
-	String imgVerso;
+	private String couleur;
+	private String imgRecto;
+	private String imgVerso;
 
 	public CarteWagon(String couleur, String imgRecto, String imgVerso)
 	{

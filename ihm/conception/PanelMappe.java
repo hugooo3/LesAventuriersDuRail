@@ -48,14 +48,15 @@ public class PanelMappe extends JPanel {
 							return;
 						}
 					}
-			
-					this.noeudSelec = new NoeudDessin(e.getX() - 20, e.getY() - 20, 20, null);
-					alNoeudDessin.add(this.noeudSelec);
 
 					JLabel lblNom = new JLabel("Nom du Noeud : ");
-					JOptionPane.showInputDialog(frame, lblNom, "Création d'un Noeud", JOptionPane.QUESTION_MESSAGE);
-
-					repaint();				
+					String getMessage = JOptionPane.showInputDialog(frame, lblNom, "Création d'un Noeud", JOptionPane.QUESTION_MESSAGE);
+					if (getMessage != null)
+					{
+						this.noeudSelec = new NoeudDessin(getMessage, e.getX() - 20, e.getY() - 20, 20);
+						PanelMappe.this.alNoeudDessin.add(this.noeudSelec);
+						repaint();	
+					}			
 				}
 
 				@Override
@@ -63,10 +64,6 @@ public class PanelMappe extends JPanel {
 					this.noeudSelec = null;
 				}
 			});
-
-			for (NoeudDessin noeud : this.alNoeudDessin) {
-				this.alNoeud.add(noeud.getNoeud());
-			}
 		}
 	}
 
