@@ -14,6 +14,7 @@ public class PanelMappe extends JPanel {
 	private int hauteur;
 	private boolean cliquable;
 	private NoeudDessin noeudSelec = null;
+	private NoeudDessin noeudTexteSelec = null;
 
 	private Frame frame;
 
@@ -43,6 +44,11 @@ public class PanelMappe extends JPanel {
 							PanelMappe.this.noeudSelec = noeudDessin;
 							return;
 						}
+						else if (noeudDessin.getRectangle2d().contains(e.getPoint()))
+						{
+							PanelMappe.this.noeudTexteSelec = noeudDessin;
+							return;
+						}
 					}
 
 					JLabel lblNom = new JLabel("Nom du Noeud : ");
@@ -70,9 +76,10 @@ public class PanelMappe extends JPanel {
 				}
 
 				@Override
-				public void mouseReleased(MouseEvent e) {
+				public void mouseReleased(MouseEvent e) 
+				{
 					PanelMappe.this.noeudSelec = null;
-
+					PanelMappe.this.noeudTexteSelec = null;
 				}
 			});
 
@@ -86,6 +93,15 @@ public class PanelMappe extends JPanel {
 						PanelMappe.this.noeudSelec.setEllipseY(e.getY());
 
 						repaint();
+					}
+					else if (PanelMappe.this.noeudTexteSelec != null)
+					{
+						PanelMappe.this.noeudTexteSelec.setX(e.getX());
+						PanelMappe.this.noeudTexteSelec.setY(e.getY());
+
+						PanelMappe.this.noeudTexteSelec.setEllipseX(e.getX());
+						PanelMappe.this.noeudTexteSelec.setEllipseY(e.getY());
+
 					}
 				}
 			});
@@ -111,8 +127,11 @@ public class PanelMappe extends JPanel {
 			g2d.fill(noeud.getEllipse2D());
 			g2d.setColor(Color.YELLOW);
 			g2d.draw(noeud.getEllipse2D());
+			g2d.setColor(Color.WHITE);
+			g2d.fill(noeud.getRectangle2d());
 			g2d.setColor(Color.BLACK);
-			g2d.drawString(noeud.getNom(), noeud.getX(), noeud.getY());
+			g2d.draw(noeud.getRectangle2d());
+			g2d.drawString(noeud.getNom(), noeud.getNomX(), noeud.getNomY());
 		}
 	}
 }
