@@ -55,8 +55,8 @@ public class PanelMappe extends JPanel {
 					{
 						this.noeudSelec = new NoeudDessin(getMessage, e.getX() - 20, e.getY() - 20, 20);
 						PanelMappe.this.alNoeudDessin.add(this.noeudSelec);
-						repaint();	
-					}			
+						repaint();
+					}
 				}
 
 				@Override
