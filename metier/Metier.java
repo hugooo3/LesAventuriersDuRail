@@ -1,5 +1,6 @@
 package metier;
 
+import java.io.File;
 import java.io.FileOutputStream;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
@@ -16,7 +17,7 @@ public class Metier
 	private ArrayList<Arete> alAretes;
 	private ArrayList<CarteDestination> alCartesDestination;
 	private ArrayList<CarteWagon>       alCartesWagon;
-	private String imgMappe;
+	private File imgMappe;
 	private int nbJoueurMin;
 	private int nbJoueurMax;
 	private int nbJoueurDoubleVoies;
@@ -117,7 +118,7 @@ public class Metier
     public boolean creerAlCartesDestination(ArrayList<CarteDestination> ListCartesDestination) { this.alCartesDestination = ListCartesDestination; return true; }
     public boolean creerAlCartesWagon(ArrayList<CarteWagon> ListCartesWagon) { this.alCartesWagon = ListCartesWagon; return true; }
 
-	public boolean setImgMappe(String imgMappe) 						     {this.imgMappe = imgMappe; return true;}
+	public boolean setImgMappe(File imgMappe) 						         {this.imgMappe = imgMappe; return true;}
 	public boolean setNbJoueurMin(int nbJoueurMin) 						     {this.nbJoueurMin = nbJoueurMin; return true;}
 	public boolean setNbJoueurMax(int nbJoueurMax) 						     {this.nbJoueurMax = nbJoueurMax; return true;}
 	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) 		     {this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true;}

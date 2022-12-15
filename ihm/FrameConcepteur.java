@@ -3,6 +3,7 @@ package ihm;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
+import application.Application;
 import ihm.conception.FrameParametre;
 
 import java.awt.Color;
@@ -12,6 +13,7 @@ import java.io.File;
 
 public class FrameConcepteur extends Frame implements ActionListener 
 {
+	private Application app;
 	private File image;
 
 	private JPanel panelContenu;
@@ -27,8 +29,10 @@ public class FrameConcepteur extends Frame implements ActionListener
 		return "Concepteur de mappe";
 	}
 
-	public FrameConcepteur() 
+	public FrameConcepteur(Application app) 
 	{
+		this.app = app;
+
 		// Contenu du Panel principal
 		this.panelContenu = new JPanel();
 		this.panelContenu.setSize(this.getSize());
@@ -115,7 +119,7 @@ public class FrameConcepteur extends Frame implements ActionListener
 		// Clic sur le bouton Enregistrer
 		if (e.getSource() == this.btnEnregistrer) 
 		{
-			new FrameParametre(this.image);
+			new FrameParametre(this.app, this.image);
 			this.dispose();
 		}
 
@@ -123,7 +127,7 @@ public class FrameConcepteur extends Frame implements ActionListener
 		if (e.getSource() == this.btnPasser) 
 		{
 			this.image = new File("images/carteUSA.png");
-			new FrameParametre(this.image);
+			new FrameParametre(this.app, this.image);
 			System.out.println(this.image.getAbsolutePath());
 			this.dispose();
 		}

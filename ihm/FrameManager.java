@@ -13,10 +13,14 @@ import java.awt.Insets;
 import java.awt.event.*;
 
 public class FrameManager extends JFrame implements ActionListener {
+	private Application app;
+	
 	private JButton btnConcepteur;
 	private JButton btnJeu;
 
 	public FrameManager(Application app) {
+		this.app = app;
+		
 		// Construction de la Frame
 
 		this.setTitle("Les Aventuriers Du Rail");
@@ -69,7 +73,7 @@ public class FrameManager extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.btnConcepteur) {
-			new FrameConcepteur();
+			new FrameConcepteur(this.app);
 			this.dispose();
 		}
 

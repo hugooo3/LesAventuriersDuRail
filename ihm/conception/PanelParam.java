@@ -75,10 +75,19 @@ public class PanelParam extends JPanel implements ActionListener {
 		this.btnSuivant.setBounds((int) (largeur * 0.3) / 2 - 75, hauteur - 150, 150, 50);
 	}
 
+	public void sendParam() {
+		this.frame.setImgMappe(this.imagePathParam);
+		this.frame.setNbJoueurMin(this.cbNbJoueurMin.getSelectedIndex());
+		this.frame.setNbJoueurMax(this.cbNbJoueurMax.getSelectedIndex());
+		this.frame.setNbJoueurDoubleVoies(this.cbNbJoueurVD.getSelectedIndex());
+		this.frame.setNbWagonJoueur(Integer.parseInt(this.txtNbWagon + ""));
+	}
+
 	public void actionPerformed(ActionEvent e) {
 
 		// Clic sur le bouton Suivant
 		if (e.getSource() == this.btnSuivant) {
+			this.sendParam();
 			new FrameNoeud(this.imagePathParam);
 			this.frame.dispose();
 		}
