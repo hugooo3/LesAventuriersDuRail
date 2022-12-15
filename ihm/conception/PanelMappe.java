@@ -39,7 +39,7 @@ public class PanelMappe extends JPanel {
 
 				@Override
 				public void mousePressed(MouseEvent e) {
-					this.noeudSelec = new NoeudDessin(e.getX(), e.getY(), 20, null);
+					this.noeudSelec = new NoeudDessin(e.getX() - 20, e.getY() - 20, 20, null);
 					alNoeudDessin.add(this.noeudSelec);
 
 					JLabel lblNom = new JLabel("Nom du Noeud : ");
