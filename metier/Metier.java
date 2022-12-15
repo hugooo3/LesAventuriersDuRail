@@ -116,10 +116,17 @@ public class Metier
     public boolean creerAlAretes(ArrayList<Arete> ListAretes) { this.alAretes = ListAretes; return true; }
     public boolean creerAlCartesDestination(ArrayList<CarteDestination> ListCartesDestination) { this.alCartesDestination = ListCartesDestination; return true; }
     public boolean creerAlCartesWagon(ArrayList<CarteWagon> ListCartesWagon) { this.alCartesWagon = ListCartesWagon; return true; }
+
+    public boolean removeNoeud(Noeud noeud) 						         {return alNoeuds.remove(noeud);}
+    public boolean removeArete(Arete arete) 						         {return alAretes.remove(arete);}
+    public boolean removeCarteDestination(CarteDestination carteDestination) {return alCartesDestination.remove(carteDestination);}
+    public boolean removeCarteWagon(CarteWagon carteWagon) 			         {return alCartesWagon.remove(carteWagon);}
     
-	public boolean setImgMappe(String imgMappe) 						  {this.imgMappe = imgMappe; return true;}
-	public boolean setNbJoueurMin(int nbJoueurMin) 						  {this.nbJoueurMin = nbJoueurMin; return true;}
-	public boolean setNbJoueurMax(int nbJoueurMax) 						  {this.nbJoueurMax = nbJoueurMax; return true;}
-	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) 		  {this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true;}
-	public boolean setNbWagonJoueur(int nbWagonJoueur) 					  {this.nbWagonJoueur = nbWagonJoueur; return true;}
+	public boolean setImgMappe(String imgMappe) 						     {this.imgMappe = imgMappe; return true;}
+	public boolean setNbJoueurMin(int nbJoueurMin) 						     {this.nbJoueurMin = nbJoueurMin; return true;}
+	public boolean setNbJoueurMax(int nbJoueurMax) 						     {this.nbJoueurMax = nbJoueurMax; return true;}
+	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) 		     {this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true;}
+	public boolean setNbWagonJoueur(int nbWagonJoueur) 					     {this.nbWagonJoueur = nbWagonJoueur; return true;}
+
+
 }

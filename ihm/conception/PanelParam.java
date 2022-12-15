@@ -2,14 +2,14 @@ package ihm.conception;
 
 import javax.swing.*;
 
-import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.awt.Window;
 import java.io.File;
 import java.awt.event.*;
 
-public class PanelParam extends JPanel implements ActionListener
-{
+public class PanelParam extends JPanel implements ActionListener {
+	private File imagePathParam;
 	private JButton btnSuivant;
 
 	private JComboBox<Integer> cbNbJoueurMin;
@@ -18,8 +18,11 @@ public class PanelParam extends JPanel implements ActionListener
 
 	private JTextField txtNbWagon;
 
-	public PanelParam(int largeur, int hauteur)
-	{
+	private FrameParametre frame;
+
+	public PanelParam(FrameParametre frame, File imagePath, int largeur, int hauteur) {
+		this.frame = frame;
+		this.imagePathParam = imagePath;
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setPreferredSize(new Dimension((int) (largeur * 0.3), hauteur));
 
@@ -40,8 +43,8 @@ public class PanelParam extends JPanel implements ActionListener
 		JLabel lblNbWagon = new JLabel("Nombre de wagons par joueur : ");
 		this.txtNbWagon = new JTextField("40");
 
-
 		this.btnSuivant = new JButton("Suivant");
+		this.btnSuivant.addActionListener(this);
 		this.btnSuivant.setBackground(Color.GRAY);
 		this.btnSuivant.setBorderPainted(false);
 		this.btnSuivant.setFocusPainted(false);
@@ -72,12 +75,12 @@ public class PanelParam extends JPanel implements ActionListener
 		this.btnSuivant.setBounds((int) (largeur * 0.3) / 2 - 75, hauteur - 150, 150, 50);
 	}
 
-	public void actionPerformed(ActionEvent e) 
-	{
-		if(e.getSource() == this.btnSuivant) 
-		{
-			// TODO : vérifier les données
-			// TODO : passer à la frame suivante
+	public void actionPerformed(ActionEvent e) {
+
+		// Clic sur le bouton Suivant
+		if (e.getSource() == this.btnSuivant) {
+			new FrameNoeud(this.imagePathParam);
+			this.frame.dispose();
 		}
 	}
 }
