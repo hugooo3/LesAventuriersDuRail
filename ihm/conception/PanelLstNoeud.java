@@ -104,7 +104,6 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		}
 
 		if (e.getActionCommand() == "Supprimer") {
-			// TODO Supprimer un noeud
 
 		}
 
