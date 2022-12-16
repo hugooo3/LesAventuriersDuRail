@@ -30,7 +30,7 @@ public class FrameArete extends Frame {
 		// Définition des deux panels principaux
 		this.panelMappeArete = new PanelMappe(this, imagePath, this.LARGEUR, this.HAUTEUR, true);
 
-		this.panelLstArete = new PanelLstArete(this, this.LARGEUR, this.HAUTEUR);
+		this.panelLstArete = new PanelLstArete(this, imagePath,this.LARGEUR, this.HAUTEUR);
 
 		// Ajout des panels à la frame
 		this.add(this.panelMappeArete, BorderLayout.WEST);
