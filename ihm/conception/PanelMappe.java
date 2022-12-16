@@ -10,6 +10,8 @@ import java.util.ArrayList;
 
 public class PanelMappe extends JPanel 
 {
+	private static int RADIUS = 20;
+
 	private Image img;
 	private int largeur;
 	private int hauteur;
@@ -69,10 +71,10 @@ public class PanelMappe extends JPanel
 								JOptionPane.QUESTION_MESSAGE);
 					}
 
-					PanelMappe.this.noeudSelec = new NoeudDessin(nomNoeud, e.getX() - 20, e.getY() - 20, 20);
-					PanelMappe.this.alNoeudDessin.add(PanelMappe.this.noeudSelec);
-					PanelMappe.this.alNoeud.add(
-							new Noeud(nomNoeud, PanelMappe.this.noeudSelec.getX(), PanelMappe.this.noeudSelec.getY()));
+					PanelMappe.this.noeudSelec = new NoeudDessin(nomNoeud, e.getX() - PanelMappe.RADIUS, e.getY() - PanelMappe.RADIUS, PanelMappe.RADIUS);
+					
+					PanelMappe.this.alNoeudDessin.add(PanelMappe.this.noeudSelec); // C'est le même noeud qui est ajoute dans les deux lists
+					PanelMappe.this.alNoeud.add(PanelMappe.this.noeudSelec); // Si un noeud d'une liste est modif, l'autre aussi
 
 					if (PanelMappe.this.frame instanceof FrameNoeud)
 					{

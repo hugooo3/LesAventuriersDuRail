@@ -24,7 +24,8 @@ public class FrameNoeud extends Frame {
 	private PanelMappe panelMappeNoeud;
 	private PanelLstNoeud panelLstNoeud;
 
-	public FrameNoeud(Application app, File imagePath) {
+	public FrameNoeud(Application app, File imagePath) 
+	{
 		this.app = app;
 
 		// Définition des deux panels principaux
@@ -37,23 +38,12 @@ public class FrameNoeud extends Frame {
 		this.add(this.panelLstNoeud, BorderLayout.EAST);
 	}
 
-	public Application getApp() {
-		return this.app;
-	}
+	public Application getApp() {return this.app;}
 
-	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds) {
-		return this.app.creerAlNoeuds(ListNoeuds);
-	}
+	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds) {return this.app.creerAlNoeuds(ListNoeuds);}
 
-	public void verifMAJ(String source) {
-		this.app.verifMAJ(source);
-	}
+	public void verifMAJ(String source) {this.app.verifMAJ(source);}
 
-	public void majLstNoeuds(ArrayList<Noeud> alNoeud) {
-		this.panelLstNoeud.majLstNoeuds(alNoeud);
-	}
-
-	public void setLstNoeud(ArrayList<Noeud> alNoeud) {
-		this.panelMappeNoeud.setLstNoeud(alNoeud);
-	}
+	public void majLstNoeuds(ArrayList<Noeud> alNoeud) {this.panelLstNoeud.majLstNoeuds(alNoeud);}
+	public void setLstNoeud(ArrayList<Noeud> alNoeud) {this.panelMappeNoeud.setLstNoeud(alNoeud);}
 }

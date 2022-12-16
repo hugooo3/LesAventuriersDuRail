@@ -1,20 +1,13 @@
 package ihm.conception;
 
-import java.awt.Color;
-import java.awt.Container;
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
+import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import javax.swing.JButton;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
-import javax.swing.JPanel;
-import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
-import java.io.File;
 
+import java.io.File;
 import java.util.ArrayList;
 
 import metier.Noeud;
@@ -28,6 +21,8 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	private JButton btnModif;
 	private JList<Noeud> lstNoeud;
 	private ArrayList<Noeud> alstNoeud;
+	private JScrollPane scrollPane;
+	private DefaultListModel<Noeud> defaultListModel;
 
 	public PanelLstNoeud(FrameNoeud frame, File imagePath, int largeur, int hauteur) {
 		this.frame = frame;
@@ -36,23 +31,11 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		this.setPreferredSize(new Dimension((int) (largeur * 0.3), hauteur));
 		this.setLayout(null);
 
-		alstNoeud = new ArrayList<Noeud>();
+		this.alstNoeud = new ArrayList<Noeud>();
+		this.defaultListModel = new DefaultListModel<Noeud>();
 
-		ArrayList<Noeud> test = new ArrayList<Noeud>();
-		test.add(new Noeud("Test", 1, 1));
-		test.add(new Noeud("Test1", 1, 1));
-		test.add(new Noeud("Test2", 1, 1));
-		test.add(new Noeud("Test3", 1, 1));
-		test.add(new Noeud("Test", 1, 1));
-		test.add(new Noeud("Test", 1, 1));
-		test.add(new Noeud("Test1", 1, 1));
-		test.add(new Noeud("Test2", 1, 1));
-		test.add(new Noeud("Test3", 1, 1));
-		test.add(new Noeud("Test", 1, 1));
-		alstNoeud = test;
-		this.lstNoeud = new JList(alstNoeud.toArray());
+		this.lstNoeud = new JList<Noeud>(this.defaultListModel);
 
-		// this.lstNoeud = new JList<Noeud>();
 		// Bouton suivant
 		this.btnSuivant = new JButton("Suivant");
 		// this.btnSuivant.addActionListener(this);
@@ -61,11 +44,11 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		this.btnSuivant.setFocusPainted(false);
 
 		// JList avec scroll
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setViewportView(lstNoeud);
-		lstNoeud.setVisibleRowCount(3);
-		lstNoeud.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
-		lstNoeud.setFixedCellHeight(50);
+		this.scrollPane = new JScrollPane();
+		this.scrollPane.setViewportView(this.lstNoeud);
+		this.lstNoeud.setVisibleRowCount(3);
+		this.lstNoeud.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
+		this.lstNoeud.setFixedCellHeight(50);
 
 		// Bouton supprimer
 		this.btnSuppr = new JButton("Supprimer");
@@ -82,27 +65,27 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		this.btnModif.setFocusPainted(false);
 
 		// Placement des composants
-		this.add(scrollPane);
-		scrollPane.setBounds((int) (largeur * 0.3) / 2 - 150, 50, 300, 400);
-		this.add(btnSuppr);
-		btnSuppr.setBounds((int) (largeur * 0.3) / 2 - 75, hauteur - 220, 150, 50);
-		this.add(btnModif);
-		btnModif.setBounds((int) (largeur * 0.3) / 2 - 175, hauteur - 120, 150, 50);
+		this.add(this.scrollPane);
+		this.scrollPane.setBounds((int) (largeur * 0.3) / 2 - 150, 50, 300, 400);
+		this.add(this.btnSuppr);
+		this.btnSuppr.setBounds((int) (largeur * 0.3) / 2 - 75, hauteur - 220, 150, 50);
+		this.add(this.btnModif);
+		this.btnModif.setBounds((int) (largeur * 0.3) / 2 - 175, hauteur - 120, 150, 50);
 		this.add(this.btnSuivant);
 		this.btnSuivant.setBounds((int) (largeur * 0.3) / 2 + 25, hauteur - 120, 150, 50);
 
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 		// Clic sur le bouton Suivant
-		if (e.getSource() == this.btnSuivant) {
-
+		if (e.getSource() == this.btnSuivant) 
+		{
 			ArrayList<Noeud> alNoeuds = new ArrayList<Noeud>(lstNoeud.getModel().getSize());
 
-			for (int i = 0; i < lstNoeud.getModel().getSize(); i++) {
+			for (int i = 0; i < lstNoeud.getModel().getSize(); i++) 
 				alNoeuds.add(lstNoeud.getModel().getElementAt(i));
-			}
 
 			this.frame.creerAlNoeuds(alNoeuds);
 			this.frame.verifMAJ("noeud");
@@ -122,17 +105,20 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 
 	}
 
-	public void majLstNoeuds(ArrayList<Noeud> alNoeud) {
-		this.alstNoeud = alNoeud;
+	public void majLstNoeuds(ArrayList<Noeud> alNoeud) 
+	{
+		for (Noeud noeud : alNoeud)
+		{
+			if (!this.defaultListModel.contains(noeud))
+				this.defaultListModel.addElement(noeud);
+		}
 	}
 
-	public void setLstNoeud(ArrayList<Noeud> alNoeud) {
-		this.frame.setLstNoeud(alNoeud);
-	}
+	public void setLstNoeud(ArrayList<Noeud> alNoeud) {this.frame.setLstNoeud(alNoeud);}
 
 	@Override
-	public void valueChanged(ListSelectionEvent e) {
+	public void valueChanged(ListSelectionEvent e) 
+	{
 		// TODO Auto-generated method stub
-
 	}
 }
