@@ -103,7 +103,7 @@ public class PanelLstCarteObjectif extends JPanel implements ActionListener, Lis
 
 			// this.frame.creeralAretes(alAretes);
 			// this.frame.verifMAJ("noeud");
-			new FrameCarteObjectif(this.frame.getApp(), this.imagePathArete);
+			// new FrameCarteObjectif(this.frame.getApp(), this.imagePathArete);
 			this.frame.dispose();
 		}
 

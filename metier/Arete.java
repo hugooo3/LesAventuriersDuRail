@@ -29,11 +29,6 @@ public class Arete {
 	public void setVoieDouble(boolean voieDouble) {this.voieDouble = voieDouble;}
 
 	public String toString() {
-		return "{" +
-			" noeud1='" + getNoeud1() + "'" +
-			", noeud2='" + getNoeud2() + "'" +
-			", couleur='" + getCouleur() + "'" +
-			", troncons='" + getTroncons() + "'" +
-			"}";
+		return noeud1.getNom() + " - " + noeud2.getNom() ;
 	}
 }
