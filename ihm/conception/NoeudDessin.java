@@ -6,9 +6,9 @@ import metier.Noeud;
 
 public class NoeudDessin extends Noeud
 {
-	private static int TAILLE_CARA_BOX = 15; // Hauteur pour que le rectangle laisse le texte avec un espace satisfesant
-	private static int MARGE_X = 3;
-	private static int MARGE_Y = 4;
+	private final int TAILLE_CARA_BOX = 15; // Hauteur pour que le rectangle laisse le texte avec un espace satisfesant
+	private final int MARGE_X = 3;
+	private final int MARGE_Y = 4;
 
 	private int radiusEllipse;
 	private int ellipseX;
@@ -33,8 +33,8 @@ public class NoeudDessin extends Noeud
 		this.rectangleY = this.y;
 		this.setRectangleLongueur(); // this.majRectangle2d() est execute ici
 
-		this.nomDeltaX = NoeudDessin.MARGE_X;
-		this.nomDeltaY = -NoeudDessin.MARGE_Y;
+		this.nomDeltaX = this.MARGE_X;
+		this.nomDeltaY = -this.MARGE_Y;
 	}
 
 	public int getRadiusEllipse() {return radiusEllipse;}
@@ -66,14 +66,14 @@ public class NoeudDessin extends Noeud
 		this.ellipse2D = new Ellipse2D.Double(this.ellipseX + (radiusEllipse / 2), this.ellipseY + (radiusEllipse / 2), radiusEllipse, radiusEllipse);
 	}
 
-	public void setRectangleX() {this.rectangleX = this.getNomDeltaX() - NoeudDessin.MARGE_X;	this.majRectangle2D();}
-	public void setRectangleY() {this.rectangleY = this.getNomDeltaY() + NoeudDessin.MARGE_Y;	this.majRectangle2D();}
+	public void setRectangleX() {this.rectangleX = this.getNomDeltaX() - this.MARGE_X;	this.majRectangle2D();}
+	public void setRectangleY() {this.rectangleY = this.getNomDeltaY() + this.MARGE_Y;	this.majRectangle2D();}
 
 	public void setRectangleLongueur() {this.longueurRectangle = this.nom.length() * 7 + 5; this.majRectangle2D();} // Si le texte est maj -> Resize la box
 
 	public void majRectangle2D() 
 	{
-		this.rectangle2d = new Rectangle2D.Double(this.rectangleX, this.rectangleY - NoeudDessin.TAILLE_CARA_BOX, this.longueurRectangle, NoeudDessin.TAILLE_CARA_BOX);
+		this.rectangle2d = new Rectangle2D.Double(this.rectangleX, this.rectangleY - this.TAILLE_CARA_BOX, this.longueurRectangle, this.TAILLE_CARA_BOX);
 	}
 
 	@Override
