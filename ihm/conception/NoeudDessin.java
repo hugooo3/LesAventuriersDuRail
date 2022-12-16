@@ -7,6 +7,8 @@ import metier.Noeud;
 public class NoeudDessin extends Noeud
 {
 	private static int TAILLE_CARA_BOX = 15; // Hauteur pour que le rectangle laisse le texte avec un espace satisfesant
+	private static int MARGE_X = 3;
+	private static int MARGE_Y = 4;
 
 	private int radiusEllipse;
 	private int ellipseX;
@@ -17,9 +19,6 @@ public class NoeudDessin extends Noeud
 	private int rectangleX;
 	private int rectangleY;
 	private Rectangle2D rectangle2d;
-
-	private int nomDeltaX; // Distance entre les coords du nom et le point
-	private int nomDeltaY; // Distance entre les coords du nom et le point
 
 	public NoeudDessin(String nom, int x, int y, int radius) 
 	{
@@ -34,8 +33,8 @@ public class NoeudDessin extends Noeud
 		this.rectangleY = this.y;
 		this.setRectangleLongueur(); // this.majRectangle2d() est execute ici
 
-		this.nomDeltaX = 3;
-		this.nomDeltaY = -4;
+		this.nomDeltaX = NoeudDessin.MARGE_X;
+		this.nomDeltaY = -NoeudDessin.MARGE_Y;
 	}
 
 	public int getRadiusEllipse() {return radiusEllipse;}
@@ -67,8 +66,8 @@ public class NoeudDessin extends Noeud
 		this.ellipse2D = new Ellipse2D.Double(this.ellipseX + (radiusEllipse / 2), this.ellipseY + (radiusEllipse / 2), radiusEllipse, radiusEllipse);
 	}
 
-	public void setRectangleX() {this.rectangleX = this.getNomDeltaX() - 3;	this.majRectangle2D();}
-	public void setRectangleY() {this.rectangleY = this.getNomDeltaY() + 4;	this.majRectangle2D();}
+	public void setRectangleX() {this.rectangleX = this.getNomDeltaX() - NoeudDessin.MARGE_X;	this.majRectangle2D();}
+	public void setRectangleY() {this.rectangleY = this.getNomDeltaY() + NoeudDessin.MARGE_Y;	this.majRectangle2D();}
 
 	public void setRectangleLongueur() {this.longueurRectangle = this.nom.length() * 7 + 5; this.majRectangle2D();} // Si le texte est maj -> Resize la box
 
@@ -78,13 +77,8 @@ public class NoeudDessin extends Noeud
 	}
 
 	@Override
-	public String toString() {
-		return super.toString() +
-			"{" +
-			" radius='" + getRadiusEllipse() + "'" +
-			", ellipse2D='" + getEllipse2D() + "'" +
-			"}";
+	public String toString() 
+	{
+		return super.toString();
 	}
-
-
 }

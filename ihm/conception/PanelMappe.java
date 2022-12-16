@@ -38,12 +38,12 @@ public class PanelMappe extends JPanel
 			this.addMouseListener(new MouseAdapter() 
 			{
 				@Override
-				public void mousePressed(MouseEvent e) {
+				public void mousePressed(MouseEvent e) 
+				{
 					for (NoeudDessin noeudDessin : PanelMappe.this.alNoeudDessin) 
 					{
 						if (noeudDessin.getEllipse2D().contains(e.getPoint())) 
 						{
-							System.out.println("cercle");
 							// JOptionPane.showMessageDialog(frame, "Un noeud existe déjà à cet
 							// emplacement");
 							PanelMappe.this.noeudSelec = noeudDessin;
@@ -51,7 +51,6 @@ public class PanelMappe extends JPanel
 						}
 						else if (noeudDessin.getRectangle2d().contains(e.getPoint()))
 						{
-							System.out.println("rec");
 							PanelMappe.this.noeudTexteSelec = noeudDessin;
 							return;
 						}
@@ -97,7 +96,6 @@ public class PanelMappe extends JPanel
 				{
 					if (PanelMappe.this.noeudTexteSelec != null)
 					{
-						System.out.println("texte");
 						PanelMappe.this.noeudTexteSelec.setNomDeltaX(e.getX());
 						PanelMappe.this.noeudTexteSelec.setNomDeltaY(e.getY());
 
@@ -105,7 +103,6 @@ public class PanelMappe extends JPanel
 					}
 					else if (PanelMappe.this.noeudSelec != null) 
 					{
-						System.out.println("point");
 						PanelMappe.this.noeudSelec.setX(e.getX());
 						PanelMappe.this.noeudSelec.setY(e.getY());
 
