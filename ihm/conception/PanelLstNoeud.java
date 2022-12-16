@@ -16,25 +16,27 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	private FrameNoeud frame;
 	private File imagePathNoeud;
 
-	private JButton btnSuivant;
-	private JButton btnSuppr;
-	private JButton btnModif;
+	private JButton btnSuivant, btnSuppr, btnModif;
 	private JList<Noeud> lstNoeud;
 	private ArrayList<Noeud> alstNoeud;
 	private JScrollPane scrollPane;
-	private DefaultListModel<Noeud> defaultListModel;
+	private DefaultListModel<Noeud> modelListNoeud;
+	private GridBagConstraints gbc = new GridBagConstraints();
 
-	public PanelLstNoeud(FrameNoeud frame, File imagePath, int largeur, int hauteur) {
+	public PanelLstNoeud(FrameNoeud frame, File imagePath, int largeur, int hauteur) 
+	{
 		this.frame = frame;
 		this.imagePathNoeud = imagePath;
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setPreferredSize(new Dimension((int) (largeur * 0.3), hauteur));
-		this.setLayout(null);
+
+		this.gbc.insets = new Insets(5, 5, 5, 5);
+		this.setLayout(new GridBagLayout());
 
 		this.alstNoeud = new ArrayList<Noeud>();
-		this.defaultListModel = new DefaultListModel<Noeud>();
+		this.modelListNoeud = new DefaultListModel<Noeud>();
 
-		this.lstNoeud = new JList<Noeud>(this.defaultListModel);
+		this.lstNoeud = new JList<Noeud>(this.modelListNoeud);
 
 		// Bouton suivant
 		this.btnSuivant = new JButton("Suivant");
@@ -47,7 +49,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		this.scrollPane = new JScrollPane();
 		this.scrollPane.setViewportView(this.lstNoeud);
 		this.lstNoeud.setVisibleRowCount(3);
-		this.lstNoeud.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
+		this.lstNoeud.setFont(new Font(getFont().getName(), Font.PLAIN, 15));
 		this.lstNoeud.setFixedCellHeight(50);
 
 		// Bouton supprimer
@@ -65,14 +67,28 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		this.btnModif.setFocusPainted(false);
 
 		// Placement des composants
-		this.add(this.scrollPane);
-		this.scrollPane.setBounds((int) (largeur * 0.3) / 2 - 150, 50, 300, 400);
-		this.add(this.btnSuppr);
-		this.btnSuppr.setBounds((int) (largeur * 0.3) / 2 - 75, hauteur - 220, 150, 50);
-		this.add(this.btnModif);
-		this.btnModif.setBounds((int) (largeur * 0.3) / 2 - 175, hauteur - 120, 150, 50);
-		this.add(this.btnSuivant);
-		this.btnSuivant.setBounds((int) (largeur * 0.3) / 2 + 25, hauteur - 120, 150, 50);
+		this.gbc.gridx = 0;
+		this.gbc.gridy = 0;
+		this.gbc.gridwidth = 3;
+		this.gbc.fill = GridBagConstraints.VERTICAL;
+		this.add(this.scrollPane, this.gbc);
+		// this.scrollPane.setBounds((int) (largeur * 0.3) / 2 - 150, 50, 300, 400);
+
+		this.gbc.gridx = 1;
+		this.gbc.gridy = 16;
+		this.gbc.gridwidth = 1;
+		this.add(this.btnSuppr, this.gbc);
+		// this.btnSuppr.setBounds((int) (largeur * 0.3) / 2 - 75, hauteur - 220, 150, 50);
+		
+		this.gbc.gridx = 0;
+		this.gbc.gridy = 16;
+		this.add(this.btnModif, this.gbc);
+		// this.btnModif.setBounds((int) (largeur * 0.3) / 2 - 175, hauteur - 120, 150, 50);
+		
+		this.gbc.gridx = 2;
+		this.gbc.gridy = 16;
+		this.add(this.btnSuivant, this.gbc);
+		// this.btnSuivant.setBounds((int) (largeur * 0.3) / 2 + 25, hauteur - 120, 150, 50);
 
 	}
 
@@ -109,8 +125,8 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	{
 		for (Noeud noeud : alNoeud)
 		{
-			if (!this.defaultListModel.contains(noeud))
-				this.defaultListModel.addElement(noeud);
+			if (!this.modelListNoeud.contains(noeud))
+				this.modelListNoeud.addElement(noeud);
 		}
 	}
 
