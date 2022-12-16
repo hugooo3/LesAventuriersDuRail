@@ -8,9 +8,7 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Comparator;
-
-import javax.swing.ImageIcon;
+import java.util.Comparator; 
 
 import application.Application;
 
