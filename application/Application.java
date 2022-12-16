@@ -54,4 +54,10 @@ public class Application {
 	public void verifMAJ(String source) {
 		this.metier.verifMAJ(source);
 	}
+
+	public boolean majIHM() 
+	{ 
+		/*MAJ de l'IHM*/
+		return false; 
+	}
 }

@@ -107,77 +107,16 @@ public class Metier {
         }
     }
 
-    public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds) {
+    public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds)                                  { this.alNoeuds = ListNoeuds; return true; }
+    public boolean creerAlAretes(ArrayList<Arete> ListAretes)                                  { this.alAretes = ListAretes; return true; }
+    public boolean creerAlCartesDestination(ArrayList<CarteDestination> ListCartesDestination) { this.alCartesDestination = ListCartesDestination; return true; }
+    public boolean creerAlCartesWagon(ArrayList<CarteWagon> ListCartesWagon)                   { this.alCartesWagon = ListCartesWagon; return true; }
 
-        this.alNoeuds = ListNoeuds;
-
-        return true;
-
-    }
-
-    public boolean creerAlAretes(ArrayList<Arete> ListAretes) {
-
-        this.alAretes = ListAretes;
-
-        return true;
-
-    }
-
-    public boolean creerAlCartesDestination(ArrayList<CarteDestination> ListCartesDestination) {
-
-        this.alCartesDestination = ListCartesDestination;
-
-        return true;
-
-    }
-
-    public boolean creerAlCartesWagon(ArrayList<CarteWagon> ListCartesWagon) {
-
-        this.alCartesWagon = ListCartesWagon;
-
-        return true;
-
-    }
-
-    public boolean setImgMappe(File imgMappe) {
-
-        this.imgMappe = imgMappe;
-
-        return true;
-
-    }
-
-    public boolean setNbJoueurMin(int nbJoueurMin) {
-
-        this.nbJoueurMin = nbJoueurMin;
-
-        return true;
-
-    }
-
-    public boolean setNbJoueurMax(int nbJoueurMax) {
-
-        this.nbJoueurMax = nbJoueurMax;
-
-        return true;
-
-    }
-
-    public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {
-
-        this.nbJoueurDoubleVoies = nbJoueurDoubleVoies;
-
-        return true;
-
-    }
-
-    public boolean setNbWagonJoueur(int nbWagonJoueur) {
-
-        this.nbWagonJoueur = nbWagonJoueur;
-
-        return true;
-
-    }
+    public boolean setImgMappe(File imgMappe)                      { this.imgMappe = imgMappe; return true; }
+    public boolean setNbJoueurMin(int nbJoueurMin)                 { this.nbJoueurMin = nbJoueurMin; return true; }
+    public boolean setNbJoueurMax(int nbJoueurMax)                 { this.nbJoueurMax = nbJoueurMax; return true; }
+    public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) { this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true; }
+    public boolean setNbWagonJoueur(int nbWagonJoueur)             { this.nbWagonJoueur = nbWagonJoueur; return true; }
 
     public void verifMAJ(String source) {
         switch (source) {
@@ -230,4 +169,6 @@ public class Metier {
                 break;
         }
     }
+
+    public boolean majIHM() { return this.app.majIHM(); }
 }
