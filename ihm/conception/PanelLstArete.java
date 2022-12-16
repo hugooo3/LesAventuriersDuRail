@@ -1,12 +1,11 @@
 package ihm.conception;
 
-import java.awt.Color;
-import java.awt.Dimension;
-import java.awt.Font;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+import javax.swing.DefaultListModel;
 import javax.swing.JButton;
 import javax.swing.JList;
 import javax.swing.JPanel;
@@ -18,36 +17,40 @@ import java.io.File;
 import metier.Arete;
 import metier.Noeud;
 
-public class PanelLstArete extends JPanel implements ActionListener, ListSelectionListener {
+public class PanelLstArete extends JPanel implements ActionListener, ListSelectionListener 
+{
 	private FrameArete frame;
 	private File imagePathArete;
 
-	private JButton btnSuivant;
+	private JButton btnSuivant, btnSuppr, btnModif;
 	private JList<Arete> lstArete;
+	private JScrollPane scrollPane;
 	private ArrayList<Arete> alstArete;
+	private DefaultListModel<Arete> modelListArete;
+	
+	private GridBagConstraints gbc = new GridBagConstraints();
 
-	public PanelLstArete(FrameArete frame, File imagePath, int largeur, int hauteur) {
+	public PanelLstArete(FrameArete frame, File imagePath, int largeur, int hauteur) 
+	{
 		this.frame = frame;
 		this.imagePathArete = imagePath;
 
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setPreferredSize(new Dimension((int) (largeur * 0.3), hauteur));
-		this.setLayout(null);
 
-		alstArete = new ArrayList<Arete>();
+		this.gbc.insets = new Insets(5, 5, 5, 5);
+		this.setLayout(new GridBagLayout());
 
-		ArrayList<Arete> testArete = new ArrayList<Arete>();
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		this.lstArete = new JList(testArete.toArray());
+		this.alstArete = new ArrayList<Arete>();
+		this.modelListArete = new DefaultListModel<Arete>();
+		this.lstArete = new JList<Arete>(this.modelListArete);
+
+		// JList avec scroll
+		this.scrollPane = new JScrollPane();
+		this.scrollPane.setViewportView(this.lstArete);
+		this.lstArete.setVisibleRowCount(3);
+		this.lstArete.setFont(new Font(getFont().getName(), Font.PLAIN, 15));
+		this.lstArete.setFixedCellHeight(50);
 
 		// Bouton Suivant
 		this.btnSuivant = new JButton("Suivant");
@@ -57,35 +60,55 @@ public class PanelLstArete extends JPanel implements ActionListener, ListSelecti
 		this.btnSuivant.setFocusPainted(false);
 
 		// JList avec scroll
-		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setViewportView(lstArete);
-		lstArete.setVisibleRowCount(3);
-		lstArete.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
-		lstArete.setFixedCellHeight(50);
+		this.scrollPane = new JScrollPane();
+		this.scrollPane.setViewportView(this.lstArete);
+		this.lstArete.setVisibleRowCount(3);
+		this.lstArete.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
+		this.lstArete.setFixedCellHeight(50);
 
 		// Bouton supprimer
-		JButton btnSuppr = new JButton("Supprimer");
-		btnSuppr.setBackground(Color.GRAY);
-		btnSuppr.addActionListener(this);
-		btnSuppr.setBorderPainted(false);
-		btnSuppr.setFocusPainted(false);
+		this.btnSuppr = new JButton("Supprimer");
+		this.btnSuppr.setBackground(Color.GRAY);
+		this.btnSuppr.addActionListener(this);
+		this.btnSuppr.setBorderPainted(false);
+		this.btnSuppr.setFocusPainted(false);
 
 		// Bouton Modifier
-		JButton btnModif = new JButton("Modifier");
-		btnModif.setBackground(Color.GRAY);
-		btnModif.addActionListener(this);
-		btnModif.setBorderPainted(false);
-		btnModif.setFocusPainted(false);
+		this.btnModif = new JButton("Modifier");
+		this.btnModif.setBackground(Color.GRAY);
+		this.btnModif.addActionListener(this);
+		this.btnModif.setBorderPainted(false);
+		this.btnModif.setFocusPainted(false);
 
 		// Placement des composants
-		this.add(scrollPane);
+		/* this.add(scrollPane);
 		scrollPane.setBounds((int) (largeur * 0.3) / 2 - 150, 50, 300, 400);
-		this.add(btnSuppr);
-		btnSuppr.setBounds((int) (largeur * 0.3) / 2 - 75, hauteur - 220, 150, 50);
-		this.add(btnModif);
-		btnModif.setBounds((int) (largeur * 0.3) / 2 - 175, hauteur - 120, 150, 50);
+		this.add(this.btnSuppr);
+		this.btnSuppr.setBounds((int) (largeur * 0.3) / 2 - 75, hauteur - 220, 150, 50);
+		this.add(this.btnModif);
+		this.btnModif.setBounds((int) (largeur * 0.3) / 2 - 175, hauteur - 120, 150, 50);
 		this.add(this.btnSuivant);
-		this.btnSuivant.setBounds((int) (largeur * 0.3) / 2 + 25, hauteur - 120, 150, 50);
+		this.btnSuivant.setBounds((int) (largeur * 0.3) / 2 + 25, hauteur - 120, 150, 50); */
+
+		this.gbc.gridx = 0;
+		this.gbc.gridy = 0;
+		this.gbc.gridwidth = 3;
+		this.gbc.fill = GridBagConstraints.HORIZONTAL;
+		this.add(this.scrollPane, this.gbc);
+
+		this.gbc.gridx = 1;
+		this.gbc.gridy = 1;
+		this.gbc.gridwidth = 1;
+		this.gbc.fill = GridBagConstraints.VERTICAL;
+		this.add(this.btnSuppr, this.gbc);
+		
+		this.gbc.gridx = 0;
+		this.gbc.gridy = 1;
+		this.add(this.btnModif, this.gbc);
+		
+		this.gbc.gridx = 2;
+		this.gbc.gridy = 1;
+		this.add(this.btnSuivant, this.gbc);
 
 	}
 
@@ -96,9 +119,11 @@ public class PanelLstArete extends JPanel implements ActionListener, ListSelecti
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
+	public void actionPerformed(ActionEvent e) 
+	{
 		// Clic sur le bouton Suivant
-		if (e.getSource() == this.btnSuivant) {
+		if (e.getSource() == this.btnSuivant) 
+		{
 			System.out.println("Clic sur le bouton suivant");
 			ArrayList<Noeud> alAretes = new ArrayList<Noeud>(lstArete.getModel().getSize());
 

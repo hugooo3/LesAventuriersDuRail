@@ -24,7 +24,8 @@ public class FrameArete extends Frame {
 	private PanelMappe panelMappeArete;
 	private PanelLstArete panelLstArete;
 
-	public FrameArete(Application app, File imagePath) {
+	public FrameArete(Application app, File imagePath, ArrayList<Noeud> alstNoeud) 
+	{
 		this.app = app;
 
 		// Définition des deux panels principaux
