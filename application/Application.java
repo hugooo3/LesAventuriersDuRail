@@ -51,6 +51,10 @@ public class Application {
 		return this.metier.setNbWagonJoueur(nbWagonJoueur);
 	}
 
+	public boolean reinitialiserDossierSortie() {
+		return this.metier.reinitialiserDossierSortie();
+	}
+	
 	public void verifMAJ(String source) {
 		this.metier.verifMAJ(source);
 	}

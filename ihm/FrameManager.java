@@ -73,6 +73,7 @@ public class FrameManager extends JFrame implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.btnConcepteur) {
+			this.app.reinitialiserDossierSortie();
 			new FrameConcepteur(this.app);
 			this.dispose();
 		}

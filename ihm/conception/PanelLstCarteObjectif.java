@@ -17,16 +17,17 @@ import java.io.File;
 
 import metier.Arete;
 import metier.Noeud;
+import metier.CarteDestination;
 
-public class PanelLstArete extends JPanel implements ActionListener, ListSelectionListener {
-	private FrameArete frame;
+public class PanelLstCarteObjectif extends JPanel implements ActionListener, ListSelectionListener {
+	private FrameCarteObjectif frame;
 	private File imagePathArete;
 
 	private JButton btnSuivant;
-	private JList<Arete> lstArete;
-	private ArrayList<Arete> alstArete;
+	private JList<CarteDestination> lstCarteObjectif;
+	private ArrayList<CarteDestination> alstCarteObjectif;
 
-	public PanelLstArete(FrameArete frame, File imagePath, int largeur, int hauteur) {
+	public PanelLstCarteObjectif(FrameCarteObjectif frame, File imagePath, int largeur, int hauteur) {
 		this.frame = frame;
 		this.imagePathArete = imagePath;
 
@@ -34,20 +35,14 @@ public class PanelLstArete extends JPanel implements ActionListener, ListSelecti
 		this.setPreferredSize(new Dimension((int) (largeur * 0.3), hauteur));
 		this.setLayout(null);
 
-		alstArete = new ArrayList<Arete>();
+		alstCarteObjectif = new ArrayList<CarteDestination>();
 
-		ArrayList<Arete> testArete = new ArrayList<Arete>();
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		testArete.add(new Arete(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), "rouge", 2, true));
-		this.lstArete = new JList(testArete.toArray());
+		ArrayList<CarteDestination> testArete = new ArrayList<CarteDestination>();
+		testArete.add(new CarteDestination(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), 20, null, null));
+		testArete.add(new CarteDestination(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), 20, null, null));
+		testArete.add(new CarteDestination(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), 20, null, null));
+		testArete.add(new CarteDestination(new Noeud("test", 1, 1), new Noeud("test2", 10, 10), 20, null, null));
+		this.lstCarteObjectif = new JList(testArete.toArray());
 
 		// Bouton Suivant
 		this.btnSuivant = new JButton("Suivant");
@@ -58,10 +53,10 @@ public class PanelLstArete extends JPanel implements ActionListener, ListSelecti
 
 		// JList avec scroll
 		JScrollPane scrollPane = new JScrollPane();
-		scrollPane.setViewportView(lstArete);
-		lstArete.setVisibleRowCount(3);
-		lstArete.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
-		lstArete.setFixedCellHeight(50);
+		scrollPane.setViewportView(lstCarteObjectif);
+		lstCarteObjectif.setVisibleRowCount(3);
+		lstCarteObjectif.setFont(new Font(getFont().getName(), Font.PLAIN, 20));
+		lstCarteObjectif.setFixedCellHeight(50);
 
 		// Bouton supprimer
 		JButton btnSuppr = new JButton("Supprimer");
@@ -100,10 +95,10 @@ public class PanelLstArete extends JPanel implements ActionListener, ListSelecti
 		// Clic sur le bouton Suivant
 		if (e.getSource() == this.btnSuivant) {
 			System.out.println("Clic sur le bouton suivant");
-			ArrayList<Noeud> alAretes = new ArrayList<Noeud>(lstArete.getModel().getSize());
+			ArrayList<Noeud> alAretes = new ArrayList<Noeud>(lstCarteObjectif.getModel().getSize());
 
-			for (int i = 0; i < lstArete.getModel().getSize(); i++) {
-				alstArete.add(lstArete.getModel().getElementAt(i));
+			for (int i = 0; i < lstCarteObjectif.getModel().getSize(); i++) {
+				alstCarteObjectif.add(lstCarteObjectif.getModel().getElementAt(i));
 			}
 
 			// this.frame.creeralAretes(alAretes);
