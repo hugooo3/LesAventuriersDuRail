@@ -64,6 +64,9 @@ public class PanelMappe extends JPanel
 
 					while (nomNoeud == null || nomNoeud.equals(""))
 					{
+						if (nomNoeud == null) // bouton annuler
+							return;
+
 						JOptionPane.showMessageDialog(null, "Le champ saisi ne peut être vide !", "Erreur",
 								JOptionPane.ERROR_MESSAGE);
 
