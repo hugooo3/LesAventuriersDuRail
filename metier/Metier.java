@@ -2,10 +2,15 @@ package metier;
 
 import java.io.File;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.OutputStreamWriter;
 import java.io.PrintWriter;
+import java.nio.file.Files;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.Comparator;
+
+import javax.swing.ImageIcon;
 
 import application.Application;
 
@@ -107,6 +112,46 @@ public class Metier {
 		}
 	}
 
+	public boolean copierImage(String nom, File file)
+	{
+		File src = file;
+		String extension = src.getAbsolutePath().substring(src.getAbsolutePath().lastIndexOf("."));
+
+		if (extension.equals(".jpg") || extension.equals(".jpeg") || extension.equals(".JPG") || extension.equals(".JPEG") || extension.equals(".png") || extension.equals(".PNG"))
+		{
+			File target = new File("sortie/" + nom + extension);	
+			try {
+				Files.copy(src.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+			} catch (IOException e) {
+				System.out.println("Erreur lors de la copie de l'image");
+				e.printStackTrace();
+			}
+			return true;
+		}
+		System.out.println("Fichier non supporté");
+		return false;
+	}
+
+	public boolean reinitialiserDossierSortie()
+	{
+		File dossierSortie = new File("sortie");
+		if (dossierSortie.exists()) 
+		{ 
+			if (dossierSortie.list().length ==0) { dossierSortie.delete(); }
+			else
+			{
+				String files[] = dossierSortie.list();
+     
+				for (String tmp : files) {
+				   File file = new File(dossierSortie, tmp);
+				   //suppression récursive
+				   file.delete();
+				}
+			}
+		}
+		return dossierSortie.mkdir();
+	}
+
 	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds)                                  { this.alNoeuds = ListNoeuds; return true; }
 	public boolean creerAlAretes(ArrayList<Arete> ListAretes)                                  { this.alAretes = ListAretes; return true; }
 	public boolean creerAlCartesDestination(ArrayList<CarteDestination> ListCartesDestination) { this.alCartesDestination = ListCartesDestination; return true; }
@@ -127,6 +172,7 @@ public class Metier {
 				System.out.println("nbJoueurDoubleVoies : " + this.nbJoueurDoubleVoies);
 				System.out.println("nbWagonJoueur : " + this.nbWagonJoueur);
 				System.out.println("\n");
+				this.copierImage("imgMappe", this.imgMappe);
 				break;
 			case "noeud":
 				for (Noeud noeud : this.alNoeuds) {
@@ -152,7 +198,9 @@ public class Metier {
 					System.out.println("noeud2 : " + carteDestination.getNoeud2().getNom());
 					System.out.println("points : " + carteDestination.getPoints());
 					System.out.println("imgRecto : " + carteDestination.getImgRecto());
+					this.copierImage  ("imgRecto", carteDestination.getImgRecto());
 					System.out.println("imgVerso : " + carteDestination.getImgVerso());
+					this.copierImage  ("imgVerso", carteDestination.getImgVerso());
 					System.out.println("\n");
 				}
 				break;
