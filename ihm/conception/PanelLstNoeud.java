@@ -1,16 +1,19 @@
 package ihm.conception;
 
 import java.awt.Color;
+import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JButton;
 import javax.swing.JList;
+import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
+import java.io.File;
 
 import java.util.ArrayList;
 
@@ -18,14 +21,17 @@ import metier.Noeud;
 
 public class PanelLstNoeud extends JPanel implements ActionListener, ListSelectionListener {
 	private FrameNoeud frame;
+	private File imagePathNoeud;
 
 	private JButton btnSuivant;
+	private JButton btnSuppr;
+	private JButton btnModif;
 	private JList<Noeud> lstNoeud;
 	private ArrayList<Noeud> alstNoeud;
 
-	public PanelLstNoeud(FrameNoeud frame, int largeur, int hauteur) {
+	public PanelLstNoeud(FrameNoeud frame, File imagePath, int largeur, int hauteur) {
 		this.frame = frame;
-
+		this.imagePathNoeud = imagePath;
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setPreferredSize(new Dimension((int) (largeur * 0.3), hauteur));
 		this.setLayout(null);
@@ -43,7 +49,8 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		test.add(new Noeud("Test2", 1, 1));
 		test.add(new Noeud("Test3", 1, 1));
 		test.add(new Noeud("Test", 1, 1));
-		this.lstNoeud = new JList(test.toArray());
+		alstNoeud = test;
+		this.lstNoeud = new JList(alstNoeud.toArray());
 
 		// this.lstNoeud = new JList<Noeud>();
 		// Bouton suivant
@@ -61,18 +68,18 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		lstNoeud.setFixedCellHeight(50);
 
 		// Bouton supprimer
-		JButton btnSuppr = new JButton("Supprimer");
-		btnSuppr.setBackground(Color.GRAY);
-		btnSuppr.addActionListener(this);
-		btnSuppr.setBorderPainted(false);
-		btnSuppr.setFocusPainted(false);
+		this.btnSuppr = new JButton("Supprimer");
+		this.btnSuppr.setBackground(Color.GRAY);
+		this.btnSuppr.addActionListener(this);
+		this.btnSuppr.setBorderPainted(false);
+		this.btnSuppr.setFocusPainted(false);
 
 		// Bouton Modifier
-		JButton btnModif = new JButton("Modifier");
-		btnModif.setBackground(Color.GRAY);
-		btnModif.addActionListener(this);
-		btnModif.setBorderPainted(false);
-		btnModif.setFocusPainted(false);
+		this.btnModif = new JButton("Modifier");
+		this.btnModif.setBackground(Color.GRAY);
+		this.btnModif.addActionListener(this);
+		this.btnModif.setBorderPainted(false);
+		this.btnModif.setFocusPainted(false);
 
 		// Placement des composants
 		this.add(scrollPane);
@@ -99,11 +106,17 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 
 			this.frame.creerAlNoeuds(alNoeuds);
 			this.frame.verifMAJ("noeud");
-			// new FrameArete(this.frame.getApp());
+			new FrameArete(this.frame.getApp(), this.imagePathNoeud);
 			this.frame.dispose();
 		}
 
-		if (e.getActionCommand() == "Supprimer") {
+		if (e.getSource() == this.btnSuppr) {
+			if (lstNoeud.getSelectedIndex() != -1) {
+				alstNoeud.remove(lstNoeud.getSelectedIndex());
+				lstNoeud.setListData(alstNoeud.toArray(new Noeud[alstNoeud.size()]));
+			} else {
+				JOptionPane.showMessageDialog(null, "Veuillez selectionner un noeud");
+			}
 
 		}
 

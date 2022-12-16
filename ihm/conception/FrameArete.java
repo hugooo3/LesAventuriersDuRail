@@ -12,37 +12,43 @@ import java.awt.BorderLayout;
 
 import ihm.Frame;
 
-public class FrameNoeud extends Frame {
+public class FrameArete extends Frame {
 
 	@Override
 	public String getName() {
-		return "Définition des Noeuds";
+		return "Définition des Aretes";
 	}
 
 	private Application app;
 
-	private PanelMappe panelMappeNoeud;
-	private PanelLstNoeud panelLstNoeud;
+	private PanelMappe panelMappeArete;
+	private PanelLstArete panelLstArete;
 
-	public FrameNoeud(Application app, File imagePath) {
+	public FrameArete(Application app, File imagePath) {
 		this.app = app;
 
 		// Définition des deux panels principaux
-		this.panelMappeNoeud = new PanelMappe(this, imagePath, this.LARGEUR, this.HAUTEUR, true);
+		this.panelMappeArete = new PanelMappe(this, imagePath, this.LARGEUR, this.HAUTEUR, true);
 
-		this.panelLstNoeud = new PanelLstNoeud(this, imagePath, this.LARGEUR, this.HAUTEUR);
+		this.panelLstArete = new PanelLstArete(this, this.LARGEUR, this.HAUTEUR);
 
 		// Ajout des panels à la frame
-		this.add(this.panelMappeNoeud, BorderLayout.WEST);
-		this.add(this.panelLstNoeud, BorderLayout.EAST);
+		this.add(this.panelMappeArete, BorderLayout.WEST);
+		this.add(this.panelLstArete, BorderLayout.EAST);
 	}
 
 	public Application getApp() {
 		return this.app;
 	}
 
-	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds) {
-		return this.app.creerAlNoeuds(ListNoeuds);
+
+
+
+
+
+	/*
+	public boolean creerAlAretes(ArrayList<Noeud> ListNoeuds) {
+		return this.app.creerAlAretes(ListArete);
 	}
 
 	public void verifMAJ(String source) {
@@ -55,5 +61,5 @@ public class FrameNoeud extends Frame {
 
 	public void setLstNoeud(ArrayList<Noeud> alNoeud) {
 		this.panelMappeNoeud.setLstNoeud(alNoeud);
-	}
+	}*/
 }
