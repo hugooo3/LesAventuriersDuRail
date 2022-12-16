@@ -38,7 +38,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 
 		// Bouton suivant
 		this.btnSuivant = new JButton("Suivant");
-		// this.btnSuivant.addActionListener(this);
+		this.btnSuivant.addActionListener(this);
 		this.btnSuivant.setBackground(Color.GRAY);
 		this.btnSuivant.setBorderPainted(false);
 		this.btnSuivant.setFocusPainted(false);
