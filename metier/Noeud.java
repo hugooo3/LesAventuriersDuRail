@@ -20,17 +20,30 @@ public class Noeud
 	public int getX() {return this.x;}
 	public int getY() {return this.y;}
 	public int getNomDeltaX() {return this.nomDeltaX;}
-	public int getNomDeltaY() {return this.nomDeltaY;}	
+	public int getNomDeltaY() {return this.nomDeltaY;}
+	public int getNomX() {return this.x + this.nomDeltaX;}
+	public int getNomY() {return this.y + this.nomDeltaY;}	
 
 	public void setX(int x) {this.x = x;}
 	public void setY(int y) {this.y = y;}	
-	public void setNomDeltaX(int nomDeltaX) {this.nomDeltaX = nomDeltaX;}
-	public void setNomDeltaY(int nomDeltaY) {this.nomDeltaY = nomDeltaY;}
+	public void setNomDeltaX(int nomX) {this.nomDeltaX = nomX - this.x - this.nom.length() * 2;}
+	public void setNomDeltaY(int nomY) {this.nomDeltaY = nomY - this.y;}
 	public void setNom(String nom) {this.nom = nom;}
 
 	@Override
 	public String toString() 
 	{
 		return this.nom;
+	} 
+
+	public String aff() {
+		return "{" +
+			" nom='" + getNom() + "'" +
+			", x='" + getX() + "'" +
+			", y='" + getY() + "'" +
+			", nomDeltaX='" + getNomDeltaX() + "'" +
+			", nomDeltaY='" + getNomDeltaY() + "'" +
+			"}";
 	}
+	
 }

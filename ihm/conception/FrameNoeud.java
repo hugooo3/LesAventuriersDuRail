@@ -42,6 +42,8 @@ public class FrameNoeud extends Frame {
 
 	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds) {return this.app.creerAlNoeuds(ListNoeuds);}
 
+	public void majIHM() {this.panelMappeNoeud.majIHM();}
+
 	public void verifMAJ(String source) {this.app.verifMAJ(source);}
 
 	public void majLstNoeuds(ArrayList<Noeud> alNoeud) {this.panelLstNoeud.majLstNoeuds(alNoeud);}

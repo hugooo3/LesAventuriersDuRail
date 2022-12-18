@@ -49,14 +49,11 @@ public class NoeudDessin extends Noeud
 
 	public Rectangle2D getRectangle2d() {return this.rectangle2d;}
 
-	public int getNomDeltaX() {return this.x + this.nomDeltaX;}
-	public int getNomDeltaY() {return this.y + this.nomDeltaY;}
-
 	public void setX(int x) {this.x = x - this.radiusEllipse; this.setRectangleX();}
 	public void setY(int y) {this.y = y - this.radiusEllipse; this.setRectangleY();}	
 
-	public void setNomDeltaX(int nomX) {this.nomDeltaX = nomX - this.x - this.nom.length() * 2;	this.setRectangleX();}
-	public void setNomDeltaY(int nomY) {this.nomDeltaY = nomY - this.y;							this.setRectangleY();}
+	public void setNomDeltaX(int nomX) {super.setNomDeltaX(nomX); this.setRectangleX();}
+	public void setNomDeltaY(int nomY) {super.setNomDeltaY(nomY); this.setRectangleY();}
 
 	public void setEllipseX(int ellipseX) {this.ellipseX = ellipseX - this.radiusEllipse; this.majEllipse2D();}
 	public void setEllipseY(int ellipseY) {this.ellipseY = ellipseY - this.radiusEllipse; this.majEllipse2D();}
@@ -66,8 +63,8 @@ public class NoeudDessin extends Noeud
 		this.ellipse2D = new Ellipse2D.Double(this.ellipseX + (radiusEllipse / 2), this.ellipseY + (radiusEllipse / 2), radiusEllipse, radiusEllipse);
 	}
 
-	public void setRectangleX() {this.rectangleX = this.getNomDeltaX() - this.MARGE_X;	this.majRectangle2D();}
-	public void setRectangleY() {this.rectangleY = this.getNomDeltaY() + this.MARGE_Y;	this.majRectangle2D();}
+	public void setRectangleX() {this.rectangleX = this.getNomX() - this.MARGE_X;	this.majRectangle2D();}
+	public void setRectangleY() {this.rectangleY = this.getNomY() + this.MARGE_Y;	this.majRectangle2D();}
 
 	public void setRectangleLongueur() {this.longueurRectangle = this.nom.length() * 7 + 5; this.majRectangle2D();} // Si le texte est maj -> Resize la box
 

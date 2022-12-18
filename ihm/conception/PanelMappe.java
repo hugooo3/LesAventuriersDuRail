@@ -153,7 +153,9 @@ public class PanelMappe extends JPanel
 			g2d.fill(noeud.getRectangle2d());
 			g2d.setColor(Color.BLACK);
 			g2d.draw(noeud.getRectangle2d());
-			g2d.drawString(noeud.getNom(), noeud.getNomDeltaX(), noeud.getNomDeltaY());
+			g2d.drawString(noeud.getNom(), noeud.getNomX(), noeud.getNomY());
 		}
 	}
+
+	public void majIHM() {this.repaint();}
 }

@@ -12,7 +12,7 @@ import java.util.ArrayList;
 
 import metier.Noeud;
 
-public class PanelLstNoeud extends JPanel implements ActionListener, ListSelectionListener 
+public class PanelLstNoeud extends JPanel implements ActionListener, ListSelectionListener
 {
 	private FrameNoeud frame;
 	private File imagePathNoeud;
@@ -122,7 +122,96 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			{
 				JOptionPane.showMessageDialog(null, "Veuillez selectionner un noeud");
 			}
+		}
 
+		if (e.getSource() == this.btnModif && this.lstNoeud.getSelectedValue() != null)
+		{
+			
+			JPanel panelPopUpModif = new JPanel(new GridBagLayout());
+			GridBagConstraints gbcModif = new GridBagConstraints();
+			gbcModif.insets = new Insets(5, 2, 5, 2);
+
+			Noeud noeudSelect = this.lstNoeud.getSelectedValue();
+
+			//TextField des attributs
+			JTextField txtNom 	= new JTextField(noeudSelect.getNom(), 10);
+			JTextField txtX 	= new JTextField(Integer.toString(noeudSelect.getX()), 5);
+			JTextField txtY 	= new JTextField(Integer.toString(noeudSelect.getY()), 5);
+			JTextField txtNomX 	= new JTextField(Integer.toString(noeudSelect.getNomX()), 5);
+			JTextField txtNomY 	= new JTextField(Integer.toString(noeudSelect.getNomY()), 5);
+			
+			//Nom
+			gbcModif.gridx = 0;
+			gbcModif.gridy = 0;
+			panelPopUpModif.add(new JLabel("Nom"), gbcModif);
+
+			gbcModif.gridx = 0;
+			gbcModif.gridy = 1;
+			panelPopUpModif.add(txtNom, gbcModif);
+
+			//Coord disque
+			gbcModif.gridx = 0;
+			gbcModif.gridy = 2;
+			gbcModif.gridwidth = 3;
+			gbcModif.fill = GridBagConstraints.HORIZONTAL;
+			panelPopUpModif.add(new JLabel("Position du disque"), gbcModif);
+
+			gbcModif.gridx = 0;
+			gbcModif.gridy = 3;
+			gbcModif.gridwidth = 1;
+			gbcModif.fill = GridBagConstraints.NONE;
+			panelPopUpModif.add(new JLabel("x "), gbcModif);
+
+			gbcModif.gridx = 1;
+			gbcModif.gridy = 3;
+			panelPopUpModif.add(txtX, gbcModif);
+
+			gbcModif.gridx = 2;
+			gbcModif.gridy = 3;
+			panelPopUpModif.add(new JLabel("y "), gbcModif);
+
+			gbcModif.gridx = 3;
+			gbcModif.gridy = 3;
+			panelPopUpModif.add(txtY, gbcModif);
+			
+			//Coord nom
+			gbcModif.gridx = 0;
+			gbcModif.gridy = 4;
+			gbcModif.gridwidth = 3;
+			gbcModif.fill = GridBagConstraints.HORIZONTAL;
+			panelPopUpModif.add(new JLabel("Position du nom"), gbcModif);
+
+			gbcModif.gridx = 0;
+			gbcModif.gridy = 5;
+			gbcModif.gridwidth = 1;
+			gbcModif.fill = GridBagConstraints.NONE;
+			panelPopUpModif.add(new JLabel("x "), gbcModif);
+
+			gbcModif.gridx = 1;
+			gbcModif.gridy = 5;
+			panelPopUpModif.add(txtNomX, gbcModif);
+
+			gbcModif.gridx = 2;
+			gbcModif.gridy = 5;
+			panelPopUpModif.add(new JLabel("y "), gbcModif);
+
+			gbcModif.gridx = 3;
+			gbcModif.gridy = 5;
+			panelPopUpModif.add(txtNomY, gbcModif);
+			
+			System.out.println(noeudSelect.aff());
+
+			JOptionPane.showMessageDialog(null, panelPopUpModif);
+
+			noeudSelect.setNom(txtNom.getText());
+			noeudSelect.setX(Integer.parseInt(txtX.getText()));
+			noeudSelect.setY(Integer.parseInt(txtY.getText()));
+			noeudSelect.setNomDeltaX(Integer.parseInt(txtNomX.getText()));
+			noeudSelect.setNomDeltaY(Integer.parseInt(txtNomY.getText()));
+
+			System.out.println(noeudSelect.aff());
+			this.setLstNoeud(this.alstNoeud);
+			this.frame.majIHM();
 		}
 
 	}
