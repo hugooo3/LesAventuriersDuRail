@@ -123,12 +123,15 @@ public class PanelMappe extends JPanel
 
 	public void setLstNoeud(ArrayList<Noeud> alNoeud) 
 	{
+		ArrayList<NoeudDessin> alNoeudDessin = new ArrayList<NoeudDessin>();
+
 		this.alNoeud = alNoeud;
 
 		for (Noeud noeud : this.alNoeud) 
 		{
-			this.alNoeudDessin.add(new NoeudDessin(noeud.getNom(), noeud.getX(), noeud.getY(), 20));
+			alNoeudDessin.add(new NoeudDessin(noeud.getNom(), noeud.getX(), noeud.getY(), 20));
 		}
+		this.alNoeudDessin = alNoeudDessin;
 	}
 
 	public void paint(Graphics g) 

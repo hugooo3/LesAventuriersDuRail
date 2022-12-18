@@ -11,6 +11,7 @@ import java.io.File;
 import java.util.ArrayList;
 
 import metier.Noeud;
+import metier.Metier;
 
 public class PanelLstNoeud extends JPanel implements ActionListener, ListSelectionListener
 {
@@ -113,10 +114,13 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 
 		if (e.getSource() == this.btnSuppr) 
 		{
-			if (lstNoeud.getSelectedIndex() != -1) 
+			if (this.lstNoeud.getSelectedIndex() != -1) 
 			{
-				alstNoeud.remove(lstNoeud.getSelectedIndex());
-				lstNoeud.setListData(alstNoeud.toArray(new Noeud[alstNoeud.size()]));
+				this.alstNoeud.remove(this.lstNoeud.getSelectedIndex());
+				this.modelListNoeud.remove(this.lstNoeud.getSelectedIndex());
+				this.setLstNoeud(this.alstNoeud);
+				this.frame.majIHM();
+				//this.lstNoeud.setListData(this.alstNoeud.toArray(new Noeud[this.alstNoeud.size()]));
 			} 
 			else 
 			{
@@ -221,7 +225,10 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		for (Noeud noeud : alNoeud)
 		{
 			if (!this.modelListNoeud.contains(noeud))
+			{
 				this.modelListNoeud.addElement(noeud);
+				this.alstNoeud.add(noeud);
+			}
 		}
 	}
 
