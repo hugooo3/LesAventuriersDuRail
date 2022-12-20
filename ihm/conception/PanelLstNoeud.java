@@ -25,7 +25,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	private DefaultListModel<Noeud> modelListNoeud;
 	private GridBagConstraints gbc = new GridBagConstraints();
 
-	public PanelLstNoeud(FrameNoeud frame, File imagePath, int largeur, int hauteur) 
+	public PanelLstNoeud(FrameNoeud frame, File imagePath, int largeur, int hauteur, ArrayList<Noeud> alstNoeud) 
 	{
 		this.frame = frame;
 		this.imagePathNoeud = imagePath;
@@ -35,7 +35,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		this.gbc.insets = new Insets(5, 5, 5, 5);
 		this.setLayout(new GridBagLayout());
 
-		this.alstNoeud = new ArrayList<Noeud>();
+		this.alstNoeud = alstNoeud;
 		this.modelListNoeud = new DefaultListModel<Noeud>();
 		this.lstNoeud = new JList<Noeud>(this.modelListNoeud);
 
@@ -135,7 +135,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			GridBagConstraints gbcModif = new GridBagConstraints();
 			gbcModif.insets = new Insets(5, 2, 5, 2);
 
-			Noeud noeudSelect = this.lstNoeud.getSelectedValue();
+			Noeud noeudSelect = (Noeud)this.lstNoeud.getSelectedValue();
 
 			//TextField des attributs
 			JTextField txtNom 	= new JTextField(noeudSelect.getNom(), 10);
@@ -208,13 +208,15 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			JOptionPane.showMessageDialog(null, panelPopUpModif);
 
 			noeudSelect.setNom(txtNom.getText());
-			noeudSelect.setX(Integer.parseInt(txtX.getText()));
-			noeudSelect.setY(Integer.parseInt(txtY.getText()));
+			noeudSelect.setX(Integer.parseInt(txtX.getText())); // Il utilise le setX de noeudDessin
+			noeudSelect.setY(Integer.parseInt(txtY.getText())); // Il utilise le setY de noeudDessin
 			noeudSelect.setNomDeltaX(Integer.parseInt(txtNomX.getText()));
 			noeudSelect.setNomDeltaY(Integer.parseInt(txtNomY.getText()));
 
-			System.out.println(noeudSelect.aff());
+			this.affichageTab();
+			System.out.println("\n" + noeudSelect.aff());
 			this.setLstNoeud(this.alstNoeud);
+			this.lstNoeud.clearSelection();
 			this.frame.majIHM();
 		}
 
@@ -227,7 +229,6 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			if (!this.modelListNoeud.contains(noeud))
 			{
 				this.modelListNoeud.addElement(noeud);
-				this.alstNoeud.add(noeud);
 			}
 		}
 	}
@@ -238,5 +239,14 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	public void valueChanged(ListSelectionEvent e) 
 	{
 		// TODO Auto-generated method stub
+	}
+
+	private void affichageTab()
+	{
+		System.out.println("\nPanelLstNoeud :");
+		for (Noeud noeud : this.alstNoeud)
+		{
+			System.out.println(noeud.aff());
+		}
 	}
 }

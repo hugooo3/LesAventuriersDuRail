@@ -22,14 +22,19 @@ public class PanelMappe extends JPanel
 	private Frame frame;
 
 	public ArrayList<NoeudDessin> alNoeudDessin = new ArrayList<NoeudDessin>();
-	public ArrayList<Noeud> alNoeud = new ArrayList<Noeud>();
+	public ArrayList<Noeud> alNoeud;
 
-	public PanelMappe(Frame frame, File imagePath, int largeur, int hauteur, boolean cliquable) 
+	public PanelMappe(Frame frame, File imagePath, int largeur, int hauteur, ArrayList<Noeud> alstNoeud, boolean cliquable) 
 	{
 		this.frame = frame;
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		this.cliquable = cliquable;
+
+		if (alstNoeud != null)
+			this.alNoeud = alstNoeud;
+		else
+			this.alNoeud = new ArrayList<Noeud>();
 
 		this.setLayout(null);
 		this.img = getToolkit().getImage(imagePath.getAbsolutePath());
@@ -44,20 +49,21 @@ public class PanelMappe extends JPanel
 				{
 					for (NoeudDessin noeudDessin : PanelMappe.this.alNoeudDessin) 
 					{
-						if (noeudDessin.getEllipse2D().contains(e.getPoint())) 
+						affichageTab();
+						if (noeudDessin.getEllipse2D().contains(e.getPoint())) // Clique sur un noeud
 						{
-							// JOptionPane.showMessageDialog(frame, "Un noeud existe déjà à cet
-							// emplacement");
+							// JOptionPane.showMessageDialog(frame, "Un noeud existe déjà à cet emplacement");
 							PanelMappe.this.noeudSelec = noeudDessin;
 							return;
 						}
-						else if (noeudDessin.getRectangle2d().contains(e.getPoint()))
+						else if (noeudDessin.getRectangle2d().contains(e.getPoint())) // Clique sur le nom du noeud
 						{
 							PanelMappe.this.noeudTexteSelec = noeudDessin;
 							return;
 						}
 					}
 
+					// Rien sur le clique, creation d'un noeud
 					JLabel lblNom = new JLabel("Nom du Noeud : ");
 					String nomNoeud = JOptionPane.showInputDialog(PanelMappe.this.frame, lblNom, "Création d'un Noeud",
 							JOptionPane.QUESTION_MESSAGE);
@@ -79,17 +85,17 @@ public class PanelMappe extends JPanel
 					PanelMappe.this.alNoeudDessin.add(PanelMappe.this.noeudSelec); // C'est le même noeud qui est ajoute dans les deux lists
 					PanelMappe.this.alNoeud.add(PanelMappe.this.noeudSelec); // Si un noeud d'une liste est modif, l'autre aussi
 
-					if (PanelMappe.this.frame instanceof FrameNoeud)
+ 					if (PanelMappe.this.frame instanceof FrameNoeud)
 					{
 						((FrameNoeud) PanelMappe.this.frame).majLstNoeuds(PanelMappe.this.alNoeud);
 					}
-
 					repaint();
 				}
 
 				@Override
 				public void mouseReleased(MouseEvent e) 
 				{
+					affichageTab();
 					PanelMappe.this.noeudSelec = null;
 					PanelMappe.this.noeudTexteSelec = null;
 				}
@@ -161,4 +167,20 @@ public class PanelMappe extends JPanel
 	}
 
 	public void majIHM() {this.repaint();}
+
+	private void affichageTab()
+	{
+		System.out.println("PanelMappe :");
+		System.out.println("Noeud");
+		for (Noeud noeud : this.alNoeud)
+		{
+			System.out.println(noeud.aff());
+		}
+
+		System.out.println("NoeudDessin");
+		for (Noeud noeud : this.alNoeudDessin)
+		{
+			System.out.println(noeud.aff());
+		}
+	}
 }

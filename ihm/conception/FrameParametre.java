@@ -29,7 +29,7 @@ public class FrameParametre extends Frame {
 		this.app = app;
 
 		// Définition des deux panels principaux
-		this.panelMappe = new PanelMappe(this, imagePath, this.LARGEUR, this.HAUTEUR, false);
+		this.panelMappe = new PanelMappe(this, imagePath, this.LARGEUR, this.HAUTEUR, null, false);
 
 		// Rajout de imagePath pour le donner au suivant sur le bouton suivant
 		this.panelParam = new PanelParam(this, imagePath, this.LARGEUR, this.HAUTEUR);

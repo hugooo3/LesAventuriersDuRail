@@ -23,15 +23,17 @@ public class FrameNoeud extends Frame {
 
 	private PanelMappe panelMappeNoeud;
 	private PanelLstNoeud panelLstNoeud;
+	private ArrayList<Noeud> alstNoeud;
 
 	public FrameNoeud(Application app, File imagePath) 
 	{
 		this.app = app;
+		this.alstNoeud = new ArrayList<Noeud>();
 
 		// Définition des deux panels principaux
-		this.panelMappeNoeud = new PanelMappe(this, imagePath, this.LARGEUR, this.HAUTEUR, true);
+		this.panelMappeNoeud = new PanelMappe(this, imagePath, this.LARGEUR, this.HAUTEUR, this.alstNoeud, true);
 
-		this.panelLstNoeud = new PanelLstNoeud(this, imagePath, this.LARGEUR, this.HAUTEUR);
+		this.panelLstNoeud = new PanelLstNoeud(this, imagePath, this.LARGEUR, this.HAUTEUR, this.alstNoeud);
 
 		// Ajout des panels à la frame
 		this.add(this.panelMappeNoeud, BorderLayout.WEST);
