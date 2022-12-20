@@ -49,14 +49,14 @@ public class NoeudDessin extends Noeud
 
 	public Rectangle2D getRectangle2d() {return this.rectangle2d;}
 
-	public void setX(int x) {this.x = x - this.radiusEllipse; this.setRectangleX();}
-	public void setY(int y) {this.y = y - this.radiusEllipse; this.setRectangleY();}	
+	public void setX(int x) {this.x = x - this.radiusEllipse; this.setRectangleX(); this.setEllipseX(x);}
+	public void setY(int y) {this.y = y - this.radiusEllipse; this.setRectangleY(); this.setEllipseY(y);}	
 
 	public void setNomDeltaX(int nomX) {super.setNomDeltaX(nomX); this.setRectangleX();}
 	public void setNomDeltaY(int nomY) {super.setNomDeltaY(nomY); this.setRectangleY();}
 
-	public void setEllipseX(int ellipseX) {this.ellipseX = ellipseX - this.radiusEllipse; this.majEllipse2D();}
-	public void setEllipseY(int ellipseY) {this.ellipseY = ellipseY - this.radiusEllipse; this.majEllipse2D();}
+	public void setEllipseX(int x) {this.ellipseX = x - this.radiusEllipse; this.majEllipse2D();}
+	public void setEllipseY(int y) {this.ellipseY = y - this.radiusEllipse; this.majEllipse2D();}
 
 	public void majEllipse2D() 
 	{

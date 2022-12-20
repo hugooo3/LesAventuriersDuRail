@@ -116,10 +116,12 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		{
 			if (this.lstNoeud.getSelectedIndex() != -1) 
 			{
-				this.alstNoeud.remove(this.lstNoeud.getSelectedIndex());
-				this.modelListNoeud.remove(this.lstNoeud.getSelectedIndex());
+				/* this.alstNoeud.remove(this.lstNoeud.getSelectedIndex());
 				this.setLstNoeud(this.alstNoeud);
+				this.modelListNoeud.remove(this.lstNoeud.getSelectedIndex()); */
+				this.removeLstNoeud(this.lstNoeud.getSelectedValue());
 				this.frame.majIHM();
+				this.frame.affichageTab();
 				//this.lstNoeud.setListData(this.alstNoeud.toArray(new Noeud[this.alstNoeud.size()]));
 			} 
 			else 
@@ -135,7 +137,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			GridBagConstraints gbcModif = new GridBagConstraints();
 			gbcModif.insets = new Insets(5, 2, 5, 2);
 
-			Noeud noeudSelect = (Noeud)this.lstNoeud.getSelectedValue();
+			Noeud noeudSelect = this.lstNoeud.getSelectedValue();
 
 			//TextField des attributs
 			JTextField txtNom 	= new JTextField(noeudSelect.getNom(), 10);
@@ -202,8 +204,6 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			gbcModif.gridx = 3;
 			gbcModif.gridy = 5;
 			panelPopUpModif.add(txtNomY, gbcModif);
-			
-			System.out.println(noeudSelect.aff());
 
 			JOptionPane.showMessageDialog(null, panelPopUpModif);
 
@@ -213,9 +213,8 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			noeudSelect.setNomDeltaX(Integer.parseInt(txtNomX.getText()));
 			noeudSelect.setNomDeltaY(Integer.parseInt(txtNomY.getText()));
 
-			this.affichageTab();
-			System.out.println("\n" + noeudSelect.aff());
-			this.setLstNoeud(this.alstNoeud);
+			this.frame.affichageTab();
+			this.modifierLstNoeud(this.lstNoeud.getSelectedIndex());
 			this.lstNoeud.clearSelection();
 			this.frame.majIHM();
 		}
@@ -233,7 +232,16 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		}
 	}
 
-	public void setLstNoeud(ArrayList<Noeud> alNoeud) {this.frame.setLstNoeud(alNoeud);}
+	//public void setLstNoeud(ArrayList<Noeud> alNoeud) {this.frame.setLstNoeud(alNoeud);}
+
+	public void removeLstNoeud(Noeud noeud)
+	{		
+		this.alstNoeud.remove(noeud);
+		this.modelListNoeud.removeElement(noeud);
+		this.frame.removeLstNoeud(noeud);
+	}
+
+	public void modifierLstNoeud(int noeudPos) {this.frame.modifierLstNoeud(noeudPos);}
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) 
@@ -241,12 +249,12 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		// TODO Auto-generated method stub
 	}
 
-	private void affichageTab()
+	public void affichageTab()
 	{
 		System.out.println("\nPanelLstNoeud :");
 		for (Noeud noeud : this.alstNoeud)
 		{
-			System.out.println(noeud.aff());
+			System.out.println(noeud.aff() + " " + noeud.aff().hashCode());
 		}
 	}
 }

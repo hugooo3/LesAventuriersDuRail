@@ -49,7 +49,6 @@ public class PanelMappe extends JPanel
 				{
 					for (NoeudDessin noeudDessin : PanelMappe.this.alNoeudDessin) 
 					{
-						affichageTab();
 						if (noeudDessin.getEllipse2D().contains(e.getPoint())) // Clique sur un noeud
 						{
 							// JOptionPane.showMessageDialog(frame, "Un noeud existe déjà à cet emplacement");
@@ -89,6 +88,7 @@ public class PanelMappe extends JPanel
 					{
 						((FrameNoeud) PanelMappe.this.frame).majLstNoeuds(PanelMappe.this.alNoeud);
 					}
+					affichageTab();
 					repaint();
 				}
 
@@ -117,8 +117,8 @@ public class PanelMappe extends JPanel
 						PanelMappe.this.noeudSelec.setX(e.getX());
 						PanelMappe.this.noeudSelec.setY(e.getY());
 
-						PanelMappe.this.noeudSelec.setEllipseX(e.getX());
-						PanelMappe.this.noeudSelec.setEllipseY(e.getY());
+						//PanelMappe.this.noeudSelec.setEllipseX(e.getX());
+						//PanelMappe.this.noeudSelec.setEllipseY(e.getY());
 
 						repaint();
 					}
@@ -138,6 +138,13 @@ public class PanelMappe extends JPanel
 			alNoeudDessin.add(new NoeudDessin(noeud.getNom(), noeud.getX(), noeud.getY(), 20));
 		}
 		this.alNoeudDessin = alNoeudDessin;
+	}
+
+	public void removeLstNoeud(Noeud noeud) {this.alNoeudDessin.remove(noeud);}
+	public void modifierLstNoeud(int noeudPos) 
+	{
+		this.alNoeudDessin.get(noeudPos).setRectangleLongueur();
+		this.alNoeudDessin.get(noeudPos).majEllipse2D();
 	}
 
 	public void paint(Graphics g) 
@@ -168,19 +175,24 @@ public class PanelMappe extends JPanel
 
 	public void majIHM() {this.repaint();}
 
-	private void affichageTab()
+	public void affichageTab()
 	{
-		System.out.println("PanelMappe :");
+		System.out.println("\nPanelMappe :");
 		System.out.println("Noeud");
 		for (Noeud noeud : this.alNoeud)
 		{
-			System.out.println(noeud.aff());
+			System.out.println(noeud.aff() + " " + noeud.aff().hashCode());
 		}
 
 		System.out.println("NoeudDessin");
 		for (Noeud noeud : this.alNoeudDessin)
 		{
-			System.out.println(noeud.aff());
+			System.out.println(noeud.aff() + " " + noeud.aff().hashCode());
+		}
+		
+		if (PanelMappe.this.frame instanceof FrameNoeud)
+		{
+			((FrameNoeud) PanelMappe.this.frame).getPanelLstNoeud().affichageTab();
 		}
 	}
 }
