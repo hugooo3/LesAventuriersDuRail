@@ -11,7 +11,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import metier.Noeud;
-import metier.Metier;
 
 public class PanelLstNoeud extends JPanel implements ActionListener, ListSelectionListener
 {
@@ -116,13 +115,8 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		{
 			if (this.lstNoeud.getSelectedIndex() != -1) 
 			{
-				/* this.alstNoeud.remove(this.lstNoeud.getSelectedIndex());
-				this.setLstNoeud(this.alstNoeud);
-				this.modelListNoeud.remove(this.lstNoeud.getSelectedIndex()); */
 				this.removeLstNoeud(this.lstNoeud.getSelectedValue());
 				this.frame.majIHM();
-				this.frame.affichageTab();
-				//this.lstNoeud.setListData(this.alstNoeud.toArray(new Noeud[this.alstNoeud.size()]));
 			} 
 			else 
 			{
@@ -208,12 +202,11 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			JOptionPane.showMessageDialog(null, panelPopUpModif);
 
 			noeudSelect.setNom(txtNom.getText());
-			noeudSelect.setX(Integer.parseInt(txtX.getText())); // Il utilise le setX de noeudDessin
-			noeudSelect.setY(Integer.parseInt(txtY.getText())); // Il utilise le setY de noeudDessin
-			noeudSelect.setNomDeltaX(Integer.parseInt(txtNomX.getText()));
+			noeudSelect.setX(Integer.parseInt(txtX.getText()) + 20); // Pas propre, c'est le radius du NoeudDessin qui faut ajouter
+			noeudSelect.setY(Integer.parseInt(txtY.getText()) + 20); // Pas propre, c'est le radius du NoeudDessin qui faut ajouter
+			noeudSelect.setNomDeltaX(Integer.parseInt(txtNomX.getText()) );
 			noeudSelect.setNomDeltaY(Integer.parseInt(txtNomY.getText()));
 
-			this.frame.affichageTab();
 			this.modifierLstNoeud(this.lstNoeud.getSelectedIndex());
 			this.lstNoeud.clearSelection();
 			this.frame.majIHM();
@@ -232,8 +225,6 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		}
 	}
 
-	//public void setLstNoeud(ArrayList<Noeud> alNoeud) {this.frame.setLstNoeud(alNoeud);}
-
 	public void removeLstNoeud(Noeud noeud)
 	{		
 		this.alstNoeud.remove(noeud);
@@ -244,17 +235,5 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	public void modifierLstNoeud(int noeudPos) {this.frame.modifierLstNoeud(noeudPos);}
 
 	@Override
-	public void valueChanged(ListSelectionEvent e) 
-	{
-		// TODO Auto-generated method stub
-	}
-
-	public void affichageTab()
-	{
-		System.out.println("\nPanelLstNoeud :");
-		for (Noeud noeud : this.alstNoeud)
-		{
-			System.out.println(noeud.aff() + " " + noeud.aff().hashCode());
-		}
-	}
+	public void valueChanged(ListSelectionEvent arg0) {}
 }

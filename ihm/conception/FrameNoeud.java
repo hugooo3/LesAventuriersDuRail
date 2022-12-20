@@ -1,21 +1,19 @@
 package ihm.conception;
 
-import javax.swing.*;
-
 import application.Application;
 import metier.*;
 
-import java.awt.event.*;
 import java.io.File;
 import java.util.ArrayList;
 import java.awt.BorderLayout;
 
 import ihm.Frame;
 
-public class FrameNoeud extends Frame {
-
+public class FrameNoeud extends Frame 
+{
 	@Override
-	public String getName() {
+	public String getName() 
+	{
 		return "Définition des Noeuds";
 	}
 
@@ -42,7 +40,6 @@ public class FrameNoeud extends Frame {
 
 	public PanelLstNoeud getPanelLstNoeud() {return this.panelLstNoeud;}
 
-
 	public Application getApp() {return this.app;}
 
 	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds) {return this.app.creerAlNoeuds(ListNoeuds);}
@@ -52,10 +49,7 @@ public class FrameNoeud extends Frame {
 	public void verifMAJ(String source) {this.app.verifMAJ(source);}
 
 	public void majLstNoeuds(ArrayList<Noeud> alNoeud) {this.panelLstNoeud.majLstNoeuds(alNoeud);}
-	
-	//public void setLstNoeud(ArrayList<Noeud> alNoeud) {this.panelMappeNoeud.setLstNoeud(alNoeud);}
 
 	public void removeLstNoeud(Noeud noeud) {this.panelMappeNoeud.removeLstNoeud(noeud);}
 	public void modifierLstNoeud(int noeudPos) {this.panelMappeNoeud.modifierLstNoeud(noeudPos);}
-	public void affichageTab() {this.panelMappeNoeud.affichageTab();}
 }
