@@ -26,7 +26,7 @@ public class Noeud
 
 	public void setX(int x) {this.x = x;}
 	public void setY(int y) {this.y = y;}	
-	public void setNomDeltaX(int nomX) {this.nomDeltaX = nomX - this.x - this.nom.length() * 2;}
+	public void setNomDeltaX(int nomX) {this.nomDeltaX = nomX - this.x;}
 	public void setNomDeltaY(int nomY) {this.nomDeltaY = nomY - this.y;}
 	public void setNom(String nom) {this.nom = nom;}
 

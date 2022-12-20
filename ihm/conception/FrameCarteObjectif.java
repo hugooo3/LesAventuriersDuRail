@@ -28,7 +28,7 @@ public class FrameCarteObjectif extends Frame {
         this.app = app;
 
         // Définition des deux panels principaux
-        this.panelMappeCarteObjectif = new PanelMappe(this, imagePath, this.LARGEUR, this.HAUTEUR, true);
+        this.panelMappeCarteObjectif = new PanelMappe(this, imagePath, this.LARGEUR, this.HAUTEUR, null, true);
 
         this.panelLstCarteObjectif = new PanelLstCarteObjectif(this, imagePath, this.LARGEUR, this.HAUTEUR);
 

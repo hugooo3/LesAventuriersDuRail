@@ -11,7 +11,6 @@ import java.io.File;
 import java.util.ArrayList;
 
 import metier.Noeud;
-import metier.Metier;
 
 public class PanelLstNoeud extends JPanel implements ActionListener, ListSelectionListener
 {
@@ -25,7 +24,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	private DefaultListModel<Noeud> modelListNoeud;
 	private GridBagConstraints gbc = new GridBagConstraints();
 
-	public PanelLstNoeud(FrameNoeud frame, File imagePath, int largeur, int hauteur) 
+	public PanelLstNoeud(FrameNoeud frame, File imagePath, int largeur, int hauteur, ArrayList<Noeud> alstNoeud) 
 	{
 		this.frame = frame;
 		this.imagePathNoeud = imagePath;
@@ -35,7 +34,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		this.gbc.insets = new Insets(5, 5, 5, 5);
 		this.setLayout(new GridBagLayout());
 
-		this.alstNoeud = new ArrayList<Noeud>();
+		this.alstNoeud = alstNoeud;
 		this.modelListNoeud = new DefaultListModel<Noeud>();
 		this.lstNoeud = new JList<Noeud>(this.modelListNoeud);
 
@@ -116,11 +115,8 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		{
 			if (this.lstNoeud.getSelectedIndex() != -1) 
 			{
-				this.alstNoeud.remove(this.lstNoeud.getSelectedIndex());
-				this.modelListNoeud.remove(this.lstNoeud.getSelectedIndex());
-				this.setLstNoeud(this.alstNoeud);
+				this.removeLstNoeud(this.lstNoeud.getSelectedValue());
 				this.frame.majIHM();
-				//this.lstNoeud.setListData(this.alstNoeud.toArray(new Noeud[this.alstNoeud.size()]));
 			} 
 			else 
 			{
@@ -202,19 +198,17 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			gbcModif.gridx = 3;
 			gbcModif.gridy = 5;
 			panelPopUpModif.add(txtNomY, gbcModif);
-			
-			System.out.println(noeudSelect.aff());
 
 			JOptionPane.showMessageDialog(null, panelPopUpModif);
 
 			noeudSelect.setNom(txtNom.getText());
-			noeudSelect.setX(Integer.parseInt(txtX.getText()));
-			noeudSelect.setY(Integer.parseInt(txtY.getText()));
-			noeudSelect.setNomDeltaX(Integer.parseInt(txtNomX.getText()));
+			noeudSelect.setX(Integer.parseInt(txtX.getText()) + 20); // Pas propre, c'est le radius du NoeudDessin qui faut ajouter
+			noeudSelect.setY(Integer.parseInt(txtY.getText()) + 20); // Pas propre, c'est le radius du NoeudDessin qui faut ajouter
+			noeudSelect.setNomDeltaX(Integer.parseInt(txtNomX.getText()) );
 			noeudSelect.setNomDeltaY(Integer.parseInt(txtNomY.getText()));
 
-			System.out.println(noeudSelect.aff());
-			this.setLstNoeud(this.alstNoeud);
+			this.modifierLstNoeud(this.lstNoeud.getSelectedIndex());
+			this.lstNoeud.clearSelection();
 			this.frame.majIHM();
 		}
 
@@ -227,16 +221,19 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			if (!this.modelListNoeud.contains(noeud))
 			{
 				this.modelListNoeud.addElement(noeud);
-				this.alstNoeud.add(noeud);
 			}
 		}
 	}
 
-	public void setLstNoeud(ArrayList<Noeud> alNoeud) {this.frame.setLstNoeud(alNoeud);}
+	public void removeLstNoeud(Noeud noeud)
+	{		
+		this.alstNoeud.remove(noeud);
+		this.modelListNoeud.removeElement(noeud);
+		this.frame.removeLstNoeud(noeud);
+	}
+
+	public void modifierLstNoeud(int noeudPos) {this.frame.modifierLstNoeud(noeudPos);}
 
 	@Override
-	public void valueChanged(ListSelectionEvent e) 
-	{
-		// TODO Auto-generated method stub
-	}
+	public void valueChanged(ListSelectionEvent arg0) {}
 }
