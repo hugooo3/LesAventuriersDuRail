@@ -37,6 +37,15 @@ public class NoeudDessin extends Noeud
 		this.nomDeltaY = -this.MARGE_Y;
 	}
 
+	public NoeudDessin(Noeud noeud, int radius)
+	{
+		this(noeud.getNom(), noeud.getX(), noeud.getY(), radius);
+		this.nomDeltaX = noeud.getNomDeltaX();
+		this.nomDeltaY = noeud.getNomDeltaY();
+		this.setRectangleX();
+		this.setRectangleY();
+	}
+
 	public int getRadiusEllipse() {return radiusEllipse;}
 	public Ellipse2D getEllipse2D() {return ellipse2D;}
 	public int getEllipseX() {return this.ellipseX;}

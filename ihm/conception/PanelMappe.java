@@ -32,7 +32,13 @@ public class PanelMappe extends JPanel
 		this.cliquable = cliquable;
 
 		if (alstNoeud != null)
+		{
 			this.alNoeud = alstNoeud;
+			for (Noeud noeud : alstNoeud)
+			{
+				this.alNoeudDessin.add(new NoeudDessin(noeud, this.RADIUS));
+			}
+		}
 		else
 			this.alNoeud = new ArrayList<Noeud>();
 
