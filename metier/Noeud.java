@@ -34,16 +34,5 @@ public class Noeud
 	public String toString() 
 	{
 		return this.nom;
-	} 
-
-	public String aff() {
-		return "{" +
-			" nom='" + getNom() + "'" +
-			", x='" + getX() + "'" +
-			", y='" + getY() + "'" +
-			", nomDeltaX='" + getNomDeltaX() + "'" +
-			", nomDeltaY='" + getNomDeltaY() + "'" +
-			"}";
 	}
-	
 }

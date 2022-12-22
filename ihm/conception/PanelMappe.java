@@ -1,8 +1,10 @@
 package ihm.conception;
 
 import metier.*;
+import ihm.FrameConcepteur;
 
 import javax.swing.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import java.io.File;
@@ -12,120 +14,119 @@ public class PanelMappe extends JPanel
 {
 	private static int RADIUS = 20;
 
+	private FrameConcepteur concepteur;
+
 	private Image img;
 	private int largeur;
 	private int hauteur;
-	private boolean cliquable;
 	private NoeudDessin noeudSelec = null;
 	private NoeudDessin noeudTexteSelec = null;
+	private boolean cliquable = false;
 
-	private Frame frame;
 
 	public ArrayList<NoeudDessin> alNoeudDessin = new ArrayList<NoeudDessin>();
 	public ArrayList<Noeud> alNoeud;
 
-	public PanelMappe(Frame frame, File imagePath, int largeur, int hauteur, ArrayList<Noeud> alstNoeud, boolean cliquable) 
+	public PanelMappe(FrameConcepteur concepteur, int largeur, int hauteur) 
 	{
-		this.frame = frame;
+		this.concepteur = concepteur;
 		this.largeur = largeur;
 		this.hauteur = hauteur;
-		this.cliquable = cliquable;
 
-		if (alstNoeud != null)
+		this.alNoeud = this.concepteur.getMetier().getAlNoeuds();
+/* 		if (this.alNoeud != null)
 		{
-			this.alNoeud = alstNoeud;
-			for (Noeud noeud : alstNoeud)
+			for (Noeud noeud : this.alNoeud)
 			{
-				this.alNoeudDessin.add(new NoeudDessin(noeud, this.RADIUS));
+				this.alNoeudDessin.add(new NoeudDessin(noeud, PanelMappe.RADIUS));
 			}
-		}
-		else
-			this.alNoeud = new ArrayList<Noeud>();
+		} */
 
 		this.setLayout(null);
-		this.img = getToolkit().getImage(imagePath.getAbsolutePath());
 		this.setPreferredSize(new Dimension((int) (this.largeur * 0.7), this.hauteur));
 
-		if (this.cliquable) {
 			// Dessin sur le Panel
-			this.addMouseListener(new MouseAdapter() 
+		this.addMouseListener(new MouseAdapter() 
+		{
+			@Override
+			public void mousePressed(MouseEvent e) 
 			{
-				@Override
-				public void mousePressed(MouseEvent e) 
+				if (PanelMappe.this.cliquable == false) {return;}
+
+				for (NoeudDessin noeudDessin : PanelMappe.this.alNoeudDessin) 
 				{
-					for (NoeudDessin noeudDessin : PanelMappe.this.alNoeudDessin) 
+					if (noeudDessin.getEllipse2D().contains(e.getPoint())) // Clique sur un noeud
 					{
-						if (noeudDessin.getEllipse2D().contains(e.getPoint())) // Clique sur un noeud
-						{
-							PanelMappe.this.noeudSelec = noeudDessin;
-							return;
-						}
-						else if (noeudDessin.getRectangle2d().contains(e.getPoint())) // Clique sur le nom du noeud
-						{
-							PanelMappe.this.noeudTexteSelec = noeudDessin;
-							return;
-						}
+						PanelMappe.this.noeudSelec = noeudDessin;
+						return;
 					}
+					else if (noeudDessin.getRectangle2d().contains(e.getPoint())) // Clique sur le nom du noeud
+					{
+						PanelMappe.this.noeudTexteSelec = noeudDessin;
+						return;
+					}
+				}
 
-					// Rien sur le clique, creation d'un noeud
-					JLabel lblNom = new JLabel("Nom du Noeud : ");
-					String nomNoeud = JOptionPane.showInputDialog(PanelMappe.this.frame, lblNom, "Création d'un Noeud",
+				// Rien sur le clique, creation d'un noeud
+				JLabel lblNom = new JLabel("Nom du Noeud : ");
+				String nomNoeud = JOptionPane.showInputDialog(PanelMappe.this, lblNom, "Création d'un Noeud",
+						JOptionPane.QUESTION_MESSAGE);
+
+				while (nomNoeud == null || nomNoeud.equals(""))
+				{
+					if (nomNoeud == null) // bouton annuler
+						return;
+
+					JOptionPane.showMessageDialog(null, "Le champ saisi ne peut être vide !", "Erreur",
+							JOptionPane.ERROR_MESSAGE);
+
+					nomNoeud = JOptionPane.showInputDialog(PanelMappe.this, lblNom, "Création d'un Noeud",
 							JOptionPane.QUESTION_MESSAGE);
+				}
 
-					while (nomNoeud == null || nomNoeud.equals(""))
-					{
-						if (nomNoeud == null) // bouton annuler
-							return;
+				PanelMappe.this.noeudSelec = new NoeudDessin(nomNoeud, e.getX() - PanelMappe.RADIUS, e.getY() - PanelMappe.RADIUS, PanelMappe.RADIUS);
+				
+				PanelMappe.this.alNoeudDessin.add(PanelMappe.this.noeudSelec); // C'est le même noeud qui est ajoute dans les deux lists
+				PanelMappe.this.alNoeud.add(PanelMappe.this.noeudSelec); // Si un noeud d'une liste est modif, l'autre aussi
+				/*  if (PanelMappe.this.app instanceof appNoeud)
+				{
+					((appNoeud) PanelMappe.this.app).majLstNoeuds(PanelMappe.this.alNoeud);
+				} */
+				PanelMappe.this.concepteur.majIHM();
+			}					
 
-						JOptionPane.showMessageDialog(null, "Le champ saisi ne peut être vide !", "Erreur",
-								JOptionPane.ERROR_MESSAGE);
+			@Override
+			public void mouseReleased(MouseEvent e) 
+			{
+				PanelMappe.this.noeudSelec = null;
+				PanelMappe.this.noeudTexteSelec = null;
+			}
+		});
 
-						nomNoeud = JOptionPane.showInputDialog(PanelMappe.this.frame, lblNom, "Création d'un Noeud",
-								JOptionPane.QUESTION_MESSAGE);
-					}
+		this.addMouseMotionListener(new MouseMotionAdapter() 
+		{
+			public void mouseDragged(MouseEvent e) 
+			{
+				if (PanelMappe.this.noeudTexteSelec != null)
+				{
+					PanelMappe.this.noeudTexteSelec.setNomDeltaX(e.getX());
+					PanelMappe.this.noeudTexteSelec.setNomDeltaY(e.getY());
 
-					PanelMappe.this.noeudSelec = new NoeudDessin(nomNoeud, e.getX() - PanelMappe.RADIUS, e.getY() - PanelMappe.RADIUS, PanelMappe.RADIUS);
-					
-					PanelMappe.this.alNoeudDessin.add(PanelMappe.this.noeudSelec); // C'est le même noeud qui est ajoute dans les deux lists
-					PanelMappe.this.alNoeud.add(PanelMappe.this.noeudSelec); // Si un noeud d'une liste est modif, l'autre aussi
-
- 					if (PanelMappe.this.frame instanceof FrameNoeud)
-					{
-						((FrameNoeud) PanelMappe.this.frame).majLstNoeuds(PanelMappe.this.alNoeud);
-					}
 					repaint();
 				}
-
-				@Override
-				public void mouseReleased(MouseEvent e) 
+				else if (PanelMappe.this.noeudSelec != null) 
 				{
-					PanelMappe.this.noeudSelec = null;
-					PanelMappe.this.noeudTexteSelec = null;
+					PanelMappe.this.noeudSelec.setX(e.getX());
+					PanelMappe.this.noeudSelec.setY(e.getY());
+
+					repaint();
 				}
-			});
-
-			this.addMouseMotionListener(new MouseMotionAdapter() 
-			{
-				public void mouseDragged(MouseEvent e) 
-				{
-					if (PanelMappe.this.noeudTexteSelec != null)
-					{
-						PanelMappe.this.noeudTexteSelec.setNomDeltaX(e.getX());
-						PanelMappe.this.noeudTexteSelec.setNomDeltaY(e.getY());
-
-						repaint();
-					}
-					else if (PanelMappe.this.noeudSelec != null) 
-					{
-						PanelMappe.this.noeudSelec.setX(e.getX());
-						PanelMappe.this.noeudSelec.setY(e.getY());
-
-						repaint();
-					}
-				}
-			});
-		}
+			}
+		});
 	}
+
+	public void setImg(File imagePath) {this.img = getToolkit().getImage(imagePath.getAbsolutePath()); repaint();}	
+	public boolean changeCliquable() {return this.cliquable = !this.cliquable;}
 
 	public void setLstNoeud(ArrayList<Noeud> alNoeud) 
 	{
@@ -152,7 +153,7 @@ public class PanelMappe extends JPanel
 		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(img, 1, 1, (int) this.getSize().getWidth() - 2, (int) this.getSize().getHeight() - 2, this);
+		g2d.drawImage(this.img, 1, 1, (int) this.getSize().getWidth() - 2, (int) this.getSize().getHeight() - 2, this);
 
 		for (NoeudDessin noeud : this.alNoeudDessin) 
 		{

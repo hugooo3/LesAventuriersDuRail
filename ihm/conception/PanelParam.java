@@ -1,33 +1,29 @@
 package ihm.conception;
 
+import ihm.FrameConcepteur;
+
 import javax.swing.*;
 
 import java.awt.Color;
 import java.awt.Dimension;
-import java.io.File;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
 
-public class PanelParam extends JPanel implements ActionListener {
-	private File imagePathParam;
-	private JButton btnSuivant;
-
+public class PanelParam extends JPanel 
+{
 	private JComboBox<Integer> cbNbJoueurMin;
 	private JComboBox<Integer> cbNbJoueurMax;
 	private JComboBox<Integer> cbNbJoueurVD;
 
 	private JTextField txtNbWagon;
+	private FrameConcepteur concepteur;
 
-	private FrameParametre frame;
+	public PanelParam(FrameConcepteur concepteur, int largeur, int hauteur)
+	{
+		this.concepteur = concepteur;
 
-	public PanelParam(FrameParametre frame, File imagePath, int largeur, int hauteur) {
-		this.frame = frame;
-
-		this.imagePathParam = imagePath;
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setPreferredSize(new Dimension((int) (largeur * 0.3), hauteur));
 
-		// Contenu du panel Param (droite)
+		// Contenu du panel Param 
 
 		JLabel lblNbJoueurMin = new JLabel("Nombre de joueurs minimum : ");
 		this.cbNbJoueurMin = new JComboBox<Integer>(new Integer[] { 2, 3, 4 });
@@ -43,12 +39,6 @@ public class PanelParam extends JPanel implements ActionListener {
 
 		JLabel lblNbWagon = new JLabel("Nombre de wagons par joueur : ");
 		this.txtNbWagon = new JTextField("40");
-
-		this.btnSuivant = new JButton("Suivant");
-		this.btnSuivant.addActionListener(this);
-		this.btnSuivant.setBackground(Color.GRAY);
-		this.btnSuivant.setBorderPainted(false);
-		this.btnSuivant.setFocusPainted(false);
 
 		this.setLayout(null);
 
@@ -71,26 +61,13 @@ public class PanelParam extends JPanel implements ActionListener {
 		lblNbWagon.setBounds((int) (largeur * 0.3) / 2 - 100, 200, 200, 20);
 		this.add(this.txtNbWagon);
 		this.txtNbWagon.setBounds((int) (largeur * 0.3) / 2 - 100, 220, 200, 20);
-
-		this.add(this.btnSuivant);
-		this.btnSuivant.setBounds((int) (largeur * 0.3) / 2 - 75, hauteur - 150, 150, 50);
 	}
 
-	public void sendParam() {
-		this.frame.setImgMappe(this.imagePathParam);
-		this.frame.setNbJoueurMin((int) this.cbNbJoueurMin.getSelectedItem());
-		this.frame.setNbJoueurMax((int) this.cbNbJoueurMax.getSelectedItem());
-		this.frame.setNbJoueurDoubleVoies((int) this.cbNbJoueurVD.getSelectedItem());
-		this.frame.setNbWagonJoueur(Integer.parseInt(this.txtNbWagon.getText() + ""));
-	}
-
-	public void actionPerformed(ActionEvent e) {
-		// Clic sur le bouton Suivant
-		if (e.getSource() == this.btnSuivant) {
-			this.sendParam();
-			this.frame.verifMAJ("param");
-			new FrameNoeud(this.frame.getApp(), this.imagePathParam);
-			this.frame.dispose();
-		}
+	public void sendParam() 
+	{
+		this.concepteur.setNbJoueurMin((int) this.cbNbJoueurMin.getSelectedItem());
+		this.concepteur.setNbJoueurMax((int) this.cbNbJoueurMax.getSelectedItem());
+		this.concepteur.setNbJoueurDoubleVoies((int) this.cbNbJoueurVD.getSelectedItem());
+		this.concepteur.setNbWagonJoueur(Integer.parseInt(this.txtNbWagon.getText() + ""));
 	}
 }

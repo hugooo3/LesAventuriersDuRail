@@ -2,14 +2,16 @@ package metier;
 
 import java.io.File;
 
-public class CarteDestination {
+public class CarteDestination
+{
 	private Noeud noeud1;
 	private Noeud noeud2;
 	private int points;
 	private File imgRecto;
 	private File imgVerso;
 
-	public CarteDestination(Noeud noeud1, Noeud noeud2, int points, File imgRecto, File imgVerso) {
+	public CarteDestination(Noeud noeud1, Noeud noeud2, int points, File imgRecto, File imgVerso)
+	{
 		this.noeud1 = noeud1;
 		this.noeud2 = noeud2;
 		this.points = points;

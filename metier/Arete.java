@@ -1,6 +1,7 @@
 package metier;
 
-public class Arete {
+public class Arete 
+{
 	private Noeud noeud1;
 	private Noeud noeud2;
 	private String     couleur;
