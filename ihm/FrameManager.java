@@ -12,7 +12,8 @@ import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.*;
 
-public class FrameManager extends JFrame implements ActionListener {
+public class FrameManager extends JFrame implements ActionListener
+{
 	private Application app;
 	
 	private JButton btnConcepteur;
@@ -71,14 +72,17 @@ public class FrameManager extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-	public void actionPerformed(ActionEvent e) {
-		if (e.getSource() == this.btnConcepteur) {
+	public void actionPerformed(ActionEvent e) 
+	{
+		if (e.getSource() == this.btnConcepteur)
+		{
 			this.app.reinitialiserDossierSortie();
 			new FrameConcepteur(this.app);
 			this.dispose();
 		}
 
-		if (e.getSource() == this.btnJeu) {
+		if (e.getSource() == this.btnJeu)
+		{
 			new FrameJeu();
 			this.dispose();
 		}

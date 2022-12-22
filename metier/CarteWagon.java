@@ -1,6 +1,7 @@
 package metier;
 
-public class CarteWagon {
+public class CarteWagon 
+{
 	private String couleur;
 	private String imgRecto;
 	private String imgVerso;

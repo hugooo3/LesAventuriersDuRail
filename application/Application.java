@@ -6,7 +6,8 @@ import java.util.ArrayList;
 import ihm.*;
 import metier.*;
 
-public class Application {
+public class Application 
+{
 	Metier metier;
 	FrameManager frameManager;
 
@@ -32,4 +33,12 @@ public class Application {
 	public boolean reinitialiserDossierSortie() {return this.metier.reinitialiserDossierSortie();}
 	
 	public void verifMAJ(String source) {this.metier.verifMAJ(source);}
+
+	public void ecrireXML()
+	{
+		this.metier.copierImage("imgMappe", this.metier.getImgMappe());
+
+		Mappe mappe = this.metier.creerMappe();
+		this.metier.ecrireXml(mappe);
+	}
 }

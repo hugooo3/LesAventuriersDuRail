@@ -176,7 +176,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			noeudSelect.setNomDeltaX(Integer.parseInt(txtNomX.getText()) );
 			noeudSelect.setNomDeltaY(Integer.parseInt(txtNomY.getText()));
 
-			//this.modifierLstNoeud(this.lstNoeud.getSelectedIndex());
+			this.concepteur.modifierLstNoeud(this.lstNoeud.getSelectedIndex());
 			this.lstNoeud.clearSelection();
 			this.concepteur.majIHM();
 		}
@@ -198,10 +198,9 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	{		
 		this.alstNoeud.remove(noeud);
 		this.modelListNoeud.removeElement(noeud);
-		//this.appli.removeLstNoeud(noeud);
+		this.concepteur.removeLstNoeud(noeud);
 	}
 
 	@Override
 	public void valueChanged(ListSelectionEvent arg0) {}
-
 }

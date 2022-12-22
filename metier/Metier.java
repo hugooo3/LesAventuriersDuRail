@@ -54,7 +54,6 @@ public class Metier
 	public Mappe creerMappe() 
 	{
 		return new Mappe(this.alNoeuds, this.alAretes, this.alCartesDestination, this.alCartesWagon, this.imgMappe,
-
 				this.nbJoueurMin, this.nbJoueurMax, this.nbJoueurDoubleVoies, this.nbWagonJoueur);
 	}
 
@@ -73,28 +72,31 @@ public class Metier
 		alCartesWagon = mappe.getAlCartesWagon();
 
 		/* Tri des noeuds par ordre alphabetique */
-		alNoeuds.sort(new Comparator<Noeud>() {
+		alNoeuds.sort(new Comparator<Noeud>() 
+		{
 			@Override
-			public int compare(Noeud o1, Noeud o2) {
-				return o1.getNom().compareTo(o2.getNom());
-			}
+			public int compare(Noeud o1, Noeud o2) {return o1.getNom().compareTo(o2.getNom());}
 		});
 
-		try {
+		try 
+		{
 			pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream("sortie/Mappe.xml"), "UTF-8"));
 
 			pw.println("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
 			pw.println("<liste>");
 
 			/* Generation XML : Noeud */
-			for (Noeud noeud : alNoeuds) {
+			for (Noeud noeud : alNoeuds) 
+			{
 				pw.println("\t<noeud nom=\"" + noeud.getNom() + "\">");
 				pw.println("\t\t<coordonees x=\"" + noeud.getX() + "\" y=\"" + noeud.getY() + "\"/>");
+				pw.println("\t\t<coordoneesNom x=\"" + noeud.getNomX() + "\" y=\"" + noeud.getNomY() + "\"/>");
 				pw.println("\t</noeud>");
 			}
 
 			/* Generation XML : Arete */
-			for (Arete arete : alAretes) {
+			for (Arete arete : alAretes) 
+			{
 				pw.println("\t<arete>");
 				pw.println("\t\t<noeud1>" + arete.getNoeud1().getNom() + "</noeud1>");
 				pw.println("\t\t<noeud2>" + arete.getNoeud2().getNom() + "</noeud2>");
@@ -105,7 +107,8 @@ public class Metier
 			}
 
 			/* Generation XML : CarteDestination */
-			for (CarteDestination carteDestination : alCartesDestination) {
+			for (CarteDestination carteDestination : alCartesDestination) 
+			{
 				pw.println("\t<carteDestination>");
 				pw.println("\t\t<noeud1>" + carteDestination.getNoeud1().getNom() + "</noeud1>");
 				pw.println("\t\t<noeud2>" + carteDestination.getNoeud2().getNom() + "</noeud2>");
@@ -116,7 +119,8 @@ public class Metier
 			}
 
 			/* Generation XML : CarteWagon */
-			for (CarteWagon carteWagon : alCartesWagon) {
+			for (CarteWagon carteWagon : alCartesWagon) 
+			{
 				pw.println("\t<carteWagon>");
 				pw.println("\t\t<couleur>" + carteWagon.getCouleur() + "</couleur>");
 				pw.println("\t\t<imgRecto>" + carteWagon.getImgRecto() + "</imgRecto>");
@@ -127,11 +131,8 @@ public class Metier
 			pw.println("</liste>");
 
 			pw.close();
-		} catch (Exception e) {
-
-			e.printStackTrace();
-
-		}
+		} 
+		catch (Exception e) {e.printStackTrace();}
 	}
 
 	public boolean copierImage(String nom, File file)
@@ -142,9 +143,12 @@ public class Metier
 		if (extension.equals(".jpg") || extension.equals(".jpeg") || extension.equals(".JPG") || extension.equals(".JPEG") || extension.equals(".png") || extension.equals(".PNG"))
 		{
 			File target = new File("sortie/" + nom + extension);	
-			try {
+			try 
+			{
 				Files.copy(src.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
-			} catch (IOException e) {
+			} 
+			catch (IOException e) 
+			{
 				System.out.println("Erreur lors de la copie de l'image");
 				e.printStackTrace();
 			}
