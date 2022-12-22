@@ -1,10 +1,9 @@
 package ihm.conception;
 
 import metier.*;
+import ihm.FrameConcepteur;
 
 import javax.swing.*;
-
-import application.Application;
 
 import java.awt.*;
 import java.awt.event.*;
@@ -15,7 +14,7 @@ public class PanelMappe extends JPanel
 {
 	private static int RADIUS = 20;
 
-	private Application app;
+	private FrameConcepteur concepteur;
 
 	private Image img;
 	private int largeur;
@@ -28,13 +27,13 @@ public class PanelMappe extends JPanel
 	public ArrayList<NoeudDessin> alNoeudDessin = new ArrayList<NoeudDessin>();
 	public ArrayList<Noeud> alNoeud;
 
-	public PanelMappe(Application app, int largeur, int hauteur) 
+	public PanelMappe(FrameConcepteur concepteur, int largeur, int hauteur) 
 	{
-		this.app = app;
+		this.concepteur = concepteur;
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 
-		this.alNoeud = this.app.getMetier().getAlNoeuds();
+		this.alNoeud = this.concepteur.getMetier().getAlNoeuds();
 /* 		if (this.alNoeud != null)
 		{
 			for (Noeud noeud : this.alNoeud)
@@ -93,7 +92,7 @@ public class PanelMappe extends JPanel
 				{
 					((appNoeud) PanelMappe.this.app).majLstNoeuds(PanelMappe.this.alNoeud);
 				} */
-				repaint();
+				PanelMappe.this.concepteur.majIHM();
 			}					
 
 			@Override

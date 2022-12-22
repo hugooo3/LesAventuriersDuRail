@@ -8,13 +8,10 @@ import java.io.PrintWriter;
 import java.nio.file.Files;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
-import java.util.Comparator; 
+import java.util.Comparator;
 
-import application.Application;
-
-public class Metier {
-	private Application app;
-
+public class Metier 
+{
 	private ArrayList<Noeud> alNoeuds;
 	private ArrayList<Arete> alAretes;
 	private ArrayList<CarteDestination> alCartesDestination;
@@ -25,9 +22,8 @@ public class Metier {
 	private int nbJoueurDoubleVoies;
 	private int nbWagonJoueur;
 
-	public Metier(Application app) 
+	public Metier() 
 	{
-		this.app = app;
 		this.alNoeuds = new ArrayList<Noeud>();
 		this.alAretes = new ArrayList<Arete>();
 		this.alCartesDestination = new ArrayList<CarteDestination>();
@@ -232,6 +228,4 @@ public class Metier {
 				break;
 		}
 	}
-
-	public boolean majIHM() { return this.app.majIHM(); }
 }
