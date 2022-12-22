@@ -85,6 +85,15 @@ public class Metier
 			pw.println("<?xml version=\"1.0\" encoding=\"UTF-8\" ?>");
 			pw.println("<liste>");
 
+			/* Generation XML : Parametre */
+
+			pw.println("\t<parametre>");
+			pw.println("\t\t<nbJoueurMin>" + this.nbJoueurMin + "</nbJoueurMin>");
+			pw.println("\t\t<nbJoueurMax>" + this.nbJoueurMax + "</nbJoueurMax>");
+			pw.println("\t\t<nbJoueurDoubleVoies>" + this.nbJoueurDoubleVoies + "</nbJoueurDoubleVoies>");
+			pw.println("\t\t<nbWagonJoueur>" + this.nbWagonJoueur + "</nbWagonJoueur>");
+			pw.println("\t</parametre>");
+
 			/* Generation XML : Noeud */
 			for (Noeud noeud : alNoeuds) 
 			{
