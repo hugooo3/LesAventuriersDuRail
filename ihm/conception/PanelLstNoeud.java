@@ -65,16 +65,15 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		this.gbc.gridwidth = 3;
 		this.gbc.fill = GridBagConstraints.HORIZONTAL;
 		this.add(this.scrollPane, this.gbc);
-
-		this.gbc.gridx = 1;
-		this.gbc.gridy = 1;
-		this.gbc.gridwidth = 1;
-		this.gbc.fill = GridBagConstraints.VERTICAL;
-		this.add(this.btnSuppr, this.gbc);
 		
 		this.gbc.gridx = 0;
 		this.gbc.gridy = 1;
+		this.gbc.gridwidth = 1;
 		this.add(this.btnModif, this.gbc);
+
+		this.gbc.gridx = 2;
+		this.gbc.gridy = 1;
+		this.add(this.btnSuppr, this.gbc);
 	}
 
 	@Override
