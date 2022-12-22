@@ -25,17 +25,45 @@ public class Metier {
 	private int nbJoueurDoubleVoies;
 	private int nbWagonJoueur;
 
-	public Metier(Application app) {
+	public Metier(Application app) 
+	{
 		this.app = app;
+		this.alNoeuds = new ArrayList<Noeud>();
+		this.alAretes = new ArrayList<Arete>();
+		this.alCartesDestination = new ArrayList<CarteDestination>();
+		this.alCartesWagon = new ArrayList<CarteWagon>();
 	}
 
-	public Mappe creerMappe() {
+	public ArrayList<Noeud> getAlNoeuds() {return this.alNoeuds;}
+	public ArrayList<Arete> getAlAretes() {return this.alAretes;}
+	public ArrayList<CarteDestination> getAlCartesDestination() {return this.alCartesDestination;}
+	public ArrayList<CarteWagon> getAlCartesWagon() {return this.alCartesWagon;}
+	public File getImgMappe() {return this.imgMappe;}
+	public int getNbJoueurMin() {return this.nbJoueurMin;}
+	public int getNbJoueurMax() {return this.nbJoueurMax;}
+	public int getNbJoueurDoubleVoies() {return this.nbJoueurDoubleVoies;}
+	public int getNbWagonJoueur() {return this.nbWagonJoueur;}
+
+	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds)                                  { this.alNoeuds = ListNoeuds; return true; }
+	public boolean creerAlAretes(ArrayList<Arete> ListAretes)                                  { this.alAretes = ListAretes; return true; }
+	public boolean creerAlCartesDestination(ArrayList<CarteDestination> ListCartesDestination) { this.alCartesDestination = ListCartesDestination; return true; }
+	public boolean creerAlCartesWagon(ArrayList<CarteWagon> ListCartesWagon)                   { this.alCartesWagon = ListCartesWagon; return true; }
+
+	public boolean setImgMappe(File imgMappe)                      { this.imgMappe = imgMappe; return true; }
+	public boolean setNbJoueurMin(int nbJoueurMin)                 { this.nbJoueurMin = nbJoueurMin; return true; }
+	public boolean setNbJoueurMax(int nbJoueurMax)                 { this.nbJoueurMax = nbJoueurMax; return true; }
+	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) { this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true; }
+	public boolean setNbWagonJoueur(int nbWagonJoueur)             { this.nbWagonJoueur = nbWagonJoueur; return true; }
+
+	public Mappe creerMappe() 
+	{
 		return new Mappe(this.alNoeuds, this.alAretes, this.alCartesDestination, this.alCartesWagon, this.imgMappe,
 
 				this.nbJoueurMin, this.nbJoueurMax, this.nbJoueurDoubleVoies, this.nbWagonJoueur);
 	}
 
-	public void ecrireXml(Mappe mappe) {
+	public void ecrireXml(Mappe mappe) 
+	{
 		PrintWriter pw;
 
 		ArrayList<Noeud> alNoeuds = new ArrayList<Noeud>();
@@ -149,17 +177,6 @@ public class Metier {
 		}
 		return dossierSortie.mkdir();
 	}
-
-	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds)                                  { this.alNoeuds = ListNoeuds; return true; }
-	public boolean creerAlAretes(ArrayList<Arete> ListAretes)                                  { this.alAretes = ListAretes; return true; }
-	public boolean creerAlCartesDestination(ArrayList<CarteDestination> ListCartesDestination) { this.alCartesDestination = ListCartesDestination; return true; }
-	public boolean creerAlCartesWagon(ArrayList<CarteWagon> ListCartesWagon)                   { this.alCartesWagon = ListCartesWagon; return true; }
-
-	public boolean setImgMappe(File imgMappe)                      { this.imgMappe = imgMappe; return true; }
-	public boolean setNbJoueurMin(int nbJoueurMin)                 { this.nbJoueurMin = nbJoueurMin; return true; }
-	public boolean setNbJoueurMax(int nbJoueurMax)                 { this.nbJoueurMax = nbJoueurMax; return true; }
-	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) { this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true; }
-	public boolean setNbWagonJoueur(int nbWagonJoueur)             { this.nbWagonJoueur = nbWagonJoueur; return true; }
 
 	public void verifMAJ(String source) {
 		switch (source) {

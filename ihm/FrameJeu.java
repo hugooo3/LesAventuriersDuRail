@@ -1,6 +1,8 @@
 package ihm;
 
-public class FrameJeu extends Frame 
+import javax.swing.*;
+
+public class FrameJeu extends JFrame
 {
 	public String getName() 
 	{

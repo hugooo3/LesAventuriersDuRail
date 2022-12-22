@@ -10,10 +10,13 @@ public class Application {
 	Metier metier;
 	FrameManager frameManager;
 
-	public Application() {
+	public Application() 
+	{
 		this.metier = new Metier(this);
 		this.frameManager = new FrameManager(this);
 	}
+	
+	public Metier getMetier() {return this.metier;}
 
 	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds) {
 		return this.metier.creerAlNoeuds(ListNoeuds);
@@ -60,8 +63,7 @@ public class Application {
 	}
 
 	public boolean majIHM() 
-	{ 
-		/*MAJ de l'IHM*/
+	{
 		return false; 
 	}
 }
