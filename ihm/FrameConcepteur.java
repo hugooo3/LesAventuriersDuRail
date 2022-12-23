@@ -24,6 +24,7 @@ public class FrameConcepteur extends JFrame implements ActionListener
 	private JTabbedPane tabbedPane;
 	private PanelParam panelParam;
 	private PanelLstNoeud panelLstNoeud;
+	private PanelLstArete panelLstArete;
 
 	private JButton btnXML;
 
@@ -54,11 +55,13 @@ public class FrameConcepteur extends JFrame implements ActionListener
 		JPanel panelDroit = new JPanel(new BorderLayout());
 		this.tabbedPane = new JTabbedPane();
 		this.panelParam = new PanelParam(this, this.largeur, this.hauteur);
-		this.panelLstNoeud = new PanelLstNoeud(this, largeur, hauteur);
+		this.panelLstNoeud = new PanelLstNoeud(this, this.largeur, this.hauteur);
+		this.panelLstArete = new PanelLstArete(this, this.largeur, this.hauteur);
 
 		// Ajout des panels au tabbedPane
 		this.tabbedPane.addTab("Paramètres", this.panelParam);
 		this.tabbedPane.addTab("Liste noeud", this.panelLstNoeud);
+		this.tabbedPane.addTab("Liste arête", this.panelLstArete);
 		this.tabbedPane.setVisible(false);
 
 		this.add(this.panelMappe, BorderLayout.CENTER);
