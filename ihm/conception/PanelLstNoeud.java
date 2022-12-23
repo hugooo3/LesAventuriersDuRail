@@ -88,7 +88,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			} 
 			else 
 			{
-				JOptionPane.showMessageDialog(null, "Veuillez selectionner un noeud");
+				JOptionPane.showMessageDialog(null, "Veuillez selectionner un noeud", "Aucune sélection", JOptionPane.WARNING_MESSAGE);
 			}
 		}
 
