@@ -169,9 +169,20 @@ public class PanelLstArete extends JPanel implements ActionListener
 	{
 		if (e.getSource() == this.btnNouveau)
 		{
+			if (this.alNoeud.size() < 2)
+			{
+				JOptionPane.showMessageDialog(null, "Nombre de noeud insuffisant pour faire une arête", "Erreur", JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
 			this.majComboBox();
 
-			JOptionPane.showOptionDialog(this, this.panelPopUp, "Création d'une arête" ,JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			int n = JOptionPane.showOptionDialog(this, this.panelPopUp, "Création d'une arête" ,JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+			if (n != JOptionPane.OK_OPTION)
+			{
+				return;
+			}
 
 			Noeud noeudSelected1 = (Noeud)this.ddlstNoeud1.getSelectedItem();
 			Noeud noeudSelected2 = (Noeud)this.ddlstNoeud2.getSelectedItem();
