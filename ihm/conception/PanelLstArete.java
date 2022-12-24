@@ -60,9 +60,6 @@ public class PanelLstArete extends JPanel implements ActionListener
 		this.ddlstCouleur = new JComboBox<CarteWagon>(alCouleur.toArray(new CarteWagon[alCouleur.size()]));
 		this.ddlstCouleur.removeItemAt(alCouleur.size() - 1); // Joker retire des choix possibles
 
-		for (CarteWagon carteWagon : alCouleur)
-			System.out.println(carteWagon);
-
 		this.txtNbWagon = new JTextField("1", 5);
 		this.cbVoieDouble = new JCheckBox("Voie double");
 
@@ -177,12 +174,20 @@ public class PanelLstArete extends JPanel implements ActionListener
 
 			this.majComboBox();
 
-			int n = JOptionPane.showOptionDialog(this, this.panelPopUp, "Création d'une arête" ,JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
-			if (n != JOptionPane.OK_OPTION)
+			do 
 			{
-				return;
+				this.ddlstNoeud1.setSelectedIndex(0);
+				this.ddlstNoeud2.setSelectedIndex(1);
+				int n = JOptionPane.showOptionDialog(this, this.panelPopUp, "Création d'une arête" ,JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				
+				if ((Noeud)this.ddlstNoeud1.getSelectedItem() == (Noeud)this.ddlstNoeud2.getSelectedItem())
+					JOptionPane.showMessageDialog(null, "Les deux noeuds sélectionnés sont identiques", "Erreur", JOptionPane.ERROR_MESSAGE);
+				
+				if (n != JOptionPane.OK_OPTION) // Cancel ou croix == annulation
+					return;
 			}
+			while ((Noeud)this.ddlstNoeud1.getSelectedItem() == (Noeud)this.ddlstNoeud2.getSelectedItem());
+
 
 			Noeud noeudSelected1 = (Noeud)this.ddlstNoeud1.getSelectedItem();
 			Noeud noeudSelected2 = (Noeud)this.ddlstNoeud2.getSelectedItem();
@@ -201,13 +206,24 @@ public class PanelLstArete extends JPanel implements ActionListener
 
 				Arete areteSelected = this.lstArete.getSelectedValue();
 
-				this.ddlstNoeud1.setSelectedItem(areteSelected);
-				this.ddlstNoeud2.setSelectedItem(areteSelected);
 				this.ddlstCouleur.setSelectedItem(areteSelected.getCouleur());
 				this.txtNbWagon.setText(Integer.toString(areteSelected.getTroncons()));
-				this.cbVoieDouble.setSelected(areteSelected.getVoieDouble());
+				this.cbVoieDouble.setSelected(areteSelected.getVoieDouble());	
 
-				JOptionPane.showOptionDialog(this, this.panelPopUp, "Modification d'une arête" , JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				do
+				{
+					this.ddlstNoeud1.setSelectedItem(areteSelected.getNoeud1());
+					this.ddlstNoeud2.setSelectedItem(areteSelected.getNoeud2());
+
+					int n = JOptionPane.showOptionDialog(this, this.panelPopUp, "Modification d'une arête" , JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+					if ((Noeud)this.ddlstNoeud1.getSelectedItem() == (Noeud)this.ddlstNoeud2.getSelectedItem())
+						JOptionPane.showMessageDialog(null, "Les deux noeuds sélectionnés sont identiques", "Erreur", JOptionPane.ERROR_MESSAGE);
+
+					if (n != JOptionPane.OK_OPTION) // Cancel ou croix == annulation
+						return;
+				}
+				while ((Noeud)this.ddlstNoeud1.getSelectedItem() == (Noeud)this.ddlstNoeud2.getSelectedItem());
 
 				areteSelected.setNoeud1((Noeud)this.ddlstNoeud1.getSelectedItem());
 				areteSelected.setNoeud2((Noeud)this.ddlstNoeud2.getSelectedItem());
@@ -221,10 +237,13 @@ public class PanelLstArete extends JPanel implements ActionListener
 
 		if (e.getSource() == this.btnSuppr)
 		{	
-			Arete areteSelect = this.lstArete.getSelectedValue();
-			this.alAretes.remove(areteSelect);
-			this.modelListArete.removeElement(areteSelect);
-			this.concepteur.majIHM();
+			if (this.lstArete.getSelectedIndex() != -1)
+			{
+				Arete areteSelect = this.lstArete.getSelectedValue();
+				this.alAretes.remove(areteSelect);
+				this.modelListArete.removeElement(areteSelect);
+				this.concepteur.majIHM();
+			}
 		}
 /* 		// Clic sur le bouton Suivant
 		if (e.getSource() == this.btnSuivant) 
