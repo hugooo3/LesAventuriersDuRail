@@ -29,7 +29,8 @@ public class Arete
 	public void setTroncons(int troncons) {this.troncons = troncons;}
 	public void setVoieDouble(boolean voieDouble) {this.voieDouble = voieDouble;}
 
-	public String toString() {
-		return noeud1.getNom() + " - " + noeud2.getNom() ;
+	public String toString() 
+	{
+		return String.format("%s - %s | %s | %d", noeud1.getNom(), noeud2.getNom(), this.couleur.getCouleur(), this.troncons);
 	}
 }
