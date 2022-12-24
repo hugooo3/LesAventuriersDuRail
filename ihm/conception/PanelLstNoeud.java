@@ -170,8 +170,8 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			JOptionPane.showMessageDialog(null, panelPopUpModif);
 
 			noeudSelect.setNom(txtNom.getText());
-			noeudSelect.setX(Integer.parseInt(txtX.getText()) + 20); // Pas propre, c'est le radius du NoeudDessin qui faut ajouter
-			noeudSelect.setY(Integer.parseInt(txtY.getText()) + 20); // Pas propre, c'est le radius du NoeudDessin qui faut ajouter
+			noeudSelect.setX(Integer.parseInt(txtX.getText()));
+			noeudSelect.setY(Integer.parseInt(txtY.getText()));
 			noeudSelect.setNomDeltaX(Integer.parseInt(txtNomX.getText()) );
 			noeudSelect.setNomDeltaY(Integer.parseInt(txtNomY.getText()));
 

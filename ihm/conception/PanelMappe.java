@@ -84,7 +84,7 @@ public class PanelMappe extends JPanel
 							JOptionPane.QUESTION_MESSAGE);
 				}
 
-				PanelMappe.this.noeudSelec = new NoeudDessin(nomNoeud, e.getX() - PanelMappe.RADIUS, e.getY() - PanelMappe.RADIUS, PanelMappe.RADIUS);
+				PanelMappe.this.noeudSelec = new NoeudDessin(nomNoeud, e.getX(), e.getY(), PanelMappe.RADIUS);
 				
 				PanelMappe.this.alNoeudDessin.add(PanelMappe.this.noeudSelec); // C'est le même noeud qui est ajoute dans les deux lists
 				PanelMappe.this.alNoeud.add(PanelMappe.this.noeudSelec); // Si un noeud d'une liste est modif, l'autre aussi
@@ -159,8 +159,9 @@ public class PanelMappe extends JPanel
 
 		for (Arete arete : alAretes)
 		{                    
-			g2d.setColor(Color.BLACK);
-			g2d.setStroke(new BasicStroke((float)(4)));
+			g2d.setColor(Color.BLACK); 
+			float[] dashingPattern = {10f, 10f};
+			g2d.setStroke(new BasicStroke(4, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, dashingPattern, 0.0f));
 			if (arete.getVoieDouble())
 			{
 				// TO DO Visualiser les voie double
@@ -172,6 +173,8 @@ public class PanelMappe extends JPanel
 
 		for (NoeudDessin noeud : this.alNoeudDessin) 
 		{
+			System.out.println();
+
 			// Cercle
 			g2d.setColor(Color.RED);
 			g2d.fill(noeud.getEllipse2D());

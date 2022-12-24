@@ -24,17 +24,14 @@ public class NoeudDessin extends Noeud
 	{
 		super(nom, x, y);
 
-		this.ellipseX = x;
-		this.ellipseY = y;
+		this.ellipseX = x - radius / 2;
+		this.ellipseY = y - radius / 2;
 		this.radiusEllipse = radius;
 		this.majEllipse2D();
-
-		this.rectangleX = this.x;
-		this.rectangleY = this.y;
+		
+		this.setRectangleX();
+		this.setRectangleY();
 		this.setRectangleLongueur(); // this.majRectangle2d() est execute ici
-
-		this.nomDeltaX = this.MARGE_X;
-		this.nomDeltaY = -this.MARGE_Y;
 	}
 
 	public NoeudDessin(Noeud noeud, int radius)
@@ -58,18 +55,18 @@ public class NoeudDessin extends Noeud
 
 	public Rectangle2D getRectangle2d() {return this.rectangle2d;}
 
-	public void setX(int x) {this.x = x - this.radiusEllipse; this.setRectangleX(); this.setEllipseX(x);}
-	public void setY(int y) {this.y = y - this.radiusEllipse; this.setRectangleY(); this.setEllipseY(y);}	
+	public void setX(int x) {super.setX(x); this.setRectangleX(); this.setEllipseX(x);}
+	public void setY(int y) {super.setY(y); this.setRectangleY(); this.setEllipseY(y);}	
 
 	public void setNomDeltaX(int nomX) {super.setNomDeltaX(nomX); this.setRectangleX();}
 	public void setNomDeltaY(int nomY) {super.setNomDeltaY(nomY); this.setRectangleY();}
 
-	public void setEllipseX(int x) {this.ellipseX = x - this.radiusEllipse; this.majEllipse2D();}
-	public void setEllipseY(int y) {this.ellipseY = y - this.radiusEllipse; this.majEllipse2D();}
+	public void setEllipseX(int x) {this.ellipseX = x - (this.radiusEllipse / 2); this.majEllipse2D();}
+	public void setEllipseY(int y) {this.ellipseY = y - (this.radiusEllipse / 2); this.majEllipse2D();}
 
 	public void majEllipse2D() 
 	{
-		this.ellipse2D = new Ellipse2D.Double(this.ellipseX + (radiusEllipse / 2), this.ellipseY + (radiusEllipse / 2), radiusEllipse, radiusEllipse);
+		this.ellipse2D = new Ellipse2D.Double(this.ellipseX, this.ellipseY, this.radiusEllipse, this.radiusEllipse);
 	}
 
 	public void setRectangleX() {this.rectangleX = this.getNomX() - this.MARGE_X;	this.majRectangle2D();}
