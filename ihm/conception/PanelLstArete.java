@@ -173,8 +173,11 @@ public class PanelLstArete extends JPanel implements ActionListener
 		}
 
 		if (e.getSource() == this.btnSuppr)
-		{
-			
+		{	
+			Arete areteSelect = this.lstArete.getSelectedValue();
+			this.alAretes.remove(areteSelect);
+			this.modelListArete.removeElement(areteSelect);
+			this.concepteur.majIHM();
 		}
 /* 		// Clic sur le bouton Suivant
 		if (e.getSource() == this.btnSuivant) 
