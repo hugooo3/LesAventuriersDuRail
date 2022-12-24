@@ -31,6 +31,6 @@ public class Arete
 
 	public String toString() 
 	{
-		return String.format("%s - %s | %s | %d", noeud1.getNom(), noeud2.getNom(), this.couleur.getCouleur(), this.troncons);
+		return String.format("%s - %s | %s | %d", noeud1.getNom(), noeud2.getNom(), this.couleur.getNomCouleur(), this.troncons);
 	}
 }

@@ -55,14 +55,14 @@ public class PanelMappe extends JPanel
 
 				for (NoeudDessin noeudDessin : PanelMappe.this.alNoeudDessin) 
 				{
-					if (noeudDessin.getEllipse2D().contains(e.getPoint())) // Clique sur un noeud
-					{
-						PanelMappe.this.noeudSelec = noeudDessin;
-						return;
-					}
-					else if (noeudDessin.getRectangle2d().contains(e.getPoint())) // Clique sur le nom du noeud
+					if (noeudDessin.getRectangle2d().contains(e.getPoint())) // Clique sur le nom du noeud
 					{
 						PanelMappe.this.noeudTexteSelec = noeudDessin;
+						return;
+					}
+					else if (noeudDessin.getEllipse2D().contains(e.getPoint())) // Clique sur un noeud
+					{
+						PanelMappe.this.noeudSelec = noeudDessin;
 						return;
 					}
 				}
@@ -126,7 +126,7 @@ public class PanelMappe extends JPanel
 	}
 
 	public void setImg(File imagePath) {this.img = getToolkit().getImage(imagePath.getAbsolutePath()); repaint();}	
-	public boolean changeCliquable() {return this.cliquable = !this.cliquable;}
+	public void setCliquable(Boolean cliquable) {this.cliquable = cliquable;}
 
 	public void setLstNoeud(ArrayList<Noeud> alNoeud) 
 	{
@@ -160,15 +160,22 @@ public class PanelMappe extends JPanel
 		for (Arete arete : alAretes)
 		{                    
 			g2d.setColor(Color.BLACK); 
-			float[] dashingPattern = {10f, 10f};
-			g2d.setStroke(new BasicStroke(4, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, dashingPattern, 0.0f));
+			
+			//float[] dashingPattern = {5f, 5f}; // Ligne pointille
+			//g2d.setStroke(new BasicStroke(4, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, dashingPattern, 0.0f));
+			
+			g2d.setStroke(new BasicStroke(11));
+			g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY(), arete.getNoeud2().getX(), arete.getNoeud2().getY());
+			
+			g2d.setColor(arete.getCouleur().getCouleur()); 							
+			g2d.setStroke(new BasicStroke(5));
+			g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY(), 
+							arete.getNoeud2().getX(), arete.getNoeud2().getY());
+
 			if (arete.getVoieDouble())
 			{
 				// TO DO Visualiser les voie double
 			}
-			g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY(), 
-							arete.getNoeud2().getX(), arete.getNoeud2().getY());
-			// TO DO Check les coords de l'ellipse par rapport au coord x y du noeud
 		}
 
 		for (NoeudDessin noeud : this.alNoeudDessin) 
