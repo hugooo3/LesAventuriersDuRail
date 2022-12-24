@@ -1,5 +1,7 @@
 package metier;
 
+import javax.swing.ImageIcon;
+
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -28,6 +30,17 @@ public class Metier
 		this.alAretes = new ArrayList<Arete>();
 		this.alCartesDestination = new ArrayList<CarteDestination>();
 		this.alCartesWagon = new ArrayList<CarteWagon>();
+
+		// Carte Wagon par défaut
+		this.alCartesWagon.add(new CarteWagon("Blanc", new ImageIcon("images/carteBlanche.png"), new ImageIcon("images/ArriereCarte.png")));
+		this.alCartesWagon.add(new CarteWagon("Bleu", new ImageIcon("images/carteBleu.png"), new ImageIcon("images/ArriereCarte.png")));
+		this.alCartesWagon.add(new CarteWagon("Jaune", new ImageIcon("images/carteJaune.png"), new ImageIcon("images/ArriereCarte.png")));
+		this.alCartesWagon.add(new CarteWagon("Noire", new ImageIcon("images/carteNoire.png"), new ImageIcon("images/ArriereCarte.png")));
+		this.alCartesWagon.add(new CarteWagon("Orange", new ImageIcon("images/carteOrange.png"), new ImageIcon("images/ArriereCarte.png")));
+		this.alCartesWagon.add(new CarteWagon("Rouge", new ImageIcon("images/carteRouge.png"), new ImageIcon("images/ArriereCarte.png")));
+		this.alCartesWagon.add(new CarteWagon("Verte", new ImageIcon("images/carteVerte.png"), new ImageIcon("images/ArriereCarte.png")));
+		this.alCartesWagon.add(new CarteWagon("Violet", new ImageIcon("images/carteViolet.png"), new ImageIcon("images/ArriereCarte.png")));
+		this.alCartesWagon.add(new CarteWagon("Joker", new ImageIcon("images/carteJoker.png"), new ImageIcon("images/ArriereCarte.png")));
 	}
 
 	public ArrayList<Noeud> getAlNoeuds() {return this.alNoeuds;}

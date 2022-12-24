@@ -1,12 +1,14 @@
 package metier;
 
+import javax.swing.ImageIcon;
+
 public class CarteWagon 
 {
 	private String couleur;
-	private String imgRecto;
-	private String imgVerso;
+	private ImageIcon imgRecto;
+	private ImageIcon imgVerso;
 
-	public CarteWagon(String couleur, String imgRecto, String imgVerso)
+	public CarteWagon(String couleur, ImageIcon imgRecto, ImageIcon imgVerso)
 	{
 		this.couleur = couleur;
 		this.imgRecto = imgRecto;
@@ -14,10 +16,18 @@ public class CarteWagon
 	}
 
 	public String getCouleur() {return this.couleur;}	 
-	public String getImgRecto() {return this.imgRecto;}
-	public String getImgVerso() {return this.imgVerso;}
+	public ImageIcon getImgRecto() {return this.imgRecto;}
+	public ImageIcon getImgVerso() {return this.imgVerso;}
 
 	public void setCouleur(String couleur) {this.couleur = couleur;}
-	public void setImgRecto(String imgRecto) {this.imgRecto = imgRecto;}
-	public void setImgVerso(String imgVerso) {this.imgVerso = imgVerso;}
+	public void setImgRecto(ImageIcon imgRecto) {this.imgRecto = imgRecto;}
+	public void setImgVerso(ImageIcon imgVerso) {this.imgVerso = imgVerso;}
+
+
+	@Override
+	public String toString() 
+	{
+		return this.couleur;
+	}
+
 }

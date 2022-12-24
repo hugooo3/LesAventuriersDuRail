@@ -94,6 +94,7 @@ public class FrameConcepteur extends JFrame implements ActionListener
 	{
 		this.panelMappe.majIHM();
 		this.panelLstNoeud.majLstNoeuds();
+		this.panelLstArete.majLstArete();
 	}
 
 	@Override

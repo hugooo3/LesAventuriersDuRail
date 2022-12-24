@@ -155,6 +155,21 @@ public class PanelMappe extends JPanel
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(this.img, 1, 1, (int) this.getSize().getWidth() - 2, (int) this.getSize().getHeight() - 2, this);
 
+		ArrayList<Arete> alAretes = this.concepteur.getMetier().getAlAretes();
+
+		for (Arete arete : alAretes)
+		{                    
+			g2d.setColor(Color.BLACK);
+			g2d.setStroke(new BasicStroke((float)(4)));
+			if (arete.getVoieDouble())
+			{
+				// TO DO Visualiser les voie double
+			}
+			g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY(), 
+							arete.getNoeud2().getX(), arete.getNoeud2().getY());
+			// TO DO Check les coords de l'ellipse par rapport au coord x y du noeud
+		}
+
 		for (NoeudDessin noeud : this.alNoeudDessin) 
 		{
 			// Cercle
