@@ -74,11 +74,14 @@ public class FrameConcepteur extends JFrame implements ActionListener
 
 	public void setImgMappe(File imagePath) 
 	{
-		this.appli.setImgMappe(imagePath);
-		this.panelMappe.setImg(imagePath);
-		this.panelMappe.setCliquable(true);
-		this.tabbedPane.setVisible(true);
-		this.btnXML.setVisible(true);
+		if (imagePath != null)
+		{
+			this.appli.setImgMappe(imagePath);
+			this.panelMappe.setImg(imagePath);
+			this.panelMappe.changeCliquable();
+			this.tabbedPane.setVisible(true);
+			this.btnXML.setVisible(true);
+		}
 	}
 
 	public boolean setNbJoueurMin(int nbJoueurMin) {return this.appli.setNbJoueurMin(nbJoueurMin);}
