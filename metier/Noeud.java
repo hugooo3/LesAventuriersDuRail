@@ -14,6 +14,8 @@ public class Noeud
 		this.nom = nom;
 		this.x = x;
 		this.y = y;
+		this.nomDeltaX = 0;
+		this.nomDeltaY = -20;
 	}
 
 	public String getNom() {return this.nom;}

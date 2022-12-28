@@ -55,14 +55,14 @@ public class PanelMappe extends JPanel
 
 				for (NoeudDessin noeudDessin : PanelMappe.this.alNoeudDessin) 
 				{
-					if (noeudDessin.getEllipse2D().contains(e.getPoint())) // Clique sur un noeud
-					{
-						PanelMappe.this.noeudSelec = noeudDessin;
-						return;
-					}
-					else if (noeudDessin.getRectangle2d().contains(e.getPoint())) // Clique sur le nom du noeud
+					if (noeudDessin.getRectangle2d().contains(e.getPoint())) // Clique sur le nom du noeud
 					{
 						PanelMappe.this.noeudTexteSelec = noeudDessin;
+						return;
+					}
+					else if (noeudDessin.getEllipse2D().contains(e.getPoint())) // Clique sur un noeud
+					{
+						PanelMappe.this.noeudSelec = noeudDessin;
 						return;
 					}
 				}
@@ -84,7 +84,7 @@ public class PanelMappe extends JPanel
 							JOptionPane.QUESTION_MESSAGE);
 				}
 
-				PanelMappe.this.noeudSelec = new NoeudDessin(nomNoeud, e.getX() - PanelMappe.RADIUS, e.getY() - PanelMappe.RADIUS, PanelMappe.RADIUS);
+				PanelMappe.this.noeudSelec = new NoeudDessin(nomNoeud, e.getX(), e.getY(), PanelMappe.RADIUS);
 				
 				PanelMappe.this.alNoeudDessin.add(PanelMappe.this.noeudSelec); // C'est le même noeud qui est ajoute dans les deux lists
 				PanelMappe.this.alNoeud.add(PanelMappe.this.noeudSelec); // Si un noeud d'une liste est modif, l'autre aussi
@@ -126,7 +126,7 @@ public class PanelMappe extends JPanel
 	}
 
 	public void setImg(File imagePath) {this.img = getToolkit().getImage(imagePath.getAbsolutePath()); repaint();}	
-	public boolean changeCliquable() {return this.cliquable = !this.cliquable;}
+	public void setCliquable(Boolean cliquable) {this.cliquable = cliquable;}
 
 	public void setLstNoeud(ArrayList<Noeud> alNoeud) 
 	{
@@ -155,8 +155,33 @@ public class PanelMappe extends JPanel
 		Graphics2D g2d = (Graphics2D) g;
 		g2d.drawImage(this.img, 1, 1, (int) this.getSize().getWidth() - 2, (int) this.getSize().getHeight() - 2, this);
 
+		ArrayList<Arete> alAretes = this.concepteur.getMetier().getAlAretes();
+
+		for (Arete arete : alAretes)
+		{                    
+			g2d.setColor(Color.BLACK); 
+			
+			//float[] dashingPattern = {5f, 5f}; // Ligne pointille
+			//g2d.setStroke(new BasicStroke(4, BasicStroke.CAP_BUTT, BasicStroke.JOIN_MITER, 1.0f, dashingPattern, 0.0f));
+			
+			g2d.setStroke(new BasicStroke(11));
+			g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY(), arete.getNoeud2().getX(), arete.getNoeud2().getY());
+			
+			g2d.setColor(arete.getCouleur().getCouleur()); 							
+			g2d.setStroke(new BasicStroke(5));
+			g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY(), 
+							arete.getNoeud2().getX(), arete.getNoeud2().getY());
+
+			if (arete.getVoieDouble())
+			{
+				// TO DO Visualiser les voie double
+			}
+		}
+
 		for (NoeudDessin noeud : this.alNoeudDessin) 
 		{
+			System.out.println();
+
 			// Cercle
 			g2d.setColor(Color.RED);
 			g2d.fill(noeud.getEllipse2D());
