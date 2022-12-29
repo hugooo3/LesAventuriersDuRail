@@ -78,7 +78,7 @@ public class FrameConcepteur extends JFrame implements ActionListener
 		{
 			this.appli.setImgMappe(imagePath);
 			this.panelMappe.setImg(imagePath);
-			this.panelMappe.changeCliquable();
+			this.panelMappe.setCliquable(false);
 			this.tabbedPane.setVisible(true);
 			this.btnXML.setVisible(true);
 		}
