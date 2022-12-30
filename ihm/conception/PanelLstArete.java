@@ -43,6 +43,7 @@ public class PanelLstArete extends JPanel implements ActionListener
 
 		this.modelListArete = new DefaultListModel<Arete>();
 		this.lstArete = new JList<Arete>(this.modelListArete);
+		this.lstArete.setCellRenderer(new RendererCouleur());
 
 
 		this.panelPopUp = new JPanel(new GridBagLayout());
@@ -260,38 +261,4 @@ public class PanelLstArete extends JPanel implements ActionListener
 			// this.frame.verifMAJ("noeud");
 		} */
 	}
-	private class RendererCouleur extends DefaultListCellRenderer 
-	{
-		@Override
-		public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) 
-		{
-			super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
-		
-			if (value instanceof CarteWagon) 
-			{
-				CarteWagon carteWagon = (CarteWagon) value;
-				Color couleur = carteWagon.getCouleur();
-				setBackground(couleur);
-
-				// Définir la couleur du texte en fonction de la couleur de fond
-				if (couleur.equals(Color.GREEN)) 
-				{
-					setForeground(Color.BLACK);
-				}
-				else if (couleur.getRed() + couleur.getGreen() + couleur.getBlue() < 3 * 128 /*128*/)
-				{
-					// Si la couleur est sombre (somme des composantes rouge, verte et bleue inférieure à 3 * 128),
-					// définir la couleur du texte en blanc
-					setForeground(Color.WHITE);
-				} 
-				else 
-				{
-					// Sinon, définir la couleur du texte en noir
-					setForeground(Color.BLACK);
-				}				
-			}
-		
-			return this;
-		}
-	  }
 }
