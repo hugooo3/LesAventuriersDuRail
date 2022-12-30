@@ -95,7 +95,6 @@ public class PanelLstArete extends JPanel implements ActionListener
 		// JList avec scroll
 		this.scrollPane = new JScrollPane();
 		this.scrollPane.setViewportView(this.lstArete);
-		this.lstArete.setVisibleRowCount(3);
 		this.lstArete.setFont(new Font(getFont().getName(), Font.PLAIN, 15));
 		this.lstArete.setFixedCellHeight(50);
 

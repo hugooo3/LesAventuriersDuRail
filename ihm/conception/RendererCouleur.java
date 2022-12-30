@@ -2,52 +2,84 @@ package ihm.conception;
 
 import metier.*;
 
-import java.awt.Color;
-import java.awt.Component;
+import java.awt.*;
+import javax.swing.*;
 
-import javax.swing.DefaultListCellRenderer;
-import javax.swing.JList;
 
 public class RendererCouleur extends DefaultListCellRenderer 
 {
+	private JLabel lblTxt;
+
 	@Override
 	public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) 
 	{
 		super.getListCellRendererComponent(list, value, index, isSelected, cellHasFocus);
 
 		Color couleur = Color.WHITE;
+		// Création du panel contenant le texte et les deux images
+		// Utilisation du panel comme composant du renderer
+		JPanel panel = new JPanel();
+		panel.setLayout(new GridLayout(1, 3));
+
+		this.lblTxt = new JLabel();
 	
 		if (value instanceof CarteWagon) 
 		{
 			CarteWagon carteWagon = (CarteWagon) value;
-			couleur = carteWagon.getCouleur();
+			couleur = carteWagon.getCouleur();					
+			// Redimensionnement des ImageIcon
+			int width = 50;
+			int height = 50;
+			
+			this.lblTxt.setText(carteWagon.toString());
+			panel.add(this.lblTxt);
+
+			Image imgRecto = null;
+			if (carteWagon.getImgRecto() != null)
+			{
+				imgRecto = carteWagon.getImgRecto().getImage();
+				imgRecto = imgRecto.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+				ImageIcon imgRectoResized = new ImageIcon(imgRecto);
+				panel.add(new JLabel(imgRectoResized));
+			}
+			
+			Image imgVerso = null;
+			if (carteWagon.getImgVerso() != null)
+			{
+				imgVerso = carteWagon.getImgVerso().getImage();
+				imgVerso = imgVerso.getScaledInstance(width, height, Image.SCALE_SMOOTH);
+				ImageIcon imgVersoResized = new ImageIcon(imgVerso);
+				panel.add(new JLabel(imgVersoResized));
+			}
 		}
-		else if (value instanceof Arete)
+		if (value instanceof Arete)
 		{
 			Arete arete = (Arete) value;
 			couleur = arete.getCouleur().getCouleur();
+			this.lblTxt.setText(arete.toString());
+			panel.add(this.lblTxt);
 		}
 
-		setBackground(couleur);
+		panel.setBackground(couleur);
 
 		// Définir la couleur du texte en fonction de la couleur de fond
 		if (couleur.equals(Color.GREEN)) 
 		{
-			setForeground(Color.BLACK);
+			this.lblTxt.setForeground(Color.BLACK);
 		}
 		else if (couleur.getRed() + couleur.getGreen() + couleur.getBlue() < 3 * 128)
 		{
 			// Si la couleur est sombre (somme des composantes rouge, verte et bleue inférieure à 3 * 128),
 			// définir la couleur du texte en blanc
-			setForeground(Color.WHITE);
+			this.lblTxt.setForeground(Color.WHITE);
 		} 
 		else 
 		{
 			// Sinon, définir la couleur du texte en noir
-			setForeground(Color.BLACK);
+			this.lblTxt.setForeground(Color.BLACK);
 		}				
 		
 	
-		return this;
+		return panel;
 	}
 }

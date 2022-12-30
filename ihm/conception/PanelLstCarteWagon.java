@@ -44,7 +44,6 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener
 		// JList avec scroll
 		this.scrollPane = new JScrollPane();
 		this.scrollPane.setViewportView(this.lstCarteWagon);
-		this.lstCarteWagon.setVisibleRowCount(3);
 		this.lstCarteWagon.setFont(new Font(getFont().getName(), Font.PLAIN, 15));
 		this.lstCarteWagon.setFixedCellHeight(50);
 

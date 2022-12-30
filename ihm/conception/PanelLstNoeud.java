@@ -41,7 +41,6 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		// JList avec scroll
 		this.scrollPane = new JScrollPane();
 		this.scrollPane.setViewportView(this.lstNoeud);
-		this.lstNoeud.setVisibleRowCount(3);
 		this.lstNoeud.setFont(new Font(getFont().getName(), Font.PLAIN, 15));
 		this.lstNoeud.setFixedCellHeight(50);
 

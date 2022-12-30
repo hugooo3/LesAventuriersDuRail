@@ -42,7 +42,6 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener
 		// JList avec scroll
 		this.scrollPane = new JScrollPane();
 		this.scrollPane.setViewportView(this.lstCarteDestination);
-		this.lstCarteDestination.setVisibleRowCount(3);
 		this.lstCarteDestination.setFont(new Font(getFont().getName(), Font.PLAIN, 15));
 		this.lstCarteDestination.setFixedCellHeight(50);
 
