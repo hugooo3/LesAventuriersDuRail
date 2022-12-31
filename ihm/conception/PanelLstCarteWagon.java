@@ -20,9 +20,14 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener
 	private JScrollPane scrollPane;
 	private DefaultListModel<CarteWagon> modelListCarteWagon;
 
-	private JButton btnNouveau, btnModif, btnSuppr;
+	private JButton btnNouveau, btnModif, btnSuppr, btnVerso;
 	
 	private GridBagConstraints gbc = new GridBagConstraints();
+
+	private JPanel panelPopUp;
+	private JTextField txtNomCouleur;
+	private JColorChooser colorPicker;
+	private ImageIcon imageRecto;
 
 	public PanelLstCarteWagon(FrameConcepteur concepteur, int largeur, int hauteur) 
 	{
@@ -68,6 +73,35 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener
 		this.btnSuppr.setBorderPainted(false);
 		this.btnSuppr.setFocusPainted(false);
 
+		// Bouton verso
+		this.btnVerso = new JButton("Changer le verso des cartes");
+		this.btnVerso.setBackground(Color.GRAY);
+		this.btnVerso.addActionListener(this);
+		this.btnVerso.setBorderPainted(false);
+		this.btnVerso.setFocusPainted(false);
+
+		// Panel PopUp		
+		this.panelPopUp = new JPanel(new GridBagLayout());
+		GridBagConstraints gbcPopUp = new GridBagConstraints();
+		gbcPopUp.insets = new Insets(5, 2, 5, 2);
+
+		this.txtNomCouleur = new JTextField(10);
+		this.colorPicker = new JColorChooser();
+
+		// TextField 
+		gbcPopUp.gridx = 0;
+		gbcPopUp.gridy = 0;
+		this.panelPopUp.add(new JLabel("Nom de la couleur : "), gbcPopUp);
+
+		gbcPopUp.gridx = 1;
+		gbcPopUp.gridy = 0;
+		this.panelPopUp.add(this.txtNomCouleur, gbcPopUp);
+
+		// Couleur
+		gbcPopUp.gridx = 0;
+		gbcPopUp.gridy = 1;
+		this.panelPopUp.add(this.colorPicker, gbcPopUp);
+
 		// Placement des composants
 		this.gbc.gridx = 0;
 		this.gbc.gridy = 0;
@@ -87,6 +121,11 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener
 		this.gbc.gridx = 2;
 		this.gbc.gridy = 1;
 		this.add(this.btnSuppr, this.gbc);
+
+		this.gbc.gridx = 0;
+		this.gbc.gridy = 2;
+		this.gbc.gridwidth = 3;
+		this.add(this.btnVerso, this.gbc);
 	}
 
 	public void majLstCarteWagon() 
@@ -107,6 +146,7 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener
 		if (e.getSource() == this.btnNouveau)
 		{
 			// @TODO
+			int n = JOptionPane.showOptionDialog(this, this.panelPopUp, "Création d'une couleur" ,JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
 		}
 		
 		if (e.getSource() == this.btnModif)
