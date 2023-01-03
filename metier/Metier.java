@@ -56,17 +56,25 @@ public class Metier
 	public int getNbJoueurMax() {return this.nbJoueurMax;}
 	public int getNbJoueurDoubleVoies() {return this.nbJoueurDoubleVoies;}
 	public int getNbWagonJoueur() {return this.nbWagonJoueur;}
+	public ImageIcon getVersoCarte() {return this.VERSO_CARTE;}
 
 	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds)                                  { this.alNoeuds = ListNoeuds; return true; }
 	public boolean creerAlAretes(ArrayList<Arete> ListAretes)                                  { this.alAretes = ListAretes; return true; }
 	public boolean creerAlCartesDestination(ArrayList<CarteDestination> ListCartesDestination) { this.alCartesDestination = ListCartesDestination; return true; }
 	public boolean creerAlCartesWagon(ArrayList<CarteWagon> ListCartesWagon)                   { this.alCartesWagon = ListCartesWagon; return true; }
 
-	public boolean setImgMappe(File imgMappe)                      { this.imgMappe = imgMappe; return true; }
-	public boolean setNbJoueurMin(int nbJoueurMin)                 { this.nbJoueurMin = nbJoueurMin; return true; }
-	public boolean setNbJoueurMax(int nbJoueurMax)                 { this.nbJoueurMax = nbJoueurMax; return true; }
-	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) { this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true; }
-	public boolean setNbWagonJoueur(int nbWagonJoueur)             { this.nbWagonJoueur = nbWagonJoueur; return true; }
+	public boolean setImgMappe(File imgMappe)                      	{ this.imgMappe = imgMappe; return true; }
+	public boolean setNbJoueurMin(int nbJoueurMin)                 	{ this.nbJoueurMin = nbJoueurMin; return true; }
+	public boolean setNbJoueurMax(int nbJoueurMax)                 	{ this.nbJoueurMax = nbJoueurMax; return true; }
+	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) 	{ this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true; }
+	public boolean setNbWagonJoueur(int nbWagonJoueur)             	{ this.nbWagonJoueur = nbWagonJoueur; return true; }
+	
+	public void setVersoCarte(ImageIcon versoCarte)				
+	{
+		this.VERSO_CARTE = versoCarte;
+		for (int i = 1; i < this.alCartesWagon.size(); i++)
+			this.alCartesWagon.get(i).setImgVerso(versoCarte);
+	}
 
 	public Mappe creerMappe() 
 	{
