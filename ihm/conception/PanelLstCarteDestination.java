@@ -141,10 +141,9 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 	}
 
 	public void majLstCarteDestination() {
+		this.modelListCarteDestination.clear();
 		for (CarteDestination carteDestination : this.alCarteDestination) {
-			if (!this.modelListCarteDestination.contains(carteDestination)) {
-				this.modelListCarteDestination.addElement(carteDestination);
-			}
+			this.modelListCarteDestination.addElement(carteDestination);
 		}
 		this.lstCarteDestination.clearSelection();
 	}
@@ -178,6 +177,8 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 		if (e.getSource() == this.btnAuto) {
 
 			this.alCarteDestination = new ArrayList<CarteDestination>();
+			this.concepteur.majIHM();
+
 			ArrayList<Noeud> alNoeud1 = new ArrayList<Noeud>();
 			ArrayList<Noeud> alNoeud2 = new ArrayList<Noeud>();
 			for (int i = 0; i < this.ddlstNoeud1.getItemCount(); i++) {
