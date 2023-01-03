@@ -85,36 +85,18 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 		}
 	}
 
-	public boolean setNbJoueurMin(int nbJoueurMin) {
-		return this.appli.setNbJoueurMin(nbJoueurMin);
-	}
+	public boolean setNbJoueurMin(int nbJoueurMin) {return this.appli.setNbJoueurMin(nbJoueurMin);}
+	public boolean setNbJoueurMax(int nbJoueurMax) {return this.appli.setNbJoueurMax(nbJoueurMax);}
+	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {return this.appli.setNbJoueurDoubleVoies(nbJoueurDoubleVoies);}
+	public boolean setNbWagonJoueur(int nbWagonJoueur) {return this.appli.setNbWagonJoueur(nbWagonJoueur);}
 
-	public boolean setNbJoueurMax(int nbJoueurMax) {
-		return this.appli.setNbJoueurMax(nbJoueurMax);
-	}
+	public Metier getMetier() {return this.appli.getMetier();}
+	public void modifierLstNoeud(int selectedIndex) {this.panelMappe.modifierLstNoeud(selectedIndex);}
 
-	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {
-		return this.appli.setNbJoueurDoubleVoies(nbJoueurDoubleVoies);
-	}
-
-	public boolean setNbWagonJoueur(int nbWagonJoueur) {
-		return this.appli.setNbWagonJoueur(nbWagonJoueur);
-	}
-
-	public Metier getMetier() {
-		return this.appli.getMetier();
-	}
-
-	public void modifierLstNoeud(int selectedIndex) {
-		this.panelMappe.modifierLstNoeud(selectedIndex);
-	}
-
-	public void removeLstNoeud(Noeud noeud) {
-		this.panelMappe.removeLstNoeud(noeud);
-		this.panelLstArete.removeLstNoeud(noeud); // On supprime les aretes qui sont reliées au noeud
-	}
-
-	public void majIHM() {
+	public boolean importMappe(File xmlPath) {return this.appli.importMappe(xmlPath);}
+	
+	public void majIHM() 
+	{
 		this.panelMappe.majIHM();
 		this.panelLstNoeud.majLstNoeuds();
 		this.panelLstArete.majLstArete();

@@ -19,11 +19,10 @@ public class PanelMappe extends JPanel {
 	private Image img;
 	private int largeur;
 	private int hauteur;
-	private NoeudDessin noeudSelec = null;
-	private NoeudDessin noeudTexteSelec = null;
+	private Noeud noeudSelec = null;
+	private Noeud noeudTexteSelec = null;
 	private boolean cliquable = false;
 
-	public ArrayList<NoeudDessin> alNoeudDessin = new ArrayList<NoeudDessin>();
 	public ArrayList<Noeud> alNoeud;
 
 	public PanelMappe(FrameConcepteur concepteur, int largeur, int hauteur) {
@@ -32,16 +31,6 @@ public class PanelMappe extends JPanel {
 		this.hauteur = hauteur;
 
 		this.alNoeud = this.concepteur.getMetier().getAlNoeuds();
-		/*
-		 * * if (this.alNoeud != null)
-		 * * {
-		 * for (Noeud noeud : this.alNoeud)
-		 * {
-		 * this.alNoeudDessin.add(new NoeudDessin(noeud, PanelMappe.RADIUS));
-		 * }
-		 * * }
-		 * *
-		 */
 
 		this.setLayout(null);
 		this.setPreferredSize(new Dimension((int) (this.largeur * 0.7), this.hauteur));
@@ -54,16 +43,17 @@ public class PanelMappe extends JPanel {
 
 					return;
 
-				}
 
-				for (NoeudDessin noeudDessin : PanelMappe.this.alNoeudDessin) {
-					if (noeudDessin.getRectangle2d().contains(e.getPoint())) // Clique sur le nom du noeud
+				for (Noeud noeud : PanelMappe.this.alNoeud) 
+				{
+					if (noeud.getRectangle2d().contains(e.getPoint())) // Clique sur le nom du noeud
 					{
-						PanelMappe.this.noeudTexteSelec = noeudDessin;
+						PanelMappe.this.noeudTexteSelec = noeud;
 						return;
-					} else if (noeudDessin.getEllipse2D().contains(e.getPoint())) // Clique sur un noeud
+					}
+					else if (noeud.getEllipse2D().contains(e.getPoint())) // Clique sur un noeud
 					{
-						PanelMappe.this.noeudSelec = noeudDessin;
+						PanelMappe.this.noeudSelec = noeud;
 						return;
 					}
 				}
@@ -84,23 +74,10 @@ public class PanelMappe extends JPanel {
 							JOptionPane.QUESTION_MESSAGE);
 				}
 
-				PanelMappe.this.noeudSelec = new NoeudDessin(nomNoeud, e.getX(), e.getY(), PanelMappe.RADIUS);
 
-				PanelMappe.this.alNoeudDessin.add(PanelMappe.this.noeudSelec); // C'est le même noeud qui est ajoute
-																				//
-																				// dans les deux lists
-				PanelMappe.this.alNoeud.add(PanelMappe.this.noeudSelec); // Si un noeud d'une liste est modif, l'autre
-																			//
-																			// aussi
-				/*
-				 ** 
-				 * 
-				 * if (PanelMappe.this.app instanceof appNoeud)
-				 * * {
-				 * ((appNoeud) PanelMappe.this.app).majLstNoeuds(PanelMappe.this.alNoeud);
-				 * * }
-				 * *
-				 */
+				PanelMappe.this.noeudSelec = new Noeud(nomNoeud, e.getX(), e.getY(), PanelMappe.RADIUS);
+				
+				PanelMappe.this.alNoeud.add(PanelMappe.this.noeudSelec); // Si un noeud d'une liste est modif, l'autre aussi
 				PanelMappe.this.concepteur.majIHM();
 			}
 
@@ -128,39 +105,13 @@ public class PanelMappe extends JPanel {
 		});
 	}
 
-	public void setImg(File imagePath) {
+	public void setImg(File imagePath) {this.img = getToolkit().getImage(imagePath.getAbsolutePath()); repaint();}	
+	public void setCliquable(Boolean cliquable) {this.cliquable = cliquable;}
 
-		this.img = getToolkit().getImage(imagePath.getAbsolutePath());
-		repaint();
-
-	}
-
-	public void setCliquable(Boolean cliquable) {
-
-		this.cliquable = cliquable;
-
-	}
-
-	public void setLstNoeud(ArrayList<Noeud> alNoeud) {
-		ArrayList<NoeudDessin> alNoeudDessin = new ArrayList<NoeudDessin>();
-
-		this.alNoeud = alNoeud;
-
-		for (Noeud noeud : this.alNoeud) {
-			alNoeudDessin.add(new NoeudDessin(noeud.getNom(), noeud.getX(), noeud.getY(), 20));
-		}
-		this.alNoeudDessin = alNoeudDessin;
-	}
-
-	public void removeLstNoeud(Noeud noeud) {
-
-		this.alNoeudDessin.remove(noeud);
-
-	}
-
-	public void modifierLstNoeud(int noeudPos) {
-		this.alNoeudDessin.get(noeudPos).setRectangleLongueur();
-		this.alNoeudDessin.get(noeudPos).majEllipse2D();
+	public void modifierLstNoeud(int noeudPos) 
+	{
+		this.alNoeud.get(noeudPos).setRectangleLongueur();
+		this.alNoeud.get(noeudPos).majEllipse2D();
 	}
 
 	public void paint(Graphics g) {
@@ -274,9 +225,8 @@ public class PanelMappe extends JPanel {
 			}
 		}
 
-		for (NoeudDessin noeud : this.alNoeudDessin) {
-			System.out.println();
-
+		for (Noeud noeud : this.alNoeud) 
+		{
 			// Cercle
 			g2d.setColor(Color.RED);
 			g2d.fill(noeud.getEllipse2D());
@@ -293,8 +243,5 @@ public class PanelMappe extends JPanel {
 			g2d.drawString(noeud.getNom(), noeud.getNomX(), noeud.getNomY());
 		}
 	}
-
-	public void majIHM() {
-		this.repaint();
-	}
+	public void majIHM() {this.repaint();}
 }

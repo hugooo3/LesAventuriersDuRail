@@ -54,9 +54,10 @@ public class PanelLstArete extends JPanel implements ActionListener {
 
 		this.ddlstNoeud1 = new JComboBox<Noeud>(this.alNoeud.toArray(new Noeud[this.alNoeud.size()]));
 		this.ddlstNoeud2 = new JComboBox<Noeud>(this.alNoeud.toArray(new Noeud[this.alNoeud.size()]));
-		this.ddlstNoeud1.setPrototypeDisplayValue(new Noeud("XXXXXXXXXXXXXXXXXXXX", 0, 0));
-		this.ddlstNoeud2.setPrototypeDisplayValue(new Noeud("XXXXXXXXXXXXXXXXXXXX", 0, 0));
-
+    
+		this.ddlstNoeud1.setPrototypeDisplayValue(new Noeud("XXXXXXXXXXXXXXXXXXXX", 0, 0, 0));
+		this.ddlstNoeud2.setPrototypeDisplayValue(new Noeud("XXXXXXXXXXXXXXXXXXXX", 0, 0, 0));
+    
 		this.ddlstCouleur = new JComboBox<CarteWagon>(alCouleur.toArray(new CarteWagon[alCouleur.size()]));
 		this.ddlstCouleur.removeItemAt(alCouleur.size() - 1); // Joker retire des choix possibles
 		this.ddlstCouleur.setRenderer(new RendererCouleur());
