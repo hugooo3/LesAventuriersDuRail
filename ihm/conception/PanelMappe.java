@@ -215,8 +215,8 @@ public class PanelMappe extends JPanel {
 				g2d.draw(path2);
 
 
-				int milieuX = (arete1X + arete2X) / 2 + intensiteX;
-				int milieuY = (arete1Y + arete2Y) / 2 + intensiteY;
+				int milieuX = (arete1X + arete2X) / 2 + (intensiteX/2);
+				int milieuY = (arete1Y + arete2Y) / 2 + (intensiteY/2);
 
 				g2d.setStroke(new BasicStroke((float) (1)));
 				g2d.setColor(Color.WHITE);
@@ -226,8 +226,8 @@ public class PanelMappe extends JPanel {
 				g2d.drawString("" + arete.getTronconsDoubleVoie(), milieuX, milieuY + 12);
 
 
-				milieuX = (arete1X + arete2X) / 2 - intensiteX;
-				milieuY = (arete1Y + arete2Y) / 2 - intensiteY;
+				milieuX = (arete1X + arete2X) / 2 - (intensiteX/2);
+				milieuY = (arete1Y + arete2Y) / 2 -  (intensiteY/2);
 
 				g2d.setStroke(new BasicStroke((float) (1)));
 				g2d.setColor(Color.WHITE);
