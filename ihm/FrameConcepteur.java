@@ -107,11 +107,6 @@ public class FrameConcepteur extends JFrame implements ActionListener
 		this.panelLstArete.majLstArete();
 		this.panelLstCarteDestination.majLstCarteDestination();
 		this.panelLstCarteWagon.majLstCarteWagon();
-
-		for (Noeud noeud : this.appli.getMetier().getAlNoeuds())
-		{
-			System.out.println(noeud);
-		}
 	}
 
 	@Override

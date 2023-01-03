@@ -9,7 +9,6 @@ import java.awt.*;
 import java.awt.event.*;
 
 import java.io.File;
-import java.lang.reflect.Field;
 
 public class MenuBar extends JMenuBar implements ActionListener
 {

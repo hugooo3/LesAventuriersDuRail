@@ -277,7 +277,6 @@ public class Metier
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) 
 				{
 					Element e = (Element) nNode;
-					String nomCouleur = e.getElementsByTagName("nomCouleur").item(0).getTextContent();
 					Color couleur = new Color(Integer.parseInt(e.getElementsByTagName("couleur").item(0).getTextContent()));
 
 					CarteWagon carteWagon = new CarteWagon(e.getElementsByTagName("nomCouleur").item(0).getTextContent(),
