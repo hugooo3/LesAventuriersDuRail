@@ -189,7 +189,7 @@ public class MenuBar extends JMenuBar implements ActionListener
 		if (e.getSource() == this.btnDefaultImage) 
 		{		
 			this.lblPathNouveau.setText("../images/carteUSA.png");	
-			this.imagePath = new File("/images/carteUSA.png");
+			this.imagePath = new File("images/carteUSA.png");
 		}
 		
 		if (e.getSource() == this.menuiFichierNouveau) 
