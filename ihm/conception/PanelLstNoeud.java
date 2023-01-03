@@ -13,8 +13,7 @@ import java.util.ArrayList;
 
 import metier.Noeud;
 
-public class PanelLstNoeud extends JPanel implements ActionListener, ListSelectionListener
-{
+public class PanelLstNoeud extends JPanel implements ActionListener, ListSelectionListener {
 	private FrameConcepteur concepteur;
 
 	private JButton btnSuppr, btnModif;
@@ -24,8 +23,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	private DefaultListModel<Noeud> modelListNoeud;
 	private GridBagConstraints gbc = new GridBagConstraints();
 
-	public PanelLstNoeud(FrameConcepteur concepteur, int largeur, int hauteur) 
-	{
+	public PanelLstNoeud(FrameConcepteur concepteur, int largeur, int hauteur) {
 		this.concepteur = concepteur;
 		this.setBackground(Color.LIGHT_GRAY);
 		this.setPreferredSize(new Dimension((int) (largeur * 0.3), hauteur));
@@ -36,7 +34,6 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		this.alstNoeud = this.concepteur.getMetier().getAlNoeuds();
 		this.modelListNoeud = new DefaultListModel<Noeud>();
 		this.lstNoeud = new JList<Noeud>(this.modelListNoeud);
-
 
 		// JList avec scroll
 		this.scrollPane = new JScrollPane();
@@ -64,7 +61,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 		this.gbc.gridwidth = 3;
 		this.gbc.fill = GridBagConstraints.HORIZONTAL;
 		this.add(this.scrollPane, this.gbc);
-		
+
 		this.gbc.gridx = 0;
 		this.gbc.gridy = 1;
 		this.gbc.gridwidth = 1;
@@ -76,38 +73,34 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) 
-	{
-		if (e.getSource() == this.btnSuppr) 
-		{
-			if (this.lstNoeud.getSelectedIndex() != -1) 
-			{
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.btnSuppr) {
+			if (this.lstNoeud.getSelectedIndex() != -1) {
 				this.removeLstNoeud(this.lstNoeud.getSelectedValue());
+				this.lstNoeud.setSelectedIndex(0);
 				this.concepteur.majIHM();
-			} 
-			else 
-			{
-				JOptionPane.showMessageDialog(null, "Veuillez selectionner un noeud", "Aucune sélection", JOptionPane.WARNING_MESSAGE);
+			} else {
+				JOptionPane.showMessageDialog(null, "Veuillez selectionner un noeud", "Aucune sélection",
+						JOptionPane.WARNING_MESSAGE);
 			}
 		}
 
-		if (e.getSource() == this.btnModif && this.lstNoeud.getSelectedValue() != null)
-		{
-			
+		if (e.getSource() == this.btnModif && this.lstNoeud.getSelectedValue() != null) {
+
 			JPanel panelPopUpModif = new JPanel(new GridBagLayout());
 			GridBagConstraints gbcModif = new GridBagConstraints();
 			gbcModif.insets = new Insets(5, 2, 5, 2);
 
 			Noeud noeudSelect = this.lstNoeud.getSelectedValue();
 
-			//TextField des attributs
-			JTextField txtNom 	= new JTextField(noeudSelect.getNom(), 10);
-			JTextField txtX 	= new JTextField(Integer.toString(noeudSelect.getX()), 5);
-			JTextField txtY 	= new JTextField(Integer.toString(noeudSelect.getY()), 5);
-			JTextField txtNomX 	= new JTextField(Integer.toString(noeudSelect.getNomX()), 5);
-			JTextField txtNomY 	= new JTextField(Integer.toString(noeudSelect.getNomY()), 5);
-			
-			//Nom
+			// TextField des attributs
+			JTextField txtNom = new JTextField(noeudSelect.getNom(), 10);
+			JTextField txtX = new JTextField(Integer.toString(noeudSelect.getX()), 5);
+			JTextField txtY = new JTextField(Integer.toString(noeudSelect.getY()), 5);
+			JTextField txtNomX = new JTextField(Integer.toString(noeudSelect.getNomX()), 5);
+			JTextField txtNomY = new JTextField(Integer.toString(noeudSelect.getNomY()), 5);
+
+			// Nom
 			gbcModif.gridx = 0;
 			gbcModif.gridy = 0;
 			panelPopUpModif.add(new JLabel("Nom"), gbcModif);
@@ -116,7 +109,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			gbcModif.gridy = 1;
 			panelPopUpModif.add(txtNom, gbcModif);
 
-			//Coord disque
+			// Coord disque
 			gbcModif.gridx = 0;
 			gbcModif.gridy = 2;
 			gbcModif.gridwidth = 3;
@@ -140,8 +133,8 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			gbcModif.gridx = 3;
 			gbcModif.gridy = 3;
 			panelPopUpModif.add(txtY, gbcModif);
-			
-			//Coord nom
+
+			// Coord nom
 			gbcModif.gridx = 0;
 			gbcModif.gridy = 4;
 			gbcModif.gridwidth = 3;
@@ -171,7 +164,7 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 			noeudSelect.setNom(txtNom.getText());
 			noeudSelect.setX(Integer.parseInt(txtX.getText()));
 			noeudSelect.setY(Integer.parseInt(txtY.getText()));
-			noeudSelect.setNomDeltaX(Integer.parseInt(txtNomX.getText()) );
+			noeudSelect.setNomDeltaX(Integer.parseInt(txtNomX.getText()));
 			noeudSelect.setNomDeltaY(Integer.parseInt(txtNomY.getText()));
 
 			this.concepteur.modifierLstNoeud(this.lstNoeud.getSelectedIndex());
@@ -181,24 +174,21 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 
 	}
 
-	public void majLstNoeuds() 
-	{
-		for (Noeud noeud : this.alstNoeud)
-		{
-			if (!this.modelListNoeud.contains(noeud))
-			{
+	public void majLstNoeuds() {
+		for (Noeud noeud : this.alstNoeud) {
+			if (!this.modelListNoeud.contains(noeud)) {
 				this.modelListNoeud.addElement(noeud);
 			}
 		}
 	}
 
-	public void removeLstNoeud(Noeud noeud)
-	{		
+	public void removeLstNoeud(Noeud noeud) {
 		this.alstNoeud.remove(noeud);
 		this.modelListNoeud.removeElement(noeud);
 		this.concepteur.removeLstNoeud(noeud);
 	}
 
 	@Override
-	public void valueChanged(ListSelectionEvent arg0) {}
+	public void valueChanged(ListSelectionEvent arg0) {
+	}
 }

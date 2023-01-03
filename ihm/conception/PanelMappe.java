@@ -177,33 +177,91 @@ public class PanelMappe extends JPanel {
 			// g2d.setStroke(new BasicStroke(4, BasicStroke.CAP_BUTT,
 			//
 			// BasicStroke.JOIN_MITER, 1.0f, dashingPattern, 0.0f));
-			if (arete.getVoieDouble()) 
-			{
-				Path2D path = new Path2D.Double();
-/* 				g2d.setColor(Color.BLACK);
+			if (arete.getVoieDouble()) {
+				/*
+				 * g2d.setColor(Color.BLACK);
+				 * g2d.setStroke(new BasicStroke(11));
+				 * g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() - 10,
+				 * arete.getNoeud2().getX(),
+				 * arete.getNoeud2().getY() - 10);
+				 * 
+				 * g2d.setColor(arete.getCouleur().getCouleur());
+				 * g2d.setStroke(new BasicStroke(5));
+				 * g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() - 8,
+				 * arete.getNoeud2().getX(), arete.getNoeud2().getY() - 8);
+				 * 
+				 * g2d.setColor(Color.BLACK);
+				 * g2d.setStroke(new BasicStroke(11));
+				 * g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() + 10,
+				 * arete.getNoeud2().getX(),
+				 * arete.getNoeud2().getY() + 10);
+				 * 
+				 * g2d.setColor(arete.getCouleurVoieDouble().getCouleur());
+				 * g2d.setStroke(new BasicStroke(5));
+				 * g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() + 8,
+				 * arete.getNoeud2().getX(), arete.getNoeud2().getY() + 8);
+				 */
+
+				Path2D path1 = new Path2D.Double();
+				Path2D path2 = new Path2D.Double();
+
+				int arete1X = arete.getNoeud1().getX();
+				int arete1Y = arete.getNoeud1().getY();
+				int arete2X = arete.getNoeud2().getX();
+				int arete2Y = arete.getNoeud2().getY();
+
+				int intensiteY = (arete1X - arete2X) / 4;
+				int intensiteX = (arete1Y - arete2Y) / 4;
+
+				System.out.println("intensiteX : " + intensiteX);
+				System.out.println("intensiteY : " + intensiteY);
+
+				g2d.setColor(Color.BLACK);
 				g2d.setStroke(new BasicStroke(11));
-				g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() - 10, arete.getNoeud2().getX(),
-						arete.getNoeud2().getY() - 10);
+				path1.moveTo(arete1X, arete1Y);
+				path1.curveTo((double) (arete1X + arete2X) / 2 - intensiteX,
+						(double) (arete1Y + arete2Y) / 2 - intensiteY,
+						(double) (arete2X),
+						(double) (arete2Y),
+						(double) arete2X,
+						(double) arete2Y);
+				g2d.draw(path1);
 
 				g2d.setColor(arete.getCouleur().getCouleur());
 				g2d.setStroke(new BasicStroke(5));
-				g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() - 8,
-						arete.getNoeud2().getX(), arete.getNoeud2().getY() - 8);
+				path1.moveTo(arete1X, arete1Y);
+				path1.curveTo((double) (arete1X + arete2X) / 2 - intensiteX,
+						(double) (arete1Y + arete2Y) / 2 - intensiteY,
+						(double) (arete2X),
+						(double) (arete2Y),
+						(double) arete2X,
+						(double) arete2Y);
+				g2d.draw(path1);
 
 				g2d.setColor(Color.BLACK);
 				g2d.setStroke(new BasicStroke(11));
-				g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() + 10, arete.getNoeud2().getX(),
-						arete.getNoeud2().getY() + 10);
+				path2.moveTo(arete1X, arete1Y);
+				path2.curveTo((double) (arete1X + arete2X) / 2 + intensiteX,
+						(double) (arete1Y + arete2Y) / 2 + intensiteY,
+						(double) (arete2X),
+						(double) (arete2Y),
+						(double) arete2X,
+						(double) arete2Y);
+				g2d.draw(path2);
 
-				g2d.setColor(arete.getCouleurVoieDouble().getCouleur());
+				g2d.setColor(arete.getCouleurDoubleVoie().getCouleur());
 				g2d.setStroke(new BasicStroke(5));
-				g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() + 8,
-						arete.getNoeud2().getX(), arete.getNoeud2().getY() + 8); */
-				
-				g2d.setColor(Color.BLACK);
-				g2d.setStroke(new BasicStroke(11));
-				
+				path2.moveTo(arete1X, arete1Y);
+				path2.curveTo((double) (arete1X + arete2X) / 2 + intensiteX,
+						(double) (arete1Y + arete2Y) / 2 + intensiteY,
+						(double) (arete2X),
+						(double) (arete2Y),
+						(double) arete2X,
+						(double) arete2Y);
+				g2d.draw(path2);
+
 			} else {
+
 				g2d.setColor(Color.BLACK);
 				g2d.setStroke(new BasicStroke(11));
 				g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY(), arete.getNoeud2().getX(),
@@ -237,8 +295,6 @@ public class PanelMappe extends JPanel {
 	}
 
 	public void majIHM() {
-
 		this.repaint();
-
 	}
 }

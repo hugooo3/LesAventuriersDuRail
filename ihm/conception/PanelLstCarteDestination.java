@@ -160,10 +160,59 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 		}
 	}
 
+	public boolean existe(CarteDestination c) {
+		for (CarteDestination carte : this.alCarteDestination) {
+			if (carte.getNoeud1().getNom().equals(c.getNoeud1().getNom()) && carte.getNoeud2().getNom().equals(c.getNoeud2().getNom()) ||
+				carte.getNoeud2().getNom().equals(c.getNoeud1().getNom()) && carte.getNoeud1().getNom().equals(c.getNoeud2().getNom())) {
+				
+				return true;
+			}
+		}
+
+		return false;
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e) {
 
 		this.majComboBox();
+
+		if (e.getSource() == this.btnAuto) {
+
+			this.alCarteDestination = new ArrayList<CarteDestination>();
+			ArrayList<Noeud> alNoeud1 = new ArrayList<Noeud>();
+			ArrayList<Noeud> alNoeud2 = new ArrayList<Noeud>();
+			for (int i = 0; i < this.ddlstNoeud1.getItemCount(); i++) {
+				alNoeud1.add((Noeud) this.ddlstNoeud1.getItemAt(i));
+			}
+			for (int i = 0; i < this.ddlstNoeud2.getItemCount(); i++) {
+				alNoeud2.add((Noeud) this.ddlstNoeud2.getItemAt(i));
+			}
+
+			System.out.println("Listes :\n" + alNoeud1.toString());
+			System.out.println(alNoeud2.toString() + "\n\n");
+
+
+				for (int i = 0; i < alNoeud1.size(); i++) {
+					for (int j = 0; j < alNoeud2.size(); j++) {
+						if (!alNoeud1.get(i).getNom().equals(alNoeud2.get(j).getNom())) {
+
+							int nbPoint = (int) (Math.random() * 50) + 1;
+							CarteDestination carteTemp = new CarteDestination(alNoeud1.get(i), alNoeud2.get(j), nbPoint,
+									new File("/images/carteDestRecto.png"),
+									new File("/images/carteDestVerso.png"));
+
+							if (!existe(carteTemp)) {
+								this.alCarteDestination.add(carteTemp);
+							}
+						}
+					}
+				}
+
+		
+
+			this.concepteur.majIHM();
+		}
 
 		if (e.getSource() == this.btnNouveau) {
 			if (this.ddlstNoeud1.getItemCount() > 0 && this.ddlstNoeud1.getItemCount() > 0)
@@ -192,12 +241,14 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 					imgVerso);
 
 			for (CarteDestination carte : this.alCarteDestination)
-				if (carteDestination.getNoeud1() == carte.getNoeud1() && 
-					carteDestination.getNoeud2() == carte.getNoeud2() &&
-					carteDestination.getPoints() == carte.getPoints()) {
-					
-					JOptionPane.showMessageDialog(null, "Cette carte destination existe déjà", "Erreur",
+				if (carteDestination.getNoeud1() == carte.getNoeud1() &&
+						carteDestination.getNoeud2() == carte.getNoeud2() &&
+						carteDestination.getPoints() == carte.getPoints() ||
+						carteDestination.getNoeud1() == carte.getNoeud2() &&
+								carteDestination.getNoeud2() == carte.getNoeud1() &&
+								carteDestination.getPoints() == carte.getPoints()) {
 
+					JOptionPane.showMessageDialog(null, "Cette carte destination existe déjà", "Erreur",
 							JOptionPane.ERROR_MESSAGE);
 					return;
 				}
@@ -205,8 +256,6 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 			this.alCarteDestination.add(carteDestination);
 			this.concepteur.majIHM();
 		}
-
-
 
 		if (e.getSource() == this.btnModif) {
 			if (this.lstCarteDestination.getSelectedIndex() != -1) {
@@ -241,12 +290,16 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 
 				for (CarteDestination carte : this.alCarteDestination)
 					if (carteTemp.getNoeud1() == carte.getNoeud1() &&
-						carteTemp.getNoeud2() == carte.getNoeud2() &&
-						carteTemp.getPoints() == carte.getPoints()) {
-					
-					JOptionPane.showMessageDialog(null, "Cette carte destination existe déjà", "Erreur", JOptionPane.ERROR_MESSAGE);
-					return;
-				}
+							carteTemp.getNoeud2() == carte.getNoeud2() &&
+							carteTemp.getPoints() == carte.getPoints() ||
+							carteTemp.getNoeud1() == carte.getNoeud2() &&
+									carteTemp.getNoeud2() == carte.getNoeud1() &&
+									carteTemp.getPoints() == carte.getPoints()) {
+
+						JOptionPane.showMessageDialog(null, "Cette carte destination existe déjà", "Erreur",
+								JOptionPane.ERROR_MESSAGE);
+						return;
+					}
 
 				carteSelected.setNoeud1((Noeud) this.ddlstNoeud1.getSelectedItem());
 				carteSelected.setNoeud2((Noeud) this.ddlstNoeud2.getSelectedItem());
@@ -262,12 +315,12 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 				CarteDestination carteDestinationSelect = this.lstCarteDestination.getSelectedValue();
 				this.alCarteDestination.remove(carteDestinationSelect);
 				this.modelListCarteDestination.removeElement(carteDestinationSelect);
+				this.lstCarteDestination.setSelectedIndex(0);
 				this.concepteur.majIHM();
+			} else {
+				JOptionPane.showMessageDialog(null, "Veuillez selectionner une carte.", "Aucune sélection",
+						JOptionPane.WARNING_MESSAGE);
 			}
-		}
-
-		if (e.getSource() == this.btnAuto) {
-			// @TODO
 		}
 	}
 }

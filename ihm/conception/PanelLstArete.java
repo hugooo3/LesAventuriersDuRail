@@ -25,6 +25,7 @@ public class PanelLstArete extends JPanel implements ActionListener {
 	private JComboBox<CarteWagon> ddlstCouleur;
 	private JComboBox<CarteWagon> ddlstCouleurVoieDouble;
 	private JTextField txtNbWagon;
+	private JTextField txtNbWagonvoieDouble;
 	private JCheckBox cbVoieDouble;
 
 	private GridBagConstraints gbc = new GridBagConstraints();
@@ -68,6 +69,11 @@ public class PanelLstArete extends JPanel implements ActionListener {
 		this.txtNbWagon = new JTextField("1", 5);
 		JLabel lblNbWagon = new JLabel("Nb Wagon :");
 		lblNbWagon.setLabelFor(this.txtNbWagon);
+
+		this.txtNbWagonvoieDouble = new JTextField("1", 5);
+		JLabel lblWagonVoieDouble = new JLabel("Nb Wagon voie double :");
+		lblWagonVoieDouble.setLabelFor(this.txtNbWagon);
+
 		this.cbVoieDouble = new JCheckBox("Voie double");
 		this.cbVoieDouble.addActionListener(this);
 
@@ -105,6 +111,16 @@ public class PanelLstArete extends JPanel implements ActionListener {
 		gbcPopUp.gridx = 1;
 		gbcPopUp.gridy = 2;
 		this.panelPopUp.add(this.txtNbWagon, gbcPopUp);
+
+		// Label txtNbWagon Voie Double
+		gbcPopUp.gridx = 0;
+		gbcPopUp.gridy = 3;
+		this.panelPopUp.add(lblWagonVoieDouble, gbcPopUp);
+
+		// TextField NbWagon Voie Double
+		gbcPopUp.gridx = 1;
+		gbcPopUp.gridy = 3;
+		this.panelPopUp.add(this.txtNbWagonvoieDouble, gbcPopUp);
 
 		// JList avec scroll
 		this.scrollPane = new JScrollPane();
@@ -228,13 +244,15 @@ public class PanelLstArete extends JPanel implements ActionListener {
 			CarteWagon couleurDoubleVoie = (CarteWagon) this.ddlstCouleurVoieDouble.getSelectedItem();
 			int nbWagon = Integer.parseInt(this.txtNbWagon.getText());
 
+			System.out.println("couleur : " + couleur + " couleur double voie : " + couleurDoubleVoie);
+
 			if (this.cbVoieDouble.isSelected()) {
 				this.alAretes.add(
 						new Arete(noeudSelected1, noeudSelected2, couleur, nbWagon,
-								this.cbVoieDouble.isSelected(), couleurDoubleVoie));
+								this.cbVoieDouble.isSelected(), couleurDoubleVoie, 0));
 			} else {
 				this.alAretes.add(new Arete(noeudSelected1, noeudSelected2, couleur, nbWagon,
-						this.cbVoieDouble.isSelected(), null));
+						this.cbVoieDouble.isSelected(), null, 0));
 			}
 			this.concepteur.majIHM();
 		}
@@ -248,6 +266,8 @@ public class PanelLstArete extends JPanel implements ActionListener {
 				this.ddlstCouleur.setSelectedItem(areteSelected.getCouleur());
 				this.txtNbWagon.setText(Integer.toString(areteSelected.getTroncons()));
 				this.cbVoieDouble.setSelected(areteSelected.getVoieDouble());
+				this.ddlstCouleurVoieDouble.setSelectedItem(areteSelected.getCouleurDoubleVoie());
+				this.txtNbWagonvoieDouble.setText(Integer.toString(areteSelected.getTronconsDoubleVoie()));
 
 				do {
 					this.ddlstNoeud1.setSelectedItem(areteSelected.getNoeud1());
@@ -269,6 +289,8 @@ public class PanelLstArete extends JPanel implements ActionListener {
 				areteSelected.setCouleur((CarteWagon) this.ddlstCouleur.getSelectedItem());
 				areteSelected.setTroncons(Integer.parseInt(this.txtNbWagon.getText()));
 				areteSelected.setVoieDouble(this.cbVoieDouble.isSelected());
+				areteSelected.setCouleurDoubleVoie((CarteWagon) this.ddlstCouleurVoieDouble.getSelectedItem());
+				areteSelected.setTronconsDoubleVoie(Integer.parseInt(this.txtNbWagonvoieDouble.getText()));
 
 				this.concepteur.majIHM();
 			}
@@ -279,24 +301,13 @@ public class PanelLstArete extends JPanel implements ActionListener {
 				Arete areteSelect = this.lstArete.getSelectedValue();
 				this.alAretes.remove(areteSelect);
 				this.modelListArete.removeElement(areteSelect);
+				this.lstArete.setSelectedIndex(0);
 				this.concepteur.majIHM();
+			} else {
+				JOptionPane.showMessageDialog(null, "Veuillez selectionner une arête.", "Aucune sélection",
+						JOptionPane.WARNING_MESSAGE);
 			}
 		}
-		/*
-		 * // Clic sur le bouton Suivant
-		 * if (e.getSource() == this.btnSuivant)
-		 * {
-		 * System.out.println("Clic sur le bouton suivant");
-		 * ArrayList<Noeud> alAretes = new
-		 * ArrayList<Noeud>(lstArete.getModel().getSize());
-		 * 
-		 * for (int i = 0; i < lstArete.getModel().getSize(); i++) {
-		 * alstArete.add(lstArete.getModel().getElementAt(i));
-		 * }
-		 * 
-		 * // this.frame.creeralAretes(alAretes);
-		 * // this.frame.verifMAJ("noeud");
-		 * }
-		 */
+
 	}
 }

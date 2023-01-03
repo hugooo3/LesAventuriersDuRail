@@ -35,16 +35,16 @@ public class Metier
 		this.alCartesWagon = new ArrayList<CarteWagon>();
 
 		// Carte Wagon par défaut
-		this.alCartesWagon.add(new CarteWagon("Neutre"	, Color.GRAY	, null										, null				));
-		this.alCartesWagon.add(new CarteWagon("Blanc"	, Color.WHITE	, new ImageIcon("images/carteBlanche.png")	, this.VERSO_CARTE	));
-		this.alCartesWagon.add(new CarteWagon("Bleu"	, Color.BLUE	, new ImageIcon("images/carteBleu.png")		, this.VERSO_CARTE	));
-		this.alCartesWagon.add(new CarteWagon("Jaune"	, Color.YELLOW	, new ImageIcon("images/carteJaune.png")	, this.VERSO_CARTE	));
-		this.alCartesWagon.add(new CarteWagon("Noire"	, Color.BLACK	, new ImageIcon("images/carteNoire.png")	, this.VERSO_CARTE	));
-		this.alCartesWagon.add(new CarteWagon("Orange"	, Color.ORANGE	, new ImageIcon("images/carteOrange.png")	, this.VERSO_CARTE	));
-		this.alCartesWagon.add(new CarteWagon("Rouge"	, Color.RED		, new ImageIcon("images/carteRouge.png")	, this.VERSO_CARTE	));
-		this.alCartesWagon.add(new CarteWagon("Verte"	, Color.GREEN	, new ImageIcon("images/carteVerte.png")	, this.VERSO_CARTE	));
-		this.alCartesWagon.add(new CarteWagon("Violet"	, Color.MAGENTA	, new ImageIcon("images/carteViolet.png")	, this.VERSO_CARTE	));
-		this.alCartesWagon.add(new CarteWagon("Joker"	, Color.PINK	, new ImageIcon("images/carteJoker.png")	, this.VERSO_CARTE	));
+		this.alCartesWagon.add(new CarteWagon("Neutre"	, Color.GRAY	, null										, null				,20));
+		this.alCartesWagon.add(new CarteWagon("Blanc"	, Color.WHITE	, new ImageIcon("images/carteBlanche.png")	, this.VERSO_CARTE	, 20));
+		this.alCartesWagon.add(new CarteWagon("Bleu"	, Color.BLUE	, new ImageIcon("images/carteBleu.png")		, this.VERSO_CARTE	, 20));
+		this.alCartesWagon.add(new CarteWagon("Jaune"	, Color.YELLOW	, new ImageIcon("images/carteJaune.png")	, this.VERSO_CARTE	, 20));
+		this.alCartesWagon.add(new CarteWagon("Noire"	, Color.BLACK	, new ImageIcon("images/carteNoire.png")	, this.VERSO_CARTE	, 20));
+		this.alCartesWagon.add(new CarteWagon("Orange"	, Color.ORANGE	, new ImageIcon("images/carteOrange.png")	, this.VERSO_CARTE	, 20));
+		this.alCartesWagon.add(new CarteWagon("Rouge"	, Color.RED		, new ImageIcon("images/carteRouge.png")	, this.VERSO_CARTE	, 20));
+		this.alCartesWagon.add(new CarteWagon("Verte"	, Color.GREEN	, new ImageIcon("images/carteVerte.png")	, this.VERSO_CARTE	, 20));
+		this.alCartesWagon.add(new CarteWagon("Violet"	, Color.MAGENTA	, new ImageIcon("images/carteViolet.png")	, this.VERSO_CARTE	, 20));
+		this.alCartesWagon.add(new CarteWagon("Joker"	, Color.PINK	, new ImageIcon("images/carteJoker.png")	, this.VERSO_CARTE	, 20));
 	}
 
 	public ArrayList<Noeud> getAlNoeuds() {return this.alNoeuds;}
