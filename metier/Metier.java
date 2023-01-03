@@ -158,6 +158,8 @@ public class Metier
 			pw.println("</liste>");
 
 			pw.close();
+
+			System.out.println("Fichier Mappe.xml généré avec succès !");
 		} 
 		catch (Exception e) {e.printStackTrace();}
 	}
@@ -203,60 +205,5 @@ public class Metier
 			}
 		}
 		return dossierSortie.mkdir();
-	}
-
-	public void verifMAJ(String source) {
-		switch (source) {
-			case "param":
-				System.out.println("imgMappe : " + this.imgMappe);
-				System.out.println("nbJoueurMin : " + this.nbJoueurMin);
-				System.out.println("nbJoueurMax : " + this.nbJoueurMax);
-				System.out.println("nbJoueurDoubleVoies : " + this.nbJoueurDoubleVoies);
-				System.out.println("nbWagonJoueur : " + this.nbWagonJoueur);
-				System.out.println("\n");
-				this.copierImage("imgMappe", this.imgMappe);
-				break;
-			case "noeud":
-				for (Noeud noeud : this.alNoeuds) {
-					System.out.println("nom : " + noeud.getNom());
-					System.out.println("x : " + noeud.getX());
-					System.out.println("y : " + noeud.getY());
-					System.out.println("\n");
-				}
-				break;
-			case "arete":
-				for (Arete arete : this.alAretes) {
-					System.out.println("noeud1 : " + arete.getNoeud1().getNom());
-					System.out.println("noeud2 : " + arete.getNoeud2().getNom());
-					System.out.println("couleur : " + arete.getCouleur());
-					System.out.println("troncons : " + arete.getTroncons());
-					System.out.println("voieDouble : " + arete.getVoieDouble());
-					System.out.println("\n");
-				}
-				break;
-			case "carteDestination":
-				for (CarteDestination carteDestination : this.alCartesDestination) {
-					System.out.println("noeud1 : " + carteDestination.getNoeud1().getNom());
-					System.out.println("noeud2 : " + carteDestination.getNoeud2().getNom());
-					System.out.println("points : " + carteDestination.getPoints());
-					System.out.println("imgRecto : " + carteDestination.getImgRecto());
-					this.copierImage  ("imgRecto", carteDestination.getImgRecto());
-					System.out.println("imgVerso : " + carteDestination.getImgVerso());
-					this.copierImage  ("imgVerso", carteDestination.getImgVerso());
-					System.out.println("\n");
-				}
-				break;
-			case "carteWagon":
-				for (CarteWagon carteWagon : this.alCartesWagon) {
-					System.out.println("couleur : " + carteWagon.getNomCouleur());
-					System.out.println("imgRecto : " + carteWagon.getImgRecto());
-					System.out.println("imgVerso : " + carteWagon.getImgVerso());
-					System.out.println("\n");
-				}
-				break;
-			default:
-				System.out.println("Erreur : source inconnue");
-				break;
-		}
 	}
 }
