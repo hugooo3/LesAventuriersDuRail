@@ -234,12 +234,12 @@ public class MenuBar extends JMenuBar implements ActionListener
 			if (nomOs.indexOf("win") >= 0) 
 			{
 				path = path.replace("Desktop", directory);
-				ouvrirExploreur(path, "Images");
+				ouvrirExploreur(path, directory);
 			} 
 			else if (nomOs.indexOf("mac") >= 0) 
 			{
 				path = path.replace("Desktop", directory);
-				ouvrirExploreur(path, "Images");
+				ouvrirExploreur(path, directory);
 			} 
 			else if (nomOs.indexOf("nux") >= 0 || nomOs.indexOf("nix") >= 0 || nomOs.indexOf("aix") >= 0) 
 			{

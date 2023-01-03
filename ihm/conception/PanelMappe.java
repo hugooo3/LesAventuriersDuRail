@@ -116,6 +116,10 @@ public class PanelMappe extends JPanel {
 		this.alNoeud.get(noeudPos).majEllipse2D();
 	}
 
+
+
+
+
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 
@@ -210,6 +214,28 @@ public class PanelMappe extends JPanel {
 						(double) arete2Y);
 				g2d.draw(path2);
 
+
+				int milieuX = (arete1X + arete2X) / 2 + (intensiteX/2);
+				int milieuY = (arete1Y + arete2Y) / 2 + (intensiteY/2);
+
+				g2d.setStroke(new BasicStroke((float) (1)));
+				g2d.setColor(Color.WHITE);
+				g2d.fill(new Rectangle2D.Double(milieuX - 3, milieuY, ("" + arete.getTronconsDoubleVoie()).length() * 7 + 5, 15));
+				g2d.setColor(Color.BLACK);
+				g2d.draw(new Rectangle2D.Double(milieuX - 3, milieuY, ("" + arete.getTronconsDoubleVoie()).length() * 7 + 5, 15));
+				g2d.drawString("" + arete.getTronconsDoubleVoie(), milieuX, milieuY + 12);
+
+
+				milieuX = (arete1X + arete2X) / 2 - (intensiteX/2);
+				milieuY = (arete1Y + arete2Y) / 2 -  (intensiteY/2);
+
+				g2d.setStroke(new BasicStroke((float) (1)));
+				g2d.setColor(Color.WHITE);
+				g2d.fill(new Rectangle2D.Double(milieuX - 3, milieuY, ("" + arete.getTroncons()).length() * 7 + 5, 15));
+				g2d.setColor(Color.BLACK);
+				g2d.draw(new Rectangle2D.Double(milieuX - 3, milieuY, ("" + arete.getTroncons()).length() * 7 + 5, 15));
+				g2d.drawString("" + arete.getTroncons(), milieuX, milieuY + 12);
+
 			} else {
 
 				g2d.setColor(Color.BLACK);
@@ -221,8 +247,20 @@ public class PanelMappe extends JPanel {
 				g2d.setStroke(new BasicStroke(5));
 				g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY(),
 						arete.getNoeud2().getX(), arete.getNoeud2().getY());
+
+				
+				int milieuX = (arete.getNoeud1().getX() + arete.getNoeud2().getX()) / 2;
+				int milieuY = (arete.getNoeud1().getY() + arete.getNoeud2().getY()) / 2;
+
+				g2d.setStroke(new BasicStroke((float) (1)));
+				g2d.setColor(Color.WHITE);
+				g2d.fill(new Rectangle2D.Double(milieuX - 3, milieuY + 12, ("" + arete.getTroncons()).length() * 7 + 5, 15));
+				g2d.setColor(Color.BLACK);
+				g2d.draw(new Rectangle2D.Double(milieuX - 3, milieuY + 12, ("" + arete.getTroncons()).length() * 7 + 5, 15));
+				g2d.drawString("" + arete.getTroncons(), milieuX, milieuY + 25);
 			}
 		}
+
 
 		for (Noeud noeud : this.alNoeud) 
 		{

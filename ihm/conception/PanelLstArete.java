@@ -74,6 +74,7 @@ public class PanelLstArete extends JPanel implements ActionListener {
 		this.txtNbWagonvoieDouble = new JTextField("1", 5);
 		JLabel lblWagonVoieDouble = new JLabel("Nb Wagon voie double :");
 		lblWagonVoieDouble.setLabelFor(this.txtNbWagon);
+		this.txtNbWagonvoieDouble.setEnabled(false);
 
 		this.cbVoieDouble = new JCheckBox("Voie double");
 		this.cbVoieDouble.addActionListener(this);
@@ -211,8 +212,10 @@ public class PanelLstArete extends JPanel implements ActionListener {
 		if (e.getSource() == this.cbVoieDouble) {
 			if (this.cbVoieDouble.isSelected()) {
 				this.ddlstCouleurVoieDouble.setEnabled(true);
+				this.txtNbWagonvoieDouble.setEnabled(true);
 			} else {
 				this.ddlstCouleurVoieDouble.setEnabled(false);
+				this.txtNbWagonvoieDouble.setEnabled(false);
 			}
 		}
 
@@ -250,7 +253,7 @@ public class PanelLstArete extends JPanel implements ActionListener {
 			if (this.cbVoieDouble.isSelected()) {
 				this.alAretes.add(
 						new Arete(noeudSelected1, noeudSelected2, couleur, nbWagon,
-								this.cbVoieDouble.isSelected(), couleurDoubleVoie, 0));
+								this.cbVoieDouble.isSelected(), couleurDoubleVoie, Integer.parseInt(this.txtNbWagonvoieDouble.getText())));
 			} else {
 				this.alAretes.add(new Arete(noeudSelected1, noeudSelected2, couleur, nbWagon,
 						this.cbVoieDouble.isSelected(), null, 0));
