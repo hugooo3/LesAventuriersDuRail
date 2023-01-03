@@ -1,7 +1,6 @@
 package application;
 
 import java.io.File;
-import java.util.ArrayList;
 
 import ihm.*;
 import metier.*;
