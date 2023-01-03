@@ -9,6 +9,7 @@ import javax.swing.*;
 public class RendererCouleur extends DefaultListCellRenderer 
 {
 	private JLabel lblTxt;
+	private JLabel lblNbWagon;
 
 	@Override
 	public Component getListCellRendererComponent(JList<?> list, Object value, int index, boolean isSelected, boolean cellHasFocus) 
@@ -19,9 +20,10 @@ public class RendererCouleur extends DefaultListCellRenderer
 		// Création du panel contenant le texte et les deux images
 		// Utilisation du panel comme composant du renderer
 		JPanel panel = new JPanel();
-		panel.setLayout(new GridLayout(1, 3));
+		panel.setLayout(new GridLayout(1, 4));
 
 		this.lblTxt = new JLabel();
+		this.lblNbWagon = new JLabel();
 	
 		if (value instanceof CarteWagon) 
 		{
@@ -32,7 +34,9 @@ public class RendererCouleur extends DefaultListCellRenderer
 			int height = 50;
 			
 			this.lblTxt.setText(carteWagon.toString());
+			this.lblNbWagon.setText("Nb carte : " + Integer.toString(carteWagon.getNbCarteWagon()));
 			panel.add(this.lblTxt);
+			panel.add(this.lblNbWagon);
 
 			Image imgRecto = null;
 			if (carteWagon.getImgRecto() != null)
@@ -66,17 +70,20 @@ public class RendererCouleur extends DefaultListCellRenderer
 		if (couleur.equals(Color.GREEN)) 
 		{
 			this.lblTxt.setForeground(Color.BLACK);
+			this.lblNbWagon.setForeground(Color.BLACK);
 		}
 		else if (couleur.getRed() + couleur.getGreen() + couleur.getBlue() < 3 * 128)
 		{
 			// Si la couleur est sombre (somme des composantes rouge, verte et bleue inférieure à 3 * 128),
 			// définir la couleur du texte en blanc
 			this.lblTxt.setForeground(Color.WHITE);
+			this.lblNbWagon.setForeground(Color.WHITE);
 		} 
 		else 
 		{
 			// Sinon, définir la couleur du texte en noir
 			this.lblTxt.setForeground(Color.BLACK);
+			this.lblNbWagon.setForeground(Color.BLACK);
 		}				
 		
 	
