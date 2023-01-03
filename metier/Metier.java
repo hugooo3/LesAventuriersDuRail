@@ -132,10 +132,10 @@ public class Metier
 			for (Noeud noeud : alNoeuds) 
 			{
 				pw.println("\t<noeud nom=\"" + noeud.getNom() + "\">");
-				pw.println("\t<x>" + noeud.getX() + "</x>");
-				pw.println("\t<y>" + noeud.getY() + "</y>");
-				pw.println("\t<nomDeltaX>" + noeud.getNomDeltaX() + "</nomDeltaX>");
-				pw.println("\t<nomDeltaY>" + noeud.getNomDeltaY() + "</nomDeltaY>");
+				pw.println("\t\t<x>" + noeud.getX() + "</x>");
+				pw.println("\t\t<y>" + noeud.getY() + "</y>");
+				pw.println("\t\t<nomDeltaX>" + noeud.getNomDeltaX() + "</nomDeltaX>");
+				pw.println("\t\t<nomDeltaY>" + noeud.getNomDeltaY() + "</nomDeltaY>");
 				pw.println("\t</noeud>");
 			}
 
@@ -148,6 +148,8 @@ public class Metier
 				pw.println("\t\t<couleur>" + arete.getCouleur() + "</couleur>");
 				pw.println("\t\t<troncons>" + arete.getTroncons() + "</troncons>");
 				pw.println("\t\t<voieDouble>" + arete.getVoieDouble() + "</voieDouble>");
+				pw.println("\t\t<tronconsVoieDouble>" + arete.getTronconsDoubleVoie() + "</tronconsVoieDouble>");
+				pw.println("\t\t<couleurVoieDouble>" + arete.getCouleurDoubleVoie() + "</couleurVoieDouble>");
 				pw.println("\t</arete>");
 			}
 
@@ -171,6 +173,7 @@ public class Metier
 				pw.println("\t\t<couleur>" + carteWagon.getCouleur().getRGB() + "</couleur>");
 				pw.println("\t\t<imgRecto>" + carteWagon.getImgRecto() + "</imgRecto>");
 				pw.println("\t\t<imgVerso>" + carteWagon.getImgVerso() + "</imgVerso>");
+				pw.println("\t\t<nbCarteWagon>" + carteWagon.getNbCarteWagon() + "</nbCarteWagon>");
 				pw.println("\t</carteWagon>");
 			}
 
@@ -290,7 +293,8 @@ public class Metier
 					CarteWagon carteWagon = new CarteWagon(e.getElementsByTagName("nomCouleur").item(0).getTextContent(),
 														   couleur,
 														   new ImageIcon(e.getElementsByTagName("imgRecto").item(0).getTextContent()),
-														   new ImageIcon(e.getElementsByTagName("imgVerso").item(0).getTextContent()));
+														   new ImageIcon(e.getElementsByTagName("imgVerso").item(0).getTextContent()),
+														   Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
 
 					this.alCartesWagon.add(carteWagon);
 				}
@@ -307,6 +311,7 @@ public class Metier
 					Noeud noeud1 = null;
 					Noeud noeud2 = null;
 					CarteWagon carteWagon = null;
+					CarteWagon couleurVoieDouble = null;
 
 					for (Noeud noeud : this.alNoeuds)
 					{
@@ -316,10 +321,13 @@ public class Metier
 					for (CarteWagon carteWagonTemp : this.alCartesWagon)
 					{
 						if (carteWagonTemp.getNomCouleur().equals(e.getElementsByTagName("couleur").item(0).getTextContent())) { carteWagon = carteWagonTemp; }
+						if (carteWagonTemp.getNomCouleur().equals(e.getElementsByTagName("couleurVoieDouble").item(0).getTextContent())) {couleurVoieDouble = carteWagonTemp;}
 					}
 					Arete arete = new Arete(noeud1, noeud2, carteWagon, 
 											Integer.parseInt(e.getElementsByTagName("troncons").item(0).getTextContent()),
-											e.getElementsByTagName("voieDouble").item(0).getTextContent().equals("true"));
+											e.getElementsByTagName("voieDouble").item(0).getTextContent().equals("true"),
+											couleurVoieDouble,
+											Integer.parseInt(e.getElementsByTagName("tronconsVoieDouble").item(0).getTextContent()));
 					this.alAretes.add(arete);
 				}
 			}

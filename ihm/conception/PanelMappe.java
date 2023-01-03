@@ -36,13 +36,13 @@ public class PanelMappe extends JPanel {
 		this.setPreferredSize(new Dimension((int) (this.largeur * 0.7), this.hauteur));
 
 		// Dessin sur le Panel
-		this.addMouseListener(new MouseAdapter() {
+		this.addMouseListener(new MouseAdapter() 
+		{
 			@Override
-			public void mousePressed(MouseEvent e) {
-				if (PanelMappe.this.cliquable == false) {
-
+			public void mousePressed(MouseEvent e) 
+			{
+				if (PanelMappe.this.cliquable == false)
 					return;
-
 
 				for (Noeud noeud : PanelMappe.this.alNoeud) 
 				{
@@ -63,7 +63,8 @@ public class PanelMappe extends JPanel {
 				String nomNoeud = JOptionPane.showInputDialog(PanelMappe.this, lblNom, "Création d'un Noeud",
 						JOptionPane.QUESTION_MESSAGE);
 
-				while (nomNoeud == null || nomNoeud.equals("")) {
+				while (nomNoeud == null || nomNoeud.equals("")) 
+				{
 					if (nomNoeud == null) // bouton annuler
 						return;
 
@@ -82,7 +83,8 @@ public class PanelMappe extends JPanel {
 			}
 
 			@Override
-			public void mouseReleased(MouseEvent e) {
+			public void mouseReleased(MouseEvent e) 
+			{
 				PanelMappe.this.noeudSelec = null;
 				PanelMappe.this.noeudTexteSelec = null;
 			}
@@ -163,9 +165,6 @@ public class PanelMappe extends JPanel {
 
 				int intensiteY = (arete1X - arete2X) / 4;
 				int intensiteX = (arete1Y - arete2Y) / 4;
-
-				System.out.println("intensiteX : " + intensiteX);
-				System.out.println("intensiteY : " + intensiteY);
 
 				g2d.setColor(Color.BLACK);
 				g2d.setStroke(new BasicStroke(11));

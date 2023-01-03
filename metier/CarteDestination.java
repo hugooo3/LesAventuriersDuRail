@@ -29,4 +29,6 @@ public class CarteDestination {
 	public void setPoints(int points) { this.points = points; }
 	public void setImgRecto(ImageIcon imgRecto) { this.imgRecto = imgRecto; }
 	public void setImgVerso(ImageIcon imgVerso) { this.imgVerso = imgVerso; }
+
+	public String toString() {return noeud1.getNom() + " - " + noeud2.getNom() + " | " + this.points;}
 }

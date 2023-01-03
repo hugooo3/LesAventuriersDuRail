@@ -3,8 +3,6 @@ package ihm.conception;
 import metier.*;
 import ihm.FrameConcepteur;
 
-import java.io.File;
-
 import java.awt.*;
 import java.awt.event.*;
 
@@ -59,8 +57,8 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 		this.alNoeud = this.concepteur.getMetier().getAlNoeuds();
 		this.ddlstNoeud1 = new JComboBox<Noeud>(this.alNoeud.toArray(new Noeud[this.alNoeud.size()]));
 		this.ddlstNoeud2 = new JComboBox<Noeud>(this.alNoeud.toArray(new Noeud[this.alNoeud.size()]));
-		this.ddlstNoeud1.setPrototypeDisplayValue(new Noeud("XXXXXXXXXXXXXXXXXXXX", 0, 0));
-		this.ddlstNoeud2.setPrototypeDisplayValue(new Noeud("XXXXXXXXXXXXXXXXXXXX", 0, 0));
+		this.ddlstNoeud1.setPrototypeDisplayValue(new Noeud("XXXXXXXXXXXXXXXXXXXX", 0, 0, 0));
+		this.ddlstNoeud2.setPrototypeDisplayValue(new Noeud("XXXXXXXXXXXXXXXXXXXX", 0, 0, 0));
 
 		// Combobox Noeud 1
 		gbcPopUp.gridx = 0;
@@ -199,8 +197,8 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 
 							int nbPoint = (int) (Math.random() * 50) + 1;
 							CarteDestination carteTemp = new CarteDestination(alNoeud1.get(i), alNoeud2.get(j), nbPoint,
-									new File("/images/carteDestRecto.png"),
-									new File("/images/carteDestVerso.png"));
+									new ImageIcon("/images/carteDestRecto.png"),
+									new ImageIcon("/images/carteDestVerso.png"));
 
 							if (!existe(carteTemp)) {
 								this.alCarteDestination.add(carteTemp);
@@ -234,11 +232,10 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 			Noeud noeudSelected1 = (Noeud) this.ddlstNoeud1.getSelectedItem();
 			Noeud noeudSelected2 = (Noeud) this.ddlstNoeud2.getSelectedItem();
 			int nbPoints = Integer.parseInt(this.txtNbPoint.getText());
-			File imgRecto = new File("/images/carteDestRecto.png");
-			File imgVerso = new File("/images/carteDestVerso.png");
+			ImageIcon imgRecto = new ImageIcon("/images/carteDestRecto.png");
+			ImageIcon imgVerso = new ImageIcon("/images/carteDestVerso.png");
 
-			CarteDestination carteDestination = new CarteDestination(noeudSelected1, noeudSelected2, nbPoints, imgRecto,
-					imgVerso);
+			CarteDestination carteDestination = new CarteDestination(noeudSelected1, noeudSelected2, nbPoints, imgRecto, imgVerso);
 
 			for (CarteDestination carte : this.alCarteDestination)
 				if (carteDestination.getNoeud1() == carte.getNoeud1() &&
@@ -285,8 +282,8 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 				CarteDestination carteTemp = new CarteDestination((Noeud) this.ddlstNoeud1.getSelectedItem(),
 						(Noeud) this.ddlstNoeud2.getSelectedItem(),
 						Integer.parseInt(this.txtNbPoint.getText()),
-						new File("/images/carteDestRecto.png"),
-						new File("/images/carteDestVerso.png"));
+						new ImageIcon("/images/carteDestRecto.png"),
+						new ImageIcon("/images/carteDestVerso.png"));
 
 				for (CarteDestination carte : this.alCarteDestination)
 					if (carteTemp.getNoeud1() == carte.getNoeud1() &&
