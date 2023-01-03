@@ -113,7 +113,7 @@ public class MenuBar extends JMenuBar implements ActionListener
 		{
 			// On lui applique l'UI du pc de l'utilisateur
 			// Ici on ouvre l'explorateur de fichiers et on lui applique des paramètres
-			try 
+			try
 			{
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 			} 
@@ -126,13 +126,7 @@ public class MenuBar extends JMenuBar implements ActionListener
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "gif", "png", "jpeg");
 			parcourirFichier.addChoosableFileFilter(filter);
 			parcourirFichier.setApproveButtonText("Ouvrir");
-
-			// On lui applique l'UI du pc de l'utilisateur
-			try 
-			{
-				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			} 
-			catch (Exception exception) {exception.printStackTrace();}
+			
 
 			// Après que l'utilisateur ait cliqué sur "ouvrir", on récupère le fichier
 			// sélectionné

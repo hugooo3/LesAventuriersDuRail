@@ -114,6 +114,9 @@ public class Metier
 			pw.println("\t\t<nbWagonJoueur>" + this.nbWagonJoueur + "</nbWagonJoueur>");
 			pw.println("\t</parametre>");
 
+
+			System.out.println("noeud");
+			System.out.println(this.alNoeuds.size());
 			/* Generation XML : Noeud */
 			for (Noeud noeud : this.alNoeuds) 
 			{
@@ -139,6 +142,8 @@ public class Metier
 				pw.println("\t</arete>");
 			}
 
+			System.out.println("carteDestination");
+			System.out.println(this.alCartesDestination.size());
 			/* Generation XML : CarteDestination */
 			for (CarteDestination carteDestination : this.alCartesDestination) 
 			{

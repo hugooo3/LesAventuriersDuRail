@@ -95,7 +95,7 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 
 	public boolean importMappe(File xmlPath) {return this.appli.importMappe(xmlPath);}
 	
-	public void majIHM() 
+	public void majIHM()
 	{
 		this.panelMappe.majIHM();
 		this.panelLstNoeud.majLstNoeuds();
