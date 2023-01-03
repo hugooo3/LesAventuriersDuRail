@@ -113,7 +113,7 @@ public class FrameConcepteur extends JFrame implements ActionListener
 	{
 		if (e.getSource() == this.btnXML)
 		{
-			this.panelParam.sendParam();
+			this.panelParam.setParam();
 			this.appli.ecrireXML();
 		}
 	}
