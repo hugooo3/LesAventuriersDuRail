@@ -190,16 +190,11 @@ public class PanelLstArete extends JPanel implements ActionListener {
 	}
 
 	// Enleve les arretes correspondantes au noeud
-	public void removeLstNoeud(Noeud noeud) {
+	public void removeLstAreteDeNoeud(Noeud noeud) {
 		for (int i = 0; i < this.alAretes.size(); i++) {
 			if (this.alAretes.get(i).getNoeud1().equals(noeud) ||
 					this.alAretes.get(i).getNoeud2().equals(noeud)) {
 				this.alAretes.remove(i);
-				i--;
-			}
-
-			if (this.modelListArete.get(i).getNoeud1().equals(noeud)
-					|| this.modelListArete.get(i).getNoeud2().equals(noeud)) {
 				this.modelListArete.remove(i);
 				i--;
 			}

@@ -171,46 +171,37 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 	}
 
 	@Override
-	public void actionPerformed(ActionEvent e) {
-
+	public void actionPerformed(ActionEvent e) 
+	{
 		this.majComboBox();
 
-		if (e.getSource() == this.btnAuto) {
-
-			this.alCarteDestination = new ArrayList<CarteDestination>();
+		if (e.getSource() == this.btnAuto) 
+		{
 			this.concepteur.majIHM();
 
 			ArrayList<Noeud> alNoeud1 = new ArrayList<Noeud>();
 			ArrayList<Noeud> alNoeud2 = new ArrayList<Noeud>();
-			for (int i = 0; i < this.ddlstNoeud1.getItemCount(); i++) {
+			for (int i = 0; i < this.ddlstNoeud1.getItemCount(); i++) 
 				alNoeud1.add((Noeud) this.ddlstNoeud1.getItemAt(i));
-			}
-			for (int i = 0; i < this.ddlstNoeud2.getItemCount(); i++) {
+			for (int i = 0; i < this.ddlstNoeud2.getItemCount(); i++)
 				alNoeud2.add((Noeud) this.ddlstNoeud2.getItemAt(i));
-			}
 
-			System.out.println("Listes :\n" + alNoeud1.toString());
-			System.out.println(alNoeud2.toString() + "\n\n");
+			for (int i = 0; i < alNoeud1.size(); i++) 
+			{
+				for (int j = 0; j < alNoeud2.size(); j++) 
+				{
+					if (!alNoeud1.get(i).getNom().equals(alNoeud2.get(j).getNom())) 
+					{
+						int nbPoint = (int) (Math.random() * 50) + 1;
+						CarteDestination carteTemp = new CarteDestination(alNoeud1.get(i), alNoeud2.get(j), nbPoint,
+								new ImageIcon("/images/carteDestRecto.png"),
+								new ImageIcon("/images/carteDestVerso.png"));
 
-
-				for (int i = 0; i < alNoeud1.size(); i++) {
-					for (int j = 0; j < alNoeud2.size(); j++) {
-						if (!alNoeud1.get(i).getNom().equals(alNoeud2.get(j).getNom())) {
-
-							int nbPoint = (int) (Math.random() * 50) + 1;
-							CarteDestination carteTemp = new CarteDestination(alNoeud1.get(i), alNoeud2.get(j), nbPoint,
-									new ImageIcon("/images/carteDestRecto.png"),
-									new ImageIcon("/images/carteDestVerso.png"));
-
-							if (!existe(carteTemp)) {
-								this.alCarteDestination.add(carteTemp);
-							}
-						}
+						if (!existe(carteTemp)) 
+							this.alCarteDestination.add(carteTemp);
 					}
 				}
-
-		
-
+			}
 			this.concepteur.majIHM();
 		}
 
