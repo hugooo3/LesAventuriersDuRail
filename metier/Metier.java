@@ -23,6 +23,7 @@ import java.util.Comparator;
 
 public class Metier 
 {
+	private static int RADIUS = 20;
 	private ImageIcon VERSO_CARTE = new ImageIcon("images/ArriereCarte.png");
 
 	private ArrayList<Noeud> alNoeuds;
@@ -159,7 +160,7 @@ public class Metier
 			{
 				pw.println("\t<carteWagon>");
 				pw.println("\t\t<nomCouleur>" + carteWagon.getNomCouleur() + "</nomCouleur>");
-				pw.println("\t\t<couleur>" + carteWagon.getCouleur() + "</couleur>");
+				pw.println("\t\t<couleur>" + carteWagon.getCouleur().getRGB() + "</couleur>");
 				pw.println("\t\t<imgRecto>" + carteWagon.getImgRecto() + "</imgRecto>");
 				pw.println("\t\t<imgVerso>" + carteWagon.getImgVerso() + "</imgVerso>");
 				pw.println("\t</carteWagon>");
@@ -238,12 +239,13 @@ public class Metier
 					Element e = (Element) nNode;
 					Noeud noeud = new Noeud(e.getAttribute("nom"), 
 								  Integer.parseInt(e.getElementsByTagName("x").item(0).getTextContent()), 
-								  Integer.parseInt(e.getElementsByTagName("y").item(0).getTextContent()));
-					noeud.setNomDeltaX(Integer.parseInt(e.getElementsByTagName("nomDeltaX").item(0).getTextContent())); 
-					noeud.setNomDeltaY(Integer.parseInt(e.getElementsByTagName("nomDeltaY").item(0).getTextContent()));
+								  Integer.parseInt(e.getElementsByTagName("y").item(0).getTextContent()),
+								  Metier.RADIUS);
+					noeud.setNomDeltaX(Integer.parseInt(e.getElementsByTagName("nomDeltaX").item(0).getTextContent()) + noeud.getX()); 
+					noeud.setNomDeltaY(Integer.parseInt(e.getElementsByTagName("nomDeltaY").item(0).getTextContent()) + noeud.getY());
 					this.alNoeuds.add(noeud);
 				}
-			}
+			}			
 
 			/*CarteDestination */
 			nList = doc.getElementsByTagName("carteDestination");
@@ -276,38 +278,7 @@ public class Metier
 				{
 					Element e = (Element) nNode;
 					String nomCouleur = e.getElementsByTagName("nomCouleur").item(0).getTextContent();
-					Color couleur = null;
-					switch (nomCouleur) {
-						case "Neutre":
-							couleur = Color.GRAY;
-							break;
-						case "Blanc":
-							couleur = Color.WHITE;
-							break;
-						case "Jaune":
-							couleur = Color.YELLOW;
-							break;
-						case "Noire":
-							couleur = Color.BLACK;
-							break;
-						case "Orange":
-							couleur = Color.ORANGE;
-							break;
-						case "Rouge":
-							couleur = Color.RED;
-							break;
-						case "Verte":
-							couleur = Color.GREEN;
-							break;
-						case "Violet":
-							couleur = Color.MAGENTA;
-							break;
-						case "Joker":
-							couleur = Color.PINK;
-							break;
-						default:
-							break;
-					}
+					Color couleur = new Color(Integer.parseInt(e.getElementsByTagName("couleur").item(0).getTextContent()));
 
 					CarteWagon carteWagon = new CarteWagon(e.getElementsByTagName("nomCouleur").item(0).getTextContent(),
 														   couleur,
@@ -337,7 +308,7 @@ public class Metier
 					}
 					for (CarteWagon carteWagonTemp : this.alCartesWagon)
 					{
-						if (carteWagon.getNomCouleur().equals(e.getElementsByTagName("couleur").item(0).getTextContent())) { carteWagon = carteWagonTemp; }
+						if (carteWagonTemp.getNomCouleur().equals(e.getElementsByTagName("couleur").item(0).getTextContent())) { carteWagon = carteWagonTemp; }
 					}
 					Arete arete = new Arete(noeud1, noeud2, carteWagon, 
 											Integer.parseInt(e.getElementsByTagName("troncons").item(0).getTextContent()),

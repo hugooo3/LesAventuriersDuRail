@@ -97,7 +97,6 @@ public class FrameConcepteur extends JFrame implements ActionListener
 
 	public Metier getMetier() {return this.appli.getMetier();}
 	public void modifierLstNoeud(int selectedIndex) {this.panelMappe.modifierLstNoeud(selectedIndex);}
-	public void removeLstNoeud(Noeud noeud) {this.panelMappe.removeLstNoeud(noeud);}
 
 	public boolean importMappe(File xmlPath) {return this.appli.importMappe(xmlPath);}
 	
@@ -108,6 +107,11 @@ public class FrameConcepteur extends JFrame implements ActionListener
 		this.panelLstArete.majLstArete();
 		this.panelLstCarteDestination.majLstCarteDestination();
 		this.panelLstCarteWagon.majLstCarteWagon();
+
+		for (Noeud noeud : this.appli.getMetier().getAlNoeuds())
+		{
+			System.out.println(noeud);
+		}
 	}
 
 	@Override

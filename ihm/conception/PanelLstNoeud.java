@@ -196,7 +196,6 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	{		
 		this.alstNoeud.remove(noeud);
 		this.modelListNoeud.removeElement(noeud);
-		this.concepteur.removeLstNoeud(noeud);
 	}
 
 	@Override
