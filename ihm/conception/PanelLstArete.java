@@ -243,8 +243,6 @@ public class PanelLstArete extends JPanel implements ActionListener {
 			CarteWagon couleurDoubleVoie = (CarteWagon) this.ddlstCouleurVoieDouble.getSelectedItem();
 			int nbWagon = Integer.parseInt(this.txtNbWagon.getText());
 
-			System.out.println("couleur : " + couleur + " couleur double voie : " + couleurDoubleVoie);
-
 			if (this.cbVoieDouble.isSelected()) {
 				this.alAretes.add(
 						new Arete(noeudSelected1, noeudSelected2, couleur, nbWagon,

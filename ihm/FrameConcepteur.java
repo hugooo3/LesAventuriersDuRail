@@ -89,6 +89,7 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 	public boolean setNbJoueurMax(int nbJoueurMax) {return this.appli.setNbJoueurMax(nbJoueurMax);}
 	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {return this.appli.setNbJoueurDoubleVoies(nbJoueurDoubleVoies);}
 	public boolean setNbWagonJoueur(int nbWagonJoueur) {return this.appli.setNbWagonJoueur(nbWagonJoueur);}
+	public boolean setNbFin(int nbFin) {return this.appli.setNbFin(nbFin);}
 
 	public Metier getMetier() {return this.appli.getMetier();}
 	public void modifierLstNoeud(int selectedIndex) {this.panelMappe.modifierLstNoeud(selectedIndex);}

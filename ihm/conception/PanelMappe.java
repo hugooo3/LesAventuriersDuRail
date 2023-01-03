@@ -116,10 +116,6 @@ public class PanelMappe extends JPanel {
 		this.alNoeud.get(noeudPos).majEllipse2D();
 	}
 
-
-
-
-
 	public void paint(Graphics g) {
 		super.paintComponent(g);
 
@@ -128,37 +124,10 @@ public class PanelMappe extends JPanel {
 
 		ArrayList<Arete> alAretes = this.concepteur.getMetier().getAlAretes();
 
-		for (Arete arete : alAretes) {
-
-			// float[] dashingPattern = {5f, 5f}; // Ligne pointille
-			// g2d.setStroke(new BasicStroke(4, BasicStroke.CAP_BUTT,
-			//
-			// BasicStroke.JOIN_MITER, 1.0f, dashingPattern, 0.0f));
-			if (arete.getVoieDouble()) {
-				/*
-				 * g2d.setColor(Color.BLACK);
-				 * g2d.setStroke(new BasicStroke(11));
-				 * g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() - 10,
-				 * arete.getNoeud2().getX(),
-				 * arete.getNoeud2().getY() - 10);
-				 * 
-				 * g2d.setColor(arete.getCouleur().getCouleur());
-				 * g2d.setStroke(new BasicStroke(5));
-				 * g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() - 8,
-				 * arete.getNoeud2().getX(), arete.getNoeud2().getY() - 8);
-				 * 
-				 * g2d.setColor(Color.BLACK);
-				 * g2d.setStroke(new BasicStroke(11));
-				 * g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() + 10,
-				 * arete.getNoeud2().getX(),
-				 * arete.getNoeud2().getY() + 10);
-				 * 
-				 * g2d.setColor(arete.getCouleurVoieDouble().getCouleur());
-				 * g2d.setStroke(new BasicStroke(5));
-				 * g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY() + 8,
-				 * arete.getNoeud2().getX(), arete.getNoeud2().getY() + 8);
-				 */
-
+		for (Arete arete : alAretes) 
+		{
+			if (arete.getVoieDouble()) 
+			{
 				Path2D path1 = new Path2D.Double();
 				Path2D path2 = new Path2D.Double();
 

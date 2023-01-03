@@ -23,6 +23,7 @@ public class Application
 	public boolean setNbJoueurMax(int nbJoueurMax) {return this.metier.setNbJoueurMax(nbJoueurMax);}
 	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {return this.metier.setNbJoueurDoubleVoies(nbJoueurDoubleVoies);}
 	public boolean setNbWagonJoueur(int nbWagonJoueur) {return this.metier.setNbWagonJoueur(nbWagonJoueur);}
+	public boolean setNbFin(int nbFin) {return this.metier.setNbFin(nbFin);}
 
 	public boolean reinitialiserDossierSortie() {return this.metier.reinitialiserDossierSortie();}
 	public boolean importMappe   (File xmlPath) {return this.metier.importMappe(xmlPath);}

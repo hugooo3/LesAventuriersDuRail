@@ -14,6 +14,7 @@ public class PanelParam extends JPanel
 	private JComboBox<Integer> cbNbJoueurVD;
 
 	private JTextField txtNbWagon;
+	private JTextField txtNbFin;
 	private FrameConcepteur concepteur;
 
 	public PanelParam(FrameConcepteur concepteur, int largeur, int hauteur)
@@ -40,6 +41,9 @@ public class PanelParam extends JPanel
 		JLabel lblNbWagon = new JLabel("Nombre de wagons par joueur : ");
 		this.txtNbWagon = new JTextField("40");
 
+		JLabel lblNbFin = new JLabel("Nb wagons restant avant fin de partie : ");
+		this.txtNbFin = new JTextField("3");
+
 		this.setLayout(null);
 
 		this.add(lblNbJoueurMin);
@@ -61,6 +65,11 @@ public class PanelParam extends JPanel
 		lblNbWagon.setBounds((int) (largeur * 0.3) / 2 - 100, 200, 200, 20);
 		this.add(this.txtNbWagon);
 		this.txtNbWagon.setBounds((int) (largeur * 0.3) / 2 - 100, 220, 200, 20);
+
+		this.add(lblNbFin);
+		lblNbFin.setBounds((int) (largeur * 0.3) / 2 - 100, 260, 250, 20);
+		this.add(this.txtNbFin);
+		this.txtNbFin.setBounds((int) (largeur * 0.3) / 2 - 100, 280, 200, 20);
 	}
 
 	public void setParam() 
@@ -69,5 +78,6 @@ public class PanelParam extends JPanel
 		this.concepteur.setNbJoueurMax((int) this.cbNbJoueurMax.getSelectedItem());
 		this.concepteur.setNbJoueurDoubleVoies((int) this.cbNbJoueurVD.getSelectedItem());
 		this.concepteur.setNbWagonJoueur(Integer.parseInt(this.txtNbWagon.getText() + ""));
+		this.concepteur.setNbFin(Integer.parseInt(this.txtNbFin.getText() + ""));
 	}
 }

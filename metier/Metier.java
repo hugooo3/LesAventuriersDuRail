@@ -36,6 +36,7 @@ public class Metier
 	private int nbJoueurMax;
 	private int nbJoueurDoubleVoies;
 	private int nbWagonJoueur;
+	private int nbFin;
 
 	public Metier() 
 	{
@@ -76,6 +77,7 @@ public class Metier
 	public boolean setNbJoueurMax(int nbJoueurMax)                 	{ this.nbJoueurMax = nbJoueurMax; return true; }
 	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) 	{ this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true; }
 	public boolean setNbWagonJoueur(int nbWagonJoueur)             	{ this.nbWagonJoueur = nbWagonJoueur; return true; }
+	public boolean setNbFin(int nbFin)								{ this.nbFin = nbFin; return true; }
 	
 	public void setVersoCarte(ImageIcon versoCarte)				
 	{
@@ -112,6 +114,7 @@ public class Metier
 			pw.println("\t\t<nbJoueurMax>" + this.nbJoueurMax + "</nbJoueurMax>");
 			pw.println("\t\t<nbJoueurDoubleVoies>" + this.nbJoueurDoubleVoies + "</nbJoueurDoubleVoies>");
 			pw.println("\t\t<nbWagonJoueur>" + this.nbWagonJoueur + "</nbWagonJoueur>");
+			pw.println("\t\t<nbFin>" + this.nbFin + "</nbFin>");
 			pw.println("\t</parametre>");
 
 			/* Generation XML : Noeud */
@@ -142,7 +145,6 @@ public class Metier
 			/* Generation XML : CarteDestination */
 			for (CarteDestination carteDestination : this.alCartesDestination) 
 			{
-				System.out.println("carteDestination");
 				pw.println("\t<carteDestination>");
 				pw.println("\t\t<noeud1>" + carteDestination.getNoeud1().getNom() + "</noeud1>");
 				pw.println("\t\t<noeud2>" + carteDestination.getNoeud2().getNom() + "</noeud2>");
@@ -244,7 +246,8 @@ public class Metier
 				this.nbJoueurMin = Integer.parseInt(e.getElementsByTagName("nbJoueurMin").item(0).getTextContent());
 				this.nbJoueurMax = Integer.parseInt(e.getElementsByTagName("nbJoueurMax").item(0).getTextContent());
 				this.nbJoueurDoubleVoies = Integer.parseInt(e.getElementsByTagName("nbJoueurDoubleVoies").item(0).getTextContent());
-				this.nbWagonJoueur		 = Integer.parseInt(e.getElementsByTagName("nbWagonJoueur").item(0).getTextContent());
+				this.nbWagonJoueur = Integer.parseInt(e.getElementsByTagName("nbWagonJoueur").item(0).getTextContent());
+				this.nbFin = Integer.parseInt(e.getElementsByTagName("nbFin").item(0).getTextContent());
 			}
 
 			/* Noeuds */
