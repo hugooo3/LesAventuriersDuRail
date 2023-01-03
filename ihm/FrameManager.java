@@ -21,6 +21,11 @@ public class FrameManager extends JFrame implements ActionListener
 
 	public FrameManager(Application app) {
 		this.app = app;
+
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} 
+		catch (Exception exception) {exception.printStackTrace();}
 		
 		// Construction de la Frame
 
