@@ -31,6 +31,7 @@ public class Application
 	public boolean setNbWagonJoueur(int nbWagonJoueur) {return this.metier.setNbWagonJoueur(nbWagonJoueur);}
 
 	public boolean reinitialiserDossierSortie() {return this.metier.reinitialiserDossierSortie();}
+	public boolean importMappe   (File xmlPath) {return this.metier.importMappe(xmlPath);}
 
 	public void ecrireXML()
 	{

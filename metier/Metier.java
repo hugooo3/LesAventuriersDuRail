@@ -1,6 +1,14 @@
 package metier;
 
 import javax.swing.ImageIcon;
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+
 import java.awt.Color;
 
 import java.io.File;
@@ -115,8 +123,10 @@ public class Metier
 			for (Noeud noeud : alNoeuds) 
 			{
 				pw.println("\t<noeud nom=\"" + noeud.getNom() + "\">");
-				pw.println("\t\t<coordonees x=\"" + noeud.getX() + "\" y=\"" + noeud.getY() + "\"/>");
-				pw.println("\t\t<coordoneesNom x=\"" + noeud.getNomX() + "\" y=\"" + noeud.getNomY() + "\"/>");
+				pw.println("\t<x>" + noeud.getX() + "</x>");
+				pw.println("\t<y>" + noeud.getY() + "</y>");
+				pw.println("\t<nomDeltaX>" + noeud.getNomDeltaX() + "</nomDeltaX>");
+				pw.println("\t<nomDeltaY>" + noeud.getNomDeltaY() + "</nomDeltaY>");
 				pw.println("\t</noeud>");
 			}
 
@@ -205,5 +215,138 @@ public class Metier
 			}
 		}
 		return dossierSortie.mkdir();
+	}
+
+	public boolean importMappe(File xmlPath)
+	{
+		/*Ouvrir et lire un document .xml afin de créer les objets Noeud et Arete*/
+		try 
+		{
+			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+			Document doc = dBuilder.parse(xmlPath);
+
+			doc.getDocumentElement().normalize();
+
+			/* Noeuds */
+			NodeList nList = doc.getElementsByTagName("noeud");
+			for (int i = 0; i < nList.getLength(); i++)
+			{
+				Node nNode = nList.item(i);
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) 
+				{
+					Element e = (Element) nNode;
+					Noeud noeud = new Noeud(e.getAttribute("nom"), 
+								  Integer.parseInt(e.getElementsByTagName("x").item(0).getTextContent()), 
+								  Integer.parseInt(e.getElementsByTagName("y").item(0).getTextContent()));
+					noeud.setNomDeltaX(Integer.parseInt(e.getElementsByTagName("nomDeltaX").item(0).getTextContent())); 
+					noeud.setNomDeltaY(Integer.parseInt(e.getElementsByTagName("nomDeltaY").item(0).getTextContent()));
+					this.alNoeuds.add(noeud);
+				}
+			}
+
+			/*CarteDestination */
+			nList = doc.getElementsByTagName("carteDestination");
+			for (int i = 0; i < nList.getLength(); i++)
+			{
+				Node nNode = nList.item(i);
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) 
+				{
+					Element e = (Element) nNode;
+					Noeud noeud1 = null;
+					Noeud noeud2 = null;
+					for (Noeud noeud : this.alNoeuds)
+					{
+						if (noeud.getNom().equals(e.getElementsByTagName("noeud1").item(0).getTextContent())) { noeud1 = noeud; }
+						if (noeud.getNom().equals(e.getElementsByTagName("noeud2").item(0).getTextContent())) { noeud2 = noeud; }
+					}
+					CarteDestination carteDestination = new CarteDestination(noeud1, noeud2, Integer.parseInt(e.getElementsByTagName("points").item(0).getTextContent()),
+																			 new ImageIcon(e.getElementsByTagName("imgRecto").item(0).getTextContent()),
+																			 new ImageIcon(e.getElementsByTagName("imgVerso").item(0).getTextContent()));
+					this.alCartesDestination.add(carteDestination);
+				}
+			}
+
+			/*CarteWagon */
+			nList = doc.getElementsByTagName("carteWagon");
+			for (int i = 0; i < nList.getLength(); i++)
+			{
+				Node nNode = nList.item(i);
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) 
+				{
+					Element e = (Element) nNode;
+					String nomCouleur = e.getElementsByTagName("nomCouleur").item(0).getTextContent();
+					Color couleur = null;
+					switch (nomCouleur) {
+						case "Neutre":
+							couleur = Color.GRAY;
+							break;
+						case "Blanc":
+							couleur = Color.WHITE;
+							break;
+						case "Jaune":
+							couleur = Color.YELLOW;
+							break;
+						case "Noire":
+							couleur = Color.BLACK;
+							break;
+						case "Orange":
+							couleur = Color.ORANGE;
+							break;
+						case "Rouge":
+							couleur = Color.RED;
+							break;
+						case "Verte":
+							couleur = Color.GREEN;
+							break;
+						case "Violet":
+							couleur = Color.MAGENTA;
+							break;
+						case "Joker":
+							couleur = Color.PINK;
+							break;
+						default:
+							break;
+					}
+
+					CarteWagon carteWagon = new CarteWagon(e.getElementsByTagName("nomCouleur").item(0).getTextContent(),
+														   couleur,
+														   new ImageIcon(e.getElementsByTagName("imgRecto").item(0).getTextContent()),
+														   new ImageIcon(e.getElementsByTagName("imgVerso").item(0).getTextContent()));
+
+					this.alCartesWagon.add(carteWagon);
+				}
+			}
+
+			/*Arete */
+			nList = doc.getElementsByTagName("arete");
+			for (int i = 0; i < nList.getLength(); i++)
+			{
+				Node nNode = nList.item(i);
+				if (nNode.getNodeType() == Node.ELEMENT_NODE) 
+				{
+					Element e = (Element) nNode;
+					Noeud noeud1 = null;
+					Noeud noeud2 = null;
+					CarteWagon carteWagon = null;
+
+					for (Noeud noeud : this.alNoeuds)
+					{
+						if (noeud.getNom().equals(e.getElementsByTagName("noeud1").item(0).getTextContent())) { noeud1 = noeud; }
+						if (noeud.getNom().equals(e.getElementsByTagName("noeud2").item(0).getTextContent())) { noeud2 = noeud; }
+					}
+					for (CarteWagon carteWagonTemp : this.alCartesWagon)
+					{
+						if (carteWagon.getNomCouleur().equals(e.getElementsByTagName("couleur").item(0).getTextContent())) { carteWagon = carteWagonTemp; }
+					}
+					Arete arete = new Arete(noeud1, noeud2, carteWagon, 
+											Integer.parseInt(e.getElementsByTagName("troncons").item(0).getTextContent()),
+											e.getElementsByTagName("voieDouble").item(0).getTextContent().equals("true"));
+					this.alAretes.add(arete);
+				}
+			}
+			return true;
+		}
+		catch (Exception e) {e.printStackTrace(); return false;}
 	}
 }

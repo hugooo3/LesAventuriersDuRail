@@ -199,5 +199,14 @@ public class PanelMappe extends JPanel
 		}
 	}
 
+	public void initNoeudDessin() {
+		/*
+		 * ArrayList NoeudExtrait
+		 * al Noeud, al NoeudDessin
+		 * On créer un NoeudDessin
+		 * On ajoute le NoeudDessin dans la alNoeudDessin et alNoeud
+		 * On override l'arrayList de Noeud du metier par alNoeud
+		 */
+	}
 	public void majIHM() {this.repaint();}
 }

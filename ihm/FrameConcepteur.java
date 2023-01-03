@@ -99,6 +99,8 @@ public class FrameConcepteur extends JFrame implements ActionListener
 	public void modifierLstNoeud(int selectedIndex) {this.panelMappe.modifierLstNoeud(selectedIndex);}
 	public void removeLstNoeud(Noeud noeud) {this.panelMappe.removeLstNoeud(noeud);}
 
+	public boolean importMappe(File xmlPath) {return this.appli.importMappe(xmlPath);}
+	
 	public void majIHM() 
 	{
 		this.panelMappe.majIHM();
