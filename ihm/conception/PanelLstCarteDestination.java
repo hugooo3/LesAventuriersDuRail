@@ -141,9 +141,10 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 	}
 
 	public void majLstCarteDestination() {
-		this.modelListCarteDestination.clear();
 		for (CarteDestination carteDestination : this.alCarteDestination) {
-			this.modelListCarteDestination.addElement(carteDestination);
+			if (!this.modelListCarteDestination.contains(carteDestination)) {
+				this.modelListCarteDestination.addElement(carteDestination);
+			}
 		}
 		this.lstCarteDestination.clearSelection();
 	}

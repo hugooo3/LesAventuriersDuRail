@@ -142,6 +142,7 @@ public class Metier
 			/* Generation XML : CarteDestination */
 			for (CarteDestination carteDestination : this.alCartesDestination) 
 			{
+				System.out.println("carteDestination");
 				pw.println("\t<carteDestination>");
 				pw.println("\t\t<noeud1>" + carteDestination.getNoeud1().getNom() + "</noeud1>");
 				pw.println("\t\t<noeud2>" + carteDestination.getNoeud2().getNom() + "</noeud2>");
@@ -234,11 +235,23 @@ public class Metier
 
 			doc.getDocumentElement().normalize();
 
+			/* Paramètres */
+			NodeList nList = doc.getElementsByTagName("parametres");
+			Node nNode = nList.item(0);
+			if (nNode.getNodeType() == Node.ELEMENT_NODE) 
+			{
+				Element e = (Element) nNode;
+				this.nbJoueurMin = Integer.parseInt(e.getElementsByTagName("nbJoueurMin").item(0).getTextContent());
+				this.nbJoueurMax = Integer.parseInt(e.getElementsByTagName("nbJoueurMax").item(0).getTextContent());
+				this.nbJoueurDoubleVoies = Integer.parseInt(e.getElementsByTagName("nbJoueurDoubleVoies").item(0).getTextContent());
+				this.nbWagonJoueur		 = Integer.parseInt(e.getElementsByTagName("nbWagonJoueur").item(0).getTextContent());
+			}
+
 			/* Noeuds */
-			NodeList nList = doc.getElementsByTagName("noeud");
+			nList = doc.getElementsByTagName("noeud");
 			for (int i = 0; i < nList.getLength(); i++)
 			{
-				Node nNode = nList.item(i);
+				nNode = nList.item(i);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) 
 				{
 					Element e = (Element) nNode;
@@ -256,7 +269,7 @@ public class Metier
 			nList = doc.getElementsByTagName("carteDestination");
 			for (int i = 0; i < nList.getLength(); i++)
 			{
-				Node nNode = nList.item(i);
+				nNode = nList.item(i);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) 
 				{
 					Element e = (Element) nNode;
@@ -278,7 +291,7 @@ public class Metier
 			nList = doc.getElementsByTagName("carteWagon");
 			for (int i = 0; i < nList.getLength(); i++)
 			{
-				Node nNode = nList.item(i);
+				nNode = nList.item(i);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) 
 				{
 					Element e = (Element) nNode;
@@ -298,7 +311,7 @@ public class Metier
 			nList = doc.getElementsByTagName("arete");
 			for (int i = 0; i < nList.getLength(); i++)
 			{
-				Node nNode = nList.item(i);
+				nNode = nList.item(i);
 				if (nNode.getNodeType() == Node.ELEMENT_NODE) 
 				{
 					Element e = (Element) nNode;
