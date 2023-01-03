@@ -19,11 +19,6 @@ public class Application
 	
 	public Metier getMetier() {return this.metier;}
 
-	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds) {return this.metier.creerAlNoeuds(ListNoeuds);}
-	public boolean creerAlAretes(ArrayList<Arete> ListAretes) {return this.metier.creerAlAretes(ListAretes);}
-	public boolean creerAlCartesDestination(ArrayList<CarteDestination> ListCartesDestination) {return this.metier.creerAlCartesDestination(ListCartesDestination);}
-	public boolean creerAlCartesWagon(ArrayList<CarteWagon> ListCartesWagon) {return this.metier.creerAlCartesWagon(ListCartesWagon);}
-
 	public boolean setImgMappe(File imgMappe) {return this.metier.setImgMappe(imgMappe);}
 	public boolean setNbJoueurMin(int nbJoueurMin) {return this.metier.setNbJoueurMin(nbJoueurMin);}
 	public boolean setNbJoueurMax(int nbJoueurMax) {return this.metier.setNbJoueurMax(nbJoueurMax);}
@@ -36,8 +31,6 @@ public class Application
 	public void ecrireXML()
 	{
 		this.metier.copierImage("imgMappe", this.metier.getImgMappe());
-
-		Mappe mappe = this.metier.creerMappe();
-		this.metier.ecrireXml(mappe);
+		this.metier.ecrireXml();
 	}
 }

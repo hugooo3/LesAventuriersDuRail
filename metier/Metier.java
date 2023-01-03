@@ -30,6 +30,7 @@ public class Metier
 	private ArrayList<Arete> alAretes;
 	private ArrayList<CarteDestination> alCartesDestination;
 	private ArrayList<CarteWagon> alCartesWagon;
+
 	private File imgMappe;
 	private int nbJoueurMin;
 	private int nbJoueurMax;
@@ -56,6 +57,9 @@ public class Metier
 		this.alCartesWagon.add(new CarteWagon("Joker"	, Color.PINK	, new ImageIcon("images/carteJoker.png")	, this.VERSO_CARTE	, 20));
 	}
 
+	/***************************/
+	/* Accesseurs et Mutateurs */
+	/***************************/
 	public ArrayList<Noeud> getAlNoeuds() {return this.alNoeuds;}
 	public ArrayList<Arete> getAlAretes() {return this.alAretes;}
 	public ArrayList<CarteDestination> getAlCartesDestination() {return this.alCartesDestination;}
@@ -66,11 +70,6 @@ public class Metier
 	public int getNbJoueurDoubleVoies() {return this.nbJoueurDoubleVoies;}
 	public int getNbWagonJoueur() {return this.nbWagonJoueur;}
 	public ImageIcon getVersoCarte() {return this.VERSO_CARTE;}
-
-	public boolean creerAlNoeuds(ArrayList<Noeud> ListNoeuds)                                  { this.alNoeuds = ListNoeuds; return true; }
-	public boolean creerAlAretes(ArrayList<Arete> ListAretes)                                  { this.alAretes = ListAretes; return true; }
-	public boolean creerAlCartesDestination(ArrayList<CarteDestination> ListCartesDestination) { this.alCartesDestination = ListCartesDestination; return true; }
-	public boolean creerAlCartesWagon(ArrayList<CarteWagon> ListCartesWagon)                   { this.alCartesWagon = ListCartesWagon; return true; }
 
 	public boolean setImgMappe(File imgMappe)                      	{ this.imgMappe = imgMappe; return true; }
 	public boolean setNbJoueurMin(int nbJoueurMin)                 	{ this.nbJoueurMin = nbJoueurMin; return true; }
@@ -85,28 +84,15 @@ public class Metier
 			this.alCartesWagon.get(i).setImgVerso(versoCarte);
 	}
 
-	public Mappe creerMappe() 
-	{
-		return new Mappe(this.alNoeuds, this.alAretes, this.alCartesDestination, this.alCartesWagon, this.imgMappe,
-				this.nbJoueurMin, this.nbJoueurMax, this.nbJoueurDoubleVoies, this.nbWagonJoueur);
-	}
-
-	public void ecrireXml(Mappe mappe) 
+	/**********************************************************/
+	/* Parcours des ArrayLists et ecriture dans le fichier XML*/
+	/**********************************************************/
+	public void ecrireXml() 
 	{
 		PrintWriter pw;
 
-		ArrayList<Noeud> alNoeuds = new ArrayList<Noeud>();
-		ArrayList<Arete> alAretes = new ArrayList<Arete>();
-		ArrayList<CarteDestination> alCartesDestination = new ArrayList<CarteDestination>();
-		ArrayList<CarteWagon> alCartesWagon = new ArrayList<CarteWagon>();
-
-		alNoeuds = mappe.getAlNoeuds();
-		alAretes = mappe.getAlAretes();
-		alCartesDestination = mappe.getAlCartesDestination();
-		alCartesWagon = mappe.getAlCartesWagon();
-
-		/* Tri des noeuds par ordre alphabetique */
-		alNoeuds.sort(new Comparator<Noeud>() 
+		// Tri des noeuds par ordre alphabetique
+		this.alNoeuds.sort(new Comparator<Noeud>() 
 		{
 			@Override
 			public int compare(Noeud o1, Noeud o2) {return o1.getNom().compareTo(o2.getNom());}
@@ -129,7 +115,7 @@ public class Metier
 			pw.println("\t</parametre>");
 
 			/* Generation XML : Noeud */
-			for (Noeud noeud : alNoeuds) 
+			for (Noeud noeud : this.alNoeuds) 
 			{
 				pw.println("\t<noeud nom=\"" + noeud.getNom() + "\">");
 				pw.println("\t\t<x>" + noeud.getX() + "</x>");
@@ -140,7 +126,7 @@ public class Metier
 			}
 
 			/* Generation XML : Arete */
-			for (Arete arete : alAretes) 
+			for (Arete arete : this.alAretes) 
 			{
 				pw.println("\t<arete>");
 				pw.println("\t\t<noeud1>" + arete.getNoeud1().getNom() + "</noeud1>");
@@ -154,7 +140,7 @@ public class Metier
 			}
 
 			/* Generation XML : CarteDestination */
-			for (CarteDestination carteDestination : alCartesDestination) 
+			for (CarteDestination carteDestination : this.alCartesDestination) 
 			{
 				pw.println("\t<carteDestination>");
 				pw.println("\t\t<noeud1>" + carteDestination.getNoeud1().getNom() + "</noeud1>");
@@ -166,7 +152,7 @@ public class Metier
 			}
 
 			/* Generation XML : CarteWagon */
-			for (CarteWagon carteWagon : alCartesWagon) 
+			for (CarteWagon carteWagon : this.alCartesWagon) 
 			{
 				pw.println("\t<carteWagon>");
 				pw.println("\t\t<nomCouleur>" + carteWagon.getNomCouleur() + "</nomCouleur>");
@@ -180,23 +166,25 @@ public class Metier
 			pw.println("</liste>");
 
 			pw.close();
-
-			System.out.println("Fichier Mappe.xml généré avec succès !");
 		} 
 		catch (Exception e) {e.printStackTrace();}
 	}
 
-	public boolean copierImage(String nom, File file)
+	/*****************************************/
+	/* Copie une image donnée en paramètres  */
+	/* vers le dossier sortie/ du concepteur */
+	/*****************************************/
+	public boolean copierImage(String nom, File fichier)
 	{
-		File src = file;
+		File src = fichier;
 		String extension = src.getAbsolutePath().substring(src.getAbsolutePath().lastIndexOf("."));
 
 		if (extension.equals(".jpg") || extension.equals(".jpeg") || extension.equals(".JPG") || extension.equals(".JPEG") || extension.equals(".png") || extension.equals(".PNG"))
 		{
-			File target = new File("sortie/" + nom + extension);	
+			File cible = new File("sortie/" + nom + extension);	
 			try 
 			{
-				Files.copy(src.toPath(), target.toPath(), StandardCopyOption.REPLACE_EXISTING);
+				Files.copy(src.toPath(), cible.toPath(), StandardCopyOption.REPLACE_EXISTING);
 			} 
 			catch (IOException e) 
 			{
@@ -209,6 +197,9 @@ public class Metier
 		return false;
 	}
 
+	/**************************************/
+	/* Reinitialisation du dossier sortie */
+	/**************************************/
 	public boolean reinitialiserDossierSortie()
 	{
 		File dossierSortie = new File("sortie");
@@ -229,14 +220,17 @@ public class Metier
 		return dossierSortie.mkdir();
 	}
 
-	public boolean importMappe(File xmlPath)
+	/**************************************/
+	/* Importation d'une carte depuis un  */
+	/* dossier                            */
+	/**************************************/
+	public boolean importMappe(File cheminDossier)
 	{
-		/*Ouvrir et lire un document .xml afin de créer les objets Noeud et Arete*/
 		try 
 		{
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(xmlPath);
+			Document doc = dBuilder.parse(cheminDossier);
 
 			doc.getDocumentElement().normalize();
 

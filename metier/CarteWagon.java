@@ -18,47 +18,18 @@ public class CarteWagon {
 		this.nbCarteWagon = nbCarteWagon;
 	}
 
-	public String getNomCouleur() {
-		return this.nomCouleur;
-	}
+	public String	 getNomCouleur()   { return this.nomCouleur; }
+	public Color 	 getCouleur()	   { return this.couleur; }
+	public ImageIcon getImgRecto() 	   { return this.imgRecto; }
+	public ImageIcon getImgVerso() 	   { return this.imgVerso; }
+	public int		 getNbCarteWagon() { return this.nbCarteWagon; }
 
-	public Color getCouleur() {
-		return this.couleur;
-	}
-
-	public ImageIcon getImgRecto() {
-		return this.imgRecto;
-	}
-
-	public ImageIcon getImgVerso() {
-		return this.imgVerso;
-	}
-
-	public int getNbCarteWagon() {
-		return this.nbCarteWagon;
-	}
-
-	public void setNomCouleur(String couleur) {
-		this.nomCouleur = couleur;
-	}
-
-	public void setCouleur(Color couleur) {
-		this.couleur = couleur;
-	}
-
-	public void setImgRecto(ImageIcon imgRecto) {
-		this.imgRecto = imgRecto;
-	}
-
-	public void setImgVerso(ImageIcon imgVerso) {
-		this.imgVerso = imgVerso;
-	}
-
-	public void setNbCarteWagon(int nbCarteWagon) {
-		this.nbCarteWagon = nbCarteWagon;
-	}
-
-	@Override
+	public void setNomCouleur(String couleur)	  { this.nomCouleur = couleur; }
+	public void setCouleur(Color couleur) 		  { this.couleur = couleur; }
+	public void setImgRecto(ImageIcon imgRecto)   { this.imgRecto = imgRecto; }
+	public void setImgVerso(ImageIcon imgVerso)   { this.imgVerso = imgVerso; }
+	public void setNbCarteWagon(int nbCarteWagon) { this.nbCarteWagon = nbCarteWagon; }
+ 
 	public String toString() {
 		return this.nomCouleur;
 	}
