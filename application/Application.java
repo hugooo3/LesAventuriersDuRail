@@ -31,8 +31,6 @@ public class Application
 	public boolean setNbWagonJoueur(int nbWagonJoueur) {return this.metier.setNbWagonJoueur(nbWagonJoueur);}
 
 	public boolean reinitialiserDossierSortie() {return this.metier.reinitialiserDossierSortie();}
-	
-	public void verifMAJ(String source) {this.metier.verifMAJ(source);}
 
 	public void ecrireXML()
 	{
