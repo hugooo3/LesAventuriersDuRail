@@ -13,9 +13,7 @@ import java.awt.event.*;
 
 import java.io.File;
 
-
-public class FrameConcepteur extends JFrame implements ActionListener
-{
+public class FrameConcepteur extends JFrame implements ActionListener {
 	private Application appli;
 
 	private int hauteur, largeur;
@@ -30,20 +28,19 @@ public class FrameConcepteur extends JFrame implements ActionListener
 
 	private JButton btnXML;
 
-	public FrameConcepteur(Application app) 
-	{
+	public FrameConcepteur(Application app) {
 		this.setTitle("Concepteur");
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
-		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth()-450,
-										  (int) Toolkit.getDefaultToolkit().getScreenSize().getHeight()-350));
+		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 450,
+				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350));
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
-		this.setLocation(dim.width/2 - this.getSize().width/2, dim.height/2 - this.getSize().height/2 - 50);
+		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2 - 50);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 
-		this.hauteur = (int)this.getSize().getHeight();
-		this.largeur = (int)this.getSize().getWidth();
+		this.hauteur = (int) this.getSize().getHeight();
+		this.largeur = (int) this.getSize().getWidth();
 
 		this.appli = app;
 		this.setJMenuBar(new MenuBar(this));
@@ -78,10 +75,8 @@ public class FrameConcepteur extends JFrame implements ActionListener
 		this.setVisible(true);
 	}
 
-	public void setImgMappe(File imagePath) 
-	{
-		if (imagePath != null)
-		{
+	public void setImgMappe(File imagePath) {
+		if (imagePath != null) {
 			this.appli.setImgMappe(imagePath);
 			this.panelMappe.setImg(imagePath);
 			this.panelMappe.setCliquable(true);

@@ -2,8 +2,7 @@ package metier;
 
 import javax.swing.ImageIcon;
 
-public class CarteDestination
-{
+public class CarteDestination {
 	private Noeud noeud1;
 	private Noeud noeud2;
 	private int points;
