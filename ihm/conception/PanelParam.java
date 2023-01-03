@@ -63,7 +63,7 @@ public class PanelParam extends JPanel
 		this.txtNbWagon.setBounds((int) (largeur * 0.3) / 2 - 100, 220, 200, 20);
 	}
 
-	public void sendParam() 
+	public void setParam() 
 	{
 		this.concepteur.setNbJoueurMin((int) this.cbNbJoueurMin.getSelectedItem());
 		this.concepteur.setNbJoueurMax((int) this.cbNbJoueurMax.getSelectedItem());

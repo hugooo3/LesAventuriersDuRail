@@ -166,6 +166,8 @@ public class Metier
 			pw.println("</liste>");
 
 			pw.close();
+
+			System.out.println("Fichier Mappe.xml généré avec succès !");
 		} 
 		catch (Exception e) {e.printStackTrace();}
 	}
