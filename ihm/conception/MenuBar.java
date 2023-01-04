@@ -1,6 +1,7 @@
 package ihm.conception;
 
 import ihm.FrameConcepteur;
+import ihm.FrameManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -19,16 +20,14 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private File dossierPath;
 	private Image image;
 
-	private JMenuItem menuiFichierNouveau, menuiFichierOuvrir;
+	private JMenuItem menuiFichierNouveau, menuiFichierOuvrir, menuiFichierQuitter;
 
 	private JLabel lblPathNouveau;
 	private JLabel lblPathOuvrir;
 	private JPanel panelNouveau;
 	private JPanel panelOuvrir;
 
-	private JButton btnFichierOuvrir;
-	private JButton btnFichierNouveau;
-	private JButton btnDefaultImage;
+	private JButton btnFichierOuvrir, btnFichierNouveau, btnDefaultImage, btnQuitter;
 
 	public MenuBar(FrameConcepteur concepteur) {
 		this.concepteur = concepteur;
@@ -39,17 +38,22 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		this.lblPathOuvrir = new JLabel("(Dossier : \"...\")", JLabel.CENTER);
 
 		JMenu menuFichier = new JMenu("Fichier");
-		menuFichier.setMnemonic('F');
+		menuFichier.setMnemonic(KeyEvent.VK_F);
 
 		this.menuiFichierNouveau = new JMenuItem("Nouveau");
-		this.menuiFichierNouveau.setMnemonic('N');
+		this.menuiFichierNouveau.setMnemonic(KeyEvent.VK_N);
 
 		this.menuiFichierOuvrir = new JMenuItem("Ouvrir");
-		this.menuiFichierOuvrir.setMnemonic('O');
+		this.menuiFichierOuvrir.setMnemonic(KeyEvent.VK_O);
+
+		this.menuiFichierQuitter = new JMenuItem("Quitter");
+		this.menuiFichierQuitter.setMnemonic(KeyEvent.VK_F4);
 
 		// Positionnement des composants
 		menuFichier.add(this.menuiFichierNouveau);
 		menuFichier.add(this.menuiFichierOuvrir);
+		menuFichier.addSeparator();
+		menuFichier.add(this.menuiFichierQuitter);
 		this.add(menuFichier);
 
 		// Integration des raccourcis
@@ -57,9 +61,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
 		this.menuiFichierOuvrir.setAccelerator( // CTRL + O
 				KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+		this.menuiFichierQuitter.setAccelerator( // CTRL+F4
+				KeyStroke.getKeyStroke(KeyEvent.VK_F4, InputEvent.CTRL_DOWN_MASK));
 
 		this.menuiFichierNouveau.addActionListener(this);
 		this.menuiFichierOuvrir.addActionListener(this);
+		this.menuiFichierQuitter.addActionListener(this);
 
 		// Contenu du Panel nouveau
 		this.panelNouveau = new JPanel(new GridBagLayout());
@@ -205,6 +212,10 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				}
 			}
 			this.concepteur.majIHM();
+		}
+
+		if (e.getSource() == this.menuiFichierQuitter) {
+			this.concepteur.quitter();
 		}
 
 		String nomOs = System.getProperty("os.name").toLowerCase();

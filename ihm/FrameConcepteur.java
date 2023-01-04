@@ -107,6 +107,12 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 		this.panelLstCarteWagon.majLstCarteWagon();
 	}
 
+	public void quitter() 
+	{
+		new FrameManager(this.appli);
+		this.dispose();
+	}
+
 	@Override
 	public void actionPerformed(ActionEvent e)
 	{
