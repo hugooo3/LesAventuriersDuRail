@@ -1,7 +1,6 @@
 package ihm.conception;
 
 import ihm.FrameConcepteur;
-import ihm.FrameManager;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -17,7 +16,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private FrameConcepteur concepteur;
 
 	private File imageFile;
-	private File dossierPath;
+	private File fileXml;
 	private Image image;
 
 	private JMenuItem menuiFichierNouveau, menuiFichierOuvrir, menuiFichierQuitter;
@@ -27,7 +26,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 	private JPanel panelNouveau;
 	private JPanel panelOuvrir;
 
-	private JButton btnFichierOuvrir, btnFichierNouveau, btnDefaultImage, btnQuitter;
+	private JButton btnFichierOuvrir, btnFichierNouveau, btnDefaultImage;
 
 	public MenuBar(FrameConcepteur concepteur) {
 		this.concepteur = concepteur;
@@ -154,15 +153,16 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 			JFileChooser parcourirFichier = new JFileChooser(path);
 			parcourirFichier.setDialogTitle("Choisissez un fichier Mappe XML");
-			parcourirFichier.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+			parcourirFichier.setFileSelectionMode(JFileChooser.FILES_ONLY);
+			parcourirFichier.setAcceptAllFileFilterUsed(false);
+			FileNameExtensionFilter filter = new FileNameExtensionFilter("XML", "xml");
+			parcourirFichier.addChoosableFileFilter(filter);
 			parcourirFichier.setApproveButtonText("Ouvrir");
 
 			// On lui applique l'UI du pc de l'utilisateur
 			try {
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
+			} catch (Exception exception) {exception.printStackTrace();}
 
 			// Après que l'utilisateur ait cliqué sur "ouvrir", on récupère le fichier
 			// sélectionné
@@ -171,7 +171,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				int reponse = parcourirFichier.showOpenDialog(null);
 				if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
 					this.lblPathOuvrir.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
-					this.dossierPath = parcourirFichier.getSelectedFile();
+					this.fileXml = parcourirFichier.getSelectedFile();
 				}
 			} catch (Exception exception) {
 				exception.printStackTrace();
@@ -198,19 +198,12 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		}
 
 		if (e.getSource() == this.menuiFichierOuvrir) {
-			this.dossierPath = null;
+			this.fileXml = null;
 			JOptionPane.showMessageDialog(null, this.panelOuvrir);
-			this.lblPathOuvrir.setText(this.dossierPath.getAbsolutePath());
+			this.lblPathOuvrir.setText(this.fileXml.getAbsolutePath());
 
-			for (File file : this.dossierPath.listFiles()) {
-				this.lblPathNouveau.setText(file.getAbsolutePath());
-				if (file.getName().contains("imgMappe")) {
-					this.concepteur.setImgMappe(getToolkit().getImage(file.getAbsolutePath()));
-				}
-				if (file.getName().contains("Mappe.xml")) {
-					this.concepteur.importMappe(file);
-				}
-			}
+			this.concepteur.importMappe(this.fileXml);
+			this.concepteur.setImgMappe(this.concepteur.getMetier().getImgMappe());
 			this.concepteur.majIHM();
 		}
 
