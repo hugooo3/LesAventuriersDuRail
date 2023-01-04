@@ -12,11 +12,10 @@ import java.awt.event.*;
 import java.io.File;
 import java.io.InputStream;
 
-public class MenuBar extends JMenuBar implements ActionListener
-{
-	private FrameConcepteur frameConcepteur;
+public class MenuBar extends JMenuBar implements ActionListener {
+	private FrameConcepteur concepteur;
 
-	private File imagePath;
+	private File imageFile;
 	private File dossierPath;
 	private Image image;
 
@@ -31,21 +30,20 @@ public class MenuBar extends JMenuBar implements ActionListener
 	private JButton btnFichierNouveau;
 	private JButton btnDefaultImage;
 
-	public MenuBar(FrameConcepteur frameConcepteur)
-	{
-		this.frameConcepteur = frameConcepteur;
+	public MenuBar(FrameConcepteur concepteur) {
+		this.concepteur = concepteur;
 
 		// Crea des composants
 
 		this.lblPathNouveau = new JLabel("(Fichier : \"...\")", JLabel.CENTER);
-		this.lblPathOuvrir  = new JLabel("(Dossier : \"...\")", JLabel.CENTER);
+		this.lblPathOuvrir = new JLabel("(Dossier : \"...\")", JLabel.CENTER);
 
 		JMenu menuFichier = new JMenu("Fichier");
 		menuFichier.setMnemonic('F');
 
 		this.menuiFichierNouveau = new JMenuItem("Nouveau");
 		this.menuiFichierNouveau.setMnemonic('N');
-		
+
 		this.menuiFichierOuvrir = new JMenuItem("Ouvrir");
 		this.menuiFichierOuvrir.setMnemonic('O');
 
@@ -56,16 +54,15 @@ public class MenuBar extends JMenuBar implements ActionListener
 
 		// Integration des raccourcis
 		this.menuiFichierNouveau.setAccelerator( // CTRL + N
-			KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
+				KeyStroke.getKeyStroke(KeyEvent.VK_N, InputEvent.CTRL_DOWN_MASK));
 		this.menuiFichierOuvrir.setAccelerator( // CTRL + O
-			KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
+				KeyStroke.getKeyStroke(KeyEvent.VK_O, InputEvent.CTRL_DOWN_MASK));
 
 		this.menuiFichierNouveau.addActionListener(this);
 		this.menuiFichierOuvrir.addActionListener(this);
 
-		
 		// Contenu du Panel nouveau
-		this.panelNouveau = new JPanel(new GridBagLayout());		
+		this.panelNouveau = new JPanel(new GridBagLayout());
 		GridBagConstraints gbc = new GridBagConstraints();
 		gbc.insets = new Insets(5, 5, 5, 5);
 
@@ -95,7 +92,7 @@ public class MenuBar extends JMenuBar implements ActionListener
 		gbc.fill = GridBagConstraints.HORIZONTAL;
 		this.panelNouveau.add(this.lblPathNouveau, gbc);
 
-		//Contenu du Panel ouvrir
+		// Contenu du Panel ouvrir
 		this.panelOuvrir = new JPanel(new GridLayout(2, 1));
 
 		this.btnFichierOuvrir = new JButton("Parcourir les fichiers");
@@ -108,19 +105,16 @@ public class MenuBar extends JMenuBar implements ActionListener
 		this.panelOuvrir.add(btnFichierOuvrir);
 		this.panelOuvrir.add(lblPathOuvrir);
 	}
-	
 
-	public void ouvrirExploreur(String path, String type) 
-	{
-		if (type.equals("Images")) 
-		{
+	public void ouvrirExploreur(String path, String type) {
+		if (type.equals("Images")) {
 			// On lui applique l'UI du pc de l'utilisateur
 			// Ici on ouvre l'explorateur de fichiers et on lui applique des paramètres
-			try
-			{
+			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} 
-			catch (Exception exception) {exception.printStackTrace();}
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
 
 			JFileChooser parcourirFichier = new JFileChooser(path);
 			parcourirFichier.setDialogTitle("Choisissez un fond d'écran");
@@ -129,29 +123,27 @@ public class MenuBar extends JMenuBar implements ActionListener
 			FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "gif", "png", "jpeg");
 			parcourirFichier.addChoosableFileFilter(filter);
 			parcourirFichier.setApproveButtonText("Ouvrir");
-			
 
 			// Après que l'utilisateur ait cliqué sur "ouvrir", on récupère le fichier
 			// sélectionné
 
-			try 
-			{
+			try {
 				int reponse = parcourirFichier.showOpenDialog(null);
-				if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) 
-				{
+				if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
 					this.lblPathNouveau.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
-					this.imagePath = parcourirFichier.getSelectedFile();
-					this.image = getToolkit().getImage(imagePath.getAbsolutePath());
+					this.imageFile = parcourirFichier.getSelectedFile();
+					this.image = getToolkit().getImage(imageFile.getAbsolutePath());
+					this.concepteur.getMetier().setImgMappePath(parcourirFichier.getSelectedFile().getAbsolutePath());
 				}
-			} 
-			catch (Exception exception) {exception.printStackTrace();}
-		}
-		else {
-			try 
-			{
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
+		} else {
+			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} 
-			catch (Exception exception) {exception.printStackTrace();}
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
 
 			JFileChooser parcourirFichier = new JFileChooser(path);
 			parcourirFichier.setDialogTitle("Choisissez un fichier Mappe XML");
@@ -159,108 +151,90 @@ public class MenuBar extends JMenuBar implements ActionListener
 			parcourirFichier.setApproveButtonText("Ouvrir");
 
 			// On lui applique l'UI du pc de l'utilisateur
-			try 
-			{
+			try {
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			} 
-			catch (Exception exception) {exception.printStackTrace();}
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
 
 			// Après que l'utilisateur ait cliqué sur "ouvrir", on récupère le fichier
 			// sélectionné
 
-			try 
-			{
+			try {
 				int reponse = parcourirFichier.showOpenDialog(null);
-				if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) 
-				{
+				if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
 					this.lblPathOuvrir.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
 					this.dossierPath = parcourirFichier.getSelectedFile();
 				}
-			} 
-			catch (Exception exception) {exception.printStackTrace();}
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
 		}
 	}
 
-	public void actionPerformed(ActionEvent e) 
-	{
+	public void actionPerformed(ActionEvent e) {
 		// Clic sur le bouton Passer
-		if (e.getSource() == this.btnDefaultImage) 
-		{	
-			try 
-			{	
-				this.lblPathNouveau.setText("../images/carteUSA.png");	
+		if (e.getSource() == this.btnDefaultImage) {
+			try {
+				this.lblPathNouveau.setText("../images/carteUSA.png");
 				InputStream inputStream = MenuBar.class.getResourceAsStream("/images/carteUSA.png");
 				this.image = ImageIO.read(inputStream);
-			} 
-			catch (Exception e1) 
-			{
+			} catch (Exception e1) {
 				e1.printStackTrace();
 			}
 		}
-		
-		if (e.getSource() == this.menuiFichierNouveau) 
-		{
-			this.imagePath = null;
+
+		if (e.getSource() == this.menuiFichierNouveau) {
+			this.imageFile = null;
 			JOptionPane.showMessageDialog(null, this.panelNouveau);
-			this.frameConcepteur.setImgMappe(this.image);
+			this.concepteur.setImgMappe(this.image);
 		}
 
-		if (e.getSource() == this.menuiFichierOuvrir) 
-		{
+		if (e.getSource() == this.menuiFichierOuvrir) {
 			this.dossierPath = null;
 			JOptionPane.showMessageDialog(null, this.panelOuvrir);
 			this.lblPathOuvrir.setText(this.dossierPath.getAbsolutePath());
 
-			for (File file : this.dossierPath.listFiles())
-			{
+			for (File file : this.dossierPath.listFiles()) {
 				this.lblPathNouveau.setText(file.getAbsolutePath());
-				if (file.getName().contains("imgMappe"))
-				{
-					this.frameConcepteur.setImgMappe(getToolkit().getImage(file.getAbsolutePath()));
+				if (file.getName().contains("imgMappe")) {
+					this.concepteur.setImgMappe(getToolkit().getImage(file.getAbsolutePath()));
 				}
-				if (file.getName().contains("Mappe.xml"))
-				{
-					this.frameConcepteur.importMappe(file);
+				if (file.getName().contains("Mappe.xml")) {
+					this.concepteur.importMappe(file);
 				}
 			}
-			this.frameConcepteur.majIHM();
+			this.concepteur.majIHM();
 		}
 
 		String nomOs = System.getProperty("os.name").toLowerCase();
 
-		if (e.getSource() == this.btnFichierNouveau || e.getSource() == this.btnFichierOuvrir)
-		{
+		if (e.getSource() == this.btnFichierNouveau || e.getSource() == this.btnFichierOuvrir) {
 			String path = FileSystemView.getFileSystemView().getHomeDirectory().toPath().toString();
 
-			// On ouvre directement le répertoire "Images" ou "Documents" de l'utilisateur suivant son OS
+			// On ouvre directement le répertoire "Images" ou "Documents" de l'utilisateur
+			// suivant son OS
 			String directory = "";
-			if (e.getSource() == this.btnFichierNouveau) { directory = "Images"; }
-			else if (e.getSource() == this.btnFichierOuvrir) { directory = "Documents"; }
+			if (e.getSource() == this.btnFichierNouveau) {
+				directory = "Images";
+			} else if (e.getSource() == this.btnFichierOuvrir) {
+				directory = "Documents";
+			}
 
-			if (nomOs.indexOf("win") >= 0) 
-			{
+			if (nomOs.indexOf("win") >= 0) {
 				path = path.replace("Desktop", directory);
 				ouvrirExploreur(path, directory);
-			} 
-			else if (nomOs.indexOf("mac") >= 0) 
-			{
+			} else if (nomOs.indexOf("mac") >= 0) {
 				path = path.replace("Desktop", directory);
 				ouvrirExploreur(path, directory);
-			} 
-			else if (nomOs.indexOf("nux") >= 0 || nomOs.indexOf("nix") >= 0 || nomOs.indexOf("aix") >= 0) 
-			{
-				if (new File(path + "/" + directory).exists())
-				{
+			} else if (nomOs.indexOf("nux") >= 0 || nomOs.indexOf("nix") >= 0 || nomOs.indexOf("aix") >= 0) {
+				if (new File(path + "/" + directory).exists()) {
 					path += "/" + directory;
-				} 
-				else if (new File(path + "/" + directory).exists())
-				{
+				} else if (new File(path + "/" + directory).exists()) {
 					path += "/" + directory;
 				}
 				ouvrirExploreur(path, directory);
-			} 
-			else
-			{
+			} else {
 				JOptionPane.showMessageDialog(null, "Votre OS n'est pas supporté !", "Erreur",
 						JOptionPane.ERROR_MESSAGE);
 			}

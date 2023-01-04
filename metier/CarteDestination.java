@@ -9,21 +9,18 @@ public class CarteDestination {
 	private ImageIcon imgRecto;
 	private ImageIcon imgVerso;
 
-	public CarteDestination(Noeud noeud1, Noeud noeud2, int points, ImageIcon imgRecto, ImageIcon imgVerso)
-	{
+	public CarteDestination(Noeud noeud1, Noeud noeud2, int points) {
 		this.noeud1 = noeud1;
 		this.noeud2 = noeud2;
 		this.points = points;
-		this.imgRecto = imgRecto;
-		this.imgVerso = imgVerso;
 	}
-	
+
 	public Noeud getNoeud1() { return this.noeud1; }
 	public Noeud getNoeud2() { return this.noeud2; }
 	public int   getPoints() { return this.points; }
 	public ImageIcon getImgRecto() { return this.imgRecto; }
 	public ImageIcon getImgVerso() { return this.imgVerso; }
-
+	
 	public void setNoeud1(Noeud noeud1) { this.noeud1 = noeud1; }
 	public void setNoeud2(Noeud noeud2) { this.noeud2 = noeud2; }
 	public void setPoints(int points) { this.points = points; }

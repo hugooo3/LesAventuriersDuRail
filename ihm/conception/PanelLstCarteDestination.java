@@ -190,9 +190,7 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 				for (int j = 0; j < alNoeud2.size(); j++) {
 					if (!alNoeud1.get(i).getNom().equals(alNoeud2.get(j).getNom())) {
 						int nbPoint = (int) (Math.random() * 50) + 1;
-						CarteDestination carteTemp = new CarteDestination(alNoeud1.get(i), alNoeud2.get(j), nbPoint,
-								new ImageIcon("/images/carteDestRecto.png"),
-								new ImageIcon("/images/carteDestVerso.png"));
+						CarteDestination carteTemp = new CarteDestination(alNoeud1.get(i), alNoeud2.get(j), nbPoint);
 
 						if (!existe(carteTemp))
 							this.alCarteDestination.add(carteTemp);
@@ -204,7 +202,8 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 
 		if (e.getSource() == this.btnNouveau) {
 			if (this.alNoeud.size() < 2) {
-				JOptionPane.showMessageDialog(null, "Nombre de noeud insuffisant pour faire une carte destination.", "Erreur",
+				JOptionPane.showMessageDialog(null, "Nombre de noeud insuffisant pour faire une carte destination.",
+						"Erreur",
 						JOptionPane.ERROR_MESSAGE);
 				return;
 			}
@@ -228,11 +227,8 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 			Noeud noeudSelected1 = (Noeud) this.ddlstNoeud1.getSelectedItem();
 			Noeud noeudSelected2 = (Noeud) this.ddlstNoeud2.getSelectedItem();
 			int nbPoints = Integer.parseInt(this.txtNbPoint.getText());
-			ImageIcon imgRecto = new ImageIcon("/images/carteDestRecto.png");
-			ImageIcon imgVerso = new ImageIcon("/images/carteDestVerso.png");
 
-			CarteDestination carteDestination = new CarteDestination(noeudSelected1, noeudSelected2, nbPoints, imgRecto,
-					imgVerso);
+			CarteDestination carteDestination = new CarteDestination(noeudSelected1, noeudSelected2, nbPoints);
 
 			for (CarteDestination carte : this.alCarteDestination)
 				if (carteDestination.getNoeud1() == carte.getNoeud1() &&
@@ -278,9 +274,7 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 
 				CarteDestination carteTemp = new CarteDestination((Noeud) this.ddlstNoeud1.getSelectedItem(),
 						(Noeud) this.ddlstNoeud2.getSelectedItem(),
-						Integer.parseInt(this.txtNbPoint.getText()),
-						new ImageIcon("/images/carteDestRecto.png"),
-						new ImageIcon("/images/carteDestVerso.png"));
+						Integer.parseInt(this.txtNbPoint.getText()));
 
 				for (CarteDestination carte : this.alCarteDestination)
 					if (carteTemp.getNoeud1() == carte.getNoeud1() &&

@@ -86,11 +86,11 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 		}
 	}
 
-	public boolean setNbJoueurMin(int nbJoueurMin) {return this.appli.setNbJoueurMin(nbJoueurMin);}
-	public boolean setNbJoueurMax(int nbJoueurMax) {return this.appli.setNbJoueurMax(nbJoueurMax);}
-	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {return this.appli.setNbJoueurDoubleVoies(nbJoueurDoubleVoies);}
-	public boolean setNbWagonJoueur(int nbWagonJoueur) {return this.appli.setNbWagonJoueur(nbWagonJoueur);}
-	public boolean setNbFin(int nbFin) {return this.appli.setNbFin(nbFin);}
+	public void setNbJoueurMin(int nbJoueurMin) {this.appli.setNbJoueurMin(nbJoueurMin);}
+	public void setNbJoueurMax(int nbJoueurMax) {this.appli.setNbJoueurMax(nbJoueurMax);}
+	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {this.appli.setNbJoueurDoubleVoies(nbJoueurDoubleVoies);}
+	public void setNbWagonJoueur(int nbWagonJoueur) {this.appli.setNbWagonJoueur(nbWagonJoueur);}
+	public void setNbFin(int nbFin) {this.appli.setNbFin(nbFin);}
 
 	public Metier getMetier() {return this.appli.getMetier();}
 	public void modifierLstNoeud(int selectedIndex) {this.panelMappe.modifierLstNoeud(selectedIndex);}

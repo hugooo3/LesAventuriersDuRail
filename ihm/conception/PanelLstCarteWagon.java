@@ -185,7 +185,7 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener {
 					} catch(NumberFormatException excep) { excep.printStackTrace(); }
 
 					if(estAffectee) {
-						this.lstCarteWagon.getSelectedValue().setImgRecto(new ImageIcon(getToolkit().getImage(this.imgRectoFile.getAbsolutePath())));
+						this.lstCarteWagon.getSelectedValue().setImgRecto(new ImageIcon(getToolkit().getImage(this.imgRectoFile.getAbsolutePath())), this.imgRectoFile.getAbsolutePath());
 						this.estAffectee = false;
 					}	
 					
@@ -209,7 +209,7 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener {
 			File imgVersoFile = this.choisirImage();
 			for(CarteWagon carte : this.alCarteWagon) {
 				if(!carte.getNomCouleur().equals("Neutre"))
-					carte.setImgVerso(new ImageIcon(getToolkit().getImage(imgVersoFile.getAbsolutePath()))); 
+					carte.setImgVerso(new ImageIcon(getToolkit().getImage(imgVersoFile.getAbsolutePath())), imgVersoFile.getAbsolutePath()); 
 			}
 			this.concepteur.majIHM();
 		}

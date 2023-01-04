@@ -9,7 +9,9 @@ public class CarteWagon {
 	private String nomCouleur;
 	private Color couleur;
 	private ImageIcon imgRecto;
+	private String imgRectoPath;
 	private ImageIcon imgVerso;
+	private String imgVersoPath;
 	private int nbCarteWagon;
 
 	public CarteWagon(String nomCouleur, Color couleur, String imgRectoPath, String imgVersoPath, int nbCarteWagon) {
@@ -18,6 +20,8 @@ public class CarteWagon {
 		this.nbCarteWagon = nbCarteWagon;
 		this.imgRecto = this.creerImageIcon(imgRectoPath);
 		this.imgVerso = this.creerImageIcon(imgVersoPath);
+		this.imgRectoPath = imgRectoPath;
+		this.imgVersoPath = imgVersoPath;
 	}
 
 	private ImageIcon creerImageIcon(String imgPath) {
@@ -36,19 +40,35 @@ public class CarteWagon {
 	public String	 getNomCouleur()   { return this.nomCouleur; }
 	public Color 	 getCouleur()	   { return this.couleur; }
 	public ImageIcon getImgRecto() 	   { return this.imgRecto; }
+	public String	 getImgRectoPath() { return this.imgRectoPath; }
 	public ImageIcon getImgVerso() 	   { return this.imgVerso; }
+	public String	 getImgVersoPath() { return this.imgVersoPath; }
 	public int		 getNbCarteWagon() { return this.nbCarteWagon; }
 
 	public void setNomCouleur(String couleur)	  { this.nomCouleur = couleur; }
 	public void setCouleur(Color couleur) 		  { this.couleur = couleur; }
-	public void setImgRecto(ImageIcon imgRecto)   { this.imgRecto = imgRecto; }
-	public void setImgRecto(String imgRectoPath)   { this.imgRecto = this.creerImageIcon(imgRectoPath); }
-	public void setImgVerso(ImageIcon imgVerso)   { this.imgVerso = imgVerso; }
-	public void setImgVerso(String imgVersoPath)   { this.imgVerso = this.creerImageIcon(imgVersoPath); }
 	public void setNbCarteWagon(int nbCarteWagon) { this.nbCarteWagon = nbCarteWagon; }
- 
+
+	public void setImgRecto(ImageIcon imgRecto, String imgRectoPath)   {
+		this.imgRecto = imgRecto;
+		this.imgRectoPath = imgRectoPath;
+		}
+	public void setImgRecto(String imgRectoPath)   {
+		this.imgRecto = this.creerImageIcon(imgRectoPath);
+		this.imgRectoPath = imgRectoPath;
+	}
+	public void setImgVerso(ImageIcon imgVerso, String imgVersoPath)   {
+		this.imgVerso = imgVerso;
+		this.imgVersoPath = imgVersoPath;
+	}
+	public void setImgVerso(String imgVersoPath) { 
+		this.imgVerso = this.creerImageIcon(imgVersoPath); 
+		this.imgVersoPath = imgVersoPath;
+	}
+
+	
 	public String toString() {
 		return this.nomCouleur;
-	}
+	} 
 
 }
