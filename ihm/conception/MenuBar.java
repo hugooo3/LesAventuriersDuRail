@@ -11,9 +11,6 @@ import java.awt.event.*;
 
 import java.io.File;
 import java.io.InputStream;
-import java.net.URI;
-import java.net.URISyntaxException;
-import java.net.URL;
 
 public class MenuBar extends JMenuBar implements ActionListener
 {

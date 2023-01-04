@@ -10,7 +10,6 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import java.util.ArrayList;
-import java.io.File;
 
 public class PanelLstCarteWagon extends JPanel implements ActionListener {
 	private FrameConcepteur concepteur;
