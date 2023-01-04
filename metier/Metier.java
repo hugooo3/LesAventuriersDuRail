@@ -24,7 +24,7 @@ import java.util.Comparator;
 public class Metier 
 {
 	private static int RADIUS = 20;
-	private ImageIcon VERSO_CARTE = new ImageIcon("images/ArriereCarte.png");
+	private String versoCartePath;
 
 	private ArrayList<Noeud> alNoeuds;
 	private ArrayList<Arete> alAretes;
@@ -40,22 +40,24 @@ public class Metier
 
 	public Metier() 
 	{
+		this.versoCartePath = "/images/ArriereCarte.png";
+
 		this.alNoeuds = new ArrayList<Noeud>();
 		this.alAretes = new ArrayList<Arete>();
 		this.alCartesDestination = new ArrayList<CarteDestination>();
 		this.alCartesWagon = new ArrayList<CarteWagon>();
 
 		// Carte Wagon par défaut
-		this.alCartesWagon.add(new CarteWagon("Neutre"	, Color.GRAY	, null										, null				,20));
-		this.alCartesWagon.add(new CarteWagon("Blanc"	, Color.WHITE	, new ImageIcon("images/carteBlanche.png")	, this.VERSO_CARTE	, 20));
-		this.alCartesWagon.add(new CarteWagon("Bleu"	, Color.BLUE	, new ImageIcon("images/carteBleu.png")		, this.VERSO_CARTE	, 20));
-		this.alCartesWagon.add(new CarteWagon("Jaune"	, Color.YELLOW	, new ImageIcon("images/carteJaune.png")	, this.VERSO_CARTE	, 20));
-		this.alCartesWagon.add(new CarteWagon("Noire"	, Color.BLACK	, new ImageIcon("images/carteNoire.png")	, this.VERSO_CARTE	, 20));
-		this.alCartesWagon.add(new CarteWagon("Orange"	, Color.ORANGE	, new ImageIcon("images/carteOrange.png")	, this.VERSO_CARTE	, 20));
-		this.alCartesWagon.add(new CarteWagon("Rouge"	, Color.RED		, new ImageIcon("images/carteRouge.png")	, this.VERSO_CARTE	, 20));
-		this.alCartesWagon.add(new CarteWagon("Verte"	, Color.GREEN	, new ImageIcon("images/carteVerte.png")	, this.VERSO_CARTE	, 20));
-		this.alCartesWagon.add(new CarteWagon("Violet"	, Color.MAGENTA	, new ImageIcon("images/carteViolet.png")	, this.VERSO_CARTE	, 20));
-		this.alCartesWagon.add(new CarteWagon("Joker"	, Color.PINK	, new ImageIcon("images/carteJoker.png")	, this.VERSO_CARTE	, 20));
+		this.alCartesWagon.add(new CarteWagon("Neutre"	, Color.GRAY	, null						, null					, 20));
+		this.alCartesWagon.add(new CarteWagon("Blanc"	, Color.WHITE	, "/images/carteBlanche.png", this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Bleu"	, Color.BLUE	, "/images/carteBleu.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Jaune"	, Color.YELLOW	, "/images/carteJaune.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Noire"	, Color.BLACK	, "/images/carteNoire.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Orange"	, Color.ORANGE	, "/images/carteOrange.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Rouge"	, Color.RED		, "/images/carteRouge.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Verte"	, Color.GREEN	, "/images/carteVerte.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Violet"	, Color.MAGENTA	, "/images/carteViolet.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Joker"	, Color.PINK	, "/images/carteJoker.png"	, this.versoCartePath	, 20));
 	}
 
 	/***************************/
@@ -70,7 +72,7 @@ public class Metier
 	public int getNbJoueurMax() {return this.nbJoueurMax;}
 	public int getNbJoueurDoubleVoies() {return this.nbJoueurDoubleVoies;}
 	public int getNbWagonJoueur() {return this.nbWagonJoueur;}
-	public ImageIcon getVersoCarte() {return this.VERSO_CARTE;}
+	public String getVersoCartePath() {return this.versoCartePath;}
 
 	public boolean setImgMappe(Image imgMappe)                      	{ this.imgMappe = imgMappe; return true; }
 	public boolean setNbJoueurMin(int nbJoueurMin)                 	{ this.nbJoueurMin = nbJoueurMin; return true; }
@@ -79,11 +81,11 @@ public class Metier
 	public boolean setNbWagonJoueur(int nbWagonJoueur)             	{ this.nbWagonJoueur = nbWagonJoueur; return true; }
 	public boolean setNbFin(int nbFin)								{ this.nbFin = nbFin; return true; }
 	
-	public void setVersoCarte(ImageIcon versoCarte)				
+	public void setVersoCarte(String versoCartePath)				
 	{
-		this.VERSO_CARTE = versoCarte;
+		this.versoCartePath = versoCartePath;
 		for (int i = 1; i < this.alCartesWagon.size(); i++)
-			this.alCartesWagon.get(i).setImgVerso(versoCarte);
+			this.alCartesWagon.get(i).setImgVerso(versoCartePath);
 	}
 
 	/**********************************************************/
@@ -160,8 +162,8 @@ public class Metier
 				pw.println("\t<carteWagon>");
 				pw.println("\t\t<nomCouleur>" + carteWagon.getNomCouleur() + "</nomCouleur>");
 				pw.println("\t\t<couleur>" + carteWagon.getCouleur().getRGB() + "</couleur>");
-				pw.println("\t\t<imgRecto>" + carteWagon.getImgRecto() + "</imgRecto>");
-				pw.println("\t\t<imgVerso>" + carteWagon.getImgVerso() + "</imgVerso>");
+				pw.println("\t\t<imgRectoPath>" + carteWagon.getImgRecto() + "</imgRectoPath>");
+				pw.println("\t\t<imgVersoPath>" + carteWagon.getImgVerso() + "</imgVersoPath>");
 				pw.println("\t\t<nbCarteWagon>" + carteWagon.getNbCarteWagon() + "</nbCarteWagon>");
 				pw.println("\t</carteWagon>");
 			}
@@ -290,8 +292,8 @@ public class Metier
 
 					CarteWagon carteWagon = new CarteWagon(e.getElementsByTagName("nomCouleur").item(0).getTextContent(),
 														   couleur,
-														   new ImageIcon(e.getElementsByTagName("imgRecto").item(0).getTextContent()),
-														   new ImageIcon(e.getElementsByTagName("imgVerso").item(0).getTextContent()),
+														   e.getElementsByTagName("imgRecto").item(0).getTextContent(),
+														   e.getElementsByTagName("imgVerso").item(0).getTextContent(),
 														   Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
 
 					this.alCartesWagon.add(carteWagon);

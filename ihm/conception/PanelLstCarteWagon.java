@@ -6,6 +6,7 @@ import ihm.FrameConcepteur;
 
 import java.awt.*;
 import java.awt.event.*;
+import java.io.File;
 
 import javax.swing.*;
 
@@ -17,7 +18,7 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener {
 	private JList<CarteWagon> lstCarteWagon;
 	private ArrayList<CarteWagon> alCarteWagon;
 	
-	private ImageIcon imgRecto;
+	private File imgRectoFile;
 	private boolean estAffectee;
 
 	private JScrollPane scrollPane;
@@ -70,7 +71,6 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener {
 
 		// JList avec scroll
 		this.scrollPane = new JScrollPane();
-		this.lstCarteWagon.setPreferredSize(new Dimension((int) this.lstCarteWagon.getPreferredSize().getWidth()+100, (int) this.lstCarteWagon.getPreferredSize().getHeight()));
 		this.scrollPane.setViewportView(this.lstCarteWagon);
 		this.lstCarteWagon.setFont(new Font(getFont().getName(), Font.PLAIN, 15));
 		this.lstCarteWagon.setFixedCellHeight(50);
@@ -109,39 +109,35 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener {
 
 	public void majLstCarteWagon() {
 		for (CarteWagon carteWagon : this.alCarteWagon) {
-			if (!this.modelListCarteWagon.contains(carteWagon)) {
+			if (!this.modelListCarteWagon.contains(carteWagon))
 				this.modelListCarteWagon.addElement(carteWagon);
-			}
 		}
 		this.lstCarteWagon.clearSelection();
 	}
 
-	public ImageIcon choisirImage() {
+	public File choisirImage() 
+	{
+		File imgFile = null;
 		try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} catch (Exception exception) {exception.printStackTrace();}
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception exception) {exception.printStackTrace();}
 
-			JFileChooser parcourirFichier = new JFileChooser();
-			parcourirFichier.setDialogTitle("Choisissez une image");
-			parcourirFichier.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			parcourirFichier.setAcceptAllFileFilterUsed(false);
-			FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "gif", "png", "jpeg");
-			parcourirFichier.addChoosableFileFilter(filter);
-			parcourirFichier.setApproveButtonText("Ouvrir");
-		
-			try {
-				int valeurDeRetour = parcourirFichier.showOpenDialog(null);
-				if(valeurDeRetour == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null && 
-					parcourirFichier.getSelectedFile().exists()) {
+		JFileChooser parcourirFichier = new JFileChooser();
+		parcourirFichier.setDialogTitle("Choisissez une image");
+		parcourirFichier.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		parcourirFichier.setAcceptAllFileFilterUsed(false);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "gif", "png", "jpeg");
+		parcourirFichier.addChoosableFileFilter(filter);
+		parcourirFichier.setApproveButtonText("Ouvrir");
+	
+		int valeurDeRetour = parcourirFichier.showOpenDialog(null);
+		if(valeurDeRetour == JFileChooser.APPROVE_OPTION && 
+			parcourirFichier.getSelectedFile() != null && 
+			parcourirFichier.getSelectedFile().exists()) {
+			imgFile = parcourirFichier.getSelectedFile();
+		}
 
-					ImageIcon imgRet = new ImageIcon(parcourirFichier.getSelectedFile().getAbsolutePath().toString());
-					return imgRet;
-				}
-			} catch (Exception ex) {
-				ex.printStackTrace();
-			}
-
-		return null;
+		return imgFile;
 	}
 
 
@@ -189,7 +185,7 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener {
 					} catch(NumberFormatException excep) { excep.printStackTrace(); }
 
 					if(estAffectee) {
-						this.lstCarteWagon.getSelectedValue().setImgRecto(this.imgRecto);
+						this.lstCarteWagon.getSelectedValue().setImgRecto(new ImageIcon(getToolkit().getImage(this.imgRectoFile.getAbsolutePath())));
 						this.estAffectee = false;
 					}	
 					
@@ -204,16 +200,16 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener {
 		}
 		
 		if (e.getSource() == this.btnCarteWagonRecto) {
-			this.imgRecto = this.choisirImage();
+			this.imgRectoFile = this.choisirImage();
 			this.estAffectee = true;
 		}
 
 
 		if (e.getSource() == this.btnCarteWagonVerso) {
-			ImageIcon imgVerso = this.choisirImage();
+			File imgVersoFile = this.choisirImage();
 			for(CarteWagon carte : this.alCarteWagon) {
 				if(!carte.getNomCouleur().equals("Neutre"))
-					carte.setImgVerso(imgVerso); 
+					carte.setImgVerso(new ImageIcon(getToolkit().getImage(imgVersoFile.getAbsolutePath()))); 
 			}
 			this.concepteur.majIHM();
 		}
