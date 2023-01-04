@@ -110,6 +110,7 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 	public void quitter() 
 	{
 		new FrameManager(this.appli);
+		this.appli.reinitialiserMetier();
 		this.dispose();
 	}
 

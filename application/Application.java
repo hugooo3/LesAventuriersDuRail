@@ -28,6 +28,7 @@ public class Application
 
 	public boolean reinitialiserDossierSortie() {return this.metier.reinitialiserDossierSortie();}
 	public boolean importMappe   (File xmlPath) {return this.metier.importMappe(xmlPath);}
+	public void reinitialiserMetier() {this.metier = new Metier();}
 
 	public void ecrireXML()
 	{

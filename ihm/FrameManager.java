@@ -88,7 +88,7 @@ public class FrameManager extends JFrame implements ActionListener
 
 		if (e.getSource() == this.btnJeu)
 		{
-			new FrameJeu();
+			new FrameJeu(this.app);
 			this.dispose();
 		}
 	}
