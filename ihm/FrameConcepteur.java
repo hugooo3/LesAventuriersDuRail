@@ -10,6 +10,7 @@ import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.*;
+import java.awt.Image;
 
 import java.io.File;
 
@@ -75,10 +76,10 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 		this.setVisible(true);
 	}
 
-	public void setImgMappe(File imagePath) {
-		if (imagePath != null) {
-			this.appli.setImgMappe(imagePath);
-			this.panelMappe.setImg(imagePath);
+	public void setImgMappe(Image image) {
+		if (image != null) {
+			this.appli.setImgMappe(image);
+			this.panelMappe.setImg(image);
 			this.panelMappe.setCliquable(true);
 			this.tabbedPane.setVisible(true);
 			this.btnXML.setVisible(true);

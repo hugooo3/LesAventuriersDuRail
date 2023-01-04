@@ -1,6 +1,7 @@
 package application;
 
 import java.io.File;
+import java.awt.Image;
 
 import ihm.*;
 import metier.*;
@@ -18,7 +19,7 @@ public class Application
 	
 	public Metier getMetier() {return this.metier;}
 
-	public boolean setImgMappe(File imgMappe) {return this.metier.setImgMappe(imgMappe);}
+	public boolean setImgMappe(Image imgMappe) {return this.metier.setImgMappe(imgMappe);}
 	public boolean setNbJoueurMin(int nbJoueurMin) {return this.metier.setNbJoueurMin(nbJoueurMin);}
 	public boolean setNbJoueurMax(int nbJoueurMax) {return this.metier.setNbJoueurMax(nbJoueurMax);}
 	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {return this.metier.setNbJoueurDoubleVoies(nbJoueurDoubleVoies);}

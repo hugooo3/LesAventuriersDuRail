@@ -2,6 +2,7 @@ package ihm.conception;
 
 import ihm.FrameConcepteur;
 
+import javax.imageio.ImageIO;
 import javax.swing.*;
 import javax.swing.filechooser.*;
 
@@ -9,6 +10,10 @@ import java.awt.*;
 import java.awt.event.*;
 
 import java.io.File;
+import java.io.InputStream;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 
 public class MenuBar extends JMenuBar implements ActionListener
 {
@@ -16,6 +21,7 @@ public class MenuBar extends JMenuBar implements ActionListener
 
 	private File imagePath;
 	private File dossierPath;
+	private Image image;
 
 	private JMenuItem menuiFichierNouveau, menuiFichierOuvrir;
 
@@ -138,6 +144,7 @@ public class MenuBar extends JMenuBar implements ActionListener
 				{
 					this.lblPathNouveau.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
 					this.imagePath = parcourirFichier.getSelectedFile();
+					this.image = getToolkit().getImage(imagePath.getAbsolutePath());
 				}
 			} 
 			catch (Exception exception) {exception.printStackTrace();}
@@ -181,17 +188,24 @@ public class MenuBar extends JMenuBar implements ActionListener
 	{
 		// Clic sur le bouton Passer
 		if (e.getSource() == this.btnDefaultImage) 
-		{		
-			this.lblPathNouveau.setText("../images/carteUSA.png");	
-			this.imagePath = new File("images/carteUSA.png");
+		{	
+			try 
+			{	
+				this.lblPathNouveau.setText("../images/carteUSA.png");	
+				InputStream inputStream = MenuBar.class.getResourceAsStream("/images/carteUSA.png");
+				this.image = ImageIO.read(inputStream);
+			} 
+			catch (Exception e1) 
+			{
+				e1.printStackTrace();
+			}
 		}
 		
 		if (e.getSource() == this.menuiFichierNouveau) 
 		{
 			this.imagePath = null;
 			JOptionPane.showMessageDialog(null, this.panelNouveau);
-			this.lblPathNouveau.setText(this.imagePath.getAbsolutePath());
-			this.frameConcepteur.setImgMappe(this.imagePath);
+			this.frameConcepteur.setImgMappe(this.image);
 		}
 
 		if (e.getSource() == this.menuiFichierOuvrir) 
@@ -202,9 +216,10 @@ public class MenuBar extends JMenuBar implements ActionListener
 
 			for (File file : this.dossierPath.listFiles())
 			{
+				this.lblPathNouveau.setText(file.getAbsolutePath());
 				if (file.getName().contains("imgMappe"))
 				{
-					this.frameConcepteur.setImgMappe(file);
+					this.frameConcepteur.setImgMappe(getToolkit().getImage(file.getAbsolutePath()));
 				}
 				if (file.getName().contains("Mappe.xml"))
 				{

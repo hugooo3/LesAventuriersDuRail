@@ -1,5 +1,6 @@
 package metier;
 
+import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -10,7 +11,8 @@ import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
 import java.awt.Color;
-
+import java.awt.Image;
+import java.awt.image.RenderedImage;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
@@ -31,7 +33,7 @@ public class Metier
 	private ArrayList<CarteDestination> alCartesDestination;
 	private ArrayList<CarteWagon> alCartesWagon;
 
-	private File imgMappe;
+	private Image imgMappe;
 	private int nbJoueurMin;
 	private int nbJoueurMax;
 	private int nbJoueurDoubleVoies;
@@ -65,14 +67,14 @@ public class Metier
 	public ArrayList<Arete> getAlAretes() {return this.alAretes;}
 	public ArrayList<CarteDestination> getAlCartesDestination() {return this.alCartesDestination;}
 	public ArrayList<CarteWagon> getAlCartesWagon() {return this.alCartesWagon;}
-	public File getImgMappe() {return this.imgMappe;}
+	public Image getImgMappe() {return this.imgMappe;}
 	public int getNbJoueurMin() {return this.nbJoueurMin;}
 	public int getNbJoueurMax() {return this.nbJoueurMax;}
 	public int getNbJoueurDoubleVoies() {return this.nbJoueurDoubleVoies;}
 	public int getNbWagonJoueur() {return this.nbWagonJoueur;}
 	public ImageIcon getVersoCarte() {return this.VERSO_CARTE;}
 
-	public boolean setImgMappe(File imgMappe)                      	{ this.imgMappe = imgMappe; return true; }
+	public boolean setImgMappe(Image imgMappe)                      	{ this.imgMappe = imgMappe; return true; }
 	public boolean setNbJoueurMin(int nbJoueurMin)                 	{ this.nbJoueurMin = nbJoueurMin; return true; }
 	public boolean setNbJoueurMax(int nbJoueurMax)                 	{ this.nbJoueurMax = nbJoueurMax; return true; }
 	public boolean setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) 	{ this.nbJoueurDoubleVoies = nbJoueurDoubleVoies; return true; }
@@ -177,27 +179,15 @@ public class Metier
 	/* Copie une image donnée en paramètres  */
 	/* vers le dossier sortie/ du concepteur */
 	/*****************************************/
-	public boolean copierImage(String nom, File fichier)
+	public void copierImage(String nom, Image image) // Sera bientot supp, les images seront stockes dans le xml
 	{
-		File src = fichier;
-		String extension = src.getAbsolutePath().substring(src.getAbsolutePath().lastIndexOf("."));
-
-		if (extension.equals(".jpg") || extension.equals(".jpeg") || extension.equals(".JPG") || extension.equals(".JPEG") || extension.equals(".png") || extension.equals(".PNG"))
+		System.out.println("1");
+		try 
 		{
-			File cible = new File("sortie/" + nom + extension);	
-			try 
-			{
-				Files.copy(src.toPath(), cible.toPath(), StandardCopyOption.REPLACE_EXISTING);
-			} 
-			catch (IOException e) 
-			{
-				System.out.println("Erreur lors de la copie de l'image");
-				e.printStackTrace();
-			}
-			return true;
-		}
-		System.out.println("Fichier non supporté");
-		return false;
+			ImageIO.write((RenderedImage) image, "png", new File("sortie/" + nom + ".png"));
+			System.out.println("2");
+		} 
+		catch (IOException e) {e.printStackTrace();}
 	}
 
 	/**************************************/

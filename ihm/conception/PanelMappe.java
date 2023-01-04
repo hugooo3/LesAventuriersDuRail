@@ -107,7 +107,11 @@ public class PanelMappe extends JPanel {
 		});
 	}
 
-	public void setImg(File imagePath) {this.img = getToolkit().getImage(imagePath.getAbsolutePath()); repaint();}	
+	public void setImg(Image image) 
+	{
+		this.img = image;
+		repaint();
+	}	
 	public void setCliquable(Boolean cliquable) {this.cliquable = cliquable;}
 
 	public void modifierLstNoeud(int noeudPos) 
