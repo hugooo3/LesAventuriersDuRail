@@ -117,14 +117,14 @@ public class Metier {
 			}
 
 			/* Generation XML : Parametre */
-			pw.println("\t<parametre>");
+			pw.println("\t<parametres>");
 			pw.println("\t\t<nbJoueurMin>" + this.nbJoueurMin + "</nbJoueurMin>");
 			pw.println("\t\t<nbJoueurMax>" + this.nbJoueurMax + "</nbJoueurMax>");
 			pw.println("\t\t<nbJoueurDoubleVoies>" + this.nbJoueurDoubleVoies + "</nbJoueurDoubleVoies>");
 			pw.println("\t\t<nbWagonJoueur>" + this.nbWagonJoueur + "</nbWagonJoueur>");
 			pw.println("\t\t<nbFin>" + this.nbFin + "</nbFin>");
-			pw.println("\t\t<versoCarte>" + imgMappeEncode + "</versoCarte>");
-			pw.println("\t</parametre>");
+			pw.println("\t\t<mappe>" + imgMappeEncode + "</mappe>");
+			pw.println("\t</parametres>");
 
 			/* Generation XML : Noeud */
 			for (Noeud noeud : this.alNoeuds) {
@@ -232,6 +232,7 @@ public class Metier {
 			/* Paramètres */
 			NodeList nList = doc.getElementsByTagName("parametres");
 			Node nNode = nList.item(0);
+			
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element e = (Element) nNode;
 				this.nbJoueurMin = Integer.parseInt(e.getElementsByTagName("nbJoueurMin").item(0).getTextContent());
@@ -239,6 +240,17 @@ public class Metier {
 				this.nbJoueurDoubleVoies = Integer.parseInt(e.getElementsByTagName("nbJoueurDoubleVoies").item(0).getTextContent());
 				this.nbWagonJoueur = Integer.parseInt(e.getElementsByTagName("nbWagonJoueur").item(0).getTextContent());
 				this.nbFin = Integer.parseInt(e.getElementsByTagName("nbFin").item(0).getTextContent());
+
+				// Decodage carte fond
+				this.imgMappePath = e.getElementsByTagName("mappe").item(0).getTextContent();
+				File imgMappeFile = null;
+				if (new File(this.imgMappePath).exists()) 				
+					imgMappeFile = stringToFile(this.imgMappePath, new File("mappe.png"));
+				else 
+					imgMappeFile = new File(this.imgMappePath);
+				
+				System.out.println(imgMappeFile.getAbsolutePath());
+				//this.imgMappe = ImageIO.read(imgMappeFile);
 			}
 
 			/* Noeuds */
@@ -287,8 +299,8 @@ public class Metier {
 					CarteWagon carteWagon = new CarteWagon(
 							e.getElementsByTagName("nomCouleur").item(0).getTextContent(),
 							couleur,
-							e.getElementsByTagName("imgRecto").item(0).getTextContent(),
-							e.getElementsByTagName("imgVerso").item(0).getTextContent(),
+							e.getElementsByTagName("imgRectoPath").item(0).getTextContent() != "" ? e.getElementsByTagName("imgRectoPath").item(0).getTextContent() : null, // Si le texte est "", ça veut dire qu'il n'y a pas d'image -> null
+							e.getElementsByTagName("imgVersoPath").item(0).getTextContent() != "" ? e.getElementsByTagName("imgVersoPath").item(0).getTextContent() : null, // Si le texte est "", ça veut dire qu'il n'y a pas d'image -> null
 							Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
 
 					this.alCartesWagon.add(carteWagon);
@@ -327,7 +339,6 @@ public class Metier {
 			e.printStackTrace();
 			return false;
 		}
-
 	}
 
 	/**
