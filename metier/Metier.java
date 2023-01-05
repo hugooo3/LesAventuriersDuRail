@@ -1,5 +1,6 @@
 package metier;
 
+import javax.imageio.ImageIO;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -46,40 +47,96 @@ public class Metier {
 		this.alCartesWagon = new ArrayList<CarteWagon>();
 
 		// Carte Wagon par défaut
-		this.alCartesWagon.add(new CarteWagon("Neutre"	, Color.GRAY	, null						, null					, 20));
-		this.alCartesWagon.add(new CarteWagon("Blanc"	, Color.WHITE	, "/images/carteBlanche.png", this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Bleu"	, Color.BLUE	, "/images/carteBleu.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Jaune"	, Color.YELLOW	, "/images/carteJaune.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Noire"	, Color.BLACK	, "/images/carteNoire.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Orange"	, Color.ORANGE	, "/images/carteOrange.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Rouge"	, Color.RED		, "/images/carteRouge.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Verte"	, Color.GREEN	, "/images/carteVerte.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Violet"	, Color.MAGENTA	, "/images/carteViolet.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Joker"	, Color.PINK	, "/images/carteJoker.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Neutre", Color.GRAY, null, null, 20));
+		this.alCartesWagon
+				.add(new CarteWagon("Blanc", Color.WHITE, "/images/carteBlanche.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Bleu", Color.BLUE, "/images/carteBleu.png", this.versoCartePath, 20));
+		this.alCartesWagon
+				.add(new CarteWagon("Jaune", Color.YELLOW, "/images/carteJaune.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Noire", Color.BLACK, "/images/carteNoire.png", this.versoCartePath, 20));
+		this.alCartesWagon
+				.add(new CarteWagon("Orange", Color.ORANGE, "/images/carteOrange.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Rouge", Color.RED, "/images/carteRouge.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Verte", Color.GREEN, "/images/carteVerte.png", this.versoCartePath, 20));
+		this.alCartesWagon
+		.add(new CarteWagon("Violet", Color.MAGENTA, "/images/carteViolet.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Joker", Color.PINK, "/images/carteJoker.png", this.versoCartePath, 20));
 	}
 
 	/***************************/
 	/* Accesseurs et Mutateurs */
 	/***************************/
-	public String getImgMappePath() {return this.imgMappePath;}
-	public ArrayList<Noeud> getAlNoeuds() {return this.alNoeuds;}
-	public ArrayList<Arete> getAlAretes() {return this.alAretes;}
-	public ArrayList<CarteDestination> getAlCartesDestination() {return this.alCartesDestination;}
-	public ArrayList<CarteWagon> getAlCartesWagon() {return this.alCartesWagon;}
-	public Image getImgMappe() {return this.imgMappe;}
-	public int getNbJoueurMin() {return this.nbJoueurMin;}
-	public int getNbJoueurMax() {return this.nbJoueurMax;}
-	public int getNbJoueurDoubleVoies() {return this.nbJoueurDoubleVoies;}
-	public int getNbWagonJoueur() {return this.nbWagonJoueur;}
-	public String getVersoCartePath() {return this.versoCartePath;}
+	public String getImgMappePath() {
+		return this.imgMappePath;
+	}
 
-	public void setImgMappePath(String imgMappePath) {this.imgMappePath = imgMappePath;}
-	public void setImgMappe(Image imgMappe) {this.imgMappe = imgMappe;}
-	public void setNbJoueurMin(int nbJoueurMin) {this.nbJoueurMin = nbJoueurMin;}
-	public void setNbJoueurMax(int nbJoueurMax) {this.nbJoueurMax = nbJoueurMax;}
-	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {this.nbJoueurDoubleVoies = nbJoueurDoubleVoies;}
-	public void setNbWagonJoueur(int nbWagonJoueur) {this.nbWagonJoueur = nbWagonJoueur;}
-	public void setNbFin(int nbFin) {this.nbFin = nbFin;}
+	public ArrayList<Noeud> getAlNoeuds() {
+		return this.alNoeuds;
+	}
+
+	public ArrayList<Arete> getAlAretes() {
+		return this.alAretes;
+	}
+
+	public ArrayList<CarteDestination> getAlCartesDestination() {
+		return this.alCartesDestination;
+	}
+
+	public ArrayList<CarteWagon> getAlCartesWagon() {
+		return this.alCartesWagon;
+	}
+
+	public Image getImgMappe() {
+		return this.imgMappe;
+	}
+
+	public int getNbJoueurMin() {
+		return this.nbJoueurMin;
+	}
+
+	public int getNbJoueurMax() {
+		return this.nbJoueurMax;
+	}
+
+	public int getNbJoueurDoubleVoies() {
+		return this.nbJoueurDoubleVoies;
+	}
+
+	public int getNbWagonJoueur() {
+		return this.nbWagonJoueur;
+	}
+
+	public String getVersoCartePath() {
+		return this.versoCartePath;
+	}
+
+	public void setImgMappePath(String imgMappePath) {
+		this.imgMappePath = imgMappePath;
+	}
+
+	public void setImgMappe(Image imgMappe) {
+		this.imgMappe = imgMappe;
+	}
+
+	public void setNbJoueurMin(int nbJoueurMin) {
+		this.nbJoueurMin = nbJoueurMin;
+	}
+
+	public void setNbJoueurMax(int nbJoueurMax) {
+		this.nbJoueurMax = nbJoueurMax;
+	}
+
+	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {
+		this.nbJoueurDoubleVoies = nbJoueurDoubleVoies;
+	}
+
+	public void setNbWagonJoueur(int nbWagonJoueur) {
+		this.nbWagonJoueur = nbWagonJoueur;
+	}
+
+	public void setNbFin(int nbFin) {
+		this.nbFin = nbFin;
+	}
 
 	public void setVersoCarte(String versoCartePath) {
 		this.versoCartePath = versoCartePath;
@@ -163,16 +220,16 @@ public class Metier {
 			String imgVersoEncode = "";
 			/* Generation XML : CarteWagon */
 			for (CarteWagon carteWagon : this.alCartesWagon) {
-				if( ! carteWagon.getNomCouleur().equals("Neutre")) {
+				if (!carteWagon.getNomCouleur().equals("Neutre")) {
 					// Encodage image recto
-					if (new File(carteWagon.getImgRectoPath()).exists()){
+					if (new File(carteWagon.getImgRectoPath()).exists()) {
 						File file = new File(carteWagon.getImgRectoPath());
 						imgRectoEncode = fileToString(file);
 					} else {
 						imgRectoEncode = carteWagon.getImgRectoPath();
 					}
 					// Encodage image verso
-					if (new File(carteWagon.getImgVersoPath()).exists()){
+					if (new File(carteWagon.getImgVersoPath()).exists()) {
 						File file = new File(carteWagon.getImgVersoPath());
 						imgVersoEncode = fileToString(file);
 					} else {
@@ -218,39 +275,44 @@ public class Metier {
 	}
 
 	/**************************************/
-	/* Importation d'une carte depuis un  */
-	/* dossier                            */
+	/* Importation d'une carte depuis un */
+	/* dossier */
 	/**************************************/
-	public boolean importMappe(File cheminDossier) {
+	public boolean importMappe(File xmlFile) {
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-			Document doc = dBuilder.parse(cheminDossier);
+			Document doc = dBuilder.parse(xmlFile);
 
 			doc.getDocumentElement().normalize();
 
 			/* Paramètres */
 			NodeList nList = doc.getElementsByTagName("parametres");
 			Node nNode = nList.item(0);
-			
+
 			if (nNode.getNodeType() == Node.ELEMENT_NODE) {
 				Element e = (Element) nNode;
 				this.nbJoueurMin = Integer.parseInt(e.getElementsByTagName("nbJoueurMin").item(0).getTextContent());
 				this.nbJoueurMax = Integer.parseInt(e.getElementsByTagName("nbJoueurMax").item(0).getTextContent());
-				this.nbJoueurDoubleVoies = Integer.parseInt(e.getElementsByTagName("nbJoueurDoubleVoies").item(0).getTextContent());
+				this.nbJoueurDoubleVoies = Integer
+						.parseInt(e.getElementsByTagName("nbJoueurDoubleVoies").item(0).getTextContent());
 				this.nbWagonJoueur = Integer.parseInt(e.getElementsByTagName("nbWagonJoueur").item(0).getTextContent());
 				this.nbFin = Integer.parseInt(e.getElementsByTagName("nbFin").item(0).getTextContent());
 
 				// Decodage carte fond
-				this.imgMappePath = e.getElementsByTagName("mappe").item(0).getTextContent();
+				String imgEncode = e.getElementsByTagName("mappe").item(0).getTextContent();
 				File imgMappeFile = null;
-				if (new File(this.imgMappePath).exists()) 				
-					imgMappeFile = stringToFile(this.imgMappePath, new File("mappe.png"));
-				else 
-					imgMappeFile = new File(this.imgMappePath);
-				
-				System.out.println(imgMappeFile.getAbsolutePath());
-				//this.imgMappe = ImageIO.read(imgMappeFile);
+				if (imgEncode.substring(0, 8).equals("/images/")
+						&& imgEncode.substring(imgEncode.length() - 4, imgEncode.length())
+								.equals(".png")) {
+					
+					imgMappeFile = new File("." + imgEncode);
+				}
+				else {
+					File file = new File("./sortie/mappe.png");
+					imgMappeFile = stringToFile(imgEncode, file);
+				}
+				this.imgMappe = ImageIO.read(imgMappeFile);
 			}
 
 			/* Noeuds */
@@ -263,8 +325,10 @@ public class Metier {
 							Integer.parseInt(e.getElementsByTagName("x").item(0).getTextContent()),
 							Integer.parseInt(e.getElementsByTagName("y").item(0).getTextContent()),
 							Metier.RADIUS);
-					noeud.setNomDeltaX(Integer.parseInt(e.getElementsByTagName("nomDeltaX").item(0).getTextContent()) + noeud.getX());
-					noeud.setNomDeltaY(Integer.parseInt(e.getElementsByTagName("nomDeltaY").item(0).getTextContent()) + noeud.getY());
+					noeud.setNomDeltaX(Integer.parseInt(e.getElementsByTagName("nomDeltaX").item(0).getTextContent())
+							+ noeud.getX());
+					noeud.setNomDeltaY(Integer.parseInt(e.getElementsByTagName("nomDeltaY").item(0).getTextContent())
+							+ noeud.getY());
 					this.alNoeuds.add(noeud);
 				}
 			}
@@ -278,8 +342,12 @@ public class Metier {
 					Noeud noeud1 = null;
 					Noeud noeud2 = null;
 					for (Noeud noeud : this.alNoeuds) {
-						if (noeud.getNom().equals(e.getElementsByTagName("noeud1").item(0).getTextContent())) { noeud1 = noeud; }
-						if (noeud.getNom().equals(e.getElementsByTagName("noeud2").item(0).getTextContent())) { noeud2 = noeud; }
+						if (noeud.getNom().equals(e.getElementsByTagName("noeud1").item(0).getTextContent())) {
+							noeud1 = noeud;
+						}
+						if (noeud.getNom().equals(e.getElementsByTagName("noeud2").item(0).getTextContent())) {
+							noeud2 = noeud;
+						}
 					}
 					CarteDestination carteDestination = new CarteDestination(noeud1, noeud2,
 							Integer.parseInt(e.getElementsByTagName("points").item(0).getTextContent()));
@@ -295,12 +363,30 @@ public class Metier {
 					Element e = (Element) nNode;
 					Color couleur = new Color(
 							Integer.parseInt(e.getElementsByTagName("couleur").item(0).getTextContent()));
-
+					/*
+					// Decodage carte wagon
+					String imgEncode = e.getElementsByTagName("mappe").item(0).getTextContent();
+					File imgMappeFile = null;
+					if (this.imgMappePath.substring(0, 7).equals("/images/")
+							&& this.imgMappePath.substring(this.imgMappePath.length() - 4, this.imgMappePath.length())
+									.equals(".png"))
+						imgMappeFile = new File("." + this.imgMappePath);
+					else {
+						File file = new File("./sortie/mappe.png");
+						imgMappeFile = stringToFile(this.imgMappePath, file);
+					}
+					this.imgMappe = ImageIO.read(imgMappeFile);
+					*/
+				
 					CarteWagon carteWagon = new CarteWagon(
 							e.getElementsByTagName("nomCouleur").item(0).getTextContent(),
 							couleur,
-							e.getElementsByTagName("imgRectoPath").item(0).getTextContent() != "" ? e.getElementsByTagName("imgRectoPath").item(0).getTextContent() : null, // Si le texte est "", ça veut dire qu'il n'y a pas d'image -> null
-							e.getElementsByTagName("imgVersoPath").item(0).getTextContent() != "" ? e.getElementsByTagName("imgVersoPath").item(0).getTextContent() : null, // Si le texte est "", ça veut dire qu'il n'y a pas d'image -> null
+							e.getElementsByTagName("imgRectoPath").item(0).getTextContent() != ""
+									? e.getElementsByTagName("imgRectoPath").item(0).getTextContent()
+									: null, // Si le texte est "", ça veut dire qu'il n'y a pas d'image -> null
+							e.getElementsByTagName("imgVersoPath").item(0).getTextContent() != ""
+									? e.getElementsByTagName("imgVersoPath").item(0).getTextContent()
+									: null, // Si le texte est "", ça veut dire qu'il n'y a pas d'image -> null
 							Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
 
 					this.alCartesWagon.add(carteWagon);
@@ -319,12 +405,22 @@ public class Metier {
 					CarteWagon couleurVoieDouble = null;
 
 					for (Noeud noeud : this.alNoeuds) {
-						if (noeud.getNom().equals(e.getElementsByTagName("noeud1").item(0).getTextContent())) { noeud1 = noeud; }
-						if (noeud.getNom().equals(e.getElementsByTagName("noeud2").item(0).getTextContent())) { noeud2 = noeud; }
+						if (noeud.getNom().equals(e.getElementsByTagName("noeud1").item(0).getTextContent())) {
+							noeud1 = noeud;
+						}
+						if (noeud.getNom().equals(e.getElementsByTagName("noeud2").item(0).getTextContent())) {
+							noeud2 = noeud;
+						}
 					}
 					for (CarteWagon carteWagonTemp : this.alCartesWagon) {
-						if (carteWagonTemp.getNomCouleur().equals(e.getElementsByTagName("couleur").item(0).getTextContent())) { carteWagon = carteWagonTemp; }
-						if (carteWagonTemp.getNomCouleur().equals(e.getElementsByTagName("couleurVoieDouble").item(0).getTextContent())) { couleurVoieDouble = carteWagonTemp; }
+						if (carteWagonTemp.getNomCouleur()
+								.equals(e.getElementsByTagName("couleur").item(0).getTextContent())) {
+							carteWagon = carteWagonTemp;
+						}
+						if (carteWagonTemp.getNomCouleur()
+								.equals(e.getElementsByTagName("couleurVoieDouble").item(0).getTextContent())) {
+							couleurVoieDouble = carteWagonTemp;
+						}
 					}
 					Arete arete = new Arete(noeud1, noeud2, carteWagon,
 							Integer.parseInt(e.getElementsByTagName("troncons").item(0).getTextContent()),
@@ -361,7 +457,7 @@ public class Metier {
 		}
 	}
 
-	/**
+	/** 
 	 * Convertit une chaîne de caractères encodée en base 64 en un fichier.
 	 * 
 	 * @param encodedString chaîne de caractères encodée en base 64.
