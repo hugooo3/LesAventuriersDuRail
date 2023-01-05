@@ -9,10 +9,6 @@ import javax.swing.*;
 import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
-import java.awt.event.*;
-import java.awt.Image;
-
-import java.io.File;
 
 public class FrameJeu extends JFrame
 {

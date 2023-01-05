@@ -14,9 +14,7 @@ public class MenuBarJeu extends JMenuBar implements ActionListener
 {
 	private FrameJeu jeu;
 
-	private File imageFile;
-	private File dossierPath;
-	private Image image;
+	private File xmlFile;
 
 	private JMenuItem menuiFichierOuvrir, menuiFichierQuitter;
 
@@ -71,66 +69,36 @@ public class MenuBarJeu extends JMenuBar implements ActionListener
 
 	public void ouvrirExploreur(String path, String type) 
 	{
-		if (type.equals("Images")) {
-			// On lui applique l'UI du pc de l'utilisateur
-			// Ici on ouvre l'explorateur de fichiers et on lui applique des paramètres
-			try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} catch (Exception exception) {
-				exception.printStackTrace();
+		try {
+			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
+
+		JFileChooser parcourirFichier = new JFileChooser(path);
+		parcourirFichier.setDialogTitle("Choisissez un fichier Mappe XML");
+		parcourirFichier.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		parcourirFichier.setApproveButtonText("Ouvrir");
+
+		// On lui applique l'UI du pc de l'utilisateur
+		try {
+			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
+		} catch (Exception exception) {exception.printStackTrace();}
+
+		// Après que l'utilisateur ait cliqué sur "ouvrir", on récupère le fichier
+		// sélectionné
+
+		try {
+			int reponse = parcourirFichier.showOpenDialog(null);
+			if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
+				this.lblPathOuvrir.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
+				this.xmlFile = parcourirFichier.getSelectedFile();
 			}
-
-			JFileChooser parcourirFichier = new JFileChooser(path);
-			parcourirFichier.setDialogTitle("Choisissez un fond d'écran");
-			parcourirFichier.setFileSelectionMode(JFileChooser.FILES_ONLY);
-			parcourirFichier.setAcceptAllFileFilterUsed(false);
-			FileNameExtensionFilter filter = new FileNameExtensionFilter("Images", "jpg", "gif", "png", "jpeg");
-			parcourirFichier.addChoosableFileFilter(filter);
-			parcourirFichier.setApproveButtonText("Ouvrir");
-
-			// Après que l'utilisateur ait cliqué sur "ouvrir", on récupère le fichier
-			// sélectionné
-
-			try {
-				int reponse = parcourirFichier.showOpenDialog(null);
-				if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
-					this.lblPathOuvrir.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
-					this.imageFile = parcourirFichier.getSelectedFile();
-					this.image = getToolkit().getImage(imageFile.getAbsolutePath());
-					this.jeu.getMetier().setImgMappePath(parcourirFichier.getSelectedFile().getAbsolutePath());
-				}
-			} catch (Exception exception) {exception.printStackTrace();}
-		} else {
-			try {
-				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
-
-			JFileChooser parcourirFichier = new JFileChooser(path);
-			parcourirFichier.setDialogTitle("Choisissez un fichier Mappe XML");
-			parcourirFichier.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
-			parcourirFichier.setApproveButtonText("Ouvrir");
-
-			// On lui applique l'UI du pc de l'utilisateur
-			try {
-				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			} catch (Exception exception) {exception.printStackTrace();}
-
-			// Après que l'utilisateur ait cliqué sur "ouvrir", on récupère le fichier
-			// sélectionné
-
-			try {
-				int reponse = parcourirFichier.showOpenDialog(null);
-				if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
-					this.lblPathOuvrir.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
-					this.dossierPath = parcourirFichier.getSelectedFile();
-				}
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
+		} catch (Exception exception) {
+			exception.printStackTrace();
 		}
 	}
+
 
 	public void actionPerformed(ActionEvent e) 
 	{

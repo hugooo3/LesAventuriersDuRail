@@ -34,7 +34,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 		// Crea des composants
 
 		this.lblPathNouveau = new JLabel("(Fichier : \"...\")", JLabel.CENTER);
-		this.lblPathOuvrir = new JLabel("(Dossier : \"...\")", JLabel.CENTER);
+		this.lblPathOuvrir = new JLabel("(Fichier : \"...\")", JLabel.CENTER);
 
 		JMenu menuFichier = new JMenu("Fichier");
 		menuFichier.setMnemonic(KeyEvent.VK_F);
@@ -162,7 +162,9 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			// On lui applique l'UI du pc de l'utilisateur
 			try {
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			} catch (Exception exception) {exception.printStackTrace();}
+			} catch (Exception exception) {
+				exception.printStackTrace();
+			}
 
 			// Après que l'utilisateur ait cliqué sur "ouvrir", on récupère le fichier
 			// sélectionné
