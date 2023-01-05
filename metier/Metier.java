@@ -45,94 +45,42 @@ public class Metier {
 
 		// Carte Wagon par défaut
 		this.versoCartePath = "/images/ArriereCarte.png";
-		this.imgMappePath = "(Image : \"...\")"; // Affichage dans la menuBar
+		this.imgMappePath = "/images/carteUSA.png"; // Affichage dans la menuBar
 
-		this.alCartesWagon.add(new CarteWagon("Neutre", Color.GRAY, null, null, 20));
-		this.alCartesWagon.add(new CarteWagon("Blanc", Color.WHITE, "/images/carteBlanche.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Bleu", Color.BLUE, "/images/carteBleu.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Jaune", Color.YELLOW, "/images/carteJaune.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Noire", Color.BLACK, "/images/carteNoire.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Orange", Color.ORANGE, "/images/carteOrange.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Rouge", Color.RED, "/images/carteRouge.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Verte", Color.GREEN, "/images/carteVerte.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Violet", Color.MAGENTA, "/images/carteViolet.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Joker", Color.PINK, "/images/carteJoker.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Neutre"	, Color.GRAY	, null						, null					, 20));
+		this.alCartesWagon.add(new CarteWagon("Blanc"	, Color.WHITE	, "/images/carteBlanche.png", this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Bleu"	, Color.BLUE	, "/images/carteBleu.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Jaune"	, Color.YELLOW	, "/images/carteJaune.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Noire"	, Color.BLACK	, "/images/carteNoire.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Orange"	, Color.ORANGE	, "/images/carteOrange.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Rouge"	, Color.RED		, "/images/carteRouge.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Verte"	, Color.GREEN	, "/images/carteVerte.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Violet"	, Color.MAGENTA	, "/images/carteViolet.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Joker"	, Color.PINK	, "/images/carteJoker.png"	, this.versoCartePath	, 20));
 	}
 
 	/***************************/
 	/* Accesseurs et Mutateurs */
 	/***************************/
-	public String getImgMappePath() {
-		return this.imgMappePath;
-	}
+	public String getImgMappePath() {return this.imgMappePath;}
+	public ArrayList<Noeud> getAlNoeuds() {return this.alNoeuds;}
+	public ArrayList<Arete> getAlAretes() {return this.alAretes;}
+	public ArrayList<CarteDestination> getAlCartesDestination() {return this.alCartesDestination;}
+	public ArrayList<CarteWagon> getAlCartesWagon() {return this.alCartesWagon;}
+	public Image getImgMappe() {return this.imgMappe;}
+	public int getNbJoueurMin() {return this.nbJoueurMin;}
+	public int getNbJoueurMax() {return this.nbJoueurMax;}
+	public int getNbJoueurDoubleVoies() {return this.nbJoueurDoubleVoies;}
+	public int getNbWagonJoueur() {return this.nbWagonJoueur;}
+	public String getVersoCartePath() {return this.versoCartePath;}
 
-	public ArrayList<Noeud> getAlNoeuds() {
-		return this.alNoeuds;
-	}
-
-	public ArrayList<Arete> getAlAretes() {
-		return this.alAretes;
-	}
-
-	public ArrayList<CarteDestination> getAlCartesDestination() {
-		return this.alCartesDestination;
-	}
-
-	public ArrayList<CarteWagon> getAlCartesWagon() {
-		return this.alCartesWagon;
-	}
-
-	public Image getImgMappe() {
-		return this.imgMappe;
-	}
-
-	public int getNbJoueurMin() {
-		return this.nbJoueurMin;
-	}
-
-	public int getNbJoueurMax() {
-		return this.nbJoueurMax;
-	}
-
-	public int getNbJoueurDoubleVoies() {
-		return this.nbJoueurDoubleVoies;
-	}
-
-	public int getNbWagonJoueur() {
-		return this.nbWagonJoueur;
-	}
-
-	public String getVersoCartePath() {
-		return this.versoCartePath;
-	}
-
-	public void setImgMappePath(String imgMappePath) {
-		this.imgMappePath = imgMappePath;
-	}
-
-	public void setImgMappe(Image imgMappe) {
-		this.imgMappe = imgMappe;
-	}
-
-	public void setNbJoueurMin(int nbJoueurMin) {
-		this.nbJoueurMin = nbJoueurMin;
-	}
-
-	public void setNbJoueurMax(int nbJoueurMax) {
-		this.nbJoueurMax = nbJoueurMax;
-	}
-
-	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {
-		this.nbJoueurDoubleVoies = nbJoueurDoubleVoies;
-	}
-
-	public void setNbWagonJoueur(int nbWagonJoueur) {
-		this.nbWagonJoueur = nbWagonJoueur;
-	}
-
-	public void setNbFin(int nbFin) {
-		this.nbFin = nbFin;
-	}
+	public void setImgMappePath(String imgMappePath) {this.imgMappePath = imgMappePath;}
+	public void setImgMappe(Image imgMappe) {this.imgMappe = imgMappe;}
+	public void setNbJoueurMin(int nbJoueurMin) {this.nbJoueurMin = nbJoueurMin;}
+	public void setNbJoueurMax(int nbJoueurMax) {this.nbJoueurMax = nbJoueurMax;}
+	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {this.nbJoueurDoubleVoies = nbJoueurDoubleVoies;}
+	public void setNbWagonJoueur(int nbWagonJoueur) {this.nbWagonJoueur = nbWagonJoueur;}
+	public void setNbFin(int nbFin) {this.nbFin = nbFin;}
 
 	public void setVersoCarte(String versoCartePath) {
 		this.versoCartePath = versoCartePath;
