@@ -1,6 +1,9 @@
 package metier;
 
 public class Arete {
+	// Un même joueur ne peut pas prendre 2 routes reliant les 2 mêmes villes.
+	private Joueur 	   joueurVoie; //TO DO : null si aucune possession, sinon le joueur qui possede
+	private Joueur 	   joueurVoieDouble; //TO DO : null si aucune possession, sinon le joueur qui possede
 	private Noeud      noeud1;
 	private Noeud 	   noeud2;
 	private CarteWagon couleur;
