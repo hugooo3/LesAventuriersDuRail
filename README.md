@@ -15,15 +15,19 @@ SAE_3.01
     │   │   FrameManager.java
     │   │
     │   └───conception
-    │           MenuBar.java
-    │           NoeudDessin.java
-    │           PanelLstArete.java
-    │           PanelLstCarteDestination.java
-    │           PanelLstCarteWagon.java
-    │           PanelLstNoeud.java
-    │           PanelMappe.java
-    │           PanelParam.java
-    │           RendererCouleur.java
+    │   |       MenuBar.java
+    │   |       NoeudDessin.java
+    │   |       PanelLstArete.java
+    │   |       PanelLstCarteDestination.java
+    │   |       PanelLstCarteWagon.java
+    │   |       PanelLstNoeud.java
+    │   |       PanelMappe.java
+    │   |       PanelParam.java
+    │   │       RendererCouleur.java
+    |   |
+    |   └───jeu
+    |           MenuBarJeu.java
+    |           PanelMappeJeu.java
     │
     ├───images
     │       ArriereCarte.png
