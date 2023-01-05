@@ -1,6 +1,7 @@
 package metier;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 // Posssesion d'un joueur :
 // - 45 wagon (a placer)
@@ -24,21 +25,24 @@ public class Joueur {
 		this.alCarteWagon = new ArrayList<CarteWagon>();
 		this.alCarteDestination = new ArrayList<CarteDestination>();
 		this.score = 0;
+
 	}
 
-	public int    getIdJoueur()  { return this.idJoueur; }
-	public String getNomJoueur() { return this.nomJoueur; }
-	public int    getScore()     { return this.score; }
-	public boolean getEstEnJeu() { return this.estEnJeu; }
+	public int getIdJoueur() {return this.idJoueur;}
+	public String getNomJoueur() {return this.nomJoueur;}
+	public int getScore() {return this.score;}
+	public boolean getEstEnJeu() {return this.estEnJeu;}
 
-	public void setEstEnJeu() { this.estEnJeu = !estEnJeu; }
+	public void setEstEnJeu() {this.estEnJeu = !estEnJeu;}
 
-	public void addCarteWagon(CarteWagon carteWagon)                   { this.alCarteWagon.add(carteWagon); }
-	public void addCarteDestination(CarteDestination carteDestination) { this.alCarteDestination.add(carteDestination); }
-	public void addScore(int score)                                    { this.score += score; }
+	public void addCarteWagon(CarteWagon carteWagon) {this.alCarteWagon.add(carteWagon);}
+	public void addCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.add(carteDestination);}
+	public void addScore(int score) {this.score += score;}
 
-	public void removeCarteWagon(CarteWagon carteWagon)                   { this.alCarteWagon.remove(carteWagon); }
-	public void removeCarteDestination(CarteDestination carteDestination) { this.alCarteDestination.remove(carteDestination); }
-	public void removeScore(int score)                                    { this.score -= score; } //Utile pour les cartes destination en fin de partie
+	public void removeCarteWagon(CarteWagon carteWagon) {this.alCarteWagon.remove(carteWagon);}
+	public void removeCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.remove(carteDestination);}
 
+	public void removeScore(int score) {
+		this.score -= score;
+	} // Utile pour les cartes destination en fin de partie
 }

@@ -30,6 +30,8 @@ public class FrameJeu extends JFrame {
 		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 450,
 				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350));
 
+		// this.setPreferredSize(Toolkit.getDefaultToolkit().getScreenSize());
+
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2 - 50);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);

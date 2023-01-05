@@ -25,7 +25,7 @@ public class CarteWagon {
 	}
 
 	private ImageIcon creerImageIcon(String imgPath) {
-		if (imgPath == null)
+		if (imgPath == null || imgPath.equals("") )
 			return null;
 
 		ImageIcon image = null;
