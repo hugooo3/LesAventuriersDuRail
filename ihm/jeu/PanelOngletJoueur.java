@@ -62,7 +62,7 @@ public class PanelOngletJoueur extends JPanel {
 				this.listePanelJoueur.get(this.lstJoueur.indexOf(j)).majCartesWagon(alCartesWagon);
 	}
 
-	public void majCartesDesti(ArrayList<CarteWagon> alCartesDesti, Joueur joueur) {
+	public void majCartesDesti(ArrayList<CarteDestination> alCartesDesti, Joueur joueur) {
 		for(Joueur j : this.lstJoueur)
 			if(joueur.equals(j))
 				this.listePanelJoueur.get(this.lstJoueur.indexOf(j)).majCartesDesti(alCartesDesti);

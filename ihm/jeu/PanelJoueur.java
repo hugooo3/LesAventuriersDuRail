@@ -2,10 +2,13 @@ package ihm.jeu;
 
 import ihm.FrameJeu;
 import metier.Joueur;
+import metier.CarteDestination;
+import metier.CarteWagon;
 
 import javax.swing.*;
 import java.awt.Dimension;
 import java.awt.BorderLayout;
+import java.util.ArrayList;
 
 public class PanelJoueur extends JPanel {
 
@@ -37,5 +40,13 @@ public class PanelJoueur extends JPanel {
 
 
 
+	}
+
+	public void majCartesWagon(ArrayList<CarteWagon> alCartesWagon) {
+		this.panelCartesWagon.majCartesWagon(alCartesWagon);
+	}
+
+	public void majCartesDesti(ArrayList<CarteDestination> alCartesDesti) {
+		this.panelCartesDestination.majCartesDesti(alCartesDesti);
 	}
 }
