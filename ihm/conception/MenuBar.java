@@ -15,7 +15,6 @@ import java.io.InputStream;
 public class MenuBar extends JMenuBar implements ActionListener {
 	private FrameConcepteur concepteur;
 
-	private File imageFile;
 	private File fileXml;
 	private Image image;
 
@@ -33,8 +32,8 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		// Crea des composants
 
-		this.lblPathNouveau = new JLabel(this.concepteur.getMetier().getImgMappePath(), JLabel.CENTER);
-		this.lblPathOuvrir = new JLabel("(Fichier : \"...\")", JLabel.CENTER);
+		this.lblPathNouveau = new JLabel("(Image : \"...\")", JLabel.CENTER);
+		this.lblPathOuvrir  = new JLabel("(Fichier : \"...\")", JLabel.CENTER);
 
 		JMenu menuFichier = new JMenu("Fichier");
 		menuFichier.setMnemonic(KeyEvent.VK_F);
@@ -118,9 +117,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			// Ici on ouvre l'explorateur de fichiers et on lui applique des paramètres
 			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
+			} catch (Exception exception) {exception.printStackTrace();}
 
 			JFileChooser parcourirFichier = new JFileChooser(path);
 			parcourirFichier.setDialogTitle("Choisissez un fond d'écran");
@@ -137,19 +134,15 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				int reponse = parcourirFichier.showOpenDialog(null);
 				if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
 					this.lblPathNouveau.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
-					this.imageFile = parcourirFichier.getSelectedFile();
+					File imageFile = parcourirFichier.getSelectedFile();
 					this.image = getToolkit().getImage(imageFile.getAbsolutePath());
 					this.concepteur.getMetier().setImgMappePath(parcourirFichier.getSelectedFile().getAbsolutePath());
 				}
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
+			} catch (Exception exception) {exception.printStackTrace();}
 		} else {
 			try {
 				UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
+			} catch (Exception exception) {exception.printStackTrace();}
 
 			JFileChooser parcourirFichier = new JFileChooser(path);
 			parcourirFichier.setDialogTitle("Choisissez un fichier Mappe XML");
@@ -162,9 +155,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			// On lui applique l'UI du pc de l'utilisateur
 			try {
 				UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
+			} catch (Exception exception) {exception.printStackTrace();}
 
 			// Après que l'utilisateur ait cliqué sur "ouvrir", on récupère le fichier
 			// sélectionné
@@ -175,9 +166,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 					this.lblPathOuvrir.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
 					this.fileXml = parcourirFichier.getSelectedFile();
 				}
-			} catch (Exception exception) {
-				exception.printStackTrace();
-			}
+			} catch (Exception exception) {exception.printStackTrace();}
 		}
 	}
 
@@ -188,18 +177,22 @@ public class MenuBar extends JMenuBar implements ActionListener {
 				this.lblPathNouveau.setText("../images/carteUSA.png");
 				InputStream inputStream = MenuBar.class.getResourceAsStream("/images/carteUSA.png");
 				this.image = ImageIO.read(inputStream);
-			} catch (Exception e1) {
-				e1.printStackTrace();
-			}
+			} catch (Exception e1) {e1.printStackTrace();}
 		}
 
 		if (e.getSource() == this.menuiFichierNouveau) {
-			this.imageFile = null;
+			Image imgBackup = this.image; // Au cas ou l'utilisateur annule la creation d'une nouvelle carte (on remet l'image d'origine)
+			String imgPathBackup = this.concepteur.getMetier().getImgMappePath();
+
 			int reponse = JOptionPane.showConfirmDialog(null, this.panelNouveau, "Sélection  d'une image de fond", JOptionPane.OK_CANCEL_OPTION);
-			if (reponse == JOptionPane.OK_OPTION)
+
+			if (reponse == JOptionPane.OK_OPTION && this.image != null)
 				this.concepteur.setImgMappe(this.image);
-			else
-				this.lblPathNouveau.setText(this.concepteur.getMetier().getImgMappePath());
+			else {
+				this.image = imgBackup;
+				this.concepteur.getMetier().setImgMappePath(imgPathBackup);
+				this.lblPathNouveau.setText(imgPathBackup);
+			}
 		}
 
 		if (e.getSource() == this.menuiFichierOuvrir) {
