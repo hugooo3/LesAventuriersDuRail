@@ -33,7 +33,7 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		// Crea des composants
 
-		this.lblPathNouveau = new JLabel("(Fichier : \"...\")", JLabel.CENTER);
+		this.lblPathNouveau = new JLabel(this.concepteur.getMetier().getImgMappePath(), JLabel.CENTER);
 		this.lblPathOuvrir = new JLabel("(Fichier : \"...\")", JLabel.CENTER);
 
 		JMenu menuFichier = new JMenu("Fichier");
@@ -195,14 +195,16 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		if (e.getSource() == this.menuiFichierNouveau) {
 			this.imageFile = null;
-			JOptionPane.showMessageDialog(null, this.panelNouveau);
-			this.concepteur.setImgMappe(this.image);
+			int reponse = JOptionPane.showConfirmDialog(null, this.panelNouveau, "Sélection  d'une image de fond", JOptionPane.OK_CANCEL_OPTION);
+			if (reponse == JOptionPane.OK_OPTION)
+				this.concepteur.setImgMappe(this.image);
+			else
+				this.lblPathNouveau.setText(this.concepteur.getMetier().getImgMappePath());
 		}
 
 		if (e.getSource() == this.menuiFichierOuvrir) {
 			this.fileXml = null;
 			JOptionPane.showMessageDialog(null, this.panelOuvrir);
-			this.lblPathOuvrir.setText(this.fileXml.getAbsolutePath());
 
 			this.concepteur.importMappe(this.fileXml);
 			this.concepteur.setImgMappe(this.concepteur.getMetier().getImgMappe());

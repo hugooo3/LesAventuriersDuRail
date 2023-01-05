@@ -105,10 +105,13 @@ public class MenuBarJeu extends JMenuBar implements ActionListener {
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.menuiFichierOuvrir) {
 			this.xmlFile = null;
-			JOptionPane.showMessageDialog(null, this.panelOuvrir);
-			this.jeu.importMappe(xmlFile);
-			this.jeu.setImgMappe(this.jeu.getMetier().getImgMappe());
-			this.jeu.majIHM();
+			int reponse = JOptionPane.showConfirmDialog(null, this.panelOuvrir, "Sélection  d'un fichier XML", JOptionPane.OK_CANCEL_OPTION);
+			if (reponse == JOptionPane.OK_OPTION)
+			{
+				this.jeu.importMappe(xmlFile);
+				this.jeu.setImgMappe(this.jeu.getMetier().getImgMappe());
+				this.jeu.majIHM();
+			}
 		}
 
 		if (e.getSource() == this.menuiFichierQuitter) {

@@ -39,7 +39,7 @@ public class Metier {
 
 	public Metier() {
 		this.versoCartePath = "/images/ArriereCarte.png";
-		this.imgMappePath = "/images/carteUSA.png"; // par defaut
+		this.imgMappePath = "(Image : \"...\")"; // Affichage dans la menuBar
 
 		this.alNoeuds = new ArrayList<Noeud>();
 		this.alAretes = new ArrayList<Arete>();
