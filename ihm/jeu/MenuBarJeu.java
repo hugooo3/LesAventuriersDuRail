@@ -10,8 +10,7 @@ import java.awt.event.*;
 
 import java.io.File;
 
-public class MenuBarJeu extends JMenuBar implements ActionListener 
-{
+public class MenuBarJeu extends JMenuBar implements ActionListener {
 	private FrameJeu jeu;
 
 	private File xmlFile;
@@ -27,7 +26,7 @@ public class MenuBarJeu extends JMenuBar implements ActionListener
 		this.jeu = concepteur;
 
 		// Crea des composants
-		this.lblPathOuvrir = new JLabel("(Dossier : \"...\")", JLabel.CENTER);
+		this.lblPathOuvrir = new JLabel("(Fichier : \"...\")", JLabel.CENTER);
 
 		JMenu menuFichier = new JMenu("Fichier");
 		menuFichier.setMnemonic(KeyEvent.VK_F);
@@ -67,8 +66,7 @@ public class MenuBarJeu extends JMenuBar implements ActionListener
 		this.panelOuvrir.add(lblPathOuvrir);
 	}
 
-	public void ouvrirExploreur(String path, String type) 
-	{
+	public void ouvrirExploreur(String path, String type) {
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
 		} catch (Exception exception) {
@@ -77,13 +75,18 @@ public class MenuBarJeu extends JMenuBar implements ActionListener
 
 		JFileChooser parcourirFichier = new JFileChooser(path);
 		parcourirFichier.setDialogTitle("Choisissez un fichier Mappe XML");
-		parcourirFichier.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
+		parcourirFichier.setFileSelectionMode(JFileChooser.FILES_ONLY);
+		parcourirFichier.setAcceptAllFileFilterUsed(false);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("XML", "xml");
+		parcourirFichier.addChoosableFileFilter(filter);
 		parcourirFichier.setApproveButtonText("Ouvrir");
 
 		// On lui applique l'UI du pc de l'utilisateur
 		try {
 			UIManager.setLookAndFeel(UIManager.getCrossPlatformLookAndFeelClassName());
-		} catch (Exception exception) {exception.printStackTrace();}
+		} catch (Exception exception) {
+			exception.printStackTrace();
+		}
 
 		// Après que l'utilisateur ait cliqué sur "ouvrir", on récupère le fichier
 		// sélectionné
@@ -99,26 +102,13 @@ public class MenuBarJeu extends JMenuBar implements ActionListener
 		}
 	}
 
-
-	public void actionPerformed(ActionEvent e) 
-	{
-		/* TANT QUE OUVRIR NE FONCTIONNE PAS DANS LA CONCEPTION, ON NE FAIT PAS LE OUVRIR DU JEU */
-		if (e.getSource() == this.menuiFichierOuvrir) 
-		{/* 
-			this.dossierPath = null;
+	public void actionPerformed(ActionEvent e) {
+		if (e.getSource() == this.menuiFichierOuvrir) {
+			this.xmlFile = null;
 			JOptionPane.showMessageDialog(null, this.panelOuvrir);
-			this.lblPathOuvrir.setText(this.dossierPath.getAbsolutePath());
-
-			for (File file : this.dossierPath.listFiles()) {
-				this.lblPathNouveau.setText(file.getAbsolutePath());
-				if (file.getName().contains("imgMappe")) {
-					this.jeu.setImgMappe(getToolkit().getImage(file.getAbsolutePath()));
-				}
-				if (file.getName().contains("Mappe.xml")) {
-					this.jeu.importMappe(file);
-				}
-			}
-			this.jeu.majIHM(); */
+			this.jeu.importMappe(xmlFile);
+			this.jeu.setImgMappe(this.jeu.getMetier().getImgMappe());
+			this.jeu.majIHM();
 		}
 
 		if (e.getSource() == this.menuiFichierQuitter) {
@@ -133,9 +123,9 @@ public class MenuBarJeu extends JMenuBar implements ActionListener
 			// On ouvre directement le répertoire "Documents" de l'utilisateur
 			// suivant son OS
 			String directory = "";
-			if (e.getSource() == this.btnFichierOuvrir) 
+			if (e.getSource() == this.btnFichierOuvrir)
 				directory = "Documents";
-			
+
 			if (nomOs.indexOf("win") >= 0) {
 				path = path.replace("Desktop", directory);
 				ouvrirExploreur(path, directory);

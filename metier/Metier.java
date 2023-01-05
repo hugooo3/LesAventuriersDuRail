@@ -59,7 +59,7 @@ public class Metier {
 		this.alCartesWagon.add(new CarteWagon("Rouge", Color.RED, "/images/carteRouge.png", this.versoCartePath, 20));
 		this.alCartesWagon.add(new CarteWagon("Verte", Color.GREEN, "/images/carteVerte.png", this.versoCartePath, 20));
 		this.alCartesWagon
-		.add(new CarteWagon("Violet", Color.MAGENTA, "/images/carteViolet.png", this.versoCartePath, 20));
+				.add(new CarteWagon("Violet", Color.MAGENTA, "/images/carteViolet.png", this.versoCartePath, 20));
 		this.alCartesWagon.add(new CarteWagon("Joker", Color.PINK, "/images/carteJoker.png", this.versoCartePath, 20));
 	}
 
@@ -305,10 +305,9 @@ public class Metier {
 				if (imgEncode.substring(0, 8).equals("/images/")
 						&& imgEncode.substring(imgEncode.length() - 4, imgEncode.length())
 								.equals(".png")) {
-					
+
 					imgMappeFile = new File("." + imgEncode);
-				}
-				else {
+				} else {
 					File file = new File("./sortie/mappe.png");
 					imgMappeFile = stringToFile(imgEncode, file);
 				}
@@ -364,20 +363,21 @@ public class Metier {
 					Color couleur = new Color(
 							Integer.parseInt(e.getElementsByTagName("couleur").item(0).getTextContent()));
 					/*
-					// Decodage carte wagon
-					String imgEncode = e.getElementsByTagName("mappe").item(0).getTextContent();
-					File imgMappeFile = null;
-					if (this.imgMappePath.substring(0, 7).equals("/images/")
-							&& this.imgMappePath.substring(this.imgMappePath.length() - 4, this.imgMappePath.length())
-									.equals(".png"))
-						imgMappeFile = new File("." + this.imgMappePath);
-					else {
-						File file = new File("./sortie/mappe.png");
-						imgMappeFile = stringToFile(this.imgMappePath, file);
-					}
-					this.imgMappe = ImageIO.read(imgMappeFile);
-					*/
-				
+					 * // Decodage carte wagon
+					 * String imgEncode = e.getElementsByTagName("mappe").item(0).getTextContent();
+					 * File imgMappeFile = null;
+					 * if (this.imgMappePath.substring(0, 7).equals("/images/")
+					 * && this.imgMappePath.substring(this.imgMappePath.length() - 4,
+					 * this.imgMappePath.length())
+					 * .equals(".png"))
+					 * imgMappeFile = new File("." + this.imgMappePath);
+					 * else {
+					 * File file = new File("./sortie/mappe.png");
+					 * imgMappeFile = stringToFile(this.imgMappePath, file);
+					 * }
+					 * this.imgMappe = ImageIO.read(imgMappeFile);
+					 */
+
 					CarteWagon carteWagon = new CarteWagon(
 							e.getElementsByTagName("nomCouleur").item(0).getTextContent(),
 							couleur,
@@ -457,7 +457,7 @@ public class Metier {
 		}
 	}
 
-	/** 
+	/**
 	 * Convertit une chaîne de caractères encodée en base 64 en un fichier.
 	 * 
 	 * @param encodedString chaîne de caractères encodée en base 64.
