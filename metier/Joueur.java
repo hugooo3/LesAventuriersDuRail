@@ -43,6 +43,11 @@ public class Joueur {
 	public void removeCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.remove(carteDestination);}
 
 	public void removeScore(int score) {
-		this.score -= score;
+		int result = this.score - score;
+
+		if(result >= 0)
+			this.score -= score;
+		else
+			this.score = 0;
 	} // Utile pour les cartes destination en fin de partie
 }

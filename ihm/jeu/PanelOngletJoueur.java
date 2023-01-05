@@ -1,6 +1,9 @@
 package ihm.jeu;
 
 import ihm.FrameJeu;
+import metier.Joueur;
+import metier.CarteWagon;
+import metier.CarteDestination;
 
 import java.util.ArrayList;
 
@@ -18,10 +21,11 @@ public class PanelOngletJoueur extends JPanel {
 	private JTabbedPane panelOnglets;
 
 	private ArrayList<PanelJoueur> listePanelJoueur;
+	private ArrayList<Joueur> lstJoueur;
 
 	public PanelOngletJoueur(FrameJeu jeu, int largeur, int hauteur, int nbJoueur) {
 		this.jeu = jeu;
-
+		this.lstJoueur = jeu.getLstJoueur();
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		this.nbJoueur = nbJoueur;
@@ -36,7 +40,7 @@ public class PanelOngletJoueur extends JPanel {
 		// Init des panels Joueur
 		this.listePanelJoueur = new ArrayList<PanelJoueur>();
 		for(int i = 0; i < this.nbJoueur; i++)
-			this.listePanelJoueur.add(new PanelJoueur(this.jeu, this.largeur, this.hauteur));
+			this.listePanelJoueur.add(new PanelJoueur(this.jeu, this.lstJoueur.get(i), this.largeur, this.hauteur));
 
 		// Creation des onglets de joueur
 		this.panelOnglets = new JTabbedPane();
@@ -45,5 +49,22 @@ public class PanelOngletJoueur extends JPanel {
 
 
 		this.add(this.panelOnglets, BorderLayout.CENTER);
+	}
+
+
+	public void majLstJoueurs(ArrayList<Joueur> lstJoueur) {
+		this.lstJoueur = lstJoueur;
+	}
+
+	public void majCartesWagon(ArrayList<CarteWagon> alCartesWagon, Joueur joueur) {
+		for(Joueur j : this.lstJoueur)
+			if(joueur.equals(j))
+				this.listePanelJoueur.get(this.lstJoueur.indexOf(j)).majCartesWagon(alCartesWagon);
+	}
+
+	public void majCartesDesti(ArrayList<CarteWagon> alCartesDesti, Joueur joueur) {
+		for(Joueur j : this.lstJoueur)
+			if(joueur.equals(j))
+				this.listePanelJoueur.get(this.lstJoueur.indexOf(j)).majCartesDesti(alCartesDesti);
 	}
 }

@@ -11,6 +11,7 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
+import java.util.ArrayList;
 
 public class FrameJeu extends JFrame {
 	private Application appli;
@@ -18,11 +19,22 @@ public class FrameJeu extends JFrame {
 	private int hauteur;
 	private int largeur;
 
+	private ArrayList<Joueur> lstJoueur;
+
 	private PanelMappeJeu panelMappeJeu;
 
 	public FrameJeu(Application appli) {
 		this.appli = appli;
 		this.setJMenuBar(new MenuBarJeu(this));
+
+		// !!!!!!!!!!!!!
+		// TEMPORAIRE
+
+		this.lstJoueur = new ArrayList<Joueur>();
+		this.lstJoueur.add(new Joueur("Testeur"));
+
+		// TEMPORAIRE
+		// !!!!!!!!!!!!!
 
 		this.setTitle("Jeu : Les Aventuriers du Rail (USA)");
 		this.setLayout(new BorderLayout());
@@ -68,5 +80,9 @@ public class FrameJeu extends JFrame {
 			this.appli.setImgMappe(imgMappe);
 			this.panelMappeJeu.setImg(imgMappe);
 		}
+	}
+
+	public ArrayList<Joueur> getLstJoueur() {
+		return this.lstJoueur;
 	}
 }
