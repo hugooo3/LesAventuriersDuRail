@@ -241,6 +241,9 @@ public class Metier {
 	/* dossier */
 	/**************************************/
 	public boolean importMappe(File xmlFile) {
+		if(xmlFile == null) {
+			return false;
+		}
 		try {
 			DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
 			DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
