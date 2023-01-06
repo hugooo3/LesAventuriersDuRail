@@ -13,7 +13,7 @@ import java.io.File;
 public class MenuBarJeu extends JMenuBar implements ActionListener {
 	private FrameJeu jeu;
 
-	private File xmlFile;
+	private File fileXml;
 
 	private JMenuItem menuiFichierOuvrir, menuiFichierQuitter;
 
@@ -95,7 +95,7 @@ public class MenuBarJeu extends JMenuBar implements ActionListener {
 			int reponse = parcourirFichier.showOpenDialog(null);
 			if (reponse == JFileChooser.APPROVE_OPTION && parcourirFichier.getSelectedFile() != null) {
 				this.lblPathOuvrir.setText(parcourirFichier.getSelectedFile().getAbsolutePath());
-				this.xmlFile = parcourirFichier.getSelectedFile();
+				this.fileXml = parcourirFichier.getSelectedFile();
 			}
 		} catch (Exception exception) {
 			exception.printStackTrace();
@@ -104,13 +104,14 @@ public class MenuBarJeu extends JMenuBar implements ActionListener {
 
 	public void actionPerformed(ActionEvent e) {
 		if (e.getSource() == this.menuiFichierOuvrir) {
-			this.xmlFile = null;
+			this.fileXml = null;
 			int reponse = JOptionPane.showConfirmDialog(null, this.panelOuvrir, "Sélection  d'un fichier XML", JOptionPane.OK_CANCEL_OPTION);
-			if (reponse == JOptionPane.OK_OPTION)
+			if (reponse == JOptionPane.OK_OPTION && this.fileXml != null)
 			{
-				this.jeu.importMappe(xmlFile);
+				this.jeu.importMappe(fileXml);
 				this.jeu.setImgMappe(this.jeu.getMetier().getImgMappe());
 				this.jeu.majIHM();
+				this.menuiFichierOuvrir.setEnabled(false);
 			}
 		}
 

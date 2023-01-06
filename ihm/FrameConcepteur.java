@@ -97,6 +97,7 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 	public void removeLstAreteDeNoeud(Noeud noeud) {this.panelLstArete.removeLstAreteDeNoeud(noeud);}
 
 	public boolean importMappe(File xmlPath) {return this.appli.importMappe(xmlPath);}
+	public void reinitialiserMetier() {this.appli.reinitialiserMetier();}
 	
 	public void majIHM()
 	{

@@ -256,8 +256,7 @@ public class Metier {
 				Element e = (Element) nNode;
 				this.nbJoueurMin = Integer.parseInt(e.getElementsByTagName("nbJoueurMin").item(0).getTextContent());
 				this.nbJoueurMax = Integer.parseInt(e.getElementsByTagName("nbJoueurMax").item(0).getTextContent());
-				this.nbJoueurDoubleVoies = Integer
-						.parseInt(e.getElementsByTagName("nbJoueurDoubleVoies").item(0).getTextContent());
+				this.nbJoueurDoubleVoies = Integer.parseInt(e.getElementsByTagName("nbJoueurDoubleVoies").item(0).getTextContent());
 				this.nbWagonJoueur = Integer.parseInt(e.getElementsByTagName("nbWagonJoueur").item(0).getTextContent());
 				this.nbFin = Integer.parseInt(e.getElementsByTagName("nbFin").item(0).getTextContent());
 

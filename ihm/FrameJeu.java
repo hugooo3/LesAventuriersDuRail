@@ -65,8 +65,8 @@ public class FrameJeu extends JFrame {
 	public void majIHM() {
 	}
 
-	public boolean importMappe(File xmlPath) {
-		return this.appli.importMappe(xmlPath);
+	public boolean importMappe(File xmlFile) {
+		return this.appli.importMappe(xmlFile);
 	}
 
 	public void quitter() {

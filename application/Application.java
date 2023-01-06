@@ -27,7 +27,7 @@ public class Application
 	public void setNbFin(int nbFin) { this.metier.setNbFin(nbFin);}
 
 	public boolean reinitialiserDossierSortie() {return this.metier.reinitialiserDossierSortie();}
-	public boolean importMappe   (File xmlPath) {return this.metier.importMappe(xmlPath);}
+	public boolean importMappe   (File xmlFile) {return this.metier.importMappe(xmlFile);}
 	public void reinitialiserMetier() {this.metier = new Metier();}
 
 	public void ecrireXML()
