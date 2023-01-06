@@ -1,6 +1,8 @@
 package metier;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 public class Pioche {
 	
@@ -26,6 +28,7 @@ public class Pioche {
 	public void removeCarteWagonDefausse(CarteWagon carteWagon)                   { this.alCarteWagonDefausse.remove(carteWagon);             }
 	public void removeCarteDestinationDefausse(CarteDestination carteDestination) { this.alCarteDestinationDefausse.remove(carteDestination); }
 
+	/* Je le mets en commentaire car il a peut être une utilité (si on veut rajouter des truc au milieu peut être) mais y'a plus simple
 	public void melangerCarteDestination() 
 	{ 
 		ArrayList<CarteDestination> alCarteDestinationTemp = new ArrayList<CarteDestination>();
@@ -40,5 +43,8 @@ public class Pioche {
 			this.alCarteDestination.add(alCarteDestinationTemp.get(i));
 			alCarteDestinationTemp.remove(i);
 		}
-	}
+	}*/
+	// Mélangement des cartes de destination avec la méthode shuffle de la classe Collections
+	public void melangerCarteDestination() {Collections.shuffle(alCarteDestination);}
+
 }
