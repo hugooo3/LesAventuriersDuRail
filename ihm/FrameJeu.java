@@ -59,7 +59,7 @@ public class FrameJeu extends JFrame {
 		this.largeur = (int) this.getSize().getWidth();
 
 		this.panelMappeJeu = new PanelMappeJeu(this, (int) (largeur*0.7), hauteur);
-		this.panelOngletJoueur = new PanelOngletJoueur(this, (int) (largeur*0.3), hauteur, 3);
+		this.panelOngletJoueur = new PanelOngletJoueur(this, (int) (largeur*0.3), hauteur, this.nbJoueurs, this.lstJoueur);
 
 		this.add(this.panelMappeJeu, BorderLayout.CENTER);
 		this.add(this.panelOngletJoueur, BorderLayout.WEST);

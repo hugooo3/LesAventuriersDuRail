@@ -28,7 +28,7 @@ public class PanelCartesDesti extends JPanel {
 
 		this.scrollPane = new JScrollPane(new JList(this.alCartesDesti.toArray()));
 		this.scrollPane.setFocusable(false);
-		JLabel lblNom = new JLabel("Cartes destination");
+		JLabel lblNom = new JLabel("Cartes Destination");
 
 
 

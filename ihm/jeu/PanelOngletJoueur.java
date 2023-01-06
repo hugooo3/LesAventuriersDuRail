@@ -22,10 +22,12 @@ public class PanelOngletJoueur extends JPanel {
 
 	private ArrayList<PanelJoueur> listePanelJoueur;
 	private ArrayList<Joueur> lstJoueur;
+	private ArrayList<String> lstNomJoueur;
 
-	public PanelOngletJoueur(FrameJeu jeu, int largeur, int hauteur, int nbJoueur) {
+	public PanelOngletJoueur(FrameJeu jeu, int largeur, int hauteur, int nbJoueur,  ArrayList<Joueur> alJoueurs) {
 		this.jeu = jeu;
 		this.lstJoueur = jeu.getLstJoueur();
+		this.lstNomJoueur = new ArrayList<String>();
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 		this.nbJoueur = nbJoueur;
@@ -38,14 +40,18 @@ public class PanelOngletJoueur extends JPanel {
 		// ----------------
 
 		// Init des panels Joueur
+		for(Joueur j : alJoueurs) {
+			this.lstNomJoueur.add(j.getNomJoueur());
+		}
+
 		this.listePanelJoueur = new ArrayList<PanelJoueur>();
 		for(int i = 0; i < this.nbJoueur; i++)
 			this.listePanelJoueur.add(new PanelJoueur(this.jeu, this.lstJoueur.get(i), this.largeur, this.hauteur));
 
 		// Creation des onglets de joueur
 		this.panelOnglets = new JTabbedPane();
-		for(PanelJoueur panel : this.listePanelJoueur)
-			this.panelOnglets.addTab("Joueur " + (this.listePanelJoueur.indexOf(panel) + 1), panel);
+		for(int i=0; i < this.listePanelJoueur.size(); i++)
+			this.panelOnglets.addTab(this.lstNomJoueur.get(i), this.listePanelJoueur.get(i));
 
 
 		this.add(this.panelOnglets, BorderLayout.CENTER);
