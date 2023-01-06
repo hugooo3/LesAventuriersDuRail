@@ -16,11 +16,14 @@ import java.util.ArrayList;
 public class FrameChoixJoueur extends JFrame implements ActionListener {
 	
 	private Application appli;
+	private FrameJeu frameJeu;
 
 	private final int largeur;
 	private final int hauteur;
 
 	private int nbJoueur;
+	private int nbJoueurMin;
+	private int nbJoueurMax;
 
 	private File mappeXML;
 
@@ -39,6 +42,7 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 	private JTextField txtJoueurSolo;
 
 	private JLabel lblJoueurSolo;
+	private JLabel lblNbJoueur;
 
 	private ArrayList<JTextField> alTxtJoueur;
 	private ArrayList<JLabel> alLblJoueur;
@@ -106,6 +110,12 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		this.cbNbJoueur.addActionListener(this);
 		this.panelCreationJoueurs.add(this.cbNbJoueur);
 		this.cbNbJoueur.setBounds(50, 150, 150, 30);
+
+		this.lblNbJoueur = new JLabel("Nombre de joueurs :", JLabel.LEFT);
+		this.lblNbJoueur.setEnabled(false);
+		this.panelCreationJoueurs.add(this.lblNbJoueur);
+		this.lblNbJoueur.setBounds(50, 120, 150, 30);
+
 
 		this.cbJeuSolo = new JCheckBox("\tJouer en solo");
 		this.cbJeuSolo.setFocusable(false);
@@ -191,13 +201,13 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 				}
 
 				if(this.alJoueurs.size() == this.nbJoueur) {
-					new FrameJeu(this.appli, this.mappeXML, this.nbJoueur, this.alJoueurs);
+					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, this.nbJoueur, this.alJoueurs);
 					this.dispose();
 				}
 			} else {
 				if(this.txtJoueurSolo.getText() != null && !this.txtJoueurSolo.getText().equals("")) {
 					this.alJoueurs.add(new Joueur(this.txtJoueurSolo.getText()));
-					new FrameJeu(this.appli, this.mappeXML, 1, this.alJoueurs);
+					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, 1, this.alJoueurs);
 					this.dispose();
 				}
 				else {
@@ -214,6 +224,7 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 				if(this.panelImportXML.getComponent(i) != this.lblPathXML)
 					this.panelImportXML.getComponent(i).setEnabled(false);
 
+			this.lblNbJoueur.setEnabled(true);
 			this.cbNbJoueur.setEnabled(true);
 			this.cbJeuSolo.setEnabled(true);
 			this.nbJoueur = (int) this.cbNbJoueur.getSelectedItem();
@@ -224,8 +235,28 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 
 			this.btnRetour.setEnabled(true);
 			this.btnJouer.setEnabled(true);
-
 			this.setTitle("Création des joueurs");
+
+
+			this.appli.importMappe(mappeXML);
+			this.nbJoueurMin = this.appli.getNbJoueurMin();
+			this.nbJoueurMax = this.appli.getNbJoueurMax();
+
+			ArrayList<Integer> alDonneesASupprimer = new ArrayList<Integer>();
+			ArrayList<Integer> alDonnees = new ArrayList<Integer>();
+			for(int i=this.nbJoueurMin; i <= this.nbJoueurMax; i++) {
+				alDonnees.add(i);
+			}
+
+			// Si alDonnees ne contient pas une valeur de cbNbJoueur, on la supprime
+			for(int i=0; i < this.cbNbJoueur.getItemCount(); i++) {
+				if(!alDonnees.contains(this.cbNbJoueur.getItemAt(i)))
+					alDonneesASupprimer.add(this.cbNbJoueur.getItemAt(i));
+			}
+
+			for(int i=0; i < alDonneesASupprimer.size(); i++) {
+				this.cbNbJoueur.removeItem(alDonneesASupprimer.get(i));
+			}
 		}
 
 		if(e.getSource() == this.btnRetour) {
@@ -244,12 +275,14 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 			if(!this.cbJeuSolo.isSelected()) {
 				this.lblJoueurSolo.setEnabled(false);
 				this.txtJoueurSolo.setEnabled(false);
+				this.lblNbJoueur.setEnabled(true);
 				this.cbNbJoueur.setEnabled(true);
 				for(int i=0; i < 5; i++) {
 					this.alLblJoueur.get(i).setEnabled(false);
 					this.alTxtJoueur.get(i).setEnabled(false);
 				}
 				this.nbJoueur = (int) this.cbNbJoueur.getSelectedItem();
+				System.out.println(this.cbNbJoueur.getItemCount());
 
 				for(int i=0; i < this.nbJoueur; i++) {
 					this.alLblJoueur.get(i).setEnabled(true);
@@ -257,6 +290,7 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 				}
 				
 			} else {
+				this.lblNbJoueur.setEnabled(false);
 				this.cbNbJoueur.setEnabled(false);
 
 				for(JLabel lbl : this.alLblJoueur)
@@ -270,8 +304,6 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 				this.lblJoueurSolo.setEnabled(this.cbJeuSolo.isSelected());
 			}
 		}
-
-
 	}
 
 
@@ -294,4 +326,7 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		}
 	}
 
+	public boolean preparationJeu() {return this.appli.preparationJeu();}
+	public File getMappeXML() { return this.frameJeu.getMappeXML();}
+	public ArrayList<Joueur> getLstJoueur () {return this.frameJeu.getLstJoueur();}
 }

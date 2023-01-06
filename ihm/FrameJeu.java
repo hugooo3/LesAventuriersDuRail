@@ -33,17 +33,8 @@ public class FrameJeu extends JFrame {
 		this.nbJoueurs = nbJoueurs;
 		this.lstJoueur = alJoueurs;
 
-		// !!!!!!!!!!!!!
-		// TEMPORAIRE
 
-		this.lstJoueur = new ArrayList<Joueur>();
-		this.lstJoueur.add(new Joueur("Testeur"));
-		this.lstJoueur.add(new Joueur("Joueur"));
-		this.lstJoueur.add(new Joueur("Joueur"));
-
-		// TEMPORAIRE
-		// !!!!!!!!!!!!!
-
+		// Construction de la Frame
 		this.setTitle("Jeu : Les Aventuriers du Rail (USA)");
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
@@ -73,17 +64,8 @@ public class FrameJeu extends JFrame {
 
 
 	public void majIHM() {
-/*
-		this.panelOngletJoueur.majLstJoueurs(this.lstJoueur);
 
-		for(int i=0; i < this.lstJoueur.size(); i++) {
-			this.panelOngletJoueur.majCartesDesti(this.lstJoueur.get(i).getLstCartesWagon(), this.lstJoueur.get(i));
-			this.panelOngletJoueur.majCartesWagon(this.lstJoueur.get(i).getLstCartesDesti(), this.lstJoueur.get(i));
-		}*/
-	}
-
-	public boolean importMappe(File xmlFile) {
-		return this.appli.importMappe(xmlFile);
+	
 	}
 
 	public void quitter() {
@@ -99,7 +81,11 @@ public class FrameJeu extends JFrame {
 		}
 	}
 
+	public File getMappeXML() { return this.mappeXML;}
+
 	public ArrayList<Joueur> getLstJoueur() {
 		return this.lstJoueur;
 	}
+
+	public boolean preparationJeu() { return this.appli.preparationJeu(); }
 }

@@ -3,6 +3,7 @@ package ihm;
 import javax.swing.*;
 
 import application.Application;
+import metier.Joueur;
 
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -11,11 +12,13 @@ import java.awt.GridBagLayout;
 import java.awt.GridBagConstraints;
 import java.awt.Insets;
 import java.awt.event.*;
+import java.io.File;
+import java.util.ArrayList;
 
 public class FrameManager extends JFrame implements ActionListener
 {
 	private Application app;
-	
+	private FrameChoixJoueur frameChoixJoueur;
 	private JButton btnConcepteur;
 	private JButton btnJeu;
 
@@ -77,6 +80,10 @@ public class FrameManager extends JFrame implements ActionListener
 		this.setVisible(true);
 	}
 
+	public ArrayList<Joueur> getLstJoueur () {return this.frameChoixJoueur.getLstJoueur();}
+	public File getMappeXML() { return this.frameChoixJoueur.getMappeXML();}
+	public boolean preparationJeu() {return this.app.preparationJeu();}
+
 	public void actionPerformed(ActionEvent e) 
 	{
 		if (e.getSource() == this.btnConcepteur)
@@ -88,7 +95,7 @@ public class FrameManager extends JFrame implements ActionListener
 
 		if (e.getSource() == this.btnJeu)
 		{
-			new FrameChoixJoueur(this.app);
+			this.frameChoixJoueur = new FrameChoixJoueur(this.app);
 			this.dispose();
 		}
 	}

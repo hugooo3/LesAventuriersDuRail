@@ -9,6 +9,8 @@ import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import application.Application;
+
 import java.awt.Color;
 import java.awt.Image;
 import java.io.File;
@@ -23,6 +25,8 @@ import java.util.Comparator;
 import java.net.URL;
 
 public class Metier {
+	private Application app;
+
 	private static int RADIUS = 20;
 	private String imgMappePath;
 	private String versoCartePath;
@@ -43,7 +47,9 @@ public class Metier {
 	private Pioche pioche;
 	private ArrayList<Joueur> alJoueurs;
 
-	public Metier() {
+	public Metier(Application app) {
+		this.app = app;
+		
 		this.alNoeuds = new ArrayList<Noeud>();
 		this.alAretes = new ArrayList<Arete>();
 		this.alCartesDestination = new ArrayList<CarteDestination>();
@@ -83,6 +89,7 @@ public class Metier {
 	public int getNbJoueurDoubleVoies() {return this.nbJoueurDoubleVoies;}
 	public int getNbWagonJoueur() {return this.nbWagonJoueur;}
 	public String getVersoCartePath() {return this.versoCartePath;}
+	public ArrayList<Joueur> getLstJoueur() {return this.alJoueurs;}
 
 	public void setImgMappePath(String imgMappePath) {this.imgMappePath = imgMappePath;}
 	public void setImgMappe(Image imgMappe) {this.imgMappe = imgMappe;}
@@ -240,21 +247,20 @@ public class Metier {
 	/* Méthodes permettant le jeu */
 	/****************************************************************/
 
-	public boolean preparationJeu () 
+	public boolean preparationJeu ()
 	{
 		// Création de la pioche
 		this.creerPioche();
 
-		// TO DO Recuperation de l'arrayList de joueurs
-		// this.alJoueurs = this.application.getAlJoueurs();
-		int nbJoueurs = 2; // Exemple pour le moment
+		//Recuperation de l'arrayList de joueurs
+		this.alJoueurs = this.app.getLstJoueurIHM();
 
 		//Melange des cartes destinations
 		this.pioche.melangerCarteDestination();
 
-		// Création des joueurs
-		for (int i = 0; i < nbJoueurs; i++) { // this.alJoueurs.size()
-			this.initJoueur(new Joueur("test" + i)); // this.alJoueurs.get(i)
+		// Initialisation des joueurs
+		for (int i = 0; i < this.alJoueurs.size(); i++) {
+			this.initJoueur(this.alJoueurs.get(i));
 		}
 
 		return true;

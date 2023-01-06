@@ -53,7 +53,6 @@ public class PanelOngletJoueur extends JPanel {
 		for(int i=0; i < this.listePanelJoueur.size(); i++)
 			this.panelOnglets.addTab(this.lstNomJoueur.get(i), this.listePanelJoueur.get(i));
 
-
 		this.add(this.panelOnglets, BorderLayout.CENTER);
 	}
 
