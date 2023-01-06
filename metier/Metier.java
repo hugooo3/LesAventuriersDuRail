@@ -20,6 +20,8 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Comparator;
 
+import java.net.URL;
+
 public class Metier {
 	private static int RADIUS = 20;
 	private String imgMappePath;
@@ -37,6 +39,10 @@ public class Metier {
 	private int nbWagonJoueur;
 	private int nbFin;
 
+	// Jeu
+	private Pioche pioche;
+	private ArrayList<Joueur> alJoueurs;
+
 	public Metier() {
 		this.alNoeuds = new ArrayList<Noeud>();
 		this.alAretes = new ArrayList<Arete>();
@@ -47,40 +53,100 @@ public class Metier {
 		this.versoCartePath = "/images/ArriereCarte.png";
 		this.imgMappePath = "/images/carteUSA.png"; // Affichage dans la menuBar
 
-		this.alCartesWagon.add(new CarteWagon("Neutre"	, Color.GRAY	, null						, null					, 20));
-		this.alCartesWagon.add(new CarteWagon("Blanc"	, Color.WHITE	, "/images/carteBlanche.png", this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Bleu"	, Color.BLUE	, "/images/carteBleu.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Jaune"	, Color.YELLOW	, "/images/carteJaune.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Noire"	, Color.BLACK	, "/images/carteNoire.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Orange"	, Color.ORANGE	, "/images/carteOrange.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Rouge"	, Color.RED		, "/images/carteRouge.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Verte"	, Color.GREEN	, "/images/carteVerte.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Violet"	, Color.MAGENTA	, "/images/carteViolet.png"	, this.versoCartePath	, 20));
-		this.alCartesWagon.add(new CarteWagon("Joker"	, Color.PINK	, "/images/carteJoker.png"	, this.versoCartePath	, 20));
+		this.alCartesWagon.add(new CarteWagon("Neutre", Color.GRAY, null, null, 20));
+		this.alCartesWagon
+				.add(new CarteWagon("Blanc", Color.WHITE, "/images/carteBlanche.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Bleu", Color.BLUE, "/images/carteBleu.png", this.versoCartePath, 20));
+		this.alCartesWagon
+				.add(new CarteWagon("Jaune", Color.YELLOW, "/images/carteJaune.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Noire", Color.BLACK, "/images/carteNoire.png", this.versoCartePath, 20));
+		this.alCartesWagon
+				.add(new CarteWagon("Orange", Color.ORANGE, "/images/carteOrange.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Rouge", Color.RED, "/images/carteRouge.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Verte", Color.GREEN, "/images/carteVerte.png", this.versoCartePath, 20));
+		this.alCartesWagon
+				.add(new CarteWagon("Violet", Color.MAGENTA, "/images/carteViolet.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Joker", Color.PINK, "/images/carteJoker.png", this.versoCartePath, 20));
+
+		// Jeu
+		this.pioche = new Pioche();
+		this.alJoueurs = new ArrayList<Joueur>();
 	}
 
 	/***************************/
 	/* Accesseurs et Mutateurs */
 	/***************************/
-	public String getImgMappePath() {return this.imgMappePath;}
-	public ArrayList<Noeud> getAlNoeuds() {return this.alNoeuds;}
-	public ArrayList<Arete> getAlAretes() {return this.alAretes;}
-	public ArrayList<CarteDestination> getAlCartesDestination() {return this.alCartesDestination;}
-	public ArrayList<CarteWagon> getAlCartesWagon() {return this.alCartesWagon;}
-	public Image getImgMappe() {return this.imgMappe;}
-	public int getNbJoueurMin() {return this.nbJoueurMin;}
-	public int getNbJoueurMax() {return this.nbJoueurMax;}
-	public int getNbJoueurDoubleVoies() {return this.nbJoueurDoubleVoies;}
-	public int getNbWagonJoueur() {return this.nbWagonJoueur;}
-	public String getVersoCartePath() {return this.versoCartePath;}
+	public String getImgMappePath() {
+		return this.imgMappePath;
+	}
 
-	public void setImgMappePath(String imgMappePath) {this.imgMappePath = imgMappePath;}
-	public void setImgMappe(Image imgMappe) {this.imgMappe = imgMappe;}
-	public void setNbJoueurMin(int nbJoueurMin) {this.nbJoueurMin = nbJoueurMin;}
-	public void setNbJoueurMax(int nbJoueurMax) {this.nbJoueurMax = nbJoueurMax;}
-	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {this.nbJoueurDoubleVoies = nbJoueurDoubleVoies;}
-	public void setNbWagonJoueur(int nbWagonJoueur) {this.nbWagonJoueur = nbWagonJoueur;}
-	public void setNbFin(int nbFin) {this.nbFin = nbFin;}
+	public ArrayList<Noeud> getAlNoeuds() {
+		return this.alNoeuds;
+	}
+
+	public ArrayList<Arete> getAlAretes() {
+		return this.alAretes;
+	}
+
+	public ArrayList<CarteDestination> getAlCartesDestination() {
+		return this.alCartesDestination;
+	}
+
+	public ArrayList<CarteWagon> getAlCartesWagon() {
+		return this.alCartesWagon;
+	}
+
+	public Image getImgMappe() {
+		return this.imgMappe;
+	}
+
+	public int getNbJoueurMin() {
+		return this.nbJoueurMin;
+	}
+
+	public int getNbJoueurMax() {
+		return this.nbJoueurMax;
+	}
+
+	public int getNbJoueurDoubleVoies() {
+		return this.nbJoueurDoubleVoies;
+	}
+
+	public int getNbWagonJoueur() {
+		return this.nbWagonJoueur;
+	}
+
+	public String getVersoCartePath() {
+		return this.versoCartePath;
+	}
+
+	public void setImgMappePath(String imgMappePath) {
+		this.imgMappePath = imgMappePath;
+	}
+
+	public void setImgMappe(Image imgMappe) {
+		this.imgMappe = imgMappe;
+	}
+
+	public void setNbJoueurMin(int nbJoueurMin) {
+		this.nbJoueurMin = nbJoueurMin;
+	}
+
+	public void setNbJoueurMax(int nbJoueurMax) {
+		this.nbJoueurMax = nbJoueurMax;
+	}
+
+	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {
+		this.nbJoueurDoubleVoies = nbJoueurDoubleVoies;
+	}
+
+	public void setNbWagonJoueur(int nbWagonJoueur) {
+		this.nbWagonJoueur = nbWagonJoueur;
+	}
+
+	public void setNbFin(int nbFin) {
+		this.nbFin = nbFin;
+	}
 
 	public void setVersoCarte(String versoCartePath) {
 		this.versoCartePath = versoCartePath;
@@ -230,6 +296,81 @@ public class Metier {
 	/* Méthodes permettant le jeu */
 	/****************************************************************/
 
+	public boolean preparationJeu () 
+	{
+		// Création de la pioche
+		this.creerPioche();
+
+		// TO DO Recuperation de l'arrayList de joueurs
+		// this.alJoueurs = this.application.getAlJoueurs();
+		int nbJoueurs = 2; // Exemple pour le moment
+
+		//Melange des cartes destinations
+		this.pioche.melangerCarteDestination();
+
+		// Création des joueurs
+		for (int i = 0; i < nbJoueurs; i++) { // this.alJoueurs.size()
+			this.initJoueur(new Joueur("test" + i)); // this.alJoueurs.get(i)
+		}
+
+		return true;
+	}
+
+	public Pioche creerPioche() {
+		// Création de la pioche
+		this.pioche = new Pioche();
+		return pioche;
+	}
+
+	public boolean initJoueur(Joueur joueur) {
+		// Initialisation de la main du joueur
+		for (int i = 0; i < 4; i++) {
+			int r = (int) (Math.random() * this.alCartesWagon.size());
+
+			// Verification qu'il reste des cartes de cette couleur
+			while (!this.alCartesWagon.get(r).removeNbCarteWagon(1)) {
+				r = (int) (Math.random() * this.alCartesWagon.size());
+			}
+
+			joueur.addCarteWagon(this.alCartesWagon.get(r));
+		}
+
+		return true;
+	}
+
+	public void calculScore() {
+		// Calcul du score
+		for (Joueur joueur : this.alJoueurs) {
+			int score = 0;
+			for (Arete arete : joueur.getAlAretePossede()) {
+				switch (arete.getTroncons()) {
+					case 1:
+						score += 1;
+						break;
+					case 2:
+						score += 2;
+						break;
+					case 3:
+						score += 4;
+						break;
+					case 4:
+						score += 7;
+						break;
+					case 5:
+						score += 10;
+						break;
+					case 6:
+						score += 15;
+						break;
+					default:
+						System.out.println("Erreur calcul score");
+						break;
+				}
+			}
+			joueur.addScore(score);
+		}
+	}
+
 	/****************************************************************/
 	/* PARTIE AUXILIAIRE */
 	/*																*/
@@ -334,32 +475,31 @@ public class Metier {
 					File imgVersoFile = null;
 
 					CarteWagon carteWagon;
-					if (!imgEncode.equals("") && imgEncode!=null)
-					{
+					if (!imgEncode.equals("") && imgEncode != null) {
 						if (imgEncode.substring(0, 8).equals("/images/")
 								&& imgEncode.substring(imgEncode.length() - 4, imgEncode.length()).equals(".png")) {
 							imgRectoFile = new File(imgEncode);
 						} else {
-							imgRectoFile = stringToFile(imgEncode, new File("./sortie/" + nomCouleur + ".png"));
+							imgRectoFile = stringToFile(imgEncode, new File("sortie/" + nomCouleur + ".png"));
 						}
-
 
 						imgEncode = e.getElementsByTagName("imgVersoPath").item(0).getTextContent();
 						if (imgEncode.substring(0, 8).equals("/images/")
-							&& imgEncode.substring(imgEncode.length() - 4, imgEncode.length()).equals(".png")) {
+								&& imgEncode.substring(imgEncode.length() - 4, imgEncode.length()).equals(".png")) {
 							imgVersoFile = new File(imgEncode);
 						} else {
-							imgVersoFile = stringToFile(imgEncode, new File("./sortie/" + nomCouleur + ".png"));
+							imgVersoFile = stringToFile(imgEncode, new File("sortie/" + nomCouleur + ".png"));
 						}
 
-						
-						carteWagon = new CarteWagon(nomCouleur, couleur, imgRectoFile.getAbsolutePath(),
-													imgVersoFile.getAbsolutePath(),
-													Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
-					}
-					else {
+						System.out.println("Recto : " + imgRectoFile.getAbsolutePath());
+						System.out.println("Verso : " + imgVersoFile.getAbsolutePath());
+						carteWagon = new CarteWagon(nomCouleur, couleur, 
+								imgRectoFile.getAbsolutePath(),
+								imgVersoFile.getAbsolutePath(),
+								Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
+					} else {
 						carteWagon = new CarteWagon(nomCouleur, couleur, null, null,
-													Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
+								Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
 					}
 
 					this.alCartesWagon.add(carteWagon);

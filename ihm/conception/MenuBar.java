@@ -187,7 +187,11 @@ public class MenuBar extends JMenuBar implements ActionListener {
 			int reponse = JOptionPane.showConfirmDialog(null, this.panelNouveau, "Sélection  d'une image de fond", JOptionPane.OK_CANCEL_OPTION);
 
 			if (reponse == JOptionPane.OK_OPTION && this.image != null)
+			{
+				this.menuiFichierNouveau.setEnabled(false);
+				this.menuiFichierOuvrir.setEnabled(false);
 				this.concepteur.setImgMappe(this.image);
+			}
 			else {
 				this.image = imgBackup;
 				this.concepteur.getMetier().setImgMappePath(imgPathBackup);
@@ -197,11 +201,16 @@ public class MenuBar extends JMenuBar implements ActionListener {
 
 		if (e.getSource() == this.menuiFichierOuvrir) {
 			this.fileXml = null;
-			JOptionPane.showMessageDialog(null, this.panelOuvrir);
+			int reponse = JOptionPane.showConfirmDialog(null, this.panelOuvrir, "Sélection  d'un fichier XML", JOptionPane.OK_CANCEL_OPTION);
 
-			this.concepteur.importMappe(this.fileXml);
-			this.concepteur.setImgMappe(this.concepteur.getMetier().getImgMappe());
-			this.concepteur.majIHM();
+			if (reponse == JOptionPane.OK_OPTION && this.fileXml != null)
+			{
+				this.concepteur.importMappe(this.fileXml);
+				this.concepteur.setImgMappe(this.concepteur.getMetier().getImgMappe());
+				this.concepteur.majIHM();
+				this.menuiFichierNouveau.setEnabled(false);
+				this.menuiFichierOuvrir.setEnabled(false);
+			}
 		}
 
 		if (e.getSource() == this.menuiFichierQuitter) {
