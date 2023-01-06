@@ -33,16 +33,14 @@ public class PanelOngletJoueur extends JPanel {
 		this.nbJoueur = nbJoueur;
 
 		this.setLayout(new BorderLayout());
-		this.setPreferredSize(new Dimension((int) (this.largeur * 0.7), this.hauteur));
-
+		this.setPreferredSize(new Dimension((int) (this.largeur), this.hauteur));
 
 		// Contenu du panel
 		// ----------------
 
 		// Init des panels Joueur
-		for(Joueur j : alJoueurs) {
+		for(Joueur j : alJoueurs) 
 			this.lstNomJoueur.add(j.getNomJoueur());
-		}
 
 		this.listePanelJoueur = new ArrayList<PanelJoueur>();
 		for(int i = 0; i < this.nbJoueur; i++)
@@ -57,9 +55,7 @@ public class PanelOngletJoueur extends JPanel {
 	}
 
 
-	public void majLstJoueurs(ArrayList<Joueur> lstJoueur) {
-		this.lstJoueur = lstJoueur;
-	}
+	public void majLstJoueurs(ArrayList<Joueur> lstJoueur) { this.lstJoueur = lstJoueur; }
 
 	public void majCartesWagon(ArrayList<CarteWagon> alCartesWagon, Joueur joueur) {
 		for(Joueur j : this.lstJoueur)

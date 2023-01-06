@@ -30,7 +30,7 @@ public class PanelJoueur extends JPanel {
 		this.hauteur = hauteur;
 
 		this.setLayout(new BorderLayout());
-		this.setPreferredSize(new Dimension((int) (this.largeur * 0.7), this.hauteur));
+		this.setPreferredSize(new Dimension((int) (this.largeur), this.hauteur));
 
 
 		// Contenu du panel

@@ -32,7 +32,7 @@ public class PanelMappe extends JPanel {
 		this.alNoeud = this.concepteur.getMetier().getAlNoeuds();
 
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension((int) (this.largeur * 0.7), this.hauteur));
+		this.setPreferredSize(new Dimension((int) (this.largeur), this.hauteur));
 
 		// Dessin sur le Panel
 		this.addMouseListener(new MouseAdapter() 

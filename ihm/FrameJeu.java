@@ -26,6 +26,7 @@ public class FrameJeu extends JFrame {
 
 	private PanelMappeJeu panelMappeJeu;
 	private PanelOngletJoueur panelOngletJoueur;
+	private PanelAction panelAction;
 
 	public FrameJeu(Application appli, File mappeXML, int nbJoueurs, ArrayList<Joueur> alJoueurs) {
 		this.appli = appli;
@@ -38,9 +39,10 @@ public class FrameJeu extends JFrame {
 		this.setTitle("Jeu : Les Aventuriers du Rail (USA)");
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
-		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 150,
-				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 150));
+		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 450,
+				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350));
 
+		this.setJMenuBar(new MenuBarJeu(this)); // Obliger de mettre la barre de menu pour avoir la meme taille de mappe que dans le concepteur (sinon decalage y d'une dizaine de pixel)
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2 - 25);
@@ -49,24 +51,24 @@ public class FrameJeu extends JFrame {
 		this.hauteur = (int) this.getSize().getHeight();
 		this.largeur = (int) this.getSize().getWidth();
 
+		// Construction des panels
 		this.panelMappeJeu = new PanelMappeJeu(this, (int) (largeur*0.7), hauteur);
-		this.panelOngletJoueur = new PanelOngletJoueur(this, (int) (largeur*0.3), hauteur, this.nbJoueurs, this.lstJoueur);
+		this.setImgMappe(this.appli.getMetier().getImgMappe());
+		this.panelOngletJoueur = new PanelOngletJoueur(this, (int) (largeur*0.15), hauteur, this.nbJoueurs, this.lstJoueur);
+		this.panelAction = new PanelAction(this, (int) (largeur*0.15), hauteur);
 
-		this.add(this.panelMappeJeu, BorderLayout.CENTER);
 		this.add(this.panelOngletJoueur, BorderLayout.WEST);
+		this.add(this.panelMappeJeu, BorderLayout.CENTER);
+		this.add(this.panelAction, BorderLayout.EAST);
 
 		this.setVisible(true);
 	}
 
-	public Metier getMetier() {
-		return this.appli.getMetier();
-	}
+	public Metier getMetier() { return this.appli.getMetier(); }
+	public File getMappeXML() { return this.mappeXML; }
+	public ArrayList<Joueur> getLstJoueur() { return this.lstJoueur; }
 
-
-	public void majIHM() {
-
-	
-	}
+	public void majIHM() {}
 
 	public void quitter() {
 		new FrameManager(this.appli);
@@ -79,12 +81,6 @@ public class FrameJeu extends JFrame {
 			this.appli.setImgMappe(imgMappe);
 			this.panelMappeJeu.setImg(imgMappe);
 		}
-	}
-
-	public File getMappeXML() { return this.mappeXML;}
-
-	public ArrayList<Joueur> getLstJoueur() {
-		return this.lstJoueur;
 	}
 
 	public boolean preparationJeu() { return this.appli.preparationJeu(); }

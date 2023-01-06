@@ -6,20 +6,16 @@ import ihm.FrameJeu;
 import javax.swing.*;
 
 import java.awt.*;
-import java.awt.event.*;
 import java.awt.geom.*;
 import java.util.ArrayList;
 
 public class PanelMappeJeu extends JPanel 
 {
-	private static int RADIUS = 20;
-
 	private FrameJeu jeu;
 
 	private Image img;
 	private int largeur;
 	private int hauteur;
-	private boolean cliquable = false;
 
 	public ArrayList<Noeud> alNoeud;
 
@@ -31,7 +27,7 @@ public class PanelMappeJeu extends JPanel
 		this.alNoeud = this.jeu.getMetier().getAlNoeuds();
 
 		this.setLayout(null);
-		this.setPreferredSize(new Dimension((int) (this.largeur * 0.7), this.hauteur));
+		this.setPreferredSize(new Dimension((int) (this.largeur), this.hauteur));
 	}
 
 	public void setImg(Image image) 
