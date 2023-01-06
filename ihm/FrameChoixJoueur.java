@@ -1,6 +1,7 @@
 package ihm;
 
 import application.Application;
+import metier.Joueur;
 
 import javax.swing.*;
 import java.awt.event.*;
@@ -19,6 +20,8 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 	private final int largeur;
 	private final int hauteur;
 
+	private int nbJoueur;
+
 	private File mappeXML;
 
 	private JPanel panelImportXML;
@@ -34,21 +37,18 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 	private JCheckBox cbJeuSolo;
 
 	private JTextField txtJoueurSolo;
-	private JTextField txtJoueur1;
-	private JTextField txtJoueur2;
-	private JTextField txtJoueur3;
-	private JTextField txtJoueur4;
-	private JTextField txtJoueur5;
 
 	private JLabel lblJoueurSolo;
 
 	private ArrayList<JTextField> alTxtJoueur;
 	private ArrayList<JLabel> alLblJoueur;
+	private ArrayList<Joueur> alJoueurs;
 
 	private JLabel lblPathXML;
 
 	public FrameChoixJoueur(Application appli) {
 		this.appli = appli;
+		this.alJoueurs = new ArrayList<Joueur>();
 
 		// Paramètres Frame
 		this.setTitle("Import Mappe XML");
@@ -174,8 +174,25 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		}
 
 		if(e.getSource() == this.btnJouer) {
-			new FrameJeu(this.appli);
-			this.dispose();
+			boolean estValide = true;
+
+			for(int i=0; i < this.nbJoueur; i++) {
+				if(this.alTxtJoueur.get(i).getText() != null && !this.alTxtJoueur.get(i).getText().equals("") && estValide) {
+					estValide = true;
+					this.alJoueurs.add(new Joueur(this.alTxtJoueur.get(i).getText()));
+				}
+				else { 
+					estValide = false;
+					JOptionPane.showMessageDialog(this, "Vous devez saisir le nom de tous les joueurs !", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.alJoueurs.clear();
+					break;
+				}
+			}
+
+			if(this.alJoueurs.size() == this.nbJoueur) {
+				new FrameJeu(this.appli, this.mappeXML, this.nbJoueur, this.alJoueurs);
+				this.dispose();
+			}
 		}
 
 		if(e.getSource() == this.btnConfirmer && this.mappeXML != null) {
@@ -186,8 +203,8 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 
 			this.cbNbJoueur.setEnabled(true);
 			this.cbJeuSolo.setEnabled(true);
-			int nbJoueur = (int) this.cbNbJoueur.getSelectedItem();
-			for(int i=0; i < nbJoueur; i++) {
+			this.nbJoueur = (int) this.cbNbJoueur.getSelectedItem();
+			for(int i=0; i < this.nbJoueur; i++) {
 				this.alLblJoueur.get(i).setEnabled(true);
 				this.alTxtJoueur.get(i).setEnabled(true);
 			}
@@ -219,9 +236,9 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 					this.alLblJoueur.get(i).setEnabled(false);
 					this.alTxtJoueur.get(i).setEnabled(false);
 				}
-				int nbJoueur = (int) this.cbNbJoueur.getSelectedItem();
+				this.nbJoueur = (int) this.cbNbJoueur.getSelectedItem();
 
-				for(int i=0; i < nbJoueur; i++) {
+				for(int i=0; i < this.nbJoueur; i++) {
 					this.alLblJoueur.get(i).setEnabled(true);
 					this.alTxtJoueur.get(i).setEnabled(true);
 				}

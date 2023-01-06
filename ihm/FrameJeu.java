@@ -18,14 +18,20 @@ public class FrameJeu extends JFrame {
 
 	private int hauteur;
 	private int largeur;
+	private int nbJoueurs;
+
+	private File mappeXML;
 
 	private ArrayList<Joueur> lstJoueur;
 
 	private PanelMappeJeu panelMappeJeu;
 	private PanelOngletJoueur panelOngletJoueur;
 
-	public FrameJeu(Application appli) {
+	public FrameJeu(Application appli, File mappeXML, int nbJoueurs, ArrayList<Joueur> alJoueurs) {
 		this.appli = appli;
+		this.mappeXML = mappeXML;
+		this.nbJoueurs = nbJoueurs;
+		this.lstJoueur = alJoueurs;
 
 		// !!!!!!!!!!!!!
 		// TEMPORAIRE
