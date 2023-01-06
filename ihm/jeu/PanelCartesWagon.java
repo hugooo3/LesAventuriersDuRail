@@ -23,7 +23,7 @@ public class PanelCartesWagon extends JPanel {
 
 		this.alCartesWagon = new ArrayList<CarteWagon>();
 		for(int i=0; i < 5; i++)
-			this.alCartesWagon.add(new CarteWagon("test" + i, null, null, null, 1));
+			this.alCartesWagon.add(new CarteWagon("test" + i, null, "", "", 1));
 
 		this.scrollPane = new JScrollPane(new JList(this.alCartesWagon.toArray()));
 		this.scrollPane.createVerticalScrollBar();
