@@ -3,6 +3,7 @@ package metier;
 import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Color;
+import java.awt.image.BufferedImage;
 import java.io.InputStream;
 
 public class CarteWagon {
@@ -31,8 +32,9 @@ public class CarteWagon {
 		ImageIcon image = null;
 		try 
 		{
-			InputStream inputStreamImg = Metier.class.getResourceAsStream(imgPath);
-			image = new ImageIcon(ImageIO.read(inputStreamImg));
+			InputStream inputStreamImg = getClass().getResourceAsStream(imgPath);
+			BufferedImage img = ImageIO.read(inputStreamImg);
+			image = new ImageIcon(img);
 		} catch (Exception e) {e.printStackTrace();}
 		return image;
 	}
@@ -66,6 +68,15 @@ public class CarteWagon {
 		this.imgVersoPath = imgVersoPath;
 	}
 
+	public boolean removeNbCarteWagon(int nbCarteWagon) {
+		if (this.nbCarteWagon < nbCarteWagon)
+			return false;
+		else
+		{
+			this.nbCarteWagon -= nbCarteWagon;
+			return true;
+		}
+	}
 	
 	public String toString() {
 		return this.nomCouleur;

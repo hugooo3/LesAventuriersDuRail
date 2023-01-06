@@ -2,8 +2,8 @@ package metier;
 
 public class Arete {
 	// Un même joueur ne peut pas prendre 2 routes reliant les 2 mêmes villes.
-	private Joueur 	   joueurVoie; //TO DO : null si aucune possession, sinon le joueur qui possede
-	private Joueur 	   joueurVoieDouble; //TO DO : null si aucune possession, sinon le joueur qui possede
+	private Joueur 	   joueurVoie;
+	private Joueur 	   joueurVoieDouble;
 	private Noeud      noeud1;
 	private Noeud 	   noeud2;
 	private CarteWagon couleur;
@@ -39,6 +39,22 @@ public class Arete {
 	public void setVoieDouble(boolean voieDouble) 				   { this.voieDouble = voieDouble; }
 	public void setCouleurDoubleVoie(CarteWagon couleurVoieDouble) { this.couleurVoieDouble = couleurVoieDouble; }
 	public void setTronconsDoubleVoie(int tronconsVoieDouble)	   { this.tronconsVoieDouble = tronconsVoieDouble; }
+
+	public Joueur getJoueurVoie() {
+		return this.joueurVoie;
+	}
+
+	public Joueur getJoueurVoieDouble() {
+		return this.joueurVoieDouble;
+	}
+
+	public void setJoueurVoie(Joueur joueur) {
+		this.joueurVoie = joueur;
+	}
+
+	public void setJoueurVoieDouble(Joueur joueur) {
+		this.joueurVoieDouble = joueur;
+	}
 
 	public String toString() {
 		return noeud1.getNom() + " - " + noeud2.getNom() + " | " + getCouleur() + " | " + this.troncons + " | " +

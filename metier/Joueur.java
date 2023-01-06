@@ -14,32 +14,37 @@ public class Joueur {
 	private static int nbJoueur = 0;
 	private int idJoueur;
 	private String nomJoueur;
-	private ArrayList<CarteWagon> alCarteWagon;
+	private HashMap<CarteWagon, Integer> hmWagon;
 	private ArrayList<CarteDestination> alCarteDestination;
 	private int score;
 	private boolean estEnJeu;
 
+	// Possesion d'un joueur
+	private ArrayList<Arete> alAretePossede;
+
 	public Joueur(String nomJoueur) {
 		this.idJoueur = ++nbJoueur;
 		this.nomJoueur = nomJoueur;
-		this.alCarteWagon = new ArrayList<CarteWagon>();
+		this.hmWagon = new HashMap<CarteWagon, Integer>();
 		this.alCarteDestination = new ArrayList<CarteDestination>();
 		this.score = 0;
 
+		this.alAretePossede = new ArrayList<Arete>();
 	}
 
-	public int getIdJoueur() {return this.idJoueur;}
-	public String getNomJoueur() {return this.nomJoueur;}
-	public int getScore() {return this.score;}
+	public int 	   getIdJoueur() {return this.idJoueur;}
+	public String  getNomJoueur() {return this.nomJoueur;}
+	public int     getScore() {return this.score;}
 	public boolean getEstEnJeu() {return this.estEnJeu;}
+	public ArrayList<Arete> getAlAretePossede() {return this.alAretePossede;}
 
 	public void setEstEnJeu() {this.estEnJeu = !estEnJeu;}
 
-	public void addCarteWagon(CarteWagon carteWagon) {this.alCarteWagon.add(carteWagon);}
+	public void addCarteWagon(CarteWagon carteWagon) {this.hmWagon.put(carteWagon, this.hmWagon.get(carteWagon) + 1);}
 	public void addCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.add(carteDestination);}
 	public void addScore(int score) {this.score += score;}
 
-	public void removeCarteWagon(CarteWagon carteWagon) {this.alCarteWagon.remove(carteWagon);}
+	public void removeCarteWagon(CarteWagon carteWagon) {this.hmWagon.put(carteWagon, this.hmWagon.get(carteWagon) - 1);}
 	public void removeCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.remove(carteDestination);}
 
 	public void removeScore(int score) {

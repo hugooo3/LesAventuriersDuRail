@@ -26,4 +26,19 @@ public class Pioche {
 	public void removeCarteWagonDefausse(CarteWagon carteWagon)                   { this.alCarteWagonDefausse.remove(carteWagon);             }
 	public void removeCarteDestinationDefausse(CarteDestination carteDestination) { this.alCarteDestinationDefausse.remove(carteDestination); }
 
+	public void melangerCarteDestination() 
+	{ 
+		ArrayList<CarteDestination> alCarteDestinationTemp = new ArrayList<CarteDestination>();
+		for (CarteDestination carteDestination : this.alCarteDestination) {
+			alCarteDestinationTemp.add(carteDestination);
+		}
+			
+		this.alCarteDestination.clear();
+
+		while (alCarteDestinationTemp.size() > 0) {
+			int i = (int) (Math.random() * alCarteDestinationTemp.size());
+			this.alCarteDestination.add(alCarteDestinationTemp.get(i));
+			alCarteDestinationTemp.remove(i);
+		}
+	}
 }

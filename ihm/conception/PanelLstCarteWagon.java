@@ -190,7 +190,6 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener {
 					}	
 					
 					this.concepteur.majIHM();
-					System.out.println(this.lstCarteWagon.getModel().getElementAt(1).getNbCarteWagon());
 				}
 			} else {
 				JOptionPane.showMessageDialog(this, "Veuillez sélectionner une carte wagon", "Erreur",
