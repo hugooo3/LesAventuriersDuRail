@@ -176,23 +176,36 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		if(e.getSource() == this.btnJouer) {
 			boolean estValide = true;
 
-			for(int i=0; i < this.nbJoueur; i++) {
-				if(this.alTxtJoueur.get(i).getText() != null && !this.alTxtJoueur.get(i).getText().equals("") && estValide) {
-					estValide = true;
-					this.alJoueurs.add(new Joueur(this.alTxtJoueur.get(i).getText()));
+			if(!this.cbJeuSolo.isSelected()) {
+				for(int i=0; i < this.nbJoueur; i++) {
+					if(this.alTxtJoueur.get(i).getText() != null && !this.alTxtJoueur.get(i).getText().equals("") && estValide) {
+						estValide = true;
+						this.alJoueurs.add(new Joueur(this.alTxtJoueur.get(i).getText()));
+					}
+					else {
+						estValide = false;
+						JOptionPane.showMessageDialog(this, "Vous devez saisir le nom de tous les joueurs !", "Erreur", JOptionPane.ERROR_MESSAGE);
+						this.alJoueurs.clear();
+						break;
+					}
 				}
-				else { 
-					estValide = false;
-					JOptionPane.showMessageDialog(this, "Vous devez saisir le nom de tous les joueurs !", "Erreur", JOptionPane.ERROR_MESSAGE);
-					this.alJoueurs.clear();
-					break;
-				}
-			}
 
-			if(this.alJoueurs.size() == this.nbJoueur) {
-				new FrameJeu(this.appli, this.mappeXML, this.nbJoueur, this.alJoueurs);
-				this.dispose();
+				if(this.alJoueurs.size() == this.nbJoueur) {
+					new FrameJeu(this.appli, this.mappeXML, this.nbJoueur, this.alJoueurs);
+					this.dispose();
+				}
+			} else {
+				if(this.txtJoueurSolo.getText() != null && !this.txtJoueurSolo.getText().equals("")) {
+					this.alJoueurs.add(new Joueur(this.txtJoueurSolo.getText()));
+					new FrameJeu(this.appli, this.mappeXML, 1, this.alJoueurs);
+					this.dispose();
+				}
+				else {
+					JOptionPane.showMessageDialog(this, "Vous devez saisir le nom du joueur !", "Erreur", JOptionPane.ERROR_MESSAGE);
+					this.alJoueurs.clear();
+				}
 			}
+			
 		}
 
 		if(e.getSource() == this.btnConfirmer && this.mappeXML != null) {
