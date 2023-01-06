@@ -37,6 +37,7 @@ public class Joueur {
 	public int     getScore() {return this.score;}
 	public boolean getEstEnJeu() {return this.estEnJeu;}
 	public ArrayList<Arete> getAlAretePossede() {return this.alAretePossede;}
+	public HashMap<CarteWagon, Integer> getHmWagon() {return this.hmWagon;}
 
 	public void setEstEnJeu() {this.estEnJeu = !estEnJeu;}
 
