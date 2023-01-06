@@ -78,7 +78,7 @@ public class FrameConcepteur extends JFrame implements ActionListener {
 
 	public void setImgMappe(Image image) {
 		if (image != null) {
-			this.appli.setImgMappe(image);
+			//this.appli.setImgMappe(image); Inutile : re set image dans le metier une image qui vient du metier (a potentiellement modifier)
 			this.panelMappe.setImg(image);
 			this.panelMappe.setCliquable(true);
 			this.tabbedPane.setVisible(true);

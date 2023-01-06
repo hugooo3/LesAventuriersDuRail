@@ -107,13 +107,17 @@ public class PanelLstCarteWagon extends JPanel implements ActionListener {
 
 	}
 
-	public void majLstCarteWagon() {
-		for (CarteWagon carteWagon : this.alCarteWagon) {
-			if (!this.modelListCarteWagon.contains(carteWagon))
+
+		public void majLstCarteWagon() {
+			this.alCarteWagon = this.concepteur.getMetier().getAlCartesWagon();
+			this.modelListCarteWagon.clear();
+
+			for (CarteWagon carteWagon : this.alCarteWagon) {
 				this.modelListCarteWagon.addElement(carteWagon);
-		}
-		this.lstCarteWagon.clearSelection();
+			}
+			this.lstCarteWagon.clearSelection();
 	}
+
 
 	public File choisirImage() 
 	{

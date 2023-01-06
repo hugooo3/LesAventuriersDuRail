@@ -4,7 +4,9 @@ import javax.imageio.ImageIO;
 import javax.swing.ImageIcon;
 import java.awt.Color;
 import java.awt.image.BufferedImage;
+import java.awt.Image;
 import java.io.InputStream;
+import java.io.File;
 
 public class CarteWagon {
 	private String nomCouleur;
@@ -25,6 +27,14 @@ public class CarteWagon {
 		this.imgVersoPath = imgVersoPath;
 	}
 
+	public CarteWagon(String nomCouleur, Color couleur, File imgRectoFile, File imgVersoFile, int nbCarteWagon) {
+		this.nomCouleur = nomCouleur;
+		this.couleur = couleur;
+		this.nbCarteWagon = nbCarteWagon;
+		this.imgRecto = this.creerImageIcon(imgRectoFile);
+		this.imgVerso = this.creerImageIcon(imgVersoFile);
+	}
+
 	private ImageIcon creerImageIcon(String imgPath) {
 		if (imgPath == null || imgPath.equals("") )
 			return null;
@@ -38,6 +48,20 @@ public class CarteWagon {
 		} catch (Exception e) {e.printStackTrace();}
 		return image;
 	}
+
+	private ImageIcon creerImageIcon(File imgFile) {
+		if (imgFile == null || imgFile.equals("") )
+			return null;
+
+		ImageIcon image = null;
+		try 
+		{
+			Image img = ImageIO.read(imgFile);
+			image = new ImageIcon(img);
+		} catch (Exception e) {e.printStackTrace();}
+		return image;
+	}
+
 
 	public String	 getNomCouleur()   { return this.nomCouleur; }
 	public Color 	 getCouleur()	   { return this.couleur; }

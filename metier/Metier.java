@@ -53,19 +53,15 @@ public class Metier {
 		this.versoCartePath = "/images/ArriereCarte.png";
 		this.imgMappePath = "/images/carteUSA.png"; // Affichage dans la menuBar
 
-		this.alCartesWagon.add(new CarteWagon("Neutre", Color.GRAY, null, null, 20));
-		this.alCartesWagon
-				.add(new CarteWagon("Blanc", Color.WHITE, "/images/carteBlanche.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Neutre", Color.GRAY, (String)null, (String)null, 20));
+		this.alCartesWagon.add(new CarteWagon("Blanc", Color.WHITE, "/images/carteBlanche.png", this.versoCartePath, 20));
 		this.alCartesWagon.add(new CarteWagon("Bleu", Color.BLUE, "/images/carteBleu.png", this.versoCartePath, 20));
-		this.alCartesWagon
-				.add(new CarteWagon("Jaune", Color.YELLOW, "/images/carteJaune.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Jaune", Color.YELLOW, "/images/carteJaune.png", this.versoCartePath, 20));
 		this.alCartesWagon.add(new CarteWagon("Noire", Color.BLACK, "/images/carteNoire.png", this.versoCartePath, 20));
-		this.alCartesWagon
-				.add(new CarteWagon("Orange", Color.ORANGE, "/images/carteOrange.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Orange", Color.ORANGE, "/images/carteOrange.png", this.versoCartePath, 20));
 		this.alCartesWagon.add(new CarteWagon("Rouge", Color.RED, "/images/carteRouge.png", this.versoCartePath, 20));
 		this.alCartesWagon.add(new CarteWagon("Verte", Color.GREEN, "/images/carteVerte.png", this.versoCartePath, 20));
-		this.alCartesWagon
-				.add(new CarteWagon("Violet", Color.MAGENTA, "/images/carteViolet.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Violet", Color.MAGENTA, "/images/carteViolet.png", this.versoCartePath, 20));
 		this.alCartesWagon.add(new CarteWagon("Joker", Color.PINK, "/images/carteJoker.png", this.versoCartePath, 20));
 
 		// Jeu
@@ -76,77 +72,25 @@ public class Metier {
 	/***************************/
 	/* Accesseurs et Mutateurs */
 	/***************************/
-	public String getImgMappePath() {
-		return this.imgMappePath;
-	}
+	public String getImgMappePath() { return this.imgMappePath;}
+	public ArrayList<Noeud> getAlNoeuds() { return this.alNoeuds;}
+	public ArrayList<Arete> getAlAretes() {return this.alAretes;}
+	public ArrayList<CarteDestination> getAlCartesDestination() { return this.alCartesDestination;}
+	public ArrayList<CarteWagon> getAlCartesWagon() {return this.alCartesWagon;}
+	public Image getImgMappe() {return this.imgMappe;}
+	public int getNbJoueurMin() {return this.nbJoueurMin;}
+	public int getNbJoueurMax() {return this.nbJoueurMax;}
+	public int getNbJoueurDoubleVoies() {return this.nbJoueurDoubleVoies;}
+	public int getNbWagonJoueur() {return this.nbWagonJoueur;}
+	public String getVersoCartePath() {return this.versoCartePath;}
 
-	public ArrayList<Noeud> getAlNoeuds() {
-		return this.alNoeuds;
-	}
-
-	public ArrayList<Arete> getAlAretes() {
-		return this.alAretes;
-	}
-
-	public ArrayList<CarteDestination> getAlCartesDestination() {
-		return this.alCartesDestination;
-	}
-
-	public ArrayList<CarteWagon> getAlCartesWagon() {
-		return this.alCartesWagon;
-	}
-
-	public Image getImgMappe() {
-		return this.imgMappe;
-	}
-
-	public int getNbJoueurMin() {
-		return this.nbJoueurMin;
-	}
-
-	public int getNbJoueurMax() {
-		return this.nbJoueurMax;
-	}
-
-	public int getNbJoueurDoubleVoies() {
-		return this.nbJoueurDoubleVoies;
-	}
-
-	public int getNbWagonJoueur() {
-		return this.nbWagonJoueur;
-	}
-
-	public String getVersoCartePath() {
-		return this.versoCartePath;
-	}
-
-	public void setImgMappePath(String imgMappePath) {
-		this.imgMappePath = imgMappePath;
-	}
-
-	public void setImgMappe(Image imgMappe) {
-		this.imgMappe = imgMappe;
-	}
-
-	public void setNbJoueurMin(int nbJoueurMin) {
-		this.nbJoueurMin = nbJoueurMin;
-	}
-
-	public void setNbJoueurMax(int nbJoueurMax) {
-		this.nbJoueurMax = nbJoueurMax;
-	}
-
-	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {
-		this.nbJoueurDoubleVoies = nbJoueurDoubleVoies;
-	}
-
-	public void setNbWagonJoueur(int nbWagonJoueur) {
-		this.nbWagonJoueur = nbWagonJoueur;
-	}
-
-	public void setNbFin(int nbFin) {
-		this.nbFin = nbFin;
-	}
+	public void setImgMappePath(String imgMappePath) {this.imgMappePath = imgMappePath;}
+	public void setImgMappe(Image imgMappe) {this.imgMappe = imgMappe;}
+	public void setNbJoueurMin(int nbJoueurMin) {this.nbJoueurMin = nbJoueurMin;}
+	public void setNbJoueurMax(int nbJoueurMax) {this.nbJoueurMax = nbJoueurMax;}
+	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {this.nbJoueurDoubleVoies = nbJoueurDoubleVoies;}
+	public void setNbWagonJoueur(int nbWagonJoueur) {this.nbWagonJoueur = nbWagonJoueur;}
+	public void setNbFin(int nbFin) {this.nbFin = nbFin;}
 
 	public void setVersoCarte(String versoCartePath) {
 		this.versoCartePath = versoCartePath;
@@ -397,8 +341,7 @@ public class Metier {
 				Element e = (Element) nNode;
 				this.nbJoueurMin = Integer.parseInt(e.getElementsByTagName("nbJoueurMin").item(0).getTextContent());
 				this.nbJoueurMax = Integer.parseInt(e.getElementsByTagName("nbJoueurMax").item(0).getTextContent());
-				this.nbJoueurDoubleVoies = Integer
-						.parseInt(e.getElementsByTagName("nbJoueurDoubleVoies").item(0).getTextContent());
+				this.nbJoueurDoubleVoies = Integer.parseInt(e.getElementsByTagName("nbJoueurDoubleVoies").item(0).getTextContent());
 				this.nbWagonJoueur = Integer.parseInt(e.getElementsByTagName("nbWagonJoueur").item(0).getTextContent());
 				this.nbFin = Integer.parseInt(e.getElementsByTagName("nbFin").item(0).getTextContent());
 
@@ -475,27 +418,23 @@ public class Metier {
 					if (!imgEncode.equals("") && imgEncode != null) {
 						if (imgEncode.substring(0, 8).equals("/images/")
 								&& imgEncode.substring(imgEncode.length() - 4, imgEncode.length()).equals(".png")) {
-							imgRectoFile = new File(imgEncode);
+							imgRectoFile = new File("." + imgEncode);
 						} else {
-							imgRectoFile = stringToFile(imgEncode, new File("sortie/" + nomCouleur + ".png"));
+							imgRectoFile = stringToFile(imgEncode, new File("./sortie/" + nomCouleur + ".png"));
 						}
 
 						imgEncode = e.getElementsByTagName("imgVersoPath").item(0).getTextContent();
 						if (imgEncode.substring(0, 8).equals("/images/")
 								&& imgEncode.substring(imgEncode.length() - 4, imgEncode.length()).equals(".png")) {
-							imgVersoFile = new File(imgEncode);
+							imgVersoFile = new File("." + imgEncode);
 						} else {
-							imgVersoFile = stringToFile(imgEncode, new File("sortie/" + nomCouleur + ".png"));
+							imgVersoFile = stringToFile(imgEncode, new File("./sortie/" + nomCouleur + ".png"));
 						}
 
-						System.out.println("Recto : " + imgRectoFile.getAbsolutePath());
-						System.out.println("Verso : " + imgVersoFile.getAbsolutePath());
-						carteWagon = new CarteWagon(nomCouleur, couleur, 
-								imgRectoFile.getAbsolutePath(),
-								imgVersoFile.getAbsolutePath(),
+						carteWagon = new CarteWagon(nomCouleur, couleur, imgRectoFile, imgVersoFile,
 								Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
 					} else {
-						carteWagon = new CarteWagon(nomCouleur, couleur, null, null,
+						carteWagon = new CarteWagon(nomCouleur, couleur, (String)null, (String)null,
 								Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
 					}
 
