@@ -31,6 +31,8 @@ public class Arete {
 	public boolean	  getVoieDouble() 		  { return this.voieDouble; }
 	public CarteWagon getCouleurDoubleVoie()  { return this.couleurVoieDouble; }
  	public int 		  getTronconsDoubleVoie() { return this.tronconsVoieDouble; }
+	public Joueur 	  getJoueurVoie() 		  { return this.joueurVoie; }
+	public Joueur 	  getJoueurVoieDouble()   { return this.joueurVoieDouble; }
 
 	public void setNoeud1(Noeud noeud1) 						   { this.noeud1 = noeud1; }
 	public void setNoeud2(Noeud noeud2)							   { this.noeud2 = noeud2; }
@@ -39,22 +41,8 @@ public class Arete {
 	public void setVoieDouble(boolean voieDouble) 				   { this.voieDouble = voieDouble; }
 	public void setCouleurDoubleVoie(CarteWagon couleurVoieDouble) { this.couleurVoieDouble = couleurVoieDouble; }
 	public void setTronconsDoubleVoie(int tronconsVoieDouble)	   { this.tronconsVoieDouble = tronconsVoieDouble; }
-
-	public Joueur getJoueurVoie() {
-		return this.joueurVoie;
-	}
-
-	public Joueur getJoueurVoieDouble() {
-		return this.joueurVoieDouble;
-	}
-
-	public void setJoueurVoie(Joueur joueur) {
-		this.joueurVoie = joueur;
-	}
-
-	public void setJoueurVoieDouble(Joueur joueur) {
-		this.joueurVoieDouble = joueur;
-	}
+	public void setJoueurVoie(Joueur joueur) 					   { this.joueurVoie = joueur; }
+	public void setJoueurVoieDouble(Joueur joueur) 				   { this.joueurVoieDouble = joueur; }
 
 	public String toString() {
 		return noeud1.getNom() + " - " + noeud2.getNom() + " | " + getCouleur() + " | " + this.troncons + " | " +

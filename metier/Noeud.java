@@ -16,7 +16,7 @@ public class Noeud
 	private int nomDeltaX; // Distance entre les coords du nom et le point
 	private int nomDeltaY; // Distance entre les coords du nom et le point
 
-	private int radiusEllipse;
+	private int diametreEllipse;
 	private int ellipseX;
 	private int ellipseY;
 	private Ellipse2D ellipse2D;
@@ -36,7 +36,7 @@ public class Noeud
 
 		this.ellipseX = x - radius / 2;
 		this.ellipseY = y - radius / 2;
-		this.radiusEllipse = radius;
+		this.diametreEllipse = radius;
 
 		this.majEllipse2D();
 		
@@ -60,7 +60,7 @@ public class Noeud
 	public void setNom(String nom) {this.nom = nom;}
 
 
-	public int getRadiusEllipse() {return radiusEllipse;}
+	public int getDiametreEllipse() {return diametreEllipse;}
 	public Ellipse2D getEllipse2D() {return ellipse2D;}
 	public int getEllipseX() {return this.ellipseX;}
 	public int getEllipseY() {return this.ellipseY;}
@@ -73,12 +73,12 @@ public class Noeud
 	public Rectangle2D getRectangle2d() {return this.rectangle2d;}
 	
 
-	public void setEllipseX(int x) {this.ellipseX = x - (this.radiusEllipse / 2); this.majEllipse2D();}
-	public void setEllipseY(int y) {this.ellipseY = y - (this.radiusEllipse / 2); this.majEllipse2D();}
+	public void setEllipseX(int x) {this.ellipseX = x - (this.diametreEllipse / 2); this.majEllipse2D();}
+	public void setEllipseY(int y) {this.ellipseY = y - (this.diametreEllipse / 2); this.majEllipse2D();}
 
 	public void majEllipse2D() 
 	{
-		this.ellipse2D = new Ellipse2D.Double(this.ellipseX, this.ellipseY, this.radiusEllipse, this.radiusEllipse);
+		this.ellipse2D = new Ellipse2D.Double(this.ellipseX, this.ellipseY, this.diametreEllipse, this.diametreEllipse);
 	}
 
 	public void setRectangleX() {this.rectangleX = this.getNomX() - this.MARGE_X;	this.majRectangle2D();}

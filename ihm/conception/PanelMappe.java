@@ -131,22 +131,22 @@ public class PanelMappe extends JPanel {
 			Noeud noeud1 = arete.getNoeud1();
 			Noeud noeud2 = arete.getNoeud2();
 			int troncons = arete.getTroncons();
+			int rayon = ((noeud1.getDiametreEllipse() + noeud2.getDiametreEllipse()) / 2) / 2; // Moyenne des deux diametres divise par 2 pour avoir le rayon
 
 			int x1 = noeud1.getX();
 			int y1 = noeud1.getY();
 			int x2 = noeud2.getX();
 			int y2 = noeud2.getY();
-			System.out.println();
 			for (int i = 0; i < troncons; i++)
 			{
 				int x3 = (int) (x1 + (x2 - x1) / (troncons - i));
 				int y3 = (int) (y1 + (y2 - y1) / (troncons - i));
 				
 				g2d.setColor(arete.getCouleur().getCouleur());
-				g2d.fill(this.creerRectangle(x1, y1, x3, y3));
+				g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon));
 				g2d.setColor(Color.BLACK);
 				g2d.setStroke(new BasicStroke(3));
-				g2d.draw(this.creerRectangle(x1, y1, x3, y3));
+				g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon));
 				x1 = x3;
 				y1 = y3;
 			}
@@ -173,11 +173,16 @@ public class PanelMappe extends JPanel {
 	}
 	public void majIHM() {this.repaint();}
 
-	private Polygon creerRectangle(int x1, int y1, int x2, int y2) 
+	private Polygon creerRectangle(int x1, int y1, int x2, int y2, int rayon) 
 	{
 		Polygon rectangle = new Polygon();
 		// Calcul de l'angle entre les deux points
 		Double angle = Math.atan2(y2 - y1, x2 - x1);
+		x1 = (int) (x1 + rayon * Math.sin(angle));
+		y1 = (int) (y1 - rayon * Math.cos(angle));
+		x2 = (int) (x2 + rayon * Math.sin(angle));
+		y2 = (int) (y2 - rayon * Math.cos(angle));
+
 		// Calcul de la longueur de chaque coté du rectangle
 		double longueur = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
 		double largeur = 15;
