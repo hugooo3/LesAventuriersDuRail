@@ -4,6 +4,8 @@ import application.Application;
 import metier.Joueur;
 
 import javax.swing.*;
+import javax.swing.filechooser.FileNameExtensionFilter;
+
 import java.awt.event.*;
 import java.awt.Dimension;
 import java.awt.Toolkit;
@@ -312,14 +314,17 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		String pathTest = path + "/sortie/";
 
 		JFileChooser fileChooser = new JFileChooser(new File(pathTest).exists() ? pathTest: path);
-
+		fileChooser.setDialogTitle("Choisissez un fichier Mappe XML");
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		fileChooser.setAcceptAllFileFilterUsed(false);
+		FileNameExtensionFilter filter = new FileNameExtensionFilter("XML", "xml");
+		fileChooser.addChoosableFileFilter(filter);
+		fileChooser.setApproveButtonText("Ouvrir");
 
 		int retour = fileChooser.showOpenDialog(this);
 
 		if(retour == JFileChooser.APPROVE_OPTION) {
-			if(fileChooser.getSelectedFile().getName().endsWith(".xml") && fileChooser.getSelectedFile().exists()) {
+			if(fileChooser.getSelectedFile().exists()) {
 				this.mappeXML = fileChooser.getSelectedFile();
 				this.lblPathXML.setText(this.mappeXML.getPath());
 			}
