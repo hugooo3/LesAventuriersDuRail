@@ -7,7 +7,6 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.awt.event.*;
-import java.awt.geom.*;
 import java.util.ArrayList;
 
 public class PanelMappe extends JPanel {
@@ -129,107 +128,53 @@ public class PanelMappe extends JPanel {
 
 		for (Arete arete : alAretes) 
 		{
-			if (arete.getVoieDouble()) 
+			Noeud noeud1 = arete.getNoeud1();
+			Noeud noeud2 = arete.getNoeud2();
+			int troncons = arete.getTroncons();
+			int rayon = ((noeud1.getDiametreEllipse() + noeud2.getDiametreEllipse()) / 2) / 2; // Moyenne des deux diametres divise par 2 pour avoir le rayon
+
+			int x1 = noeud1.getX();
+			int y1 = noeud1.getY();
+			int x2 = noeud2.getX();
+			int y2 = noeud2.getY();
+
+			Color couleurVoieSimple = arete.getCouleur().getCouleur();
+			Color couleurVoieDouble = (arete.getCouleurDoubleVoie() != null ? arete.getCouleurDoubleVoie().getCouleur() : null);
+			for (int i = 0; i < troncons; i++)
 			{
-				Path2D path1 = new Path2D.Double();
-				Path2D path2 = new Path2D.Double();
-
-				int arete1X = arete.getNoeud1().getX();
-				int arete1Y = arete.getNoeud1().getY();
-				int arete2X = arete.getNoeud2().getX();
-				int arete2Y = arete.getNoeud2().getY();
-
-				int intensiteY = (arete1X - arete2X) / 4;
-				int intensiteX = (arete1Y - arete2Y) / 4;
-
-				g2d.setColor(Color.BLACK);
-				g2d.setStroke(new BasicStroke(11));
-				path1.moveTo(arete1X, arete1Y);
-				path1.curveTo((double) (arete1X + arete2X) / 2 - intensiteX,
-						(double) (arete1Y + arete2Y) / 2 - intensiteY,
-						(double) (arete2X),
-						(double) (arete2Y),
-						(double) arete2X,
-						(double) arete2Y);
-				g2d.draw(path1);
-
-				g2d.setColor(arete.getCouleur().getCouleur());
-				g2d.setStroke(new BasicStroke(5));
-				path1.moveTo(arete1X, arete1Y);
-				path1.curveTo((double) (arete1X + arete2X) / 2 - intensiteX,
-						(double) (arete1Y + arete2Y) / 2 - intensiteY,
-						(double) (arete2X),
-						(double) (arete2Y),
-						(double) arete2X,
-						(double) arete2Y);
-				g2d.draw(path1);
-
-				g2d.setColor(Color.BLACK);
-				g2d.setStroke(new BasicStroke(11));
-				path2.moveTo(arete1X, arete1Y);
-				path2.curveTo((double) (arete1X + arete2X) / 2 + intensiteX,
-						(double) (arete1Y + arete2Y) / 2 + intensiteY,
-						(double) (arete2X),
-						(double) (arete2Y),
-						(double) arete2X,
-						(double) arete2Y);
-				g2d.draw(path2);
-
-				g2d.setColor(arete.getCouleurDoubleVoie().getCouleur());
-				g2d.setStroke(new BasicStroke(5));
-				path2.moveTo(arete1X, arete1Y);
-				path2.curveTo((double) (arete1X + arete2X) / 2 + intensiteX,
-						(double) (arete1Y + arete2Y) / 2 + intensiteY,
-						(double) (arete2X),
-						(double) (arete2Y),
-						(double) arete2X,
-						(double) arete2Y);
-				g2d.draw(path2);
-
-
-				int milieuX = (arete1X + arete2X) / 2 + (intensiteX/2);
-				int milieuY = (arete1Y + arete2Y) / 2 + (intensiteY/2);
-
-				g2d.setStroke(new BasicStroke((float) (1)));
-				g2d.setColor(Color.WHITE);
-				g2d.fill(new Rectangle2D.Double(milieuX - 3, milieuY, ("" + arete.getTronconsDoubleVoie()).length() * 7 + 5, 15));
-				g2d.setColor(Color.BLACK);
-				g2d.draw(new Rectangle2D.Double(milieuX - 3, milieuY, ("" + arete.getTronconsDoubleVoie()).length() * 7 + 5, 15));
-				g2d.drawString("" + arete.getTronconsDoubleVoie(), milieuX, milieuY + 12);
-
-
-				milieuX = (arete1X + arete2X) / 2 - (intensiteX/2);
-				milieuY = (arete1Y + arete2Y) / 2 -  (intensiteY/2);
-
-				g2d.setStroke(new BasicStroke((float) (1)));
-				g2d.setColor(Color.WHITE);
-				g2d.fill(new Rectangle2D.Double(milieuX - 3, milieuY, ("" + arete.getTroncons()).length() * 7 + 5, 15));
-				g2d.setColor(Color.BLACK);
-				g2d.draw(new Rectangle2D.Double(milieuX - 3, milieuY, ("" + arete.getTroncons()).length() * 7 + 5, 15));
-				g2d.drawString("" + arete.getTroncons(), milieuX, milieuY + 12);
-
-			} else {
-
-				g2d.setColor(Color.BLACK);
-				g2d.setStroke(new BasicStroke(11));
-				g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY(), arete.getNoeud2().getX(),
-						arete.getNoeud2().getY());
-
-				g2d.setColor(arete.getCouleur().getCouleur());
-				g2d.setStroke(new BasicStroke(5));
-				g2d.drawLine(arete.getNoeud1().getX(), arete.getNoeud1().getY(),
-						arete.getNoeud2().getX(), arete.getNoeud2().getY());
-
+				int x3 = (int) (x1 + (x2 - x1) / (troncons - i));
+				int y3 = (int) (y1 + (y2 - y1) / (troncons - i));
 				
-				int milieuX = (arete.getNoeud1().getX() + arete.getNoeud2().getX()) / 2;
-				int milieuY = (arete.getNoeud1().getY() + arete.getNoeud2().getY()) / 2;
+				if (arete.getVoieDouble())
+				{
+					// Interieur de la voie simple
+					g2d.setColor(couleurVoieSimple);
+					g2d.fill(this.creerRectangle(x1, y1, x3, y3, 0));
+					// Exterieur de la voie simple
+					g2d.setColor(couleurVoieDouble);
+					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon * 2));
 
-				g2d.setStroke(new BasicStroke((float) (1)));
-				g2d.setColor(Color.WHITE);
-				g2d.fill(new Rectangle2D.Double(milieuX - 3, milieuY + 12, ("" + arete.getTroncons()).length() * 7 + 5, 15));
-				g2d.setColor(Color.BLACK);
-				g2d.draw(new Rectangle2D.Double(milieuX - 3, milieuY + 12, ("" + arete.getTroncons()).length() * 7 + 5, 15));
-				g2d.drawString("" + arete.getTroncons(), milieuX, milieuY + 25);
+					g2d.setStroke(new BasicStroke(3));
+					// Interieur de la voie double
+					g2d.setColor(couleurVoieSimple.getRGB() != Color.BLACK.getRGB() ? Color.BLACK : Color.WHITE);
+					g2d.draw(this.creerRectangle(x1, y1, x3, y3, 0));
+					// Exterieur de la voie double
+					g2d.setColor(couleurVoieDouble.getRGB() != Color.BLACK.getRGB() ? Color.BLACK : Color.WHITE);
+					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon * 2));
+					System.out.println("couleurVoieDouble : " + couleurVoieDouble.getRGB() + " - " + Color.BLACK.getRGB());
+				}
+				else
+				{
+					// Interieur de la voie
+					g2d.setColor(couleurVoieSimple);
+					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon));
+					g2d.setStroke(new BasicStroke(3));
+					// Exterieur de la voie
+					g2d.setColor(couleurVoieSimple != Color.BLACK ? Color.BLACK : Color.WHITE);
+					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon));
+				}
+				x1 = x3;
+				y1 = y3;
 			}
 		}
 
@@ -253,4 +198,34 @@ public class PanelMappe extends JPanel {
 		}
 	}
 	public void majIHM() {this.repaint();}
+
+	private Polygon creerRectangle(int x1, int y1, int x2, int y2, int rayon) 
+	{
+		Polygon rectangle = new Polygon();
+		// Calcul de l'angle entre les deux points
+		Double angle = Math.atan2(y2 - y1, x2 - x1);
+
+		// Calcul des coordonnees pour que les coords ne soient plus le centre du cercle mais un point sur le cercle
+		x1 = (int) (x1 + rayon * Math.sin(angle));
+		y1 = (int) (y1 - rayon * Math.cos(angle));
+		x2 = (int) (x2 + rayon * Math.sin(angle));
+		y2 = (int) (y2 - rayon * Math.cos(angle));
+
+		// Calcul de la longueur de chaque coté du rectangle
+		double longueur = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
+		double largeur = 15;
+		// Calcul des coordonnées des différents points du rectangle
+		int x3 = (int) (x1 + longueur * Math.cos(angle));
+		int y3 = (int) (y1 + longueur * Math.sin(angle));
+		int x4 = (int) (x1 + largeur  * Math.cos(angle + Math.PI / 2));
+		int y4 = (int) (y1 + largeur  * Math.sin(angle + Math.PI / 2));
+		int x5 = (int) (x3 + largeur  * Math.cos(angle + Math.PI / 2));
+		int y5 = (int) (y3 + largeur  * Math.sin(angle + Math.PI / 2));
+		// Ajout des points au rectangle
+		rectangle.addPoint(x1, y1);
+		rectangle.addPoint(x3, y3);
+		rectangle.addPoint(x5, y5);
+		rectangle.addPoint(x4, y4);
+		return rectangle;
+	}
 }

@@ -7,7 +7,6 @@ import metier.Noeud;
 import java.awt.BorderLayout;
 import java.util.ArrayList;
 import javax.swing.*;
-import javax.swing.plaf.ScrollPaneUI;
 
 public class PanelCartesDesti extends JPanel {
 

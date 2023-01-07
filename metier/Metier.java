@@ -22,8 +22,6 @@ import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Comparator;
 
-import java.net.URL;
-
 public class Metier {
 	private Application app;
 
@@ -168,7 +166,6 @@ public class Metier {
 				pw.println("\t\t<couleur>" + arete.getCouleur() + "</couleur>");
 				pw.println("\t\t<troncons>" + arete.getTroncons() + "</troncons>");
 				pw.println("\t\t<voieDouble>" + arete.getVoieDouble() + "</voieDouble>");
-				pw.println("\t\t<tronconsVoieDouble>" + arete.getTronconsDoubleVoie() + "</tronconsVoieDouble>");
 				pw.println("\t\t<couleurVoieDouble>" + arete.getCouleurDoubleVoie() + "</couleurVoieDouble>");
 				pw.println("\t</arete>");
 			}
@@ -483,8 +480,7 @@ public class Metier {
 					Arete arete = new Arete(noeud1, noeud2, carteWagon,
 							Integer.parseInt(e.getElementsByTagName("troncons").item(0).getTextContent()),
 							e.getElementsByTagName("voieDouble").item(0).getTextContent().equals("true"),
-							couleurVoieDouble,
-							Integer.parseInt(e.getElementsByTagName("tronconsVoieDouble").item(0).getTextContent()));
+							couleurVoieDouble);
 					this.alAretes.add(arete);
 				}
 			}
