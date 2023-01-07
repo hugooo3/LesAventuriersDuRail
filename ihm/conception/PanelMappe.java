@@ -137,14 +137,11 @@ public class PanelMappe extends JPanel {
 			int x2 = noeud2.getX();
 			int y2 = noeud2.getY();
 			System.out.println();
-			for (int i = 1; i <= troncons; i++)
+			for (int i = 0; i < troncons; i++)
 			{
-				int x3 = (int) (x1 + (x2 - x1) * i / troncons);
-				int y3 = (int) (y1 + (y2 - y1) * i / troncons);
-				System.out.println((x2 - x1) * i / troncons);
-				System.out.println("x1 : " + x1 + " y1 : " + y1 + " x2 : " + x2 + " y2 : " + y2 + " x3 : " + x3 + " y3 : " + y3);
+				int x3 = (int) (x1 + (x2 - x1) / (troncons - i));
+				int y3 = (int) (y1 + (y2 - y1) / (troncons - i));
 				
-				// Arete du bas
 				g2d.setColor(arete.getCouleur().getCouleur());
 				g2d.fill(this.creerRectangle(x1, y1, x3, y3));
 				g2d.setColor(Color.BLACK);
