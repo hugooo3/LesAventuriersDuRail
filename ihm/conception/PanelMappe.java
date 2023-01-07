@@ -137,16 +137,42 @@ public class PanelMappe extends JPanel {
 			int y1 = noeud1.getY();
 			int x2 = noeud2.getX();
 			int y2 = noeud2.getY();
+
+			Color couleurVoieSimple = arete.getCouleur().getCouleur();
+			Color couleurVoieDouble = (arete.getCouleurDoubleVoie() != null ? arete.getCouleurDoubleVoie().getCouleur() : null);
 			for (int i = 0; i < troncons; i++)
 			{
 				int x3 = (int) (x1 + (x2 - x1) / (troncons - i));
 				int y3 = (int) (y1 + (y2 - y1) / (troncons - i));
 				
-				g2d.setColor(arete.getCouleur().getCouleur());
-				g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon));
-				g2d.setColor(Color.BLACK);
-				g2d.setStroke(new BasicStroke(3));
-				g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon));
+				if (arete.getVoieDouble())
+				{
+					// Interieur de la voie simple
+					g2d.setColor(couleurVoieSimple);
+					g2d.fill(this.creerRectangle(x1, y1, x3, y3, 0));
+					// Exterieur de la voie simple
+					g2d.setColor(couleurVoieDouble);
+					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon * 2));
+
+					g2d.setStroke(new BasicStroke(3));
+					// Interieur de la voie double
+					g2d.setColor(couleurVoieSimple.getRGB() != Color.BLACK.getRGB() ? Color.BLACK : Color.WHITE);
+					g2d.draw(this.creerRectangle(x1, y1, x3, y3, 0));
+					// Exterieur de la voie double
+					g2d.setColor(couleurVoieDouble.getRGB() != Color.BLACK.getRGB() ? Color.BLACK : Color.WHITE);
+					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon * 2));
+					System.out.println("couleurVoieDouble : " + couleurVoieDouble.getRGB() + " - " + Color.BLACK.getRGB());
+				}
+				else
+				{
+					// Interieur de la voie
+					g2d.setColor(couleurVoieSimple);
+					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon));
+					g2d.setStroke(new BasicStroke(3));
+					// Exterieur de la voie
+					g2d.setColor(couleurVoieSimple != Color.BLACK ? Color.BLACK : Color.WHITE);
+					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon));
+				}
 				x1 = x3;
 				y1 = y3;
 			}
@@ -178,6 +204,8 @@ public class PanelMappe extends JPanel {
 		Polygon rectangle = new Polygon();
 		// Calcul de l'angle entre les deux points
 		Double angle = Math.atan2(y2 - y1, x2 - x1);
+
+		// Calcul des coordonnees pour que les coords ne soient plus le centre du cercle mais un point sur le cercle
 		x1 = (int) (x1 + rayon * Math.sin(angle));
 		y1 = (int) (y1 - rayon * Math.cos(angle));
 		x2 = (int) (x2 + rayon * Math.sin(angle));
