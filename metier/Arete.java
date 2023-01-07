@@ -10,17 +10,15 @@ public class Arete {
 	private CarteWagon couleurVoieDouble;
 	private int		   troncons;
 	private boolean	   voieDouble;
-	private int 	   tronconsVoieDouble;
 
 	public Arete(Noeud noeud1, Noeud noeud2, CarteWagon couleur, int troncons,
-			boolean voieDouble, CarteWagon couleurVoieDouble, int tronconsVoieDouble) {
+			boolean voieDouble, CarteWagon couleurVoieDouble) {
 		this.noeud1 			= noeud1;
 		this.noeud2 			= noeud2;
 		this.couleur 		    = couleur;
 		this.troncons		    = troncons;
 		this.voieDouble		    = voieDouble;
 		this.couleurVoieDouble  = couleurVoieDouble;
-		this.tronconsVoieDouble = tronconsVoieDouble;
 
 	}
 
@@ -30,7 +28,6 @@ public class Arete {
 	public int 	      getTroncons() 		  { return this.troncons; }
 	public boolean	  getVoieDouble() 		  { return this.voieDouble; }
 	public CarteWagon getCouleurDoubleVoie()  { return this.couleurVoieDouble; }
- 	public int 		  getTronconsDoubleVoie() { return this.tronconsVoieDouble; }
 	public Joueur 	  getJoueurVoie() 		  { return this.joueurVoie; }
 	public Joueur 	  getJoueurVoieDouble()   { return this.joueurVoieDouble; }
 
@@ -40,13 +37,11 @@ public class Arete {
 	public void setTroncons(int troncons) 						   { this.troncons = troncons; }
 	public void setVoieDouble(boolean voieDouble) 				   { this.voieDouble = voieDouble; }
 	public void setCouleurDoubleVoie(CarteWagon couleurVoieDouble) { this.couleurVoieDouble = couleurVoieDouble; }
-	public void setTronconsDoubleVoie(int tronconsVoieDouble)	   { this.tronconsVoieDouble = tronconsVoieDouble; }
 	public void setJoueurVoie(Joueur joueur) 					   { this.joueurVoie = joueur; }
 	public void setJoueurVoieDouble(Joueur joueur) 				   { this.joueurVoieDouble = joueur; }
 
 	public String toString() {
 		return noeud1.getNom() + " - " + noeud2.getNom() + " | " + getCouleur() + " | " + this.troncons + " | " +
-				(getCouleurDoubleVoie() == null ? "" : getCouleurDoubleVoie()) +
-				(this.tronconsVoieDouble != 0 ? " | " + this.tronconsVoieDouble : "");
+				(getCouleurDoubleVoie() == null ? "" : getCouleurDoubleVoie());
 	}
 }

@@ -3,17 +3,11 @@ package ihm.jeu;
 import ihm.FrameJeu;
 
 import javax.swing.*;
-import javax.swing.filechooser.*;
 
-import java.awt.*;
 import java.awt.event.*;
-
-import java.io.File;
 
 public class MenuBarJeu extends JMenuBar implements ActionListener {
 	private FrameJeu jeu;
-
-	private File fileXml;
 
 	private JMenuItem menuiFichierQuitter;
 
