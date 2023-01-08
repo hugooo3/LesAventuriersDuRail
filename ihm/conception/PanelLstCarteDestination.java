@@ -9,6 +9,7 @@ import java.awt.event.*;
 import javax.swing.*;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PanelLstCarteDestination extends JPanel implements ActionListener {
 	private FrameConcepteur concepteur;
@@ -141,11 +142,12 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 	}
 
 	public void majLstCarteDestination() {
-		for (CarteDestination carteDestination : this.alCarteDestination) {
-			if (!this.modelListCarteDestination.contains(carteDestination)) {
-				this.modelListCarteDestination.addElement(carteDestination);
-			}
-		}
+		Collections.sort(this.alCarteDestination);
+		this.modelListCarteDestination.clear();	
+
+		for (CarteDestination carteDestination : this.alCarteDestination)
+			this.modelListCarteDestination.addElement(carteDestination);
+
 		this.lstCarteDestination.clearSelection();
 	}
 
@@ -212,6 +214,7 @@ public class PanelLstCarteDestination extends JPanel implements ActionListener {
 				do {
 					this.ddlstNoeud1.setSelectedIndex(0);
 					this.ddlstNoeud2.setSelectedIndex(1);
+					this.txtNbPoint.setText(Integer.toString(5));
 					int n = JOptionPane.showOptionDialog(this, this.panelPopUpDesti, "Création d'une carte destination",
 							JOptionPane.OK_CANCEL_OPTION,
 							JOptionPane.QUESTION_MESSAGE, null, null, null);

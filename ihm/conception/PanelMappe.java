@@ -161,7 +161,6 @@ public class PanelMappe extends JPanel {
 					// Exterieur de la voie double
 					g2d.setColor(couleurVoieDouble.getRGB() != Color.BLACK.getRGB() ? Color.BLACK : Color.WHITE);
 					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon * 2));
-					System.out.println("couleurVoieDouble : " + couleurVoieDouble.getRGB() + " - " + Color.BLACK.getRGB());
 				}
 				else
 				{

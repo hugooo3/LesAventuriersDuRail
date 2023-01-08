@@ -1,6 +1,6 @@
 package metier;
 
-public class Arete {
+public class Arete implements Comparable<Arete>{
 	// Un même joueur ne peut pas prendre 2 routes reliant les 2 mêmes villes.
 	private Joueur 	   joueurVoie;
 	private Joueur 	   joueurVoieDouble;
@@ -44,4 +44,7 @@ public class Arete {
 		return noeud1.getNom() + " - " + noeud2.getNom() + " | " + getCouleur() + " | " + this.troncons + " | " +
 				(getCouleurDoubleVoie() == null ? "" : getCouleurDoubleVoie());
 	}
+
+	@Override
+	public int compareTo(Arete arg0) {return this.noeud1.getNom().compareTo(arg0.getNoeud1().getNom());}
 }

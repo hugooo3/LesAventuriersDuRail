@@ -3,7 +3,7 @@ package metier;
 import java.awt.geom.Ellipse2D;
 import java.awt.geom.Rectangle2D;
 
-public class Noeud 
+public class Noeud implements Comparable<Noeud>
 {	
 	private final int TAILLE_CARA_BOX = 15; // Hauteur pour que le rectangle laisse le texte avec un espace satisfesant
 	private final int MARGE_X = 3;
@@ -96,4 +96,7 @@ public class Noeud
 	{
 		return this.nom;
 	}
+
+	@Override
+	public int compareTo(Noeud arg0) {return this.nom.compareTo(arg0.getNom());}
 }

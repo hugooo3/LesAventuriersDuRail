@@ -2,7 +2,7 @@ package metier;
 
 import javax.swing.ImageIcon;
 
-public class CarteDestination {
+public class CarteDestination implements Comparable<CarteDestination> {
 	private Noeud noeud1;
 	private Noeud noeud2;
 	private int points;
@@ -28,4 +28,7 @@ public class CarteDestination {
 	public void setImgVerso(ImageIcon imgVerso) { this.imgVerso = imgVerso; }
 
 	public String toString() {return noeud1.getNom() + " - " + noeud2.getNom() + " | " + this.points;}
+
+	@Override
+	public int compareTo(CarteDestination arg0) { return this.noeud1.getNom().compareTo(arg0.getNoeud1().getNom()); }
 }

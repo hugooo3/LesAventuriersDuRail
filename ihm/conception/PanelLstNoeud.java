@@ -10,6 +10,7 @@ import javax.swing.event.ListSelectionListener;
 import ihm.FrameConcepteur;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
 import metier.Noeud;
 
@@ -175,11 +176,13 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	}
 
 	public void majLstNoeuds() {
-		for (Noeud noeud : this.alstNoeud) {
-			if (!this.modelListNoeud.contains(noeud)) {
-				this.modelListNoeud.addElement(noeud);
-			}
-		}
+		Collections.sort(this.alstNoeud);
+		this.modelListNoeud.clear();
+
+		for (Noeud noeud : this.alstNoeud)
+			this.modelListNoeud.addElement(noeud);
+
+		this.lstNoeud.clearSelection();
 	}
 
 	public void removeLstNoeud(Noeud noeud) {
@@ -189,6 +192,5 @@ public class PanelLstNoeud extends JPanel implements ActionListener, ListSelecti
 	}
 
 	@Override
-	public void valueChanged(ListSelectionEvent arg0) {
-	}
+	public void valueChanged(ListSelectionEvent arg0) {}
 }

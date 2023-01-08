@@ -8,6 +8,7 @@ import java.awt.event.*;
 
 import javax.swing.*;
 import java.util.ArrayList;
+import java.util.Collections;
 
 public class PanelLstArete extends JPanel implements ActionListener {
 	private FrameConcepteur concepteur;
@@ -155,12 +156,13 @@ public class PanelLstArete extends JPanel implements ActionListener {
 		this.add(this.btnSuppr, this.gbc);
 	}
 
-	public void majLstArete() {
-		for (Arete arete : this.alAretes) {
-			if (!this.modelListArete.contains(arete)) {
-				this.modelListArete.addElement(arete);
-			}
-		}
+	public void majLstArete() {		
+		Collections.sort(this.alAretes);
+		this.modelListArete.clear();
+
+		for (Arete arete : this.alAretes)
+			this.modelListArete.addElement(arete);
+			
 		this.lstArete.clearSelection();
 	}
 
@@ -204,6 +206,12 @@ public class PanelLstArete extends JPanel implements ActionListener {
 			}
 
 			this.majComboBox();
+
+			this.ddlstCouleur.setSelectedItem(this.concepteur.getMetier().getAlCartesWagon().get(0)); // Neutre
+			this.txtNbWagon.setText(Integer.toString(1));
+			this.cbVoieDouble.setSelected(false);
+			this.ddlstCouleurVoieDouble.setSelectedItem(this.concepteur.getMetier().getAlCartesWagon().get(0));
+			this.ddlstCouleurVoieDouble.setEnabled(false);
 
 			do {
 				this.ddlstNoeud1.setSelectedIndex(0);
