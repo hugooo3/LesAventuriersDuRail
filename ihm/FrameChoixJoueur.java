@@ -56,8 +56,8 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 	private JLabel lblPathXML;
 
 	public FrameChoixJoueur(Application appli) {
-		this.alCouleur = new ArrayList<Color>();/* 
-		this.alCouleur.add(new Color(246, 70, 70));
+		this.alCouleur = new ArrayList<Color>();
+/* 		this.alCouleur.add(new Color(246, 70, 70));
 		this.alCouleur.add(new Color(70, 238, 246));
 		this.alCouleur.add(new Color(246, 171, 70));
 		this.alCouleur.add(new Color(70, 246, 89));

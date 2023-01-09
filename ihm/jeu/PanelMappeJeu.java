@@ -8,7 +8,6 @@ import javax.swing.*;
 import java.awt.*;
 import java.util.ArrayList;
 import java.awt.Color;
-import java.awt.geom.Line2D;
 
 public class PanelMappeJeu extends JPanel 
 {
@@ -73,45 +72,34 @@ public class PanelMappeJeu extends JPanel
 				{
 					// Interieur de la voie simple
 					g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : couleurVoieSimple);
+					// g2d.setColor(couleurVoieSimple);
 					g2d.fill(this.creerRectangle(x1, y1, x3, y3, 0));
 					// Interieur de la voie double
 					g2d.setColor(joueurVoieDouble != null ? joueurVoieDouble.getCouleur() : couleurVoieDouble);
+					// g2d.setColor(couleurVoieDouble);
 					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon ));
 
 					g2d.setStroke(new BasicStroke(3));
 					// Interieur de la voie double
-					g2d.setColor(couleurVoieSimple.getRGB() != Color.BLACK.getRGB() ? Color.BLACK : Color.GRAY);
-					//g2d.draw(this.creerRectangle(x1, y1, x3, y3, 0));
+					g2d.setColor(joueurVoieSimple != null ? couleurVoieSimple : Color.BLACK);
+					//g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : Color.BLACK);
+					g2d.draw(this.creerRectangle(x1, y1, x3, y3, 0));
 					// Exterieur de la voie double
-					g2d.setColor(couleurVoieDouble.getRGB() != Color.BLACK.getRGB() ? Color.BLACK : Color.GRAY);
-					//g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon ));
-
-					if (joueurVoieSimple != null)
-					{
-						g2d.setStroke(new BasicStroke(3));
-						g2d.draw(creerDiagonale(x1, y1, x2, y2, 0));
-					}
-					if (joueurVoieDouble != null)
-					{
-						g2d.setStroke(new BasicStroke(3));
-						g2d.draw(creerDiagonale(x1, y1, x2, y2, rayon));
-					}
+					g2d.setColor(joueurVoieDouble != null ? couleurVoieDouble : Color.BLACK);
+					// g2d.setColor(joueurVoieDouble != null ? joueurVoieDouble.getCouleur() : Color.BLACK);
+					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon ));
 				}
 				else
 				{
 					// Interieur de la voie
 					g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : couleurVoieSimple);
+					// g2d.setColor(couleurVoieSimple);
 					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon - 5));
 					g2d.setStroke(new BasicStroke(3));
 					// Exterieur de la voie
-					g2d.setColor(couleurVoieSimple.getRGB() != Color.BLACK.getRGB() ? Color.BLACK : Color.GRAY);
-					//g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon - 5));
-
-					if (joueurVoieSimple != null)
-					{
-						g2d.setStroke(new BasicStroke(3));
-						g2d.draw(creerDiagonale(x1, y1, x2, y2, rayon - 5));
-					}
+					g2d.setColor(joueurVoieSimple != null ? couleurVoieSimple : Color.BLACK);
+					// g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : Color.BLACK);
+					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon - 5));
 				}
 				x1 = x3;
 				y1 = y3;
@@ -166,21 +154,5 @@ public class PanelMappeJeu extends JPanel
 		rectangle.addPoint(x5, y5);
 		rectangle.addPoint(x4, y4);
 		return rectangle;
-	}
-
-	private Polygon creerDiagonale(int x1, int y1, int x2, int y2, int rayon)
-	{
-		Polygon diagonale = new Polygon();
-		// Calcul de l'angle entre les deux points
-		Double angle = Math.atan2(y2 - y1, x2 - x1);
-
-		// Calcul des coordonnees pour que les coords ne soient plus le centre du cercle mais un point sur le cercle
-		x1 = (int) (x1 + rayon * Math.sin(angle));
-		y1 = (int) (y1 - rayon * Math.cos(angle));
-
-		diagonale.addPoint(x1, y1);
-		diagonale.addPoint(x2, y2);
-
-		return diagonale;
 	}
 }
