@@ -8,8 +8,9 @@ import java.awt.BorderLayout;
 import java.awt.GridLayout;
 import java.awt.Dimension;
 import java.awt.Image;
-import java.awt.Image.*;
 import java.util.ArrayList;
+import java.util.Comparator;
+
 import javax.swing.*;
 
 public class PanelCartesWagon extends JPanel {
@@ -37,6 +38,17 @@ public class PanelCartesWagon extends JPanel {
 		this.joueur.getHmWagon().forEach((k, v) -> {
 			this.alCartesWagon.add(k);
 			this.alNbCarte.add(v);
+		});
+
+		this.alCartesWagon.sort(new Comparator<CarteWagon>() {
+
+			@Override
+			public int compare(CarteWagon o1, CarteWagon o2) {
+				if (o1.getNomCouleur().equals("Joker")) return -1;
+				if (o2.getNomCouleur().equals("Joker")) return 1;
+				return o1.getNomCouleur().compareTo(o2.getNomCouleur());
+			}
+			
 		});
 
 		this.panelListe = new JPanel();

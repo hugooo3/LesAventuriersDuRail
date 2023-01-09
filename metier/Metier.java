@@ -281,13 +281,12 @@ public class Metier {
 
 		// Initialisation de la main du joueur
 		for (int i = 0; i < 4; i++) {
-			int r = (int) (Math.random() * this.alCartesWagon.size());
+			int r = 0;
 
 			// Verification qu'il reste des cartes de cette couleur
-			while (!this.alCartesWagon.get(r).removeNbCarteWagon(1)) {
-				r = (int) (Math.random() * this.alCartesWagon.size());
-			}
-
+			do {
+				r = (int) (Math.random() * this.alCartesWagon.size() - 1) + 1;
+			} while (!this.alCartesWagon.get(r).removeNbCarteWagon(1));
 			joueur.addCarteWagon(this.alCartesWagon.get(r));
 		}
 
