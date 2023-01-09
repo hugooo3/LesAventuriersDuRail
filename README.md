@@ -13,6 +13,7 @@ SAE_3.01
     │   │   FrameConcepteur.java
     │   │   FrameJeu.java
     │   │   FrameManager.java
+    |   |   FrameChoixJoueur.java
     │   │
     │   └───conception
     │   |       MenuBar.java
@@ -28,6 +29,12 @@ SAE_3.01
     |   └───jeu
     |           MenuBarJeu.java
     |           PanelMappeJeu.java
+    |           PanelAction.java
+    |           PanelCarteDesti.java
+    |           PanelCarteWagon.java
+    |           PanelJoueur.java
+    |           PanelMappeJeu.java
+    |           PanelOngletJoueur.java
     │
     ├───images
     │       ArriereCarte.png
