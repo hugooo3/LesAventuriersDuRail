@@ -33,7 +33,10 @@ public class PanelAction extends JPanel implements ActionListener
 
 	private JPanel panelPopupPiocheDesti;
 	private ArrayList<CarteDestination> alPiocheDesti;
-	private ArrayList<JCheckBox> alCheckBoxsDesti;
+	private JComboBox<CarteDestination> ddlstPiocheDesti;
+	private JComboBox<CarteDestination> ddlstPiocheDestiDouble;
+	private JCheckBox cbPiocheDestiDouble;
+	private JLabel lblPiocheDestiDouble;
 
 	
 	public PanelAction(FrameJeu frameJeu, int largeur, int hauteur) 
@@ -43,7 +46,7 @@ public class PanelAction extends JPanel implements ActionListener
 		this.largeur = largeur;
 		this.alPiocheDesti = new ArrayList<CarteDestination>();
 		this.alBtnVisible = new ArrayList<JButton>();
-		this.alCheckBoxsDesti = new ArrayList<JCheckBox>();
+
 
 		//Contenu Panel SCRU PAPA
 
@@ -79,17 +82,30 @@ public class PanelAction extends JPanel implements ActionListener
 		
 		//Contenu panelPopupDesti
 
-		this.panelPopupPiocheDesti = new JPanel();
+
+
+
+		this.panelPopupPiocheDesti = new JPanel(new GridLayout(2,3));
+		this.cbPiocheDestiDouble = new JCheckBox();
+		this.lblPiocheDestiDouble = new JLabel("Piocher 2 cartes");
 
 		this.alPiocheDesti.toArray(new CarteDestination[this.alPiocheDesti.size()]);
-		
-		for(int i=0; i < 3; i++) {
-			JCheckBox cbTemp = new JCheckBox();
-			cbTemp.setFocusPainted(false);
-			cbTemp.addActionListener(this);
-			this.panelPopupPiocheDesti.add(cbTemp);
-			this.alCheckBoxsDesti.add(cbTemp);
+		this.ddlstPiocheDesti = new JComboBox<CarteDestination>();
+		this.ddlstPiocheDestiDouble = new JComboBox<CarteDestination>();
+
+
+		for(int i = 0; i < 3; i++)
+		{
+			JLabel lblTemp = new JLabel(alPiocheDesti.get( (int)(Math.random() * alPiocheDesti.size()) ).toString());
+			ddlstPiocheDesti.add(lblTemp);
+			ddlstPiocheDestiDouble.add(lblTemp);
 		}
+
+		this.panelPopupPiocheDesti.add(ddlstPiocheDesti);
+		this.panelPopupPiocheDesti.add(cbPiocheDestiDouble);
+		this.panelPopupPiocheDesti.add(lblPiocheDestiDouble);
+		this.panelPopupPiocheDesti.add(ddlstPiocheDestiDouble);
+		
 
 		//Contenu panelPopupPossession
 
@@ -128,8 +144,8 @@ public class PanelAction extends JPanel implements ActionListener
 		// TODO Auto-generated method stub
 
 		if(e.getSource() == this.btnPioche) {
-			int n = JOptionPane.showOptionDialog(this, this.panelPopUpPioche, "Pioche", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-
+			int n = JOptionPane.showConfirmDialog(null, this.panelPopUpPioche, "Pioche", JOptionPane.OK_CANCEL_OPTION);
+			
 			if (n != JOptionPane.OK_OPTION) // Cancel ou croix == annulation
 				return;
 		}
@@ -152,7 +168,7 @@ public class PanelAction extends JPanel implements ActionListener
 			}
 			else
 			{
-				int n = JOptionPane.showOptionDialog(this, this.panelPopupPiocheDesti, "Pioche carte destination", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+				int n = JOptionPane.showConfirmDialog(null, this.panelPopupPiocheDesti, "Pioche", JOptionPane.OK_CANCEL_OPTION);
 
 				if (n != JOptionPane.OK_OPTION) // Cancel ou croix == annulation
 					return;

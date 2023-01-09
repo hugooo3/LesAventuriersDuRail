@@ -2,15 +2,16 @@ package metier;
 
 public class Arete implements Comparable<Arete>{
 	// Un même joueur ne peut pas prendre 2 routes reliant les 2 mêmes villes.
-	private Joueur 	   joueurVoie;
-	private Joueur 	   joueurVoieDouble;
 	private Noeud      noeud1;
 	private Noeud 	   noeud2;
 	private CarteWagon couleur;
 	private CarteWagon couleurVoieDouble;
 	private int		   troncons;
 	private boolean	   voieDouble;
-	private Joueur	   joueurPossedant;
+	private Joueur	   joueurVoieSimple;
+	private Joueur     joueurVoieDouble;
+	private boolean voieSimplePossede = false;
+	private boolean voieDoublePossede = false;
 
 	public Arete(Noeud noeud1, Noeud noeud2, CarteWagon couleur, int troncons,
 			boolean voieDouble, CarteWagon couleurVoieDouble) {
@@ -20,7 +21,8 @@ public class Arete implements Comparable<Arete>{
 		this.troncons		    = troncons;
 		this.voieDouble		    = voieDouble;
 		this.couleurVoieDouble  = couleurVoieDouble;
-		this.joueurPossedant	= null;
+		this.joueurVoieSimple	= null;
+		this.joueurVoieDouble   = null;
 	}
 
 	public Noeud	  getNoeud1() 			  { return this.noeud1; }
@@ -29,9 +31,10 @@ public class Arete implements Comparable<Arete>{
 	public int 	      getTroncons() 		  { return this.troncons; }
 	public boolean	  getVoieDouble() 		  { return this.voieDouble; }
 	public CarteWagon getCouleurDoubleVoie()  { return this.couleurVoieDouble; }
-	public Joueur 	  getJoueurVoie() 		  { return this.joueurVoie; }
-	public Joueur 	  getJoueurVoieDouble()   { return this.joueurVoieDouble; }
-	public Joueur 	  getJoueurPossedant()    { return this.joueurPossedant; }
+	public Joueur     getJoueurVoieSimple()   { return this.joueurVoieSimple; }
+	public Joueur     getJoueurVoieDouble()   { return this.joueurVoieDouble; }
+	public boolean	  getVoieSimplePossede() { return this.voieSimplePossede; }
+	public boolean 	  getVoieDoublePossede() { return this.voieDoublePossede; }
 
 	public void setNoeud1(Noeud noeud1) 						   { this.noeud1 = noeud1; }
 	public void setNoeud2(Noeud noeud2)							   { this.noeud2 = noeud2; }
@@ -39,9 +42,10 @@ public class Arete implements Comparable<Arete>{
 	public void setTroncons(int troncons) 						   { this.troncons = troncons; }
 	public void setVoieDouble(boolean voieDouble) 				   { this.voieDouble = voieDouble; }
 	public void setCouleurDoubleVoie(CarteWagon couleurVoieDouble) { this.couleurVoieDouble = couleurVoieDouble; }
-	public void setJoueurVoie(Joueur joueur) 					   { this.joueurVoie = joueur; }
-	public void setJoueurVoieDouble(Joueur joueur) 				   { this.joueurVoieDouble = joueur; }
-	public Joueur setJoueurPossedant(Joueur joueur) 			   { return this.joueurPossedant = joueur; }
+	public void setJoueurVoieSimple(Joueur joueur) 				   { this.joueurVoieSimple = joueur; }
+	public void setJoueurVoieDouble(Joueur joueur)				   {this.joueurVoieDouble = joueur; }
+	public boolean setVoieSimplePossede() { return this.voieSimplePossede = true; }
+	public boolean setVoieDoublePossede() { return this.voieDoublePossede = true; }
 
 	public String toString() {
 		return noeud1.getNom() + " - " + noeud2.getNom() + " | " + getCouleur() + " | " + this.troncons + " | " +

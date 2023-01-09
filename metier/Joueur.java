@@ -2,6 +2,7 @@ package metier;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.awt.Color;
 
 // Posssesion d'un joueur :
 // - 45 wagon (a placer)
@@ -18,16 +19,19 @@ public class Joueur {
 	private ArrayList<CarteDestination> alCarteDestination;
 	private int score;
 	private boolean estEnJeu;
+	private Color couleur;
+	private int nbWagonJoueur;
 
 	// Possesion d'un joueur
 	private ArrayList<Arete> alAretePossede;
 
-	public Joueur(String nomJoueur, ArrayList<CarteWagon> alCarteWagon) {
+	public Joueur(String nomJoueur, ArrayList<CarteWagon> alCarteWagon, Color couleur) {
 		this.idJoueur = ++nbJoueur;
 		this.nomJoueur = nomJoueur;
 		this.hmWagon = this.initHmWagon(alCarteWagon);
 		this.alCarteDestination = new ArrayList<CarteDestination>();
 		this.score = 0;
+		this.couleur = couleur;
 
 		this.alAretePossede = new ArrayList<Arete>();
 	}
@@ -48,9 +52,11 @@ public class Joueur {
 	public ArrayList<Arete> getAlAretePossede() {return this.alAretePossede;}
 	public HashMap<CarteWagon, Integer> getHmWagon() {return this.hmWagon;}	
 	public ArrayList<CarteDestination> getAlCarteDestination() {return this.alCarteDestination;}
+	public Color getCouleur() {return this.couleur;}
+	public int   getNbWagonJoueur() {return this.nbWagonJoueur;}
 
-	public void setEstEnJeu() {this.estEnJeu = !estEnJeu;}
-	public boolean isEstEnJeu() {return this.estEnJeu;}
+	public void setEstEnJeu(boolean bool) {this.estEnJeu = bool;}
+	public void setNbWagonJoueur (int nbWagonJoueur) {this.nbWagonJoueur = nbWagonJoueur;}
 
 	public void addCarteWagon(CarteWagon carteWagon) { this.hmWagon.put(carteWagon, this.hmWagon.get(carteWagon) + 1);}
 	public void addCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.add(carteDestination);}
@@ -76,7 +82,7 @@ public class Joueur {
 			", hmWagon='" + getHmWagon() + "'" +
 			", alCarteDestination='" + getAlCarteDestination() + "'" +
 			", score='" + getScore() + "'" +
-			", estEnJeu='" + isEstEnJeu() + "'" +
+			", estEnJeu='" + getEstEnJeu() + "'" +
 			", alAretePossede='" + getAlAretePossede() + "'" +
 			"}";
 	}

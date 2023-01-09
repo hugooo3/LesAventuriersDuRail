@@ -36,8 +36,6 @@ public class Metier {
 	public static final Color COULEUR_TURQUOISE_PALE = new Color(175, 238, 238);
 
 
-	
-
 	private static int RADIUS = 20;
 	private String imgMappePath;
 	private String versoCartePath;
@@ -58,6 +56,7 @@ public class Metier {
 	// Jeu
 	private Pioche pioche;
 	private ArrayList<Joueur> alJoueurs;
+	private boolean actionJoueur;
 
 	public Metier(Application app) {	
 		this.alNoeuds = new ArrayList<Noeud>();
@@ -82,6 +81,7 @@ public class Metier {
 
 		// Jeu
 		this.alJoueurs = new ArrayList<Joueur>();
+		this.actionJoueur = false;
 	}
 
 	/***************************/
@@ -107,6 +107,7 @@ public class Metier {
 	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {this.nbJoueurDoubleVoies = nbJoueurDoubleVoies;}
 	public void setNbWagonJoueur(int nbWagonJoueur) {this.nbWagonJoueur = nbWagonJoueur;}
 	public void setNbFin(int nbFin) {this.nbFin = nbFin;}
+	public void setActionJoueur () {this.actionJoueur = true;}
 
 	public void setVersoCarte(String versoCartePath) {
 		this.versoCartePath = versoCartePath;
@@ -263,33 +264,14 @@ public class Metier {
 	/* Méthodes permettant le jeu */
 	/****************************************************************/
 
-	public boolean preparationJeu (ArrayList<Joueur> alJoueur)
-	{
-		// Création de la pioche
-		this.creerPioche();
-
-		//Recuperation de l'arrayList de joueurs
-		this.alJoueurs = alJoueur;
-
-		//Melange des cartes destinations
-		this.pioche.melangerCarteDestination();
-
-		// Initialisation des joueurs
-		for (int i = 0; i < this.alJoueurs.size(); i++) {
-			this.initJoueur(this.alJoueurs.get(i));
-		}
-
-		return true;
-	}
-
-	public Pioche creerPioche() {
+	private Pioche creerPioche() {
 		// Création de la pioche
 		this.pioche = new Pioche(this.alCartesWagon, this.alCartesDestination);
 
 		return pioche;
 	}
 
-	public boolean initJoueur(Joueur joueur) {
+	private boolean initJoueur(Joueur joueur) {
 
 		/* Initialisation de la main du joueur */
 
@@ -312,7 +294,69 @@ public class Metier {
 		return true;
 	}
 
-	public void calculScoreFin() {
+	public boolean preparationJeu (ArrayList<Joueur> alJoueur)
+	{
+		// Création de la pioche
+		this.creerPioche();
+
+		// Recuperation de l'arrayList de joueurs
+		this.alJoueurs = alJoueur;
+
+		// Melange des cartes destinations
+		this.pioche.melangerCarteDestination();
+
+		// Initialisation des joueurs
+		for (int i = 0; i < this.alJoueurs.size(); i++) {
+			this.initJoueur(this.alJoueurs.get(i));
+		}
+
+		// Choix aléatoire du premier joueur
+		this.alJoueurs.get((int)(Math.random() * this.alJoueurs.size())).setEstEnJeu(true);
+
+		return true;
+	}
+
+	public void Jeu(String actionJoueur) {
+		Joueur joueurEnJeu = this.getJoueurEnJeu();
+		System.out.println("Joueur " + joueurEnJeu.getNomJoueur() + " fait " + actionJoueur);
+
+		// Prochain joueur
+		joueurEnJeu.setEstEnJeu(false);
+		this.actionJoueur = false;
+		this.alJoueurs.get((this.alJoueurs.indexOf(joueurEnJeu) + 1) % this.alJoueurs.size()).setEstEnJeu(true);
+
+		System.out.println("Prochain joueur " + this.alJoueurs.get((this.alJoueurs.indexOf(joueurEnJeu) + 1) % this.alJoueurs.size()).getNomJoueur());
+
+		if (finJeu()) { System.out.println("Fin du jeu");}
+	}
+
+	private boolean finJeu() {
+		int tronconsMin = 100;
+
+		for (Arete arete : this.alAretes) {
+			if (!arete.getVoieSimplePossede() && !arete.getVoieDoublePossede())
+			{
+				if (tronconsMin > arete.getTroncons())
+				{
+					tronconsMin = arete.getTroncons();
+				}
+			}
+		}
+
+		int nbWagonJoueurMin = 100;
+
+		for (Joueur joueur : this.alJoueurs) {
+			if (nbWagonJoueurMin > joueur.getNbWagonJoueur())
+			{
+				nbWagonJoueurMin = joueur.getNbWagonJoueur();
+			}
+		}
+ 
+		if (tronconsMin > nbWagonJoueurMin) { return true;}
+		return false;
+	}
+
+	private void calculScoreFin() {
 		// Calcul du score
 		for (Joueur joueur : this.alJoueurs) {
 			int score = 0;
@@ -343,6 +387,15 @@ public class Metier {
 			}
 			joueur.addScore(score);
 		}
+	}
+
+	public Joueur getJoueurEnJeu () {
+		for (Joueur joueur : this.alJoueurs) {
+			if (joueur.getEstEnJeu()) {
+				return joueur;
+			}
+		}
+		return null;
 	}
 
 	/****************************************************************/

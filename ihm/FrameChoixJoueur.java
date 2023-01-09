@@ -56,9 +56,14 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 	private JLabel lblPathXML;
 
 	public FrameChoixJoueur(Application appli) {
-		this.alCouleur = new ArrayList<Color>();
+		this.alCouleur = new ArrayList<Color>();/* 
 		this.alCouleur.add(new Color(246, 70, 70));
 		this.alCouleur.add(new Color(70, 238, 246));
+		this.alCouleur.add(new Color(246, 171, 70));
+		this.alCouleur.add(new Color(70, 246, 89));
+		this.alCouleur.add(new Color(246, 70, 241)); */
+		this.alCouleur.add(new Color(255, 0, 0));
+		this.alCouleur.add(new Color(0, 243, 255));
 		this.alCouleur.add(new Color(246, 171, 70));
 		this.alCouleur.add(new Color(70, 246, 89));
 		this.alCouleur.add(new Color(246, 70, 241));
@@ -211,11 +216,11 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		if(e.getSource() == this.btnJouer) {
 			boolean estValide = true;
 
-			if(!this.cbJeuSolo.isSelected()) {
+			if(!this.cbJeuSolo.isSelected()) { // Si le jeu est en multi
 				for(int i=0; i < this.nbJoueur; i++) {
 					if(this.alTxtJoueur.get(i).getText() != null && !this.alTxtJoueur.get(i).getText().equals("") && estValide) {
 						estValide = true;
-						this.alJoueurs.add(new Joueur(this.alTxtJoueur.get(i).getText(), this.appli.getMetier().getAlCartesWagon()));
+						this.alJoueurs.add(new Joueur(this.alTxtJoueur.get(i).getText(), this.appli.getMetier().getAlCartesWagon(), this.alCouleur.get(i)));
 					}
 					else {
 						estValide = false;
@@ -226,13 +231,13 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 				}
 
 				if(this.alJoueurs.size() == this.nbJoueur) {
-					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, this.nbJoueur, this.alJoueurs, this.alCouleur);
+					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, this.nbJoueur, this.alJoueurs);
 					this.dispose();
 				}
-			} else {
+			} else { // Si le jeu est en solo
 				if(this.txtJoueurSolo.getText() != null && !this.txtJoueurSolo.getText().equals("")) {
-					this.alJoueurs.add(new Joueur(this.txtJoueurSolo.getText(), this.appli.getMetier().getAlCartesWagon()));
-					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, 1, this.alJoueurs, this.alCouleur);
+					this.alJoueurs.add(new Joueur(this.txtJoueurSolo.getText(), this.appli.getMetier().getAlCartesWagon(), this.alCouleur.get(0)));
+					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, 1, this.alJoueurs);
 					System.out.println(this.frameJeu);
 					this.dispose();
 				}
@@ -308,7 +313,6 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 					this.alTxtJoueur.get(i).setEnabled(false);
 				}
 				this.nbJoueur = (int) this.cbNbJoueur.getSelectedItem();
-				System.out.println(this.cbNbJoueur.getItemCount());
 
 				for(int i=0; i < this.nbJoueur; i++) {
 					this.alLblJoueur.get(i).setEnabled(true);

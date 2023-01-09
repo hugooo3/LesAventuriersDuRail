@@ -25,18 +25,16 @@ public class FrameJeu extends JFrame {
 
 	private ArrayList<Joueur> alJoueur;
 	private ArrayList<Joueur> alJoueursMetier;
-	private final ArrayList<Color> alCouleur;
 
 	private PanelMappeJeu panelMappeJeu;
 	private PanelOngletJoueur panelOngletJoueur;
 	private PanelAction panelAction;
 
-	public FrameJeu(Application appli, File mappeXML, int nbJoueurs, ArrayList<Joueur> alJoueurs, ArrayList<Color> alCouleur) {
+	public FrameJeu(Application appli, File mappeXML, int nbJoueurs, ArrayList<Joueur> alJoueurs) {
 		this.appli = appli;
 		this.mappeXML = mappeXML;
 		this.nbJoueurs = nbJoueurs;
 		this.alJoueur = alJoueurs;
-		this.alCouleur = alCouleur;
 
 
 		// Construction de la Frame
@@ -61,7 +59,7 @@ public class FrameJeu extends JFrame {
 		this.alJoueursMetier = this.getLstJoueurMetier();
 		
 
-		this.panelMappeJeu = new PanelMappeJeu(this, (int) (largeur*0.7), hauteur, this.alCouleur);
+		this.panelMappeJeu = new PanelMappeJeu(this, (int) (largeur*0.7), hauteur);
 		this.setImgMappe(this.appli.getMetier().getImgMappe());
 		this.panelOngletJoueur = new PanelOngletJoueur(this, (int) (largeur*0.15), hauteur, this.nbJoueurs, this.alJoueursMetier);
 		this.panelAction = new PanelAction(this, (int) (largeur*0.15), hauteur);
@@ -71,6 +69,17 @@ public class FrameJeu extends JFrame {
 		this.add(this.panelAction, BorderLayout.EAST);
 
 		this.setVisible(true);
+
+		/*TEMP */
+		ArrayList<Arete> alArete = this.appli.getMetier().getAlAretes();
+		alArete.get(0).setJoueurVoieSimple(this.alJoueur.get(1));
+		alArete.get(0).setJoueurVoieDouble(this.alJoueur.get(0));
+		alArete.get(1).setJoueurVoieSimple(this.alJoueur.get(1));
+		alArete.get(2).setJoueurVoieSimple(this.alJoueur.get(1));
+		alArete.get(3).setJoueurVoieSimple(this.alJoueur.get(1));
+		alArete.get(4).setJoueurVoieDouble(this.alJoueur.get(0));
+		alArete.get(5).setJoueurVoieSimple(this.alJoueur.get(1));
+		alArete.get(6).setJoueurVoieSimple(this.alJoueur.get(1));
 	}
 
 	public Metier getMetier() { return this.appli.getMetier(); }
