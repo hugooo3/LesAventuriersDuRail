@@ -279,7 +279,9 @@ public class Metier {
 
 	public boolean initJoueur(Joueur joueur) {
 
-		// Initialisation de la main du joueur
+		/* Initialisation de la main du joueur */
+
+		// Carte wagon
 		for (int i = 0; i < 4; i++) {
 			int r = 0;
 
@@ -289,6 +291,20 @@ public class Metier {
 			} while (!this.alCartesWagon.get(r).removeNbCarteWagon(1));
 			joueur.addCarteWagon(this.alCartesWagon.get(r));
 		}
+
+		//Carte destination
+		// Verification qu'il y a assez de cartes destinations et répartition équitable
+		int equite = this.pioche.sizeCarteDestination()/this.alJoueurs.size();
+		if (equite > 2) {
+			equite = 2;
+		}
+		/*
+		for (int i = 0; i < equite; i++) {
+			int r = 0;
+
+
+		}
+		*/
 
 		return true;
 	}

@@ -27,23 +27,9 @@ public class Pioche {
 	public void removeCarteWagonDefausse(CarteWagon carteWagon)                   { this.alCarteWagonDefausse.remove(carteWagon);             }
 	public void removeCarteDestinationDefausse(CarteDestination carteDestination) { this.alCarteDestinationDefausse.remove(carteDestination); }
 
-	/* Je le mets en commentaire car il a peut être une utilité (si on veut rajouter des truc au milieu peut être) mais y'a plus simple
-	public void melangerCarteDestination() 
-	{ 
-		ArrayList<CarteDestination> alCarteDestinationTemp = new ArrayList<CarteDestination>();
-		for (CarteDestination carteDestination : this.alCarteDestination) {
-			alCarteDestinationTemp.add(carteDestination);
-		}
-			
-		this.alCarteDestination.clear();
+	public int sizeCarteWagon()       { return this.alCarteWagon.size();       }
+	public int sizeCarteDestination() { return this.alCarteDestination.size(); }
 
-		while (alCarteDestinationTemp.size() > 0) {
-			int i = (int) (Math.random() * alCarteDestinationTemp.size());
-			this.alCarteDestination.add(alCarteDestinationTemp.get(i));
-			alCarteDestinationTemp.remove(i);
-		}
-	}*/
-	// Mélangement des cartes de destination avec la méthode shuffle de la classe Collections
 	public void melangerCarteDestination() {Collections.shuffle(alCarteDestination);}
 
 }
