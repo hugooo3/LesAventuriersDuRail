@@ -7,6 +7,7 @@ import javax.swing.*;
 
 import java.awt.*;
 import java.util.ArrayList;
+import java.awt.Color;
 
 public class PanelMappeJeu extends JPanel 
 {
@@ -16,12 +17,15 @@ public class PanelMappeJeu extends JPanel
 	private int largeur;
 	private int hauteur;
 
+	private final ArrayList<Color> alCouleur;
+
 	public ArrayList<Noeud> alNoeud;
 
-	public PanelMappeJeu(FrameJeu jeu, int largeur, int hauteur) {
+	public PanelMappeJeu(FrameJeu jeu, int largeur, int hauteur, ArrayList<Color> alCouleur) {
 		this.jeu = jeu;
 		this.largeur = largeur;
 		this.hauteur = hauteur;
+		this.alCouleur = alCouleur;
 
 		this.alNoeud = this.jeu.getMetier().getAlNoeuds();
 
@@ -58,6 +62,18 @@ public class PanelMappeJeu extends JPanel
 
 			Color couleurVoieSimple = arete.getCouleur().getCouleur();
 			Color couleurVoieDouble = (arete.getCouleurDoubleVoie() != null ? arete.getCouleurDoubleVoie().getCouleur() : null);
+
+			if (arete.getJoueurPossedant() != null)
+			{
+				// Interieur de la voie
+				//g2d.setColor(arete.getJoueurPossedant().get);
+				g2d.fill(this.creerRectangle(x1, y1, x2, y2, rayon));
+				g2d.setStroke(new BasicStroke(3));
+				// Exterieur de la voie
+				g2d.setColor(couleurVoieSimple.getRGB() != Color.BLACK.getRGB() ? Color.BLACK : Color.GRAY);
+				g2d.draw(this.creerRectangle(x1, y1, x2, y2, rayon));
+			}
+
 			for (int i = 0; i < troncons; i++)
 			{
 				int x3 = (int) (x1 + (x2 - x1) / (troncons - i));
@@ -84,11 +100,11 @@ public class PanelMappeJeu extends JPanel
 				{
 					// Interieur de la voie
 					g2d.setColor(couleurVoieSimple);
-					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon));
+					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon - 5));
 					g2d.setStroke(new BasicStroke(3));
 					// Exterieur de la voie
 					g2d.setColor(couleurVoieSimple.getRGB() != Color.BLACK.getRGB() ? Color.BLACK : Color.GRAY);
-					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon));
+					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon - 5));
 				}
 				x1 = x3;
 				y1 = y3;

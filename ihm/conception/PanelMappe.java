@@ -152,7 +152,7 @@ public class PanelMappe extends JPanel {
 					g2d.fill(this.creerRectangle(x1, y1, x3, y3, 0));
 					// Exterieur de la voie simple
 					g2d.setColor(couleurVoieDouble);
-					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon ));
+					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon));
 
 					g2d.setStroke(new BasicStroke(3));
 					// Interieur de la voie double
@@ -166,11 +166,11 @@ public class PanelMappe extends JPanel {
 				{
 					// Interieur de la voie
 					g2d.setColor(couleurVoieSimple);
-					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon));
+					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon - 5));
 					g2d.setStroke(new BasicStroke(3));
 					// Exterieur de la voie
 					g2d.setColor(couleurVoieSimple.getRGB() != Color.BLACK.getRGB() ? Color.BLACK : Color.GRAY);
-					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon));
+					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon - 5));
 				}
 				x1 = x3;
 				y1 = y3;

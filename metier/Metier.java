@@ -1,6 +1,7 @@
 package metier;
 
 import javax.imageio.ImageIO;
+import javax.swing.plaf.ColorUIResource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -23,6 +24,20 @@ import java.util.Base64;
 import java.util.Comparator;
 
 public class Metier {
+	// Constantes Couleurs pâles
+	public static final Color COULEUR_GRIS_PALE      = new Color(196, 196, 196);
+	public static final Color COULEUR_BLEU_PALE      = new Color(128, 128, 255);
+	public static final Color COULEUR_JAUNE_PALE     = new Color(255, 255, 128);
+	public static final Color COULEUR_NOIR_PALE      = new Color(128, 128, 128);
+	public static final Color COULEUR_ORANGE_PALE    = new Color(255, 196, 128);
+	public static final Color COULEUR_ROUGE_PALE     = new Color(255, 128, 128);
+	public static final Color COULEUR_VERT_PALE      = new Color(128, 255, 128);
+	public static final Color COULEUR_MAGENTA_PALE   = new Color(255, 128, 255);
+	public static final Color COULEUR_TURQUOISE_PALE = new Color(175, 238, 238);
+
+
+	
+
 	private static int RADIUS = 20;
 	private String imgMappePath;
 	private String versoCartePath;
@@ -39,6 +54,7 @@ public class Metier {
 	private int nbWagonJoueur;
 	private int nbFin;
 
+
 	// Jeu
 	private Pioche pioche;
 	private ArrayList<Joueur> alJoueurs;
@@ -53,16 +69,16 @@ public class Metier {
 		this.versoCartePath = "/images/ArriereCarte.png";
 		this.imgMappePath = "/images/carteUSA.png"; // Affichage dans la menuBar
 
-		this.alCartesWagon.add(new CarteWagon("Neutre", Color.GRAY, (String)null, (String)null, 20));
-		this.alCartesWagon.add(new CarteWagon("Blanc", Color.WHITE, "/images/carteBlanche.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Bleu", Color.BLUE, "/images/carteBleu.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Jaune", Color.YELLOW, "/images/carteJaune.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Noire", Color.BLACK, "/images/carteNoire.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Orange", Color.ORANGE, "/images/carteOrange.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Rouge", Color.RED, "/images/carteRouge.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Verte", Color.GREEN, "/images/carteVerte.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Violet", Color.MAGENTA, "/images/carteViolet.png", this.versoCartePath, 20));
-		this.alCartesWagon.add(new CarteWagon("Joker", Color.PINK, "/images/carteJoker.png", this.versoCartePath, 20));
+		this.alCartesWagon.add(new CarteWagon("Neutre", COULEUR_GRIS_PALE		, (String)null								, (String)null			,  0));
+		this.alCartesWagon.add(new CarteWagon("Blanc" , Color.WHITE				, "/images/carteBlanche.png"	, this.versoCartePath	, 12));
+		this.alCartesWagon.add(new CarteWagon("Bleu"  , COULEUR_BLEU_PALE		, "/images/carteBleu.png"		, this.versoCartePath	, 12));
+		this.alCartesWagon.add(new CarteWagon("Jaune" , COULEUR_JAUNE_PALE		, "/images/carteJaune.png"	, this.versoCartePath	, 12));
+		this.alCartesWagon.add(new CarteWagon("Noir"  , COULEUR_NOIR_PALE		, "/images/carteNoir.png"		, this.versoCartePath	, 12));
+		this.alCartesWagon.add(new CarteWagon("Orange", COULEUR_ORANGE_PALE		, "/images/carteOrange.png"	, this.versoCartePath	, 12));
+		this.alCartesWagon.add(new CarteWagon("Rouge" , COULEUR_ROUGE_PALE		, "/images/carteRouge.png"	, this.versoCartePath	, 12));
+		this.alCartesWagon.add(new CarteWagon("Verte" , COULEUR_VERT_PALE		, "/images/carteVerte.png"	, this.versoCartePath	, 12));
+		this.alCartesWagon.add(new CarteWagon("Violet", COULEUR_MAGENTA_PALE	, "/images/carteViolet.png"	, this.versoCartePath	, 12));
+		this.alCartesWagon.add(new CarteWagon("Joker" , COULEUR_TURQUOISE_PALE	, "/images/carteJoker.png"	, this.versoCartePath	, 14));
 
 		// Jeu
 		this.alJoueurs = new ArrayList<Joueur>();

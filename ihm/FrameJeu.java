@@ -8,6 +8,7 @@ import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -24,16 +25,18 @@ public class FrameJeu extends JFrame {
 
 	private ArrayList<Joueur> alJoueur;
 	private ArrayList<Joueur> alJoueursMetier;
+	private final ArrayList<Color> alCouleur;
 
 	private PanelMappeJeu panelMappeJeu;
 	private PanelOngletJoueur panelOngletJoueur;
 	private PanelAction panelAction;
 
-	public FrameJeu(Application appli, File mappeXML, int nbJoueurs, ArrayList<Joueur> alJoueurs) {
+	public FrameJeu(Application appli, File mappeXML, int nbJoueurs, ArrayList<Joueur> alJoueurs, ArrayList<Color> alCouleur) {
 		this.appli = appli;
 		this.mappeXML = mappeXML;
 		this.nbJoueurs = nbJoueurs;
 		this.alJoueur = alJoueurs;
+		this.alCouleur = alCouleur;
 
 
 		// Construction de la Frame
@@ -58,7 +61,7 @@ public class FrameJeu extends JFrame {
 		this.alJoueursMetier = this.getLstJoueurMetier();
 		
 
-		this.panelMappeJeu = new PanelMappeJeu(this, (int) (largeur*0.7), hauteur);
+		this.panelMappeJeu = new PanelMappeJeu(this, (int) (largeur*0.7), hauteur, this.alCouleur);
 		this.setImgMappe(this.appli.getMetier().getImgMappe());
 		this.panelOngletJoueur = new PanelOngletJoueur(this, (int) (largeur*0.15), hauteur, this.nbJoueurs, this.alJoueursMetier);
 		this.panelAction = new PanelAction(this, (int) (largeur*0.15), hauteur);

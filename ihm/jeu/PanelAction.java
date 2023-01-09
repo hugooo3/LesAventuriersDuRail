@@ -50,19 +50,19 @@ public class PanelAction extends JPanel implements ActionListener
 		this.btnPioche = new JButton("Pioche");
 		this.btnPioche.setFocusPainted(false);
 		this.btnPioche.addActionListener(this);
-		this.btnPioche.setBounds(this.largeur/2 -100, 0, 200, 50);
+		this.btnPioche.setBounds(this.largeur/2 -100, this.hauteur/4 -50, 200, 50);
 		this.add(this.btnPioche);
 		
 		this.btnPossessionRoute = new JButton("Possession de route");
 		this.btnPossessionRoute.setFocusPainted(false);
 		this.btnPossessionRoute.addActionListener(this);
-		this.btnPossessionRoute.setBounds(this.largeur/2 -100, 100, 200, 50);
+		this.btnPossessionRoute.setBounds(this.largeur/2 -100, this.hauteur/2 -50, 200, 50);
 		this.add(this.btnPossessionRoute);
 
 		this.btnPiocheDesti = new JButton("Pioche de destination");
 		this.btnPiocheDesti.setFocusPainted(false);
 		this.btnPiocheDesti.addActionListener(this);
-		this.btnPiocheDesti.setBounds(this.largeur/2 -100, 200, 200, 50);
+		this.btnPiocheDesti.setBounds(this.largeur/2 -100, (int)(this.hauteur*0.75) -50, 200, 50);
 		this.add(this.btnPiocheDesti);
 
 		this.alAretesPossession = frameJeu.getMetier().getAlAretes();
@@ -149,6 +149,13 @@ public class PanelAction extends JPanel implements ActionListener
 		if(e.getSource() == this.btnPiocheDesti) {
 			if(alPiocheDesti == null){
 				JOptionPane.showMessageDialog(null, "Il n'y a pas de carte destination dans la pioche ", "Erreur",JOptionPane.ERROR_MESSAGE);
+			}
+			else
+			{
+				int n = JOptionPane.showOptionDialog(this, this.panelPopupPiocheDesti, "Pioche carte destination", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+				if (n != JOptionPane.OK_OPTION) // Cancel ou croix == annulation
+					return;
 			}
 		}
 

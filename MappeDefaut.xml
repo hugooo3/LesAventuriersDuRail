@@ -245,7 +245,7 @@
 	<arete>
 		<noeud1>Los Angeles</noeud1>
 		<noeud2>El paso</noeud2>
-		<couleur>Noire</couleur>
+		<couleur>Noir</couleur>
 		<troncons>6</troncons>
 		<voieDouble>false</voieDouble>
 		<couleurVoieDouble>null</couleurVoieDouble>
@@ -365,7 +365,7 @@
 	<arete>
 		<noeud1>Winnipec</noeud1>
 		<noeud2>Duluth</noeud2>
-		<couleur>Noire</couleur>
+		<couleur>Noir</couleur>
 		<troncons>4</troncons>
 		<voieDouble>false</voieDouble>
 		<couleurVoieDouble>null</couleurVoieDouble>
@@ -456,12 +456,12 @@
 		<couleur>Orange</couleur>
 		<troncons>4</troncons>
 		<voieDouble>true</voieDouble>
-		<couleurVoieDouble>Noire</couleurVoieDouble>
+		<couleurVoieDouble>Noir</couleurVoieDouble>
 	</arete>
 	<arete>
 		<noeud1>Sault St. Marie</noeud1>
 		<noeud2>Montréal</noeud2>
-		<couleur>Noire</couleur>
+		<couleur>Noir</couleur>
 		<troncons>5</troncons>
 		<voieDouble>false</voieDouble>
 		<couleurVoieDouble>null</couleurVoieDouble>
@@ -509,7 +509,7 @@
 	<arete>
 		<noeud1>New York</noeud1>
 		<noeud2>Washington</noeud2>
-		<couleur>Noire</couleur>
+		<couleur>Noir</couleur>
 		<troncons>2</troncons>
 		<voieDouble>true</voieDouble>
 		<couleurVoieDouble>Orange</couleurVoieDouble>
@@ -629,7 +629,7 @@
 	<arete>
 		<noeud1>Raleigh</noeud1>
 		<noeud2>Nashville</noeud2>
-		<couleur>Noire</couleur>
+		<couleur>Noir</couleur>
 		<troncons>3</troncons>
 		<voieDouble>false</voieDouble>
 		<couleurVoieDouble>null</couleurVoieDouble>
@@ -645,7 +645,7 @@
 	<arete>
 		<noeud1>Raleigh</noeud1>
 		<noeud2>Atlanta</noeud2>
-		<couleur>Noire</couleur>
+		<couleur>Noir</couleur>
 		<troncons>2</troncons>
 		<voieDouble>true</voieDouble>
 		<couleurVoieDouble>Neutre</couleurVoieDouble>
@@ -677,7 +677,7 @@
 	<arete>
 		<noeud1>Atlanta</noeud1>
 		<noeud2>Miami</noeud2>
-		<couleur>Noire</couleur>
+		<couleur>Noir</couleur>
 		<troncons>5</troncons>
 		<voieDouble>false</voieDouble>
 		<couleurVoieDouble>null</couleurVoieDouble>
@@ -741,7 +741,7 @@
 	<arete>
 		<noeud1>Oklahoma City</noeud1>
 		<noeud2>Little Rock</noeud2>
-		<couleur>Noire</couleur>
+		<couleur>Noir</couleur>
 		<troncons>2</troncons>
 		<voieDouble>false</voieDouble>
 		<couleurVoieDouble>null</couleurVoieDouble>
@@ -862,72 +862,72 @@
 	</carteDestination>
 	<carteWagon>
 		<nomCouleur>Neutre</nomCouleur>
-		<couleur>-8355712</couleur>
+		<couleur>-3881788</couleur>
 		<imgRectoPath></imgRectoPath>
 		<imgVersoPath></imgVersoPath>
-		<nbCarteWagon>20</nbCarteWagon>
+		<nbCarteWagon>12</nbCarteWagon>
 	</carteWagon>
 	<carteWagon>
 		<nomCouleur>Blanc</nomCouleur>
 		<couleur>-1</couleur>
 		<imgRectoPath>/images/carteBlanche.png</imgRectoPath>
 		<imgVersoPath>/images/ArriereCarte.png</imgVersoPath>
-		<nbCarteWagon>20</nbCarteWagon>
+		<nbCarteWagon>12</nbCarteWagon>
 	</carteWagon>
 	<carteWagon>
 		<nomCouleur>Bleu</nomCouleur>
-		<couleur>-16776961</couleur>
+		<couleur>-8355585</couleur>
 		<imgRectoPath>/images/carteBleu.png</imgRectoPath>
 		<imgVersoPath>/images/ArriereCarte.png</imgVersoPath>
-		<nbCarteWagon>20</nbCarteWagon>
+		<nbCarteWagon>12</nbCarteWagon>
 	</carteWagon>
 	<carteWagon>
 		<nomCouleur>Jaune</nomCouleur>
-		<couleur>-256</couleur>
+		<couleur>-128</couleur>
 		<imgRectoPath>/images/carteJaune.png</imgRectoPath>
 		<imgVersoPath>/images/ArriereCarte.png</imgVersoPath>
-		<nbCarteWagon>20</nbCarteWagon>
+		<nbCarteWagon>12</nbCarteWagon>
 	</carteWagon>
 	<carteWagon>
-		<nomCouleur>Noire</nomCouleur>
-		<couleur>-16777216</couleur>
-		<imgRectoPath>/images/carteNoire.png</imgRectoPath>
+		<nomCouleur>Noir</nomCouleur>
+		<couleur>-8355712</couleur>
+		<imgRectoPath>/images/carteNoir.png</imgRectoPath>
 		<imgVersoPath>/images/ArriereCarte.png</imgVersoPath>
-		<nbCarteWagon>20</nbCarteWagon>
+		<nbCarteWagon>12</nbCarteWagon>
 	</carteWagon>
 	<carteWagon>
 		<nomCouleur>Orange</nomCouleur>
-		<couleur>-14336</couleur>
+		<couleur>-15232</couleur>
 		<imgRectoPath>/images/carteOrange.png</imgRectoPath>
 		<imgVersoPath>/images/ArriereCarte.png</imgVersoPath>
-		<nbCarteWagon>20</nbCarteWagon>
+		<nbCarteWagon>12</nbCarteWagon>
 	</carteWagon>
 	<carteWagon>
 		<nomCouleur>Rouge</nomCouleur>
-		<couleur>-65536</couleur>
+		<couleur>-32640</couleur>
 		<imgRectoPath>/images/carteRouge.png</imgRectoPath>
 		<imgVersoPath>/images/ArriereCarte.png</imgVersoPath>
-		<nbCarteWagon>20</nbCarteWagon>
+		<nbCarteWagon>12</nbCarteWagon>
 	</carteWagon>
 	<carteWagon>
 		<nomCouleur>Verte</nomCouleur>
-		<couleur>-16711936</couleur>
+		<couleur>-8323200</couleur>
 		<imgRectoPath>/images/carteVerte.png</imgRectoPath>
 		<imgVersoPath>/images/ArriereCarte.png</imgVersoPath>
-		<nbCarteWagon>20</nbCarteWagon>
+		<nbCarteWagon>12</nbCarteWagon>
 	</carteWagon>
 	<carteWagon>
 		<nomCouleur>Violet</nomCouleur>
-		<couleur>-65281</couleur>
+		<couleur>-32513</couleur>
 		<imgRectoPath>/images/carteViolet.png</imgRectoPath>
 		<imgVersoPath>/images/ArriereCarte.png</imgVersoPath>
-		<nbCarteWagon>20</nbCarteWagon>
+		<nbCarteWagon>12</nbCarteWagon>
 	</carteWagon>
 	<carteWagon>
 		<nomCouleur>Joker</nomCouleur>
-		<couleur>-20561</couleur>
+		<couleur>-5247250</couleur>
 		<imgRectoPath>/images/carteJoker.png</imgRectoPath>
 		<imgVersoPath>/images/ArriereCarte.png</imgVersoPath>
-		<nbCarteWagon>20</nbCarteWagon>
+		<nbCarteWagon>14</nbCarteWagon>
 	</carteWagon>
 </liste>

@@ -47,6 +47,8 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 	private JLabel lblJoueurSolo;
 	private JLabel lblNbJoueur;
 
+	private final ArrayList<Color> alCouleur;
+
 	private ArrayList<JTextField> alTxtJoueur;
 	private ArrayList<JLabel> alLblJoueur;
 	private ArrayList<Joueur> alJoueurs;
@@ -54,6 +56,13 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 	private JLabel lblPathXML;
 
 	public FrameChoixJoueur(Application appli) {
+		this.alCouleur = new ArrayList<Color>();
+		this.alCouleur.add(new Color(246, 70, 70));
+		this.alCouleur.add(new Color(70, 238, 246));
+		this.alCouleur.add(new Color(246, 171, 70));
+		this.alCouleur.add(new Color(70, 246, 89));
+		this.alCouleur.add(new Color(246, 70, 241));
+
 		this.appli = appli;
 		this.alJoueurs = new ArrayList<Joueur>();
 
@@ -135,6 +144,12 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		this.panelCreationJoueurs.add(this.txtJoueurSolo);
 		this.txtJoueurSolo.setBounds(this.largeur/2 - 250, 50, 150, 30);
 
+		JTextField txtCouleurSolo = new JTextField();
+		txtCouleurSolo.setEnabled(false);
+		txtCouleurSolo.setBackground(this.alCouleur.get(0));
+		txtCouleurSolo.setBounds(this.largeur/2 - 95, 50, 30, 30); 
+		this.panelCreationJoueurs.add(txtCouleurSolo);
+
 		this.alLblJoueur = new ArrayList<JLabel>();
 		this.alTxtJoueur = new ArrayList<JTextField>();
 		for(int i=0; i < 5; i++) {
@@ -146,6 +161,13 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 			txtJoueur.setEnabled(false);
 			this.panelCreationJoueurs.add(txtJoueur);
 			txtJoueur.setBounds(this.largeur/2 - 250, 130 + i*50, 150, 30);
+
+			JTextField txtCouleur = new JTextField();
+			txtCouleur.setEnabled(false);
+			txtCouleur.setBounds(this.largeur/2 - 95, 130 + i*50, 30, 30);
+			txtCouleur.setBackground(this.alCouleur.get(i));
+			
+			this.panelCreationJoueurs.add(txtCouleur);
 
 			this.alLblJoueur.add(lblJoueur);
 			this.alTxtJoueur.add(txtJoueur);
@@ -204,13 +226,13 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 				}
 
 				if(this.alJoueurs.size() == this.nbJoueur) {
-					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, this.nbJoueur, this.alJoueurs);
+					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, this.nbJoueur, this.alJoueurs, this.alCouleur);
 					this.dispose();
 				}
 			} else {
 				if(this.txtJoueurSolo.getText() != null && !this.txtJoueurSolo.getText().equals("")) {
 					this.alJoueurs.add(new Joueur(this.txtJoueurSolo.getText(), this.appli.getMetier().getAlCartesWagon()));
-					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, 1, this.alJoueurs);
+					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, 1, this.alJoueurs, this.alCouleur);
 					System.out.println(this.frameJeu);
 					this.dispose();
 				}
