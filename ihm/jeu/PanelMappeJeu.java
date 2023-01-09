@@ -129,7 +129,7 @@ public class PanelMappeJeu extends JPanel
 
 		// Calcul de la longueur de chaque coté du rectangle
 		double longueur = Math.sqrt((x1 - x2) * (x1 - x2) + (y1 - y2) * (y1 - y2));
-		double largeur = 10;
+		double largeur = 15;
 		// Calcul des coordonnées des différents points du rectangle
 		int x3 = (int) (x1 + longueur * Math.cos(angle));
 		int y3 = (int) (y1 + longueur * Math.sin(angle));
