@@ -22,7 +22,8 @@ public class FrameJeu extends JFrame {
 
 	private File mappeXML;
 
-	private ArrayList<Joueur> lstJoueur;
+	private ArrayList<Joueur> alJoueur;
+	private ArrayList<Joueur> alJoueursMetier;
 
 	private PanelMappeJeu panelMappeJeu;
 	private PanelOngletJoueur panelOngletJoueur;
@@ -32,7 +33,7 @@ public class FrameJeu extends JFrame {
 		this.appli = appli;
 		this.mappeXML = mappeXML;
 		this.nbJoueurs = nbJoueurs;
-		this.lstJoueur = alJoueurs;
+		this.alJoueur = alJoueurs;
 
 
 		// Construction de la Frame
@@ -52,21 +53,26 @@ public class FrameJeu extends JFrame {
 		this.largeur = (int) this.getSize().getWidth();
 
 		// Construction des panels
+
+		this.preparationJeu(this.alJoueur);
+		this.alJoueursMetier = this.getLstJoueurMetier();
+		
+
 		this.panelMappeJeu = new PanelMappeJeu(this, (int) (largeur*0.7), hauteur);
 		this.setImgMappe(this.appli.getMetier().getImgMappe());
-		this.panelOngletJoueur = new PanelOngletJoueur(this, (int) (largeur*0.15), hauteur, this.nbJoueurs, this.lstJoueur);
-		this.panelAction = new PanelAction(this, (int) (largeur*0.15), hauteur);
+		this.panelOngletJoueur = new PanelOngletJoueur(this, (int) (largeur*0.15), hauteur, this.nbJoueurs, this.alJoueursMetier);
+		//this.panelAction = new PanelAction(this, (int) (largeur*0.15), hauteur);
 
 		this.add(this.panelOngletJoueur, BorderLayout.WEST);
 		this.add(this.panelMappeJeu, BorderLayout.CENTER);
-		this.add(this.panelAction, BorderLayout.EAST);
+		//this.add(this.panelAction, BorderLayout.EAST);
 
 		this.setVisible(true);
 	}
 
 	public Metier getMetier() { return this.appli.getMetier(); }
 	public File getMappeXML() { return this.mappeXML; }
-	public ArrayList<Joueur> getLstJoueur() { return this.lstJoueur; }
+	public ArrayList<Joueur> getAlJoueur() { return this.alJoueur; }
 
 	public void majIHM() {}
 
@@ -83,5 +89,6 @@ public class FrameJeu extends JFrame {
 		}
 	}
 
-	public boolean preparationJeu() { return this.appli.preparationJeu(); }
+	public ArrayList<Joueur> getLstJoueurMetier() {return this.appli.getLstJoueurMetier();}
+	public boolean preparationJeu(ArrayList<Joueur> lstJoueur) { return this.appli.preparationJeu(lstJoueur); }
 }

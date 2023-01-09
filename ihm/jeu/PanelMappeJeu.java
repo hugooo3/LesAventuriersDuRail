@@ -40,7 +40,7 @@ public class PanelMappeJeu extends JPanel
 		super.paintComponent(g);
 
 		Graphics2D g2d = (Graphics2D) g;
-		g2d.drawImage(this.img, 1, 1, (int) this.getSize().getWidth() - 2, (int) this.getSize().getHeight() - 2, this);
+		g2d.drawImage(this.img, 1, 1, this.largeur - 2, this.hauteur - 2, this);
 
 		ArrayList<Arete> alAretes = this.jeu.getMetier().getAlAretes();
 

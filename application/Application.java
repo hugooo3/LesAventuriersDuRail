@@ -20,11 +20,11 @@ public class Application
 	
 	public Metier getMetier() {return this.metier;}
 
-	public boolean preparationJeu() {return this.metier.preparationJeu();}
+	public boolean preparationJeu(ArrayList<Joueur> lstJoueur) {return this.metier.preparationJeu(lstJoueur);}
 
 	public File getMappeXML() { return this.frameManager.getMappeXML();}
-	public ArrayList<Joueur> getLstJoueurIHM   () {return this.metier.getLstJoueur();}
-	public ArrayList<Joueur> getLstJoueurMetier() {return this.frameManager.getLstJoueur();}
+	public ArrayList<Joueur> getLstJoueurIHM   () {return this.frameManager.getLstJoueur();}
+	public ArrayList<Joueur> getLstJoueurMetier() {return this.metier.getLstJoueur();}
 
 	public int getNbJoueurMin() {return this.metier.getNbJoueurMin();}
 	public int getNbJoueurMax() {return this.metier.getNbJoueurMax();}

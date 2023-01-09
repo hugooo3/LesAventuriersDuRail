@@ -252,13 +252,13 @@ public class Metier {
 	/* Méthodes permettant le jeu */
 	/****************************************************************/
 
-	public boolean preparationJeu ()
+	public boolean preparationJeu (ArrayList<Joueur> alJoueur)
 	{
 		// Création de la pioche
 		this.creerPioche();
 
 		//Recuperation de l'arrayList de joueurs
-		this.alJoueurs = this.app.getLstJoueurIHM();
+		this.alJoueurs = alJoueur;
 
 		//Melange des cartes destinations
 		this.pioche.melangerCarteDestination();
@@ -278,6 +278,7 @@ public class Metier {
 	}
 
 	public boolean initJoueur(Joueur joueur) {
+
 		// Initialisation de la main du joueur
 		for (int i = 0; i < 4; i++) {
 			int r = (int) (Math.random() * this.alCartesWagon.size());

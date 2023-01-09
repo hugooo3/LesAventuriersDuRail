@@ -41,4 +41,5 @@ public class PanelCartesDesti extends JPanel {
 	}
 
 	public void majIHM() { this.jeu.majIHM(); }
+
 }

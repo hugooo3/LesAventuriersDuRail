@@ -22,26 +22,37 @@ public class Joueur {
 	// Possesion d'un joueur
 	private ArrayList<Arete> alAretePossede;
 
-	public Joueur(String nomJoueur) {
+	public Joueur(String nomJoueur, ArrayList<CarteWagon> alCarteWagon) {
 		this.idJoueur = ++nbJoueur;
 		this.nomJoueur = nomJoueur;
-		this.hmWagon = new HashMap<CarteWagon, Integer>();
+		this.hmWagon = this.initHmWagon(alCarteWagon);
 		this.alCarteDestination = new ArrayList<CarteDestination>();
 		this.score = 0;
 
 		this.alAretePossede = new ArrayList<Arete>();
 	}
 
-	public int 	   getIdJoueur() {return this.idJoueur;}
+	public HashMap<CarteWagon, Integer> initHmWagon( ArrayList<CarteWagon> alCarteWagon) {
+		HashMap<CarteWagon, Integer> retour = new HashMap<CarteWagon, Integer>();
+		for (CarteWagon carteWagon : alCarteWagon) {
+			if (!carteWagon.getNomCouleur().equals("Neutre"))
+				retour.put(carteWagon, 0);
+		}
+		return retour;
+	}
+
+	public int     getIdJoueur() {return this.idJoueur;}
 	public String  getNomJoueur() {return this.nomJoueur;}
 	public int     getScore() {return this.score;}
 	public boolean getEstEnJeu() {return this.estEnJeu;}
 	public ArrayList<Arete> getAlAretePossede() {return this.alAretePossede;}
-	public HashMap<CarteWagon, Integer> getHmWagon() {return this.hmWagon;}
+	public HashMap<CarteWagon, Integer> getHmWagon() {return this.hmWagon;}	
+	public ArrayList<CarteDestination> getAlCarteDestination() {return this.alCarteDestination;}
 
 	public void setEstEnJeu() {this.estEnJeu = !estEnJeu;}
+	public boolean isEstEnJeu() {return this.estEnJeu;}
 
-	public void addCarteWagon(CarteWagon carteWagon) {this.hmWagon.put(carteWagon, this.hmWagon.get(carteWagon) + 1);}
+	public void addCarteWagon(CarteWagon carteWagon) { this.hmWagon.put(carteWagon, this.hmWagon.get(carteWagon) + 1);}
 	public void addCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.add(carteDestination);}
 	public void addScore(int score) {this.score += score;}
 
@@ -56,4 +67,18 @@ public class Joueur {
 		else
 			this.score = 0;
 	} // Utile pour les cartes destination en fin de partie
+
+	@Override
+	public String toString() {
+		return "{" +
+			" idJoueur='" + getIdJoueur() + "'" +
+			", nomJoueur='" + getNomJoueur() + "'" +
+			", hmWagon='" + getHmWagon() + "'" +
+			", alCarteDestination='" + getAlCarteDestination() + "'" +
+			", score='" + getScore() + "'" +
+			", estEnJeu='" + isEstEnJeu() + "'" +
+			", alAretePossede='" + getAlAretePossede() + "'" +
+			"}";
+	}
+
 }

@@ -27,7 +27,7 @@ public class FrameManager extends JFrame implements ActionListener
 
 		try {
 			UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
-		} 
+		}
 		catch (Exception exception) {exception.printStackTrace();}
 		
 		// Construction de la Frame
@@ -82,7 +82,6 @@ public class FrameManager extends JFrame implements ActionListener
 
 	public ArrayList<Joueur> getLstJoueur () {return this.frameChoixJoueur.getLstJoueur();}
 	public File getMappeXML() { return this.frameChoixJoueur.getMappeXML();}
-	public boolean preparationJeu() {return this.app.preparationJeu();}
 
 	public void actionPerformed(ActionEvent e) 
 	{

@@ -2,6 +2,7 @@ package ihm;
 
 import application.Application;
 import metier.Joueur;
+import metier.CarteWagon;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -192,7 +193,7 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 				for(int i=0; i < this.nbJoueur; i++) {
 					if(this.alTxtJoueur.get(i).getText() != null && !this.alTxtJoueur.get(i).getText().equals("") && estValide) {
 						estValide = true;
-						this.alJoueurs.add(new Joueur(this.alTxtJoueur.get(i).getText()));
+						this.alJoueurs.add(new Joueur(this.alTxtJoueur.get(i).getText(), this.appli.getMetier().getAlCartesWagon()));
 					}
 					else {
 						estValide = false;
@@ -208,8 +209,9 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 				}
 			} else {
 				if(this.txtJoueurSolo.getText() != null && !this.txtJoueurSolo.getText().equals("")) {
-					this.alJoueurs.add(new Joueur(this.txtJoueurSolo.getText()));
+					this.alJoueurs.add(new Joueur(this.txtJoueurSolo.getText(), this.appli.getMetier().getAlCartesWagon()));
 					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, 1, this.alJoueurs);
+					System.out.println(this.frameJeu);
 					this.dispose();
 				}
 				else {
@@ -331,7 +333,6 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		}
 	}
 
-	public boolean preparationJeu() {return this.appli.preparationJeu();}
 	public File getMappeXML() { return this.frameJeu.getMappeXML();}
-	public ArrayList<Joueur> getLstJoueur () {return this.frameJeu.getLstJoueur();}
+	public ArrayList<Joueur> getLstJoueur () {return this.frameJeu.getAlJoueur();}
 }

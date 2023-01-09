@@ -26,7 +26,7 @@ public class PanelOngletJoueur extends JPanel {
 
 	public PanelOngletJoueur(FrameJeu jeu, int largeur, int hauteur, int nbJoueur,  ArrayList<Joueur> alJoueurs) {
 		this.jeu = jeu;
-		this.lstJoueur = jeu.getLstJoueur();
+		this.lstJoueur = jeu.getAlJoueur();
 		this.lstNomJoueur = new ArrayList<String>();
 		this.largeur = largeur;
 		this.hauteur = hauteur;
