@@ -27,12 +27,14 @@ public class CarteWagon {
 		this.imgVersoPath = imgVersoPath;
 	}
 
-	public CarteWagon(String nomCouleur, Color couleur, File imgRectoFile, File imgVersoFile, int nbCarteWagon) {
+	public CarteWagon(String nomCouleur, Color couleur, File imgRectoFile, File imgVersoFile, int nbCarteWagon, String imgRectoPath, String imgVersoPath) {
 		this.nomCouleur = nomCouleur;
 		this.couleur = couleur;
 		this.nbCarteWagon = nbCarteWagon;
 		this.imgRecto = this.creerImageIcon(imgRectoFile);
 		this.imgVerso = this.creerImageIcon(imgVersoFile);
+		this.imgRectoPath = imgRectoPath;
+		this.imgVersoPath = imgVersoPath;
 	}
 
 	private ImageIcon creerImageIcon(String imgPath) {

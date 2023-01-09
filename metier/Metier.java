@@ -189,12 +189,20 @@ public class Metier {
 					if (new File(carteWagon.getImgRectoPath()).exists()) {
 						File file = new File(carteWagon.getImgRectoPath());
 						imgRectoEncode = fileToString(file);
+					} else if (carteWagon.getImgRectoPath().substring(0, 8).equals("/sortie/"))
+					{
+						File file = new File("./" + carteWagon.getImgRectoPath());
+						imgRectoEncode = fileToString(file);
 					} else {
 						imgRectoEncode = carteWagon.getImgRectoPath();
 					}
 					// Encodage image verso
 					if (new File(carteWagon.getImgVersoPath()).exists()) {
 						File file = new File(carteWagon.getImgVersoPath());
+						imgVersoEncode = fileToString(file);
+					} else if (carteWagon.getImgVersoPath().substring(0, 8).equals("/sortie/"))
+					{
+						File file = new File("./" + carteWagon.getImgVersoPath());
 						imgVersoEncode = fileToString(file);
 					} else {
 						imgVersoEncode = carteWagon.getImgVersoPath();
@@ -414,9 +422,12 @@ public class Metier {
 					String nomCouleur = e.getElementsByTagName("nomCouleur").item(0).getTextContent();
 					Color couleur = new Color(
 							Integer.parseInt(e.getElementsByTagName("couleur").item(0).getTextContent()));
+					int nbWagon = Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent());
 
 					// Decodage image des cartes wagons
 					String imgEncode = e.getElementsByTagName("imgRectoPath").item(0).getTextContent();
+					String imgRectoPath = "";
+					String imgVersoPath = "";
 					File imgRectoFile = null;
 					File imgVersoFile = null;
 
@@ -425,23 +436,24 @@ public class Metier {
 						if (imgEncode.substring(0, 8).equals("/images/")
 								&& imgEncode.substring(imgEncode.length() - 4, imgEncode.length()).equals(".png")) {
 							imgRectoFile = new File("." + imgEncode);
+							imgRectoPath = imgEncode;
 						} else {
-							imgRectoFile = stringToFile(imgEncode, new File("./sortie/" + nomCouleur + ".png"));
+							imgRectoFile = stringToFile(imgEncode, new File("./sortie/" + nomCouleur + "Recto.png"));
+							imgRectoPath = "/sortie/" + nomCouleur + "Recto.png";
 						}
 
 						imgEncode = e.getElementsByTagName("imgVersoPath").item(0).getTextContent();
 						if (imgEncode.substring(0, 8).equals("/images/")
 								&& imgEncode.substring(imgEncode.length() - 4, imgEncode.length()).equals(".png")) {
 							imgVersoFile = new File("." + imgEncode);
+							imgVersoPath = imgEncode;
 						} else {
-							imgVersoFile = stringToFile(imgEncode, new File("./sortie/" + nomCouleur + ".png"));
+							imgVersoFile = stringToFile(imgEncode, new File("./sortie/" + nomCouleur + "Verso.png"));
+							imgVersoPath = "/sortie/" + nomCouleur + "Verso.png";
 						}
-
-						carteWagon = new CarteWagon(nomCouleur, couleur, imgRectoFile, imgVersoFile,
-								Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
+						carteWagon = new CarteWagon(nomCouleur, couleur, imgRectoFile, imgVersoFile, nbWagon, imgRectoPath,	imgVersoPath);
 					} else {
-						carteWagon = new CarteWagon(nomCouleur, couleur, (String)null, (String)null,
-								Integer.parseInt(e.getElementsByTagName("nbCarteWagon").item(0).getTextContent()));
+						carteWagon = new CarteWagon(nomCouleur, couleur, (String)null, (String)null, nbWagon);
 					}
 
 					this.alCartesWagon.add(carteWagon);
