@@ -230,16 +230,17 @@ public class PanelLstArete extends JPanel implements ActionListener {
 			Noeud noeudSelected1 = (Noeud) this.ddlstNoeud1.getSelectedItem();
 			Noeud noeudSelected2 = (Noeud) this.ddlstNoeud2.getSelectedItem();
 			CarteWagon couleur = (CarteWagon) this.ddlstCouleur.getSelectedItem();
-			CarteWagon couleurDoubleVoie = (CarteWagon) this.ddlstCouleurVoieDouble.getSelectedItem();
+			Boolean voieDoubleActive = this.cbVoieDouble.isSelected();
+			CarteWagon couleurDoubleVoie = voieDoubleActive ? (CarteWagon)this.ddlstCouleurVoieDouble.getSelectedItem() : null;
 			int nbWagon = Integer.parseInt(this.txtNbWagon.getText());
 
 			if (this.cbVoieDouble.isSelected()) {
 				this.alAretes.add(
 						new Arete(noeudSelected1, noeudSelected2, couleur, nbWagon,
-								this.cbVoieDouble.isSelected(), couleurDoubleVoie));
+								voieDoubleActive, couleurDoubleVoie));
 			} else {
 				this.alAretes.add(new Arete(noeudSelected1, noeudSelected2, couleur, nbWagon,
-						this.cbVoieDouble.isSelected(), null));
+						voieDoubleActive, null));
 			}
 			this.concepteur.majIHM();
 		}
@@ -249,7 +250,7 @@ public class PanelLstArete extends JPanel implements ActionListener {
 				this.majComboBox();
 
 				Arete areteSelected = this.lstArete.getSelectedValue();
-
+				
 				this.ddlstCouleur.setSelectedItem(areteSelected.getCouleur());
 				this.txtNbWagon.setText(Integer.toString(areteSelected.getTroncons()));
 				this.cbVoieDouble.setSelected(areteSelected.getVoieDouble());
@@ -270,12 +271,20 @@ public class PanelLstArete extends JPanel implements ActionListener {
 						return;
 				} while ((Noeud) this.ddlstNoeud1.getSelectedItem() == (Noeud) this.ddlstNoeud2.getSelectedItem());
 
-				areteSelected.setNoeud1((Noeud) this.ddlstNoeud1.getSelectedItem());
-				areteSelected.setNoeud2((Noeud) this.ddlstNoeud2.getSelectedItem());
-				areteSelected.setCouleur((CarteWagon) this.ddlstCouleur.getSelectedItem());
-				areteSelected.setTroncons(Integer.parseInt(this.txtNbWagon.getText()));
-				areteSelected.setVoieDouble(this.cbVoieDouble.isSelected());
-				areteSelected.setCouleurDoubleVoie((CarteWagon) this.ddlstCouleurVoieDouble.getSelectedItem());
+
+				Noeud noeudSelected1 = (Noeud) this.ddlstNoeud1.getSelectedItem();
+				Noeud noeudSelected2 = (Noeud) this.ddlstNoeud2.getSelectedItem();
+				CarteWagon couleur = (CarteWagon) this.ddlstCouleur.getSelectedItem();
+				Boolean voieDoubleActive = this.cbVoieDouble.isSelected();
+				CarteWagon couleurDoubleVoie = voieDoubleActive ? (CarteWagon)this.ddlstCouleurVoieDouble.getSelectedItem() : null;
+				int nbWagon = Integer.parseInt(this.txtNbWagon.getText());
+
+				areteSelected.setNoeud1(noeudSelected1);
+				areteSelected.setNoeud2(noeudSelected2);
+				areteSelected.setCouleur(couleur);
+				areteSelected.setCouleurDoubleVoie(couleurDoubleVoie);
+				areteSelected.setTroncons(nbWagon);
+				areteSelected.setVoieDouble(voieDoubleActive);
 
 				this.concepteur.majIHM();
 			}

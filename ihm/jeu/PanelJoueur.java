@@ -35,7 +35,7 @@ public class PanelJoueur extends JPanel {
 
 		// Contenu du panel
 
-		this.panelCartesDestination = new PanelCartesDesti(this.jeu);
+		this.panelCartesDestination = new PanelCartesDesti(this.jeu, this.joueur);
 		this.panelCartesWagon = new PanelCartesWagon(this.jeu, this.joueur);
 		this.panelOngletCartes = new JTabbedPane();
 

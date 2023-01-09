@@ -1,7 +1,7 @@
 package ihm.jeu;
 
 import ihm.FrameJeu;
-import metier.Arete;
+import metier.*;
 
 import java.awt.event.*;
 import javax.swing.*;
@@ -30,24 +30,66 @@ public class PanelAction extends JPanel implements ActionListener
 	private ArrayList<Arete> alAretesPossession;
 	private JComboBox<Arete> ddlstArete;
 	private JButton btnPrendrePossession;
+
+	private JPanel panelPopupPiocheDesti;
+	private ArrayList<CarteDestination> alPiocheDesti;
+	private ArrayList<JCheckBox> alCheckBoxsDesti;
+
 	
 	public PanelAction(FrameJeu frameJeu, int largeur, int hauteur) 
 	{
 		//Init
+		this.hauteur = hauteur;
+		this.largeur = largeur;
+		this.alPiocheDesti = new ArrayList<CarteDestination>();
 		this.alBtnVisible = new ArrayList<JButton>();
-		this.btnPioche = new JButton();
+		this.alCheckBoxsDesti = new ArrayList<JCheckBox>();
+
+		//Contenu Panel SCRU PAPA
+
+		this.btnPioche = new JButton("Pioche");
+		this.btnPioche.setFocusPainted(false);
+		this.btnPioche.addActionListener(this);
+		this.btnPioche.setBounds(this.largeur/2 -100, 0, 200, 50);
+		this.add(this.btnPioche);
+		
+		this.btnPossessionRoute = new JButton("Possession de route");
+		this.btnPossessionRoute.setFocusPainted(false);
+		this.btnPossessionRoute.addActionListener(this);
+		this.btnPossessionRoute.setBounds(this.largeur/2 -100, 100, 200, 50);
+		this.add(this.btnPossessionRoute);
+
+		this.btnPiocheDesti = new JButton("Pioche de destination");
+		this.btnPiocheDesti.setFocusPainted(false);
+		this.btnPiocheDesti.addActionListener(this);
+		this.btnPiocheDesti.setBounds(this.largeur/2 -100, 200, 200, 50);
+		this.add(this.btnPiocheDesti);
 
 		this.alAretesPossession = frameJeu.getMetier().getAlAretes();
+		this.alPiocheDesti = frameJeu.getMetier().getAlCartesDestination();
 
 		// Paramètres Panel
 		this.frameJeu = frameJeu;
-		this.largeur = largeur;
-		this.hauteur = hauteur;
+		this.largeur  =  largeur;
+		this.hauteur  =  hauteur;
 		
-		this.setLayout(new FlowLayout());
+		this.setLayout(null);
 		this.setPreferredSize(new Dimension(this.largeur, this.hauteur));
 
 		
+		//Contenu panelPopupDesti
+
+		this.panelPopupPiocheDesti = new JPanel();
+
+		this.alPiocheDesti.toArray(new CarteDestination[this.alPiocheDesti.size()]);
+		
+		for(int i=0; i < 3; i++) {
+			JCheckBox cbTemp = new JCheckBox();
+			cbTemp.setFocusPainted(false);
+			cbTemp.addActionListener(this);
+			this.panelPopupPiocheDesti.add(cbTemp);
+			this.alCheckBoxsDesti.add(cbTemp);
+		}
 
 		//Contenu panelPopupPossession
 
@@ -78,23 +120,7 @@ public class PanelAction extends JPanel implements ActionListener
 		this.panelPopUpPioche.add(btnPiocheNonVisible);
 
 
-		//Contenu Panel SCRU PAPA
-
-		this.btnPioche = new JButton("Pioche");
-		this.btnPioche.setFocusPainted(false);
-		this.btnPioche.addActionListener(this);
-		this.add(this.btnPioche);
 		
-
-		this.btnPossessionRoute = new JButton("Possession de route");
-		this.btnPossessionRoute.setFocusPainted(false);
-		this.btnPossessionRoute.addActionListener(this);
-		this.add(this.btnPossessionRoute);
-
-		this.btnPiocheDesti = new JButton("Pioche de destination");
-		this.btnPiocheDesti.setFocusPainted(false);
-		this.btnPiocheDesti.addActionListener(this);
-		this.add(this.btnPiocheDesti);
 	}
 
 	@Override
@@ -102,8 +128,12 @@ public class PanelAction extends JPanel implements ActionListener
 		// TODO Auto-generated method stub
 
 		if(e.getSource() == this.btnPioche) {
-			JOptionPane.showMessageDialog(this, this.panelPopUpPioche, "Pioche", JOptionPane.OK_CANCEL_OPTION);
+			int n = JOptionPane.showOptionDialog(this, this.panelPopUpPioche, "Pioche", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+
+			if (n != JOptionPane.OK_OPTION) // Cancel ou croix == annulation
+				return;
 		}
+
 
 		if(e.getSource() == this.btnPossessionRoute) {
 			if(alAretesPossession == null){
@@ -117,7 +147,9 @@ public class PanelAction extends JPanel implements ActionListener
 
 
 		if(e.getSource() == this.btnPiocheDesti) {
-			
+			if(alPiocheDesti == null){
+				JOptionPane.showMessageDialog(null, "Il n'y a pas de carte destination dans la pioche ", "Erreur",JOptionPane.ERROR_MESSAGE);
+			}
 		}
 
 		if(e.getSource() == this.btnPossessionRoute) {

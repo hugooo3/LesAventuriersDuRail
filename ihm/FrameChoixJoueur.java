@@ -315,7 +315,12 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		String path = System.getProperty("user.dir");
 		String pathTest = path + "/sortie/";
 
-		JFileChooser fileChooser = new JFileChooser(new File(pathTest).exists() ? pathTest: path);
+		if(new File(pathTest).exists() && new File(pathTest).isDirectory() && 
+										  new File(pathTest).list().length > 0) {
+			path = pathTest;
+		}
+
+		JFileChooser fileChooser = new JFileChooser(new File(path));
 		fileChooser.setDialogTitle("Choisissez un fichier Mappe XML");
 		fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
 		fileChooser.setAcceptAllFileFilterUsed(false);

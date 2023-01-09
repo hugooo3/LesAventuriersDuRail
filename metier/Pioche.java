@@ -10,11 +10,29 @@ public class Pioche {
 	private ArrayList<CarteDestination> alCarteDestination; 
 	private ArrayList<CarteDestination> alCarteDestinationDefausse;
 
-	public Pioche() {
-		this.alCarteWagon = new ArrayList<CarteWagon>();
+	public Pioche(ArrayList<CarteWagon> alCarteWagon, ArrayList<CarteDestination> alCarteDestination) {
+		this.alCarteWagon = alCarteWagon;
 		this.alCarteWagonDefausse = new ArrayList<CarteWagon>();
-		this.alCarteDestination = new ArrayList<CarteDestination>();
+		this.alCarteDestination = alCarteDestination;
 		this.alCarteDestinationDefausse = new ArrayList<CarteDestination>();
+	}
+
+	public CarteWagon piocherCarteWagon () {
+		    int r = 0;
+
+			// Verification qu'il reste des cartes de cette couleur
+			do {
+				r = (int) (Math.random() * this.alCarteWagon.size() - 1) + 1;
+			} while (!this.alCarteWagon.get(r).removeNbCarteWagon(1));
+
+			return(this.alCarteWagon.get(r));
+	}
+
+	public CarteDestination piocherCarteDestination () {
+			CarteDestination carteDestination = this.getCarteDestination(0);
+
+			this.removeCarteDestination(carteDestination);
+			return carteDestination;
 	}
 
 	public CarteDestination getCarteDestination (int i) { return this.alCarteDestination.get(i); };

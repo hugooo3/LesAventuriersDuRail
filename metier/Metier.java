@@ -23,8 +23,6 @@ import java.util.Base64;
 import java.util.Comparator;
 
 public class Metier {
-	private Application app;
-
 	private static int RADIUS = 20;
 	private String imgMappePath;
 	private String versoCartePath;
@@ -45,9 +43,7 @@ public class Metier {
 	private Pioche pioche;
 	private ArrayList<Joueur> alJoueurs;
 
-	public Metier(Application app) {
-		this.app = app;
-		
+	public Metier(Application app) {	
 		this.alNoeuds = new ArrayList<Noeud>();
 		this.alAretes = new ArrayList<Arete>();
 		this.alCartesDestination = new ArrayList<CarteDestination>();
@@ -69,7 +65,6 @@ public class Metier {
 		this.alCartesWagon.add(new CarteWagon("Joker", Color.PINK, "/images/carteJoker.png", this.versoCartePath, 20));
 
 		// Jeu
-		this.pioche = new Pioche();
 		this.alJoueurs = new ArrayList<Joueur>();
 	}
 
@@ -273,7 +268,8 @@ public class Metier {
 
 	public Pioche creerPioche() {
 		// Création de la pioche
-		this.pioche = new Pioche();
+		this.pioche = new Pioche(this.alCartesWagon, this.alCartesDestination);
+
 		return pioche;
 	}
 
@@ -283,13 +279,7 @@ public class Metier {
 
 		// Carte wagon
 		for (int i = 0; i < 4; i++) {
-			int r = 0;
-
-			// Verification qu'il reste des cartes de cette couleur
-			do {
-				r = (int) (Math.random() * this.alCartesWagon.size() - 1) + 1;
-			} while (!this.alCartesWagon.get(r).removeNbCarteWagon(1));
-			joueur.addCarteWagon(this.alCartesWagon.get(r));
+			joueur.addCarteWagon(this.pioche.piocherCarteWagon());
 		}
 
 		//Carte destination
@@ -299,18 +289,14 @@ public class Metier {
 			equite = 2;
 		}
 
-		for (int i = 0; i < equite; i++) {
-			int r = (int) (Math.random() * this.alCartesWagon.size());
-
-			CarteDestination carteDestination = this.pioche.getCarteDestination(r);
-			joueur.addCarteDestination(carteDestination);
-			this.pioche.removeCarteDestination(carteDestination);
+		for (int i = 0; i < equite; i++)  {
+			joueur.addCarteDestination(this.pioche.piocherCarteDestination());
 		}
 		
 		return true;
 	}
 
-	public void calculScore() {
+	public void calculScoreFin() {
 		// Calcul du score
 		for (Joueur joueur : this.alJoueurs) {
 			int score = 0;
