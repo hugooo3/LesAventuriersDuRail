@@ -17,6 +17,8 @@ public class Pioche {
 		this.alCarteDestinationDefausse = new ArrayList<CarteDestination>();
 	}
 
+	public CarteDestination getCarteDestination (int i) { return this.alCarteDestination.get(i); };
+
 	public void addCarteWagon(CarteWagon carteWagon)                           { this.alCarteWagon.add(carteWagon);                     }
 	public void addCarteDestination(CarteDestination carteDestination)         { this.alCarteDestination.add(carteDestination);         }
 	public void addCarteWagonDefausse(CarteWagon carteWagon)                   { this.alCarteWagonDefausse.add(carteWagon);             }

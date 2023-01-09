@@ -298,14 +298,15 @@ public class Metier {
 		if (equite > 2) {
 			equite = 2;
 		}
-		/*
+
 		for (int i = 0; i < equite; i++) {
-			int r = 0;
+			int r = (int) (Math.random() * this.alCartesWagon.size());
 
-
+			CarteDestination carteDestination = this.pioche.getCarteDestination(r);
+			joueur.addCarteDestination(carteDestination);
+			this.pioche.removeCarteDestination(carteDestination);
 		}
-		*/
-
+		
 		return true;
 	}
 
