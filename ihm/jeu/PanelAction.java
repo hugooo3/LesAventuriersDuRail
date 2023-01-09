@@ -30,15 +30,14 @@ public class PanelAction extends JPanel implements ActionListener
 	private ArrayList<Arete> alAretesPossession;
 	private JComboBox<Arete> ddlstArete;
 	private JButton btnPrendrePossession;
-
-
-	private Object concepteur;
 	
 	public PanelAction(FrameJeu frameJeu, int largeur, int hauteur) 
 	{
+		//Init
+		this.alBtnVisible = new ArrayList<JButton>();
+		this.btnPioche = new JButton();
 
-
-		this.alAretesPossession = ((FrameJeu) this.concepteur).getMetier().getAlAretes();
+		this.alAretesPossession = frameJeu.getMetier().getAlAretes();
 
 		// Paramètres Panel
 		this.frameJeu = frameJeu;
@@ -60,7 +59,7 @@ public class PanelAction extends JPanel implements ActionListener
 		this.panelPopupPossession.add(btnPrendrePossession);
 
 		//Contenu PanelPopupPioche
-
+		
 		this.panelPopUpPioche = new JPanel();
 
 		for(int i=0; i < 5; i++) {

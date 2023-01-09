@@ -61,11 +61,11 @@ public class FrameJeu extends JFrame {
 		this.panelMappeJeu = new PanelMappeJeu(this, (int) (largeur*0.7), hauteur);
 		this.setImgMappe(this.appli.getMetier().getImgMappe());
 		this.panelOngletJoueur = new PanelOngletJoueur(this, (int) (largeur*0.15), hauteur, this.nbJoueurs, this.alJoueursMetier);
-		//this.panelAction = new PanelAction(this, (int) (largeur*0.15), hauteur);
+		this.panelAction = new PanelAction(this, (int) (largeur*0.15), hauteur);
 
 		this.add(this.panelOngletJoueur, BorderLayout.WEST);
 		this.add(this.panelMappeJeu, BorderLayout.CENTER);
-		//this.add(this.panelAction, BorderLayout.EAST);
+		this.add(this.panelAction, BorderLayout.EAST);
 
 		this.setVisible(true);
 	}
