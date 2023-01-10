@@ -356,15 +356,19 @@ public class PanelAction extends JPanel implements ActionListener
 					if (areteSelectionne.getNoeud1().equals(arete.getNoeud1()) && areteSelectionne.getNoeud2().equals(arete.getNoeud2())) // Determination de l'arete
 					{
 						// Trouver si l'arete selectionne est la voie simple ou double
-						if (areteSelectionne.getCouleurVoieSimple() != null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurVoieSimple())
+						if (areteSelectionne.getCouleurVoieSimple() != null && arete.getJoueurVoieSimple() == null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurVoieSimple())
+						{
 							arete.setJoueurVoieSimple(joueurActuelle);
-						if (areteSelectionne.getCouleurVoieSimple() != null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurDoubleVoie())
+							joueurActuelle = null; // Pour empecher le joueur de prendre une deuxieme fois si la deuxieme voie de l'arete est de la meme couleur
+						}
+						if (areteSelectionne.getCouleurVoieSimple() != null &&  arete.getJoueurVoieDouble() == null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurDoubleVoie())
 							arete.setJoueurVoieDouble(joueurActuelle);
 						/* TO DO
 						 * - Gestion des cartesWagon de la main du joueur
 						 * - Gestion du score du joueur
 						 */
 						this.frameJeu.majIHM();
+						this.frameJeu.jeu("Possession");;
 						break;
 					}
 				}
