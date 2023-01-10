@@ -71,7 +71,7 @@ public class FrameJeu extends JFrame {
 		this.setVisible(true);
 
 		/*TEMP */
-		ArrayList<Arete> alArete = this.appli.getMetier().getAlAretes();
+/* 		ArrayList<Arete> alArete = this.appli.getMetier().getAlAretes();
 		alArete.get(0).setJoueurVoieSimple(this.alJoueur.get(1));
 		alArete.get(0).setJoueurVoieDouble(this.alJoueur.get(0));
 		alArete.get(1).setJoueurVoieSimple(this.alJoueur.get(1));
@@ -79,7 +79,7 @@ public class FrameJeu extends JFrame {
 		alArete.get(3).setJoueurVoieSimple(this.alJoueur.get(1));
 		alArete.get(4).setJoueurVoieDouble(this.alJoueur.get(0));
 		alArete.get(5).setJoueurVoieSimple(this.alJoueur.get(1));
-		alArete.get(6).setJoueurVoieSimple(this.alJoueur.get(1));
+		alArete.get(6).setJoueurVoieSimple(this.alJoueur.get(1)); */
 	}
 
 	public Metier getMetier() { return this.appli.getMetier(); }
