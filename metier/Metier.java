@@ -323,8 +323,16 @@ public class Metier {
 		this.prochainJoueur(joueurEnJeu);
 
 		if (finJeu()) {
-			System.out.println("Fin du jeu");
 			this.calculScoreFin();
+			Joueur gagnant = this.alJoueurs.get(0);
+			for (Joueur joueur : this.alJoueurs)
+			{
+				if (joueur.getScore() > gagnant.getScore())
+				{
+					gagnant = joueur;
+				}
+			}
+			System.out.println("Fin du jeu, " + gagnant.getNomJoueur() + " a gagné avec " + gagnant.getScore() + " points");
 		}
 	}
 

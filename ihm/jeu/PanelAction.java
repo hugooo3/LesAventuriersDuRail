@@ -104,7 +104,6 @@ public class PanelAction extends JPanel implements ActionListener
 		this.alLblNbWagonJoueur = new ArrayList<JLabel>();
 		this.alLblScore 		= new ArrayList<JLabel>();
 		this.alCouleur 		= new ArrayList<Color>();
-		int ligne = this.alJoueurs.size()+1;
 		this.panelInfo.setLayout(null);
 
 		this.alAretes = frameJeu.getMetier().getAlAretes();
@@ -251,7 +250,7 @@ public class PanelAction extends JPanel implements ActionListener
 
 	public void majIHM() 
 	{
-		/*
+		/*  MAJ panelInfo
 		for (int i = 0; i < this.alJoueurs.size(); i++)
 		{
 			Joueur joueur = this.alJoueurs.get(i);
