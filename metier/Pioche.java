@@ -8,44 +8,80 @@ public class Pioche {
 	private ArrayList<CarteWagon> alCarteWagon; 
 	private ArrayList<CarteWagon> alCarteWagonDefausse; 
 	private ArrayList<CarteDestination> alCarteDestination; 
-	private ArrayList<CarteDestination> alCarteDestinationDefausse;
 
 	public Pioche(ArrayList<CarteWagon> alCarteWagon, ArrayList<CarteDestination> alCarteDestination) {
 		this.alCarteWagon = alCarteWagon;
 		this.alCarteWagonDefausse = new ArrayList<CarteWagon>();
 		this.alCarteDestination = alCarteDestination;
-		this.alCarteDestinationDefausse = new ArrayList<CarteDestination>();
+
+		this.alCarteWagonDefausse.add(new CarteWagon("Neutre", null, "" , "", 0));
+		this.alCarteWagonDefausse.add(new CarteWagon("Blanc" , null, ""	, "", 0));
+		this.alCarteWagonDefausse.add(new CarteWagon("Bleu"  , null, ""	, "", 0));
+		this.alCarteWagonDefausse.add(new CarteWagon("Jaune" , null, ""	, "", 0));
+		this.alCarteWagonDefausse.add(new CarteWagon("Noir"  , null, ""	, "", 0));
+		this.alCarteWagonDefausse.add(new CarteWagon("Orange", null, ""	, "", 0));
+		this.alCarteWagonDefausse.add(new CarteWagon("Rouge" , null, ""	, "", 0));
+		this.alCarteWagonDefausse.add(new CarteWagon("Verte" , null, ""	, "", 0));
+		this.alCarteWagonDefausse.add(new CarteWagon("Violet", null, ""	, "", 0));
+		this.alCarteWagonDefausse.add(new CarteWagon("Joker" , null, ""	, "", 0));
 	}
 
 	public CarteWagon piocherCarteWagon () {
-		    int r = 0;
+		int r = 0;
 
-			// Verification qu'il reste des cartes de cette couleur
-			do {
-				r = (int) (Math.random() * this.alCarteWagon.size() - 1) + 1;
-			} while (!this.alCarteWagon.get(r).removeNbCarteWagon(1));
+		for(CarteWagon carteWagon : this.alCarteWagon)
+		{
+			r += carteWagon.getNbCarteWagon();
+		}
 
+		if (r == 0)
+		{
+			System.out.println("Pioche vide, on remet la defausse dans la pioche");
+			this.defausseVersPiocheWagon();
+		}
+
+		// Verification qu'il reste des cartes de cette couleur
+		do {
+			r = (int) (Math.random() * this.alCarteWagon.size() - 1) + 1;
+		} while (!this.alCarteWagon.get(r).removeNbCarteWagon(1));
+
+		if(this.alCarteWagon.size() > 0)
 			return(this.alCarteWagon.get(r));
+
+		return null;
 	}
 
 	public CarteDestination piocherCarteDestination () {
-			CarteDestination carteDestination = this.getCarteDestination(0);
+		CarteDestination carteDestination = null;
 
+		if (this.alCarteDestination.size() > 0 )
+		{
+			carteDestination = this.alCarteDestination.get(0);
 			this.removeCarteDestination(carteDestination);
-			return carteDestination;
+		}
+		return carteDestination;
 	}
 
-	public CarteDestination getCarteDestination (int i) { return this.alCarteDestination.get(i); };
+	public void defausseVersPiocheWagon() 
+	{
+		for (CarteWagon carteWagon : this.alCarteWagonDefausse)
+		{
+			carteWagon.setNbCarteWagon(0);
+		}
 
-	public void addCarteWagon(CarteWagon carteWagon)                           { this.alCarteWagon.add(carteWagon);                     }
+		for (CarteWagon carteWagon : this.alCarteWagon)
+		{
+			carteWagon.setNbCarteWagon(12);
+		}
+	}
+
+	public void addCarteWagon(CarteWagon carteWagon)                           { this.alCarteWagon.get(this.alCarteWagon.indexOf(carteWagon)).addNbCarteWagon(1); }
+	public void addCarteWagonDefausse(CarteWagon carteWagon)                   { this.alCarteWagonDefausse.get(this.alCarteWagonDefausse.indexOf(carteWagon)).addNbCarteWagon(1); }
 	public void addCarteDestination(CarteDestination carteDestination)         { this.alCarteDestination.add(carteDestination);         }
-	public void addCarteWagonDefausse(CarteWagon carteWagon)                   { this.alCarteWagonDefausse.add(carteWagon);             }
-	public void addCarteDestinationDefausse(CarteDestination carteDestination) { this.alCarteDestinationDefausse.add(carteDestination); }
 
-	public void removeCarteWagon(CarteWagon carteWagon)                           { this.alCarteWagon.remove(carteWagon);                     }
+	public void removeCarteWagon(CarteWagon carteWagon)                           { this.alCarteWagon.get(this.alCarteWagon.indexOf(carteWagon)).removeNbCarteWagon(1); }
+	public void removeCarteWagonDefausse(CarteWagon carteWagon)               	  { this.alCarteWagonDefausse.get(this.alCarteWagonDefausse.indexOf(carteWagon)).removeNbCarteWagon(1); }
 	public void removeCarteDestination(CarteDestination carteDestination)         { this.alCarteDestination.remove(carteDestination);         }
-	public void removeCarteWagonDefausse(CarteWagon carteWagon)                   { this.alCarteWagonDefausse.remove(carteWagon);             }
-	public void removeCarteDestinationDefausse(CarteDestination carteDestination) { this.alCarteDestinationDefausse.remove(carteDestination); }
 
 	public int sizeCarteWagon()       { return this.alCarteWagon.size();       }
 	public int sizeCarteDestination() { return this.alCarteDestination.size(); }

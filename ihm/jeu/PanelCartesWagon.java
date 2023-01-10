@@ -10,14 +10,19 @@ import java.awt.Dimension;
 import java.awt.Image;
 import java.util.ArrayList;
 import java.util.Comparator;
+import java.util.HashMap;
 
 import javax.swing.*;
 
 public class PanelCartesWagon extends JPanel {
 
 	private JScrollPane scrollPane;
+	private HashMap<CarteWagon, Integer> hmWagon;
 	private ArrayList<CarteWagon> alCartesWagon;
 	private ArrayList<Integer> alNbCarte;
+
+	private ArrayList<JLabel> alLblCartesWagon;
+	private ArrayList<JLabel> alLblNbCartesWagon;
 
 	private JPanel panelListe;
 
@@ -33,6 +38,8 @@ public class PanelCartesWagon extends JPanel {
 		//this.jeu.majIHM();
 
 
+		this.alLblCartesWagon = new ArrayList<JLabel>();
+		this.alLblNbCartesWagon = new ArrayList<JLabel>();
 		this.alCartesWagon = new ArrayList<CarteWagon>();
 		this.alNbCarte = new ArrayList<Integer>();
 		this.joueur.getHmWagon().forEach((k, v) -> {
@@ -49,13 +56,13 @@ public class PanelCartesWagon extends JPanel {
 			imgRecto = imgRecto.getScaledInstance(50, 50, Image.SCALE_SMOOTH);
 
 			ImageIcon imgRectoResized = new ImageIcon(imgRecto);
-			JLabel lblTemp = new JLabel(imgRectoResized);
+			this.alLblCartesWagon.add(new JLabel(imgRectoResized));
 
-			JLabel lblNb = new JLabel("" + this.alNbCarte.get(i), JLabel.CENTER);
-			lblNb.setSize(new Dimension(100, 20));
+			this.alLblNbCartesWagon.add(new JLabel("" + this.alNbCarte.get(i), JLabel.CENTER));
+			this.alLblNbCartesWagon.get(i).setSize(new Dimension(100, 20));
 
-			this.panelListe.add(lblTemp);
-			this.panelListe.add(lblNb);
+			this.panelListe.add(this.alLblCartesWagon.get(i));
+			this.panelListe.add(this.alLblNbCartesWagon.get(i));
 		}
 
 		this.scrollPane = new JScrollPane(this.panelListe);
@@ -71,8 +78,19 @@ public class PanelCartesWagon extends JPanel {
 
 
 
-	public void majCartesWagon(ArrayList<CarteWagon> alCartesWagon) {
-		this.alCartesWagon = alCartesWagon;
+	public void majCartesWagon() {
+		this.hmWagon = this.jeu.getMetier().getJoueurEnJeu().getHmWagon();
+		this.alCartesWagon.clear();
+		this.alNbCarte.clear();
+		this.hmWagon.forEach((k, v) -> {
+			this.alCartesWagon.add(k);
+			this.alNbCarte.add(v);
+		});
+
+		for(int i=0; i < this.alLblNbCartesWagon.size(); i++) {
+			this.alLblNbCartesWagon.get(i).setText("" + this.alNbCarte.get(i));
+			this.alLblNbCartesWagon.get(i).updateUI();
+		}
 	}
 
 	public void majIHM() { this.jeu.majIHM(); }

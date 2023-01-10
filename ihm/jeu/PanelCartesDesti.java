@@ -58,8 +58,20 @@ public class PanelCartesDesti extends JPanel {
 	}
 
 
-	public void majCartesDesti(ArrayList<CarteDestination> alCartesDesti) {
-		this.alCartesDesti = alCartesDesti;
+	public void majCartesDesti() {
+		this.alCartesDesti = this.jeu.getMetier().getJoueurEnJeu().getAlCarteDestination();
+
+		this.lstModel.clear();
+		for(int i=0; i < this.alCartesDesti.size(); i++) {
+			String noeud1 = this.alCartesDesti.get(i).getNoeud1().getNom();
+			String noeud2 = this.alCartesDesti.get(i).getNoeud2().getNom();
+			String nbPoint = this.alCartesDesti.get(i).getPoints() + "";
+			
+			this.lstModel.addElement(String.format("%3s | %-12s | %-12s", nbPoint, noeud1, noeud2));
+		}
+
+		this.lstAffichage = new JList<>(this.lstModel);
+		this.lstAffichage.updateUI();
 	}
 
 	public void majIHM() { this.jeu.majIHM(); }

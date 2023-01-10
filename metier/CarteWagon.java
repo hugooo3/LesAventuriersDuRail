@@ -94,6 +94,16 @@ public class CarteWagon {
 		this.imgVersoPath = imgVersoPath;
 	}
 
+	public boolean addNbCarteWagon(int nbCarteWagon) {
+		if (this.nbCarteWagon + nbCarteWagon > 12)
+			return false;
+		else
+		{
+			this.nbCarteWagon += nbCarteWagon;
+			return true;
+		}
+	}
+
 	public boolean removeNbCarteWagon(int nbCarteWagon) {
 		if (this.nbCarteWagon < nbCarteWagon)
 			return false;

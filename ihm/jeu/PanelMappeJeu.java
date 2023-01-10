@@ -71,34 +71,34 @@ public class PanelMappeJeu extends JPanel
 				if (arete.getVoieDouble())
 				{
 					// Interieur de la voie simple
-					g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : couleurVoieSimple);
-					// g2d.setColor(couleurVoieSimple);
+					// g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : couleurVoieSimple);
+					g2d.setColor(couleurVoieSimple);
 					g2d.fill(this.creerRectangle(x1, y1, x3, y3, 0));
 					// Interieur de la voie double
-					g2d.setColor(joueurVoieDouble != null ? joueurVoieDouble.getCouleur() : couleurVoieDouble);
-					// g2d.setColor(couleurVoieDouble);
+					// g2d.setColor(joueurVoieDouble != null ? joueurVoieDouble.getCouleur() : couleurVoieDouble);
+					g2d.setColor(couleurVoieDouble);
 					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon ));
 
 					g2d.setStroke(new BasicStroke(3));
 					// Interieur de la voie double
-					g2d.setColor(joueurVoieSimple != null ? couleurVoieSimple : Color.BLACK);
-					//g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : Color.BLACK);
+					// g2d.setColor(joueurVoieSimple != null ? couleurVoieSimple : Color.BLACK);
+					g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : Color.BLACK);
 					g2d.draw(this.creerRectangle(x1, y1, x3, y3, 0));
 					// Exterieur de la voie double
-					g2d.setColor(joueurVoieDouble != null ? couleurVoieDouble : Color.BLACK);
-					// g2d.setColor(joueurVoieDouble != null ? joueurVoieDouble.getCouleur() : Color.BLACK);
+					// g2d.setColor(joueurVoieDouble != null ? couleurVoieDouble : Color.BLACK);
+					g2d.setColor(joueurVoieDouble != null ? joueurVoieDouble.getCouleur() : Color.BLACK);
 					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon ));
 				}
 				else
 				{
 					// Interieur de la voie
-					g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : couleurVoieSimple);
-					// g2d.setColor(couleurVoieSimple);
+					// g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : couleurVoieSimple);
+					g2d.setColor(couleurVoieSimple);
 					g2d.fill(this.creerRectangle(x1, y1, x3, y3, rayon - 5));
 					g2d.setStroke(new BasicStroke(3));
 					// Exterieur de la voie
-					g2d.setColor(joueurVoieSimple != null ? couleurVoieSimple : Color.BLACK);
-					// g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : Color.BLACK);
+					// g2d.setColor(joueurVoieSimple != null ? couleurVoieSimple : Color.BLACK);
+					g2d.setColor(joueurVoieSimple != null ? joueurVoieSimple.getCouleur() : Color.BLACK);
 					g2d.draw(this.creerRectangle(x1, y1, x3, y3, rayon - 5));
 				}
 				x1 = x3;

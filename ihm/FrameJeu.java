@@ -29,6 +29,9 @@ public class FrameJeu extends JFrame {
 	private PanelMappeJeu panelMappeJeu;
 	private PanelOngletJoueur panelOngletJoueur;
 	private PanelAction panelAction;
+	
+
+	private Pioche pioche;
 
 	public FrameJeu(Application appli, File mappeXML, int nbJoueurs, ArrayList<Joueur> alJoueurs) {
 		this.appli = appli;
@@ -57,12 +60,13 @@ public class FrameJeu extends JFrame {
 
 		this.preparationJeu(this.alJoueur);
 		this.alJoueursMetier = this.getLstJoueurMetier();
+		this.pioche = this.appli.getMetier().getPioche();
 		
 
 		this.panelMappeJeu = new PanelMappeJeu(this, (int) (largeur*0.7), hauteur);
 		this.setImgMappe(this.appli.getMetier().getImgMappe());
 		this.panelOngletJoueur = new PanelOngletJoueur(this, (int) (largeur*0.15), hauteur, this.nbJoueurs, this.alJoueursMetier);
-		this.panelAction = new PanelAction(this, (int) (largeur*0.15), hauteur);
+		this.panelAction = new PanelAction(this, (int) (largeur*0.15), hauteur, this.alJoueursMetier, this.pioche);
 
 		this.add(this.panelOngletJoueur, BorderLayout.WEST);
 		this.add(this.panelMappeJeu, BorderLayout.CENTER);
@@ -75,7 +79,18 @@ public class FrameJeu extends JFrame {
 	public File getMappeXML() { return this.mappeXML; }
 	public ArrayList<Joueur> getAlJoueur() { return this.alJoueur; }
 
-	public void majIHM() {}
+
+	public void majIHM() {
+		this.panelMappeJeu.majIHM();
+		this.panelOngletJoueur.majCartesWagon();
+		this.panelOngletJoueur.majCartesDesti();
+		this.panelAction.majIHM();
+		this.majJoueur();
+	}
+
+	public void jeu(String action) {
+		this.appli.jeu(action);
+	}
 
 	public void quitter() {
 		new FrameManager(this.appli);
@@ -89,6 +104,8 @@ public class FrameJeu extends JFrame {
 			this.panelMappeJeu.setImg(imgMappe);
 		}
 	}
+
+	public void majJoueur() { this.panelOngletJoueur.majJoueur(); }
 
 	public ArrayList<Joueur> getLstJoueurMetier() {return this.appli.getLstJoueurMetier();}
 	public boolean preparationJeu(ArrayList<Joueur> lstJoueur) { return this.appli.preparationJeu(lstJoueur); }

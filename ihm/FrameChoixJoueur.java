@@ -107,7 +107,7 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		this.btnImport.setFocusPainted(false);
 		this.btnImport.addActionListener(this);
 		this.panelImportXML.add(this.btnImport);
-		this.btnImport.setBounds(this.largeur/4 - 75, this.hauteur/2, 150, 30);
+		this.btnImport.setBounds(this.largeur/4 - 125, this.hauteur/2, 250, 30);
 
 		this.btnConfirmer = new JButton("Confirmer");
 		this.btnConfirmer.setFocusPainted(false);
