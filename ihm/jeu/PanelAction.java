@@ -30,7 +30,6 @@ public class PanelAction extends JPanel implements ActionListener
 	private JPanel panelPopupPossession;
 	private ArrayList<Arete> alAretes;
 	private JComboBox<Arete> ddlstArete;
-	private JButton btnPrendrePossession;
 
 	private JPanel panelPopupPiocheDesti;
 	private ArrayList<CarteDestination> alPiocheDesti;
@@ -114,8 +113,6 @@ public class PanelAction extends JPanel implements ActionListener
 
 		this.ddlstArete = new JComboBox<Arete>();
 		this.panelPopupPossession.add(ddlstArete);
-		this.btnPrendrePossession = new JButton("Prendre possession");
-		this.panelPopupPossession.add(btnPrendrePossession);
 
 		//Contenu PanelPopupPioche
 		
@@ -153,75 +150,101 @@ public class PanelAction extends JPanel implements ActionListener
 
 
 		if(e.getSource() == this.btnPossessionRoute) {
-			if(alAretes == null){
-				JOptionPane.showMessageDialog(null, "Il n'y a pas d'arete ", "Erreur",JOptionPane.ERROR_MESSAGE);
-			}
-			else
+			ArrayList<Arete> alAretesPopUp = new ArrayList<Arete>();
+			Joueur joueurActuelle = this.frameJeu.getMetier().getJoueurEnJeu();
+
+			Arete arete1;
+			Arete arete2;
+			int nbWagonArete;
+			boolean NbWagonArete1Ok;
+			boolean NbWagonArete2Ok;
+
+			// Creation de l'arrayList personnalise pour le joueur courrant
+			for (Arete arete : this.alAretes)
 			{
-				ArrayList<Arete> alAretesPopUp = new ArrayList<Arete>();
-				Joueur joueurActuelle = this.frameJeu.getMetier().getJoueurEnJeu();
+				nbWagonArete = arete.getTroncons();
+				arete1 = null;
+				arete2 = null;
+				
+				NbWagonArete1Ok = false;
+				NbWagonArete2Ok = false;
 
-				Arete arete1;
-				Arete arete2;
-				int nbWagonArete;
-				boolean NbWagonArete1Ok;
-				boolean NbWagonArete2Ok;
+				// Division des voies double en voie simple
+				if (arete.getVoieDouble())
+				{
+					arete1 = arete.getJoueurVoieSimple() == null ? new Arete(arete.getNoeud1(), arete.getNoeud2(), arete.getCouleurVoieSimple(), arete.getTroncons(), false, null) : null;
+					arete2 = arete.getJoueurVoieDouble() == null ? new Arete(arete.getNoeud1(), arete.getNoeud2(), arete.getCouleurDoubleVoie(), arete.getTroncons(), false, null) : null;
+				}
+				else
+					arete1 = arete.getJoueurVoieSimple() == null ? new Arete(arete.getNoeud1(), arete.getNoeud2(), arete.getCouleurVoieSimple(), arete.getTroncons(), false, null) : null;
 
+				// Gestion du neutre
+				if (arete1 != null && arete1.getCouleurVoieSimple().getNomCouleur().equals("Neutre"))
+				{
+					for (Map.Entry<CarteWagon, Integer> entry : joueurActuelle.getHmWagon().entrySet())
+					{
+						if (entry.getValue() >= nbWagonArete)
+						{
+							NbWagonArete1Ok = true;
+							break;
+						}
+					}
+				}
+				else if (arete1 != null 
+							&& !arete1.getCouleurVoieSimple().getNomCouleur().equals("Neutre") 
+							&& (joueurActuelle.getHmWagon().get(arete1.getCouleurVoieSimple()) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1))) >= nbWagonArete)
+					NbWagonArete1Ok = true;
+
+				if (arete2 != null && arete2.getCouleurVoieSimple().getNomCouleur().equals("Neutre"))
+				{
+					for (Map.Entry<CarteWagon, Integer> entry : joueurActuelle.getHmWagon().entrySet())
+					{
+						if (entry.getValue() >= nbWagonArete)
+						{
+							NbWagonArete2Ok = true;
+							break;
+						}
+					}
+				}
+				else if (arete2 != null 
+							&& !arete2.getCouleurVoieSimple().getNomCouleur().equals("Neutre") 
+							&& ((joueurActuelle.getHmWagon().get(arete2.getCouleurVoieSimple()) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)))) >= nbWagonArete)
+					NbWagonArete2Ok = true;
+
+				if (arete1 != null && NbWagonArete1Ok)
+					alAretesPopUp.add(arete1);
+
+				if (arete2 != null && NbWagonArete2Ok)
+					alAretesPopUp.add(arete2);
+			}
+			this.ddlstArete.setModel(new DefaultComboBoxModel<Arete>(alAretesPopUp.toArray(new Arete[alAretesPopUp.size()])));
+
+			if(alAretesPopUp.size() == 0){
+				JOptionPane.showMessageDialog(null, "Il n'y a pas d'arête possédable", "Erreur",JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			int n = JOptionPane.showOptionDialog(this, this.panelPopupPossession, "Possession d'arete", JOptionPane.OK_CANCEL_OPTION,  JOptionPane.QUESTION_MESSAGE, null, null, null);
+			if (n == JOptionPane.OK_OPTION) // Validation
+			{
+				Arete areteSelectionne = (Arete) this.ddlstArete.getSelectedItem();
 				for (Arete arete : this.alAretes)
 				{
-					nbWagonArete = arete.getTroncons();
-					arete1 = null;
-					arete2 = null;
-					
-					NbWagonArete1Ok = false;
-					NbWagonArete2Ok = false;
-
-					// Division des voies double en voie simple
-					if (arete.getVoieDouble())
+					if (areteSelectionne.getNoeud1().equals(arete.getNoeud1()) && areteSelectionne.getNoeud2().equals(arete.getNoeud2())) // Determination de l'arete
 					{
-						arete1 = new Arete(arete.getNoeud1(), arete.getNoeud2(), arete.getCouleur(), arete.getTroncons(), false, null);
-						arete2 = new Arete(arete.getNoeud1(), arete.getNoeud2(), arete.getCouleurDoubleVoie(), arete.getTroncons(), false, null);
+						// Trouver si l'arete selectionne est la voie simple ou double
+						if (areteSelectionne.getCouleurVoieSimple() != null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurVoieSimple())
+							arete.setJoueurVoieSimple(joueurActuelle);
+						if (areteSelectionne.getCouleurVoieSimple() != null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurDoubleVoie())
+							arete.setJoueurVoieDouble(joueurActuelle);
+						/* TO DO
+						 * - Gestion des cartesWagon de la main du joueur
+						 * - Gestion du score du joueur
+						 */
+						this.frameJeu.majIHM();
+						break;
 					}
-					else
-						arete1 = arete;
-
-					// Gestion du neutre
-					if (arete1 != null && arete1.getCouleur().getNomCouleur().equals("Neutre"))
-					{
-						for (Map.Entry<CarteWagon, Integer> entry : joueurActuelle.getHmWagon().entrySet())
-						{
-							if (entry.getValue() >= nbWagonArete)
-							{
-								NbWagonArete1Ok = true;
-								break;
-							}
-						}
-					}
-					else if (arete1 != null && !arete1.getCouleur().getNomCouleur().equals("Neutre") && (joueurActuelle.getHmWagon().get(arete1.getCouleur()) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1))) >= nbWagonArete)
-						NbWagonArete1Ok = true;
-
-					if (arete2 != null && arete2.getCouleur().getNomCouleur().equals("Neutre"))
-					{
-						for (Map.Entry<CarteWagon, Integer> entry : joueurActuelle.getHmWagon().entrySet())
-						{
-							if (entry.getValue() >= nbWagonArete)
-							{
-								NbWagonArete2Ok = true;
-								break;
-							}
-						}
-					}
-					else if (arete2 != null && !arete2.getCouleur().getNomCouleur().equals("Neutre") && ((joueurActuelle.getHmWagon().get(arete2.getCouleur()) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)))) >= nbWagonArete)
-						NbWagonArete2Ok = true;
-
-					if (arete1 != null && NbWagonArete1Ok)
-						alAretesPopUp.add(arete1);
-
-					if (arete2 != null && NbWagonArete2Ok)
-						alAretesPopUp.add(arete2);
 				}
-				this.ddlstArete.setModel(new DefaultComboBoxModel<Arete>(alAretesPopUp.toArray(new Arete[alAretesPopUp.size()])));
-				JOptionPane.showMessageDialog(this, this.panelPopupPossession, "Possession d'arete", JOptionPane.OK_CANCEL_OPTION);
 			}
 		}
 

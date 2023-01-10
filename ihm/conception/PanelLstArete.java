@@ -251,7 +251,7 @@ public class PanelLstArete extends JPanel implements ActionListener {
 
 				Arete areteSelected = this.lstArete.getSelectedValue();
 				
-				this.ddlstCouleur.setSelectedItem(areteSelected.getCouleur());
+				this.ddlstCouleur.setSelectedItem(areteSelected.getCouleurVoieSimple());
 				this.txtNbWagon.setText(Integer.toString(areteSelected.getTroncons()));
 				this.cbVoieDouble.setSelected(areteSelected.getVoieDouble());
 				this.ddlstCouleurVoieDouble.setSelectedItem(areteSelected.getCouleurDoubleVoie() == null ? this.concepteur.getMetier().getAlCartesWagon().get(0) : areteSelected.getCouleurDoubleVoie());
@@ -281,7 +281,7 @@ public class PanelLstArete extends JPanel implements ActionListener {
 
 				areteSelected.setNoeud1(noeudSelected1);
 				areteSelected.setNoeud2(noeudSelected2);
-				areteSelected.setCouleur(couleur);
+				areteSelected.setCouleurVoieSimple(couleur);
 				areteSelected.setCouleurDoubleVoie(couleurDoubleVoie);
 				areteSelected.setTroncons(nbWagon);
 				areteSelected.setVoieDouble(voieDoubleActive);

@@ -138,7 +138,7 @@ public class PanelMappe extends JPanel {
 			int x2 = noeud2.getX();
 			int y2 = noeud2.getY();
 
-			Color couleurVoieSimple = arete.getCouleur().getCouleur();
+			Color couleurVoieSimple = arete.getCouleurVoieSimple().getCouleur();
 			Color couleurVoieDouble = (arete.getCouleurDoubleVoie() != null ? arete.getCouleurDoubleVoie().getCouleur() : null);
 			for (int i = 0; i < troncons; i++)
 			{
