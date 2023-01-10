@@ -197,7 +197,7 @@ public class PanelAction extends JPanel implements ActionListener
 							}
 						}
 					}
-					else if (arete1 != null && !arete1.getCouleur().getNomCouleur().equals("Neutre") && joueurActuelle.getHmWagon().get(arete1.getCouleur()) >= nbWagonArete)
+					else if (arete1 != null && !arete1.getCouleur().getNomCouleur().equals("Neutre") && (joueurActuelle.getHmWagon().get(arete1.getCouleur()) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1))) >= nbWagonArete)
 						NbWagonArete1Ok = true;
 
 					if (arete2 != null && arete2.getCouleur().getNomCouleur().equals("Neutre"))
@@ -211,11 +211,8 @@ public class PanelAction extends JPanel implements ActionListener
 							}
 						}
 					}
-					else if (arete2 != null && !arete2.getCouleur().getNomCouleur().equals("Neutre") && joueurActuelle.getHmWagon().get(arete2.getCouleur()) >= nbWagonArete)
+					else if (arete2 != null && !arete2.getCouleur().getNomCouleur().equals("Neutre") && ((joueurActuelle.getHmWagon().get(arete2.getCouleur()) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)))) >= nbWagonArete)
 						NbWagonArete2Ok = true;
-
-					System.out.println("A1 " + arete1 + " " + NbWagonArete1Ok);
-					System.out.println("A2 " + arete2 + " " + NbWagonArete2Ok);
 
 					if (arete1 != null && NbWagonArete1Ok)
 						alAretesPopUp.add(arete1);
