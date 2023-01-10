@@ -47,11 +47,11 @@ public class PanelJoueur extends JPanel {
 
 
 
-	public void majCartesWagon(ArrayList<CarteWagon> alCartesWagon) {
-		this.panelCartesWagon.majCartesWagon(alCartesWagon);
+	public void majCartesWagon() {
+		this.panelCartesWagon.majCartesWagon();
 	}
 
-	public void majCartesDesti(ArrayList<CarteDestination> alCartesDesti) {
-		this.panelCartesDestination.majCartesDesti(alCartesDesti);
+	public void majCartesDesti() {
+		this.panelCartesDestination.majCartesDesti();
 	}
 }

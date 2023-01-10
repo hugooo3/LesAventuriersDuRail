@@ -62,7 +62,7 @@ public class Joueur {
 	public void addCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.add(carteDestination);}
 	public void addScore(int score) {this.score += score;}
 
-	public void removeCarteWagon(CarteWagon carteWagon) {this.hmWagon.put(carteWagon, this.hmWagon.get(carteWagon) - 1);}
+	public void removeCarteWagon(CarteWagon carteWagon, int nbCarte) {this.hmWagon.put(carteWagon, this.hmWagon.get(carteWagon) - nbCarte);}
 	public void removeCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.remove(carteDestination);}
 
 	public void removeScore(int score) {
@@ -72,7 +72,7 @@ public class Joueur {
 			this.score -= score;
 		else
 			this.score = 0;
-	} // Utile pour les cartes destination en fin de partie
+	}
 
 	@Override
 	public String toString() {

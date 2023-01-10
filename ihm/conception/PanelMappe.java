@@ -58,19 +58,14 @@ public class PanelMappe extends JPanel {
 
 				// Rien sur le clique, creation d'un noeud
 				JLabel lblNom = new JLabel("Nom du Noeud : ");
-				String nomNoeud = JOptionPane.showInputDialog(PanelMappe.this, lblNom, "Création d'un Noeud",
-						JOptionPane.QUESTION_MESSAGE);
-
+				String nomNoeud = JOptionPane.showInputDialog(PanelMappe.this, lblNom, "Création d'un Noeud", JOptionPane.QUESTION_MESSAGE);
 				while (nomNoeud == null || nomNoeud.equals("")) 
 				{
 					if (nomNoeud == null) // bouton annuler
 						return;
 
-					JOptionPane.showMessageDialog(null, "Le champ saisi ne peut être vide !", "Erreur",
-							JOptionPane.ERROR_MESSAGE);
-
-					nomNoeud = JOptionPane.showInputDialog(PanelMappe.this, lblNom, "Création d'un Noeud",
-							JOptionPane.QUESTION_MESSAGE);
+					JOptionPane.showMessageDialog(null, "Le champ saisi ne peut être vide !", "Erreur", JOptionPane.ERROR_MESSAGE);
+					nomNoeud = JOptionPane.showInputDialog(PanelMappe.this, lblNom, "Création d'un Noeud", JOptionPane.QUESTION_MESSAGE);
 				}
 
 

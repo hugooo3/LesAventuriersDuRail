@@ -1,7 +1,6 @@
 package metier;
 
 import javax.imageio.ImageIO;
-import javax.swing.plaf.ColorUIResource;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
@@ -56,7 +55,6 @@ public class Metier {
 	// Jeu
 	private Pioche pioche;
 	private ArrayList<Joueur> alJoueurs;
-	private boolean actionJoueur;
 
 	public Metier(Application app) {	
 		this.alNoeuds = new ArrayList<Noeud>();
@@ -68,11 +66,11 @@ public class Metier {
 		this.versoCartePath = "/images/ArriereCarte.png";
 		this.imgMappePath = "/images/carteUSA.png"; // Affichage dans la menuBar
 
-		this.alCartesWagon.add(new CarteWagon("Neutre", COULEUR_GRIS_PALE		, (String)null								, (String)null			,  0));
-		this.alCartesWagon.add(new CarteWagon("Blanc" , Color.WHITE				, "/images/carteBlanche.png"	, this.versoCartePath	, 12));
-		this.alCartesWagon.add(new CarteWagon("Bleu"  , COULEUR_BLEU_PALE		, "/images/carteBleu.png"		, this.versoCartePath	, 12));
+		this.alCartesWagon.add(new CarteWagon("Neutre", COULEUR_GRIS_PALE		, (String)null				, (String)null			,  0));
+		this.alCartesWagon.add(new CarteWagon("Blanc" , Color.WHITE				, "/images/carteBlanche.png", this.versoCartePath	, 12));
+		this.alCartesWagon.add(new CarteWagon("Bleu"  , COULEUR_BLEU_PALE		, "/images/carteBleu.png"	, this.versoCartePath	, 12));
 		this.alCartesWagon.add(new CarteWagon("Jaune" , COULEUR_JAUNE_PALE		, "/images/carteJaune.png"	, this.versoCartePath	, 12));
-		this.alCartesWagon.add(new CarteWagon("Noir"  , COULEUR_NOIR_PALE		, "/images/carteNoir.png"		, this.versoCartePath	, 12));
+		this.alCartesWagon.add(new CarteWagon("Noir"  , COULEUR_NOIR_PALE		, "/images/carteNoir.png"	, this.versoCartePath	, 12));
 		this.alCartesWagon.add(new CarteWagon("Orange", COULEUR_ORANGE_PALE		, "/images/carteOrange.png"	, this.versoCartePath	, 12));
 		this.alCartesWagon.add(new CarteWagon("Rouge" , COULEUR_ROUGE_PALE		, "/images/carteRouge.png"	, this.versoCartePath	, 12));
 		this.alCartesWagon.add(new CarteWagon("Verte" , COULEUR_VERT_PALE		, "/images/carteVerte.png"	, this.versoCartePath	, 12));
@@ -81,7 +79,6 @@ public class Metier {
 
 		// Jeu
 		this.alJoueurs = new ArrayList<Joueur>();
-		this.actionJoueur = false;
 	}
 
 	/***************************/
@@ -107,7 +104,6 @@ public class Metier {
 	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) {this.nbJoueurDoubleVoies = nbJoueurDoubleVoies;}
 	public void setNbWagonJoueur(int nbWagonJoueur) {this.nbWagonJoueur = nbWagonJoueur;}
 	public void setNbFin(int nbFin) {this.nbFin = nbFin;}
-	public void setActionJoueur () {this.actionJoueur = true;}
 
 	public void setVersoCarte(String versoCartePath) {
 		this.versoCartePath = versoCartePath;
@@ -271,6 +267,8 @@ public class Metier {
 		return pioche;
 	}
 
+	public Pioche getPioche() { return this.pioche; }
+
 	private boolean initJoueur(Joueur joueur) {
 
 		/* Initialisation de la main du joueur */
@@ -291,6 +289,7 @@ public class Metier {
 			joueur.addCarteDestination(this.pioche.piocherCarteDestination());
 		}
 		
+		joueur.setNbWagonJoueur(this.nbWagonJoueur);
 		return true;
 	}
 
@@ -316,18 +315,26 @@ public class Metier {
 		return true;
 	}
 
-	public void Jeu(String actionJoueur) {
+	public void jeu(String actionJoueur) {
 		Joueur joueurEnJeu = this.getJoueurEnJeu();
 		System.out.println("Joueur " + joueurEnJeu.getNomJoueur() + " fait " + actionJoueur);
 
+		//Prochain joueur
+		this.prochainJoueur(joueurEnJeu);
+
+		if (finJeu()) {
+			System.out.println("Fin du jeu");
+			this.calculScoreFin();
+		}
+	}
+
+	private void prochainJoueur(Joueur joueurEnJeu)
+	{
 		// Prochain joueur
 		joueurEnJeu.setEstEnJeu(false);
-		this.actionJoueur = false;
 		this.alJoueurs.get((this.alJoueurs.indexOf(joueurEnJeu) + 1) % this.alJoueurs.size()).setEstEnJeu(true);
 
-		System.out.println("Prochain joueur " + this.alJoueurs.get((this.alJoueurs.indexOf(joueurEnJeu) + 1) % this.alJoueurs.size()).getNomJoueur());
-
-		if (finJeu()) { System.out.println("Fin du jeu");}
+		System.out.println("Joueur actuel : " + this.alJoueurs.get((this.alJoueurs.indexOf(joueurEnJeu) + 1) % this.alJoueurs.size()).getNomJoueur());
 	}
 
 	private boolean finJeu() {
@@ -351,7 +358,7 @@ public class Metier {
 				nbWagonJoueurMin = joueur.getNbWagonJoueur();
 			}
 		}
- 
+
 		if (tronconsMin > nbWagonJoueurMin) { return true;}
 		return false;
 	}

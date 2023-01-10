@@ -21,10 +21,9 @@ public class Application
 	public Metier getMetier() {return this.metier;}
 
 	public boolean preparationJeu(ArrayList<Joueur> lstJoueur) {return this.metier.preparationJeu(lstJoueur);}
-	public void    Jeu(String actionJoueur) 
+	public void    jeu(String actionJoueur) 
 	{ 
-		this.metier.setActionJoueur();
-		this.metier.Jeu(actionJoueur); 
+		this.metier.jeu(actionJoueur); 
 	}
 
 	public File getMappeXML() { return this.frameManager.getMappeXML();}
@@ -41,7 +40,6 @@ public class Application
 	public void setNbJoueurDoubleVoies(int nbJoueurDoubleVoies) { this.metier.setNbJoueurDoubleVoies(nbJoueurDoubleVoies);}
 	public void setNbWagonJoueur(int nbWagonJoueur) { this.metier.setNbWagonJoueur(nbWagonJoueur);}
 	public void setNbFin(int nbFin) { this.metier.setNbFin(nbFin);}
-	public void setActionJoueur () { this.metier.setActionJoueur();}
 
 	public void    reinitialiserMetier() {this.metier = new Metier(this);}
 	public boolean reinitialiserDossierSortie() {return this.metier.reinitialiserDossierSortie();}

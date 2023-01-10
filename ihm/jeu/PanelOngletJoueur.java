@@ -51,21 +51,40 @@ public class PanelOngletJoueur extends JPanel {
 		for(int i=0; i < this.listePanelJoueur.size(); i++)
 			this.panelOnglets.addTab(this.lstNomJoueur.get(i), this.listePanelJoueur.get(i));
 
+		Joueur joueurCourant = this.jeu.getMetier().getJoueurEnJeu();
+		for(Joueur j : this.lstJoueur) {
+			if(!j.equals(joueurCourant)) { this.panelOnglets.setEnabledAt(this.lstJoueur.indexOf(j), false); } 
+			else { 
+				this.panelOnglets.setEnabledAt(this.lstJoueur.indexOf(j), true); 
+				this.panelOnglets.setSelectedIndex(this.lstJoueur.indexOf(j));
+			}
+		}
+	
+
 		this.add(this.panelOnglets, BorderLayout.CENTER);
 	}
 
 
 	public void majLstJoueurs(ArrayList<Joueur> lstJoueur) { this.lstJoueur = lstJoueur; }
 
-	public void majCartesWagon(ArrayList<CarteWagon> alCartesWagon, Joueur joueur) {
-		for(Joueur j : this.lstJoueur)
-			if(joueur.equals(j))
-				this.listePanelJoueur.get(this.lstJoueur.indexOf(j)).majCartesWagon(alCartesWagon);
+	public void majCartesWagon() {
+		for(PanelJoueur panel : this.listePanelJoueur)
+			panel.majCartesWagon();
 	}
 
-	public void majCartesDesti(ArrayList<CarteDestination> alCartesDesti, Joueur joueur) {
-		for(Joueur j : this.lstJoueur)
-			if(joueur.equals(j))
-				this.listePanelJoueur.get(this.lstJoueur.indexOf(j)).majCartesDesti(alCartesDesti);
+	public void majCartesDesti() {
+		for(PanelJoueur panel : this.listePanelJoueur)
+			panel.majCartesDesti();
+	}
+
+	public void majJoueur() {
+		Joueur joueurCourant = this.jeu.getMetier().getJoueurEnJeu();
+		for(Joueur j : this.lstJoueur) {
+			if(!j.equals(joueurCourant)) { this.panelOnglets.setEnabledAt(this.lstJoueur.indexOf(j), false); } 
+			else {
+				this.panelOnglets.setEnabledAt(this.lstJoueur.indexOf(j), true);
+				this.panelOnglets.setSelectedIndex(this.lstJoueur.indexOf(j));
+			}
+		}
 	}
 }

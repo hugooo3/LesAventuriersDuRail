@@ -2,10 +2,14 @@ package ihm.jeu;
 
 import ihm.FrameJeu;
 import metier.*;
+import ihm.jeu.util.BoutonCarteWagon;
 
 import java.awt.event.*;
+import java.io.File;
+
+import javax.imageio.ImageIO;
 import javax.swing.*;
-import java.awt.Dimension;
+
 import java.awt.*;
 
 import java.util.ArrayList;
@@ -13,18 +17,33 @@ import java.util.ArrayList;
 public class PanelAction extends JPanel implements ActionListener
 {
 	private FrameJeu frameJeu;
+	private Pioche pioche;
 
 	
 	private int largeur;
 	private int hauteur;
 
+	private ArrayList<Joueur> alJoueurs;
+
 	private JButton btnPioche;
 	private JButton btnPossessionRoute;
 	private JButton btnPiocheDesti;
 
+	private JPanel panelHaut;
+	private JPanel  panelInfo;
+
+	private ArrayList<JLabel> alLblJoueurs;
+	private ArrayList<JLabel> alLblNbWagonJoueur;
+	private ArrayList<JLabel> alLblScore;
+	private ArrayList<Color> alCouleur;
+
 	private JPanel panelPopUpPioche;
-	private ArrayList<JButton> alBtnVisible;
-	private JButton btnPiocheNonVisible;
+	private ArrayList<JLabel> alLblCartes;
+	private ArrayList<BoutonCarteWagon> alBtnCartes;
+	private ArrayList<CarteWagon> alCartesCourantes;
+	private BoutonCarteWagon btnNonVisible;
+	private JLabel lblNonVisible;
+	private CarteWagon carteCachee;
 
 	private JPanel panelPopupPossession;
 	private ArrayList<Arete> alAretesPossession;
@@ -33,82 +52,151 @@ public class PanelAction extends JPanel implements ActionListener
 
 	private JPanel panelPopupPiocheDesti;
 	private ArrayList<CarteDestination> alPiocheDesti;
-	private JComboBox<CarteDestination> ddlstPiocheDesti;
-	private JComboBox<CarteDestination> ddlstPiocheDestiDouble;
-	private JCheckBox cbPiocheDestiDouble;
-	private JLabel lblPiocheDestiDouble;
+	private JCheckBox cbPiocheDesti;
+	private JCheckBox cbPiocheDestiDeux;
+	private JCheckBox cbPiocheDestiTrois;
+	private JLabel lblPiocheDestiConseil;
 
 	
-	public PanelAction(FrameJeu frameJeu, int largeur, int hauteur) 
+	public PanelAction(FrameJeu frameJeu, int largeur, int hauteur, ArrayList<Joueur> alJoueursMetier, Pioche pioche) 
 	{
 		//Init
+		this.pioche = frameJeu.getMetier().getPioche();
 		this.hauteur = hauteur;
 		this.largeur = largeur;
-		this.alPiocheDesti = new ArrayList<CarteDestination>();
-		this.alBtnVisible = new ArrayList<JButton>();
+		this.alBtnCartes = new ArrayList<BoutonCarteWagon>();
+		this.alJoueurs = alJoueursMetier;
+		this.pioche = pioche;
+		this.setLayout(new GridLayout(2, 1));
 
+		//Contenu Panel
 
-		//Contenu Panel SCRU PAPA
+		this.panelHaut = new JPanel();
+		this.panelHaut.setLayout(null);
+
+		int hauteurPH = (int)(this.hauteur*0.5);
 
 		this.btnPioche = new JButton("Pioche");
 		this.btnPioche.setFocusPainted(false);
 		this.btnPioche.addActionListener(this);
-		this.btnPioche.setBounds(this.largeur/2 -100, this.hauteur/4 -50, 200, 50);
-		this.add(this.btnPioche);
+		this.panelHaut.add(this.btnPioche);
+		this.btnPioche.setBounds(this.largeur/2 - 100, hauteurPH/4 - 25, 200, 50);
 		
 		this.btnPossessionRoute = new JButton("Possession de route");
 		this.btnPossessionRoute.setFocusPainted(false);
 		this.btnPossessionRoute.addActionListener(this);
-		this.btnPossessionRoute.setBounds(this.largeur/2 -100, this.hauteur/2 -50, 200, 50);
-		this.add(this.btnPossessionRoute);
+		this.panelHaut.add(this.btnPossessionRoute);
+		this.btnPossessionRoute.setBounds(this.largeur/2 - 100, hauteurPH/2 - 25, 200, 50);
 
 		this.btnPiocheDesti = new JButton("Pioche de destination");
 		this.btnPiocheDesti.setFocusPainted(false);
 		this.btnPiocheDesti.addActionListener(this);
-		this.btnPiocheDesti.setBounds(this.largeur/2 -100, (int)(this.hauteur*0.75) -50, 200, 50);
-		this.add(this.btnPiocheDesti);
+		this.panelHaut.add(this.btnPiocheDesti);
+		this.btnPiocheDesti.setBounds(this.largeur/2 - 100, (int)(hauteurPH*0.75) - 25, 200, 50);
+
+
+
+		// Panel Info
+		// --------- //
+
+		this.panelInfo = new JPanel();
+		this.alLblJoueurs 		= new ArrayList<JLabel>();
+		this.alLblNbWagonJoueur = new ArrayList<JLabel>();
+		this.alLblScore 		= new ArrayList<JLabel>();
+		this.alCouleur 		= new ArrayList<Color>();
+		int ligne = this.alJoueurs.size()+1;
+		this.panelInfo.setLayout(null);
 
 		this.alAretesPossession = frameJeu.getMetier().getAlAretes();
-		this.alPiocheDesti = frameJeu.getMetier().getAlCartesDestination();
+		//this.alPiocheDesti = frameJeu.getMetier().getAlCartesDestination();
 
 		// Paramètres Panel
 		this.frameJeu = frameJeu;
 		this.largeur  =  largeur;
 		this.hauteur  =  hauteur;
 		
-		this.setLayout(null);
 		this.setPreferredSize(new Dimension(this.largeur, this.hauteur));
 
+		//Contenu panelInfos
+		JLabel lblNbPions = new JLabel("Wagons", JLabel.RIGHT);
+		JLabel lblScore = new JLabel("Score", JLabel.RIGHT);
+		JLabel lblJoueur = new JLabel("Joueur(s)", JLabel.LEFT);
+
+		this.panelInfo.add(lblNbPions);
+		lblNbPions.setBounds(this.largeur/3, 10, this.largeur/3, 20);
+
+		this.panelInfo.add(lblScore);
+		lblScore.setBounds((this.largeur/3)*2, 10, this.largeur/3, 20);
+
+		this.panelInfo.add(lblJoueur);
+		lblJoueur.setBounds(10, 10, this.largeur/3, 20);
+
+
+		for(Joueur joueur : this.alJoueurs) {
+			this.alLblJoueurs.add(		new JLabel(joueur.getNomJoueur()));
+			this.alLblNbWagonJoueur.add(new JLabel(Integer.toString(joueur.getNbWagonJoueur()), JLabel.RIGHT));
+			this.alLblScore.add(		new JLabel(Integer.toString(joueur.getScore()), JLabel.RIGHT));
+			this.alCouleur.add(joueur.getCouleur());
+		}
 		
+		for(int i = 0; i < this.alJoueurs.size(); i++)
+		{
+			this.alLblJoueurs.get(i).setBackground(this.alCouleur.get(i));
+			this.alLblJoueurs.get(i).setOpaque(true);
+			this.panelInfo.add(this.alLblJoueurs.get(i));
+			this.panelInfo.add(this.alLblNbWagonJoueur.get(i));
+			this.panelInfo.add(this.alLblScore.get(i));
+
+			this.alLblJoueurs.get(i).setBounds(10, (40 + 15*i), this.largeur/3, 20);
+			this.alLblNbWagonJoueur.get(i).setBounds(this.largeur/3, (40 + 15*i), this.largeur/3, 20);
+			this.alLblScore.get(i).setBounds((this.largeur/3)*2, (40 + 15*i), this.largeur/3, 20);
+		}
+		//ex :label.setFont(new Font("Serif", Font.BOLD, 20));
+
+
+
+
 		//Contenu panelPopupDesti
 
+		this.panelPopupPiocheDesti = new JPanel(new GridBagLayout());
+		GridBagConstraints gbcPopUp = new GridBagConstraints();
+		gbcPopUp.insets = new Insets(5, 2, 5, 2);
+		this.lblPiocheDestiConseil = new JLabel("Piocher au moins une carte.");
 
-
-
-		this.panelPopupPiocheDesti = new JPanel(new GridLayout(2,3));
-		this.cbPiocheDestiDouble = new JCheckBox();
-		this.lblPiocheDestiDouble = new JLabel("Piocher 2 cartes");
-
-		this.alPiocheDesti.toArray(new CarteDestination[this.alPiocheDesti.size()]);
-		this.ddlstPiocheDesti = new JComboBox<CarteDestination>();
-		this.ddlstPiocheDestiDouble = new JComboBox<CarteDestination>();
-
-
-		for(int i = 0; i < 3; i++)
-		{
-			JLabel lblTemp = new JLabel(alPiocheDesti.get( (int)(Math.random() * alPiocheDesti.size()) ).toString());
-			ddlstPiocheDesti.add(lblTemp);
-			ddlstPiocheDestiDouble.add(lblTemp);
+		this.alPiocheDesti = new ArrayList<CarteDestination>();// liste des carte piocher (a remettre si il annule)
+		for(int i = 0; i < 3; i++) {
+			this.alPiocheDesti.add(pioche.piocherCarteDestination());
 		}
+		this.cbPiocheDesti      = new JCheckBox(this.alPiocheDesti.get(0).toString());
+		this.cbPiocheDestiDeux  = new JCheckBox(this.alPiocheDesti.get(1).toString());
+		this.cbPiocheDestiTrois = new JCheckBox(this.alPiocheDesti.get(2).toString());
+		this.cbPiocheDesti.addActionListener(this);
+		this.cbPiocheDestiDeux.addActionListener(this);
+		this.cbPiocheDestiTrois.addActionListener(this);
 
-		this.panelPopupPiocheDesti.add(ddlstPiocheDesti);
-		this.panelPopupPiocheDesti.add(cbPiocheDestiDouble);
-		this.panelPopupPiocheDesti.add(lblPiocheDestiDouble);
-		this.panelPopupPiocheDesti.add(ddlstPiocheDestiDouble);
+		gbcPopUp.gridx = 0;
+		gbcPopUp.gridy = 0;
+		gbcPopUp.fill = GridBagConstraints.HORIZONTAL;
+		this.panelPopupPiocheDesti.add(cbPiocheDesti, gbcPopUp);
+
+		gbcPopUp.gridx = 1;
+		gbcPopUp.gridy = 0;
+		gbcPopUp.fill = GridBagConstraints.HORIZONTAL;
+		this.panelPopupPiocheDesti.add(cbPiocheDestiDeux, gbcPopUp);
+
+		gbcPopUp.gridx = 2;
+		gbcPopUp.gridy = 0;
+		gbcPopUp.fill = GridBagConstraints.HORIZONTAL;
+		this.panelPopupPiocheDesti.add(cbPiocheDestiTrois, gbcPopUp);
+
+		gbcPopUp.gridx = 1;
+		gbcPopUp.gridy = 1;
+		gbcPopUp.gridwidth = 3;
+		gbcPopUp.fill = GridBagConstraints.HORIZONTAL;
+		this.panelPopupPiocheDesti.add(lblPiocheDestiConseil, gbcPopUp);
 		
 
 		//Contenu panelPopupPossession
-
 		this.panelPopupPossession = new JPanel();
 
 		this.ddlstArete = new JComboBox<Arete>(this.alAretesPossession.toArray(new Arete[this.alAretesPossession.size()]));
@@ -116,27 +204,66 @@ public class PanelAction extends JPanel implements ActionListener
 		this.btnPrendrePossession = new JButton("Prendre possession");
 		this.panelPopupPossession.add(btnPrendrePossession);
 
-		//Contenu PanelPopupPioche
-		
+
+
+		// Contenu PanelPopupPioche
+		// ------------------------ //
 		this.panelPopUpPioche = new JPanel();
+		this.panelPopUpPioche.setPreferredSize(new Dimension(450, 200));
+		this.panelPopUpPioche.setLayout(null);
+
+		this.alBtnCartes = new ArrayList<BoutonCarteWagon>();
+		this.alCartesCourantes = new ArrayList<CarteWagon>();
+		this.alLblCartes = new ArrayList<JLabel>();
+
 
 		for(int i=0; i < 5; i++) {
-			JButton btnTemp = new JButton();
-			btnTemp.setFocusPainted(false);
-			btnTemp.addActionListener(this);
-			this.panelPopUpPioche.add(btnTemp);
-			this.alBtnVisible.add(btnTemp);
+			this.alCartesCourantes.add(pioche.piocherCarteWagon());
+			this.alLblCartes.add(new JLabel(new ImageIcon(this.alCartesCourantes.get(i).getImgRecto().getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH))));
+			this.alBtnCartes.add(new BoutonCarteWagon(this.alCartesCourantes.get(i) ,"Piocher"));
+
+			this.panelPopUpPioche.add(this.alLblCartes.get(i));
+			this.panelPopUpPioche.add(this.alBtnCartes.get(i));
+			this.alLblCartes.get(i).setBounds(10 + (i*110), 10, 70, 70);
+			this.alBtnCartes.get(i).setBounds(10 + (i*110), 70, 100, 35);
+
+			if(i == 4) {
+				this.carteCachee = pioche.piocherCarteWagon();
+				this.btnNonVisible = new BoutonCarteWagon(this.carteCachee, "Piocher");
+				this.lblNonVisible = new JLabel(new ImageIcon());
+
+				try {
+					Image img = ImageIO.read(new File("images/ArriereCarte.png"));
+					img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
+					this.lblNonVisible.setIcon(new ImageIcon(img));
+				} catch(Exception e) { e.printStackTrace(); }
+
+				this.panelPopUpPioche.add(this.lblNonVisible);
+				this.panelPopUpPioche.add(this.btnNonVisible);
+				this.lblNonVisible.setBounds(225 - 25, 115, 50, 50);
+				this.btnNonVisible.setBounds(225 - 50, 165, 100, 30);
+			}
 		}
 
+		this.add(this.panelHaut);
+		this.add(this.panelInfo);
+
+	}
 
 
-		this.btnPiocheNonVisible= new JButton();
-		this.btnPioche.setFocusPainted(false);
-		this.btnPioche.addActionListener(this);
-		this.panelPopUpPioche.add(btnPiocheNonVisible);
+	public CarteWagon getCarteDispo() { return this.pioche.piocherCarteWagon(); }
 
+	public void majIHM() 
+	{
+		/*
+		for (int i = 0; i < this.alJoueurs.size(); i++)
+		{
+			Joueur joueur = this.alJoueurs.get(i);
 
-		
+			this.alLblNbWagonJoueur.get(i).setText(Integer.toString(joueur.getNbWagonJoueur()));
+			this.alLblScore.get(i).setText(Integer.toString(joueur.getScore()));
+		}
+		*/
 	}
 
 	@Override
@@ -144,10 +271,8 @@ public class PanelAction extends JPanel implements ActionListener
 		// TODO Auto-generated method stub
 
 		if(e.getSource() == this.btnPioche) {
-			int n = JOptionPane.showConfirmDialog(null, this.panelPopUpPioche, "Pioche", JOptionPane.OK_CANCEL_OPTION);
-			
-			if (n != JOptionPane.OK_OPTION) // Cancel ou croix == annulation
-				return;
+			int ret = JOptionPane.showOptionDialog(this.frameJeu, this.panelPopUpPioche, "Pioche", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
+			if(ret != JOptionPane.OK_CANCEL_OPTION) { return; }
 		}
 
 
@@ -157,22 +282,77 @@ public class PanelAction extends JPanel implements ActionListener
 			}
 			else
 			{
-				JOptionPane.showMessageDialog(this, this.panelPopupPossession, "Possession d'arete", JOptionPane.OK_CANCEL_OPTION);
+				int n = JOptionPane.showConfirmDialog(this, this.panelPopupPossession, "Possession d'arete", JOptionPane.OK_CANCEL_OPTION);
+
+				if (n != JOptionPane.OK_OPTION) // Cancel ou croix == annulation
+					return;
 			}
 		}
 
 
 		if(e.getSource() == this.btnPiocheDesti) {
-			if(alPiocheDesti == null){
+			if(alPiocheDesti == null || alPiocheDesti.size() == 0){
 				JOptionPane.showMessageDialog(null, "Il n'y a pas de carte destination dans la pioche ", "Erreur",JOptionPane.ERROR_MESSAGE);
 			}
 			else
 			{
-				int n = JOptionPane.showConfirmDialog(null, this.panelPopupPiocheDesti, "Pioche", JOptionPane.OK_CANCEL_OPTION);
+				do {
+					JOptionPane.showMessageDialog(this.frameJeu, this.panelPopupPiocheDesti, "Pioche", JOptionPane.OK_CANCEL_OPTION, null);
 
-				if (n != JOptionPane.OK_OPTION) // Cancel ou croix == annulation
-					return;
+					if ( ! (cbPiocheDesti.isSelected() || cbPiocheDestiDeux.isSelected() || cbPiocheDestiTrois.isSelected()))
+						JOptionPane.showMessageDialog(null, "Veuillez en selectionner au moins un. ", "Erreur",JOptionPane.ERROR_MESSAGE);
+					else {
+						if(this.alPiocheDesti.size() > 0) {
+							if(cbPiocheDesti.isSelected()) {
+								frameJeu.getMetier().getJoueurEnJeu().addCarteDestination(this.alPiocheDesti.get(0));
+							}
+							else pioche.addCarteDestination(this.alPiocheDesti.get(0));
+						}
+						
+						if(this.alPiocheDesti.size() > 1) {
+							if(cbPiocheDestiDeux.isSelected() ) {
+								frameJeu.getMetier().getJoueurEnJeu().addCarteDestination(this.alPiocheDesti.get(1));
+							}
+							else pioche.addCarteDestination(this.alPiocheDesti.get(1));
+						}
+						
+						if(this.alPiocheDesti.size() > 2) {
+							if(cbPiocheDestiTrois.isSelected()) {
+								frameJeu.getMetier().getJoueurEnJeu().addCarteDestination(this.alPiocheDesti.get(2));
+							}
+							else pioche.addCarteDestination(this.alPiocheDesti.get(2));
+						}
+						//refait la pioche d'après
+						this.alPiocheDesti.clear();
+						for (int i = 0; i < 3; i++) {
+							CarteDestination carte = pioche.piocherCarteDestination();
+							if (carte != null) {
+								this.alPiocheDesti.add(carte);
+							}
+						}
+					}
+				} while ( ! (cbPiocheDesti.isSelected() || cbPiocheDestiDeux.isSelected() || cbPiocheDestiTrois.isSelected()) );
+
+				this.cbPiocheDesti.setSelected(false);
+				this.cbPiocheDestiDeux.setSelected(false);
+				this.cbPiocheDestiTrois.setSelected(false);
+				if( this.alPiocheDesti.size() > 0 )
+					this.cbPiocheDesti.setText(this.alPiocheDesti.get(0).toString());
+
+				if( this.alPiocheDesti.size() > 1 )
+					this.cbPiocheDestiDeux.setText(this.alPiocheDesti.get(1).toString());
+				else
+					this.cbPiocheDestiDeux.setVisible(false);
+
+				if( this.alPiocheDesti.size() > 2 )
+					this.cbPiocheDestiTrois.setText(this.alPiocheDesti.get(2).toString());
+				else
+					this.cbPiocheDestiTrois.setVisible(false);
+
+				this.frameJeu.jeu("Piocher Carte Destination");
+				this.frameJeu.majIHM();
 			}
+			
 		}
 
 		if(e.getSource() == this.btnPossessionRoute) {
