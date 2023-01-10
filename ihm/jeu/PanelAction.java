@@ -209,7 +209,7 @@ public class PanelAction extends JPanel implements ActionListener
 		// Contenu PanelPopupPioche
 		// ------------------------ //
 		this.panelPopUpPioche = new JPanel();
-		this.panelPopUpPioche.setPreferredSize(new Dimension(450, 200));
+		this.panelPopUpPioche.setPreferredSize(new Dimension(550, 300));
 		this.panelPopUpPioche.setLayout(null);
 
 		this.alBtnCartes = new ArrayList<BoutonCarteWagon>();
@@ -224,8 +224,9 @@ public class PanelAction extends JPanel implements ActionListener
 
 			this.panelPopUpPioche.add(this.alLblCartes.get(i));
 			this.panelPopUpPioche.add(this.alBtnCartes.get(i));
-			this.alLblCartes.get(i).setBounds(10 + (i*110), 10, 70, 70);
-			this.alBtnCartes.get(i).setBounds(10 + (i*110), 70, 100, 35);
+			this.alLblCartes.get(i).setBounds(25 + (i*110), 10, 70, 70);
+			this.alBtnCartes.get(i).setBounds(10 + (i*110), 80, 100, 35);
+			this.alBtnCartes.get(i).addActionListener(this);
 
 			if(i == 4) {
 				this.carteCachee = pioche.piocherCarteWagon();
@@ -233,15 +234,14 @@ public class PanelAction extends JPanel implements ActionListener
 				this.lblNonVisible = new JLabel(new ImageIcon());
 
 				try {
-					Image img = ImageIO.read(new File("images/ArriereCarte.png"));
-					img.getScaledInstance(70, 70, Image.SCALE_SMOOTH);
-					this.lblNonVisible.setIcon(new ImageIcon(img));
+					this.lblNonVisible.setBackground(Color.BLACK);
+					this.lblNonVisible.setOpaque(true);
 				} catch(Exception e) { e.printStackTrace(); }
 
 				this.panelPopUpPioche.add(this.lblNonVisible);
 				this.panelPopUpPioche.add(this.btnNonVisible);
-				this.lblNonVisible.setBounds(225 - 25, 115, 50, 50);
-				this.btnNonVisible.setBounds(225 - 50, 165, 100, 30);
+				this.lblNonVisible.setBounds(275 - 35, 135, 70, 70);
+				this.btnNonVisible.setBounds(275 - 50, 205, 100, 30);
 			}
 		}
 
