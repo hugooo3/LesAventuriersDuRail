@@ -59,7 +59,7 @@ public class RendererCouleur extends DefaultListCellRenderer
 		if (value instanceof Arete)
 		{
 			Arete arete = (Arete) value;
-			couleur = arete.getCouleur().getCouleur();
+			couleur = arete.getCouleurVoieSimple().getCouleur();
 			this.lblTxt.setText(arete.toString());
 			panel.add(this.lblTxt);
 		}

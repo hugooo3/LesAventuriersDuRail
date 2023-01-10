@@ -13,6 +13,7 @@ import javax.swing.*;
 import java.awt.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class PanelAction extends JPanel implements ActionListener
 {
@@ -46,9 +47,8 @@ public class PanelAction extends JPanel implements ActionListener
 	private CarteWagon carteCachee;
 
 	private JPanel panelPopupPossession;
-	private ArrayList<Arete> alAretesPossession;
+	private ArrayList<Arete> alAretes;
 	private JComboBox<Arete> ddlstArete;
-	private JButton btnPrendrePossession;
 
 	private JPanel panelPopupPiocheDesti;
 	private ArrayList<CarteDestination> alPiocheDesti;
@@ -107,7 +107,7 @@ public class PanelAction extends JPanel implements ActionListener
 		int ligne = this.alJoueurs.size()+1;
 		this.panelInfo.setLayout(null);
 
-		this.alAretesPossession = frameJeu.getMetier().getAlAretes();
+		this.alAretes = frameJeu.getMetier().getAlAretes();
 		//this.alPiocheDesti = frameJeu.getMetier().getAlCartesDestination();
 
 		// Paramètres Panel
@@ -154,8 +154,6 @@ public class PanelAction extends JPanel implements ActionListener
 		//ex :label.setFont(new Font("Serif", Font.BOLD, 20));
 
 
-
-
 		//Contenu panelPopupDesti
 
 		this.panelPopupPiocheDesti = new JPanel(new GridBagLayout());
@@ -199,10 +197,8 @@ public class PanelAction extends JPanel implements ActionListener
 		//Contenu panelPopupPossession
 		this.panelPopupPossession = new JPanel();
 
-		this.ddlstArete = new JComboBox<Arete>(this.alAretesPossession.toArray(new Arete[this.alAretesPossession.size()]));
+		this.ddlstArete = new JComboBox<Arete>();
 		this.panelPopupPossession.add(ddlstArete);
-		this.btnPrendrePossession = new JButton("Prendre possession");
-		this.panelPopupPossession.add(btnPrendrePossession);
 
 
 
@@ -277,15 +273,101 @@ public class PanelAction extends JPanel implements ActionListener
 
 
 		if(e.getSource() == this.btnPossessionRoute) {
-			if(alAretesPossession == null){
-				JOptionPane.showMessageDialog(null, "Il n'y a pas d'arete ", "Erreur",JOptionPane.ERROR_MESSAGE);
-			}
-			else
-			{
-				int n = JOptionPane.showConfirmDialog(this, this.panelPopupPossession, "Possession d'arete", JOptionPane.OK_CANCEL_OPTION);
+			ArrayList<Arete> alAretesPopUp = new ArrayList<Arete>();
+			Joueur joueurActuelle = this.frameJeu.getMetier().getJoueurEnJeu();
 
-				if (n != JOptionPane.OK_OPTION) // Cancel ou croix == annulation
-					return;
+			Arete arete1;
+			Arete arete2;
+			int nbWagonArete;
+			boolean NbWagonArete1Ok;
+			boolean NbWagonArete2Ok;
+
+			// Creation de l'arrayList personnalise pour le joueur courrant
+			for (Arete arete : this.alAretes)
+			{
+				nbWagonArete = arete.getTroncons();
+				arete1 = null;
+				arete2 = null;
+				
+				NbWagonArete1Ok = false;
+				NbWagonArete2Ok = false;
+
+				// Division des voies double en voie simple
+				if (arete.getVoieDouble())
+				{
+					arete1 = arete.getJoueurVoieSimple() == null ? new Arete(arete.getNoeud1(), arete.getNoeud2(), arete.getCouleurVoieSimple(), arete.getTroncons(), false, null) : null;
+					arete2 = arete.getJoueurVoieDouble() == null ? new Arete(arete.getNoeud1(), arete.getNoeud2(), arete.getCouleurDoubleVoie(), arete.getTroncons(), false, null) : null;
+				}
+				else
+					arete1 = arete.getJoueurVoieSimple() == null ? new Arete(arete.getNoeud1(), arete.getNoeud2(), arete.getCouleurVoieSimple(), arete.getTroncons(), false, null) : null;
+
+				// Gestion du neutre
+				if (arete1 != null && arete1.getCouleurVoieSimple().getNomCouleur().equals("Neutre"))
+				{
+					for (Map.Entry<CarteWagon, Integer> entry : joueurActuelle.getHmWagon().entrySet())
+					{
+						if (entry.getValue() >= nbWagonArete)
+						{
+							NbWagonArete1Ok = true;
+							break;
+						}
+					}
+				}
+				else if (arete1 != null 
+							&& !arete1.getCouleurVoieSimple().getNomCouleur().equals("Neutre") 
+							&& (joueurActuelle.getHmWagon().get(arete1.getCouleurVoieSimple()) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1))) >= nbWagonArete)
+					NbWagonArete1Ok = true;
+
+				if (arete2 != null && arete2.getCouleurVoieSimple().getNomCouleur().equals("Neutre"))
+				{
+					for (Map.Entry<CarteWagon, Integer> entry : joueurActuelle.getHmWagon().entrySet())
+					{
+						if (entry.getValue() >= nbWagonArete)
+						{
+							NbWagonArete2Ok = true;
+							break;
+						}
+					}
+				}
+				else if (arete2 != null 
+							&& !arete2.getCouleurVoieSimple().getNomCouleur().equals("Neutre") 
+							&& ((joueurActuelle.getHmWagon().get(arete2.getCouleurVoieSimple()) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)))) >= nbWagonArete)
+					NbWagonArete2Ok = true;
+
+				if (arete1 != null && NbWagonArete1Ok)
+					alAretesPopUp.add(arete1);
+
+				if (arete2 != null && NbWagonArete2Ok)
+					alAretesPopUp.add(arete2);
+			}
+			this.ddlstArete.setModel(new DefaultComboBoxModel<Arete>(alAretesPopUp.toArray(new Arete[alAretesPopUp.size()])));
+
+			if(alAretesPopUp.size() == 0){
+				JOptionPane.showMessageDialog(null, "Il n'y a pas d'arête possédable", "Erreur",JOptionPane.ERROR_MESSAGE);
+				return;
+			}
+
+			int n = JOptionPane.showOptionDialog(this, this.panelPopupPossession, "Possession d'arete", JOptionPane.OK_CANCEL_OPTION,  JOptionPane.QUESTION_MESSAGE, null, null, null);
+			if (n == JOptionPane.OK_OPTION) // Validation
+			{
+				Arete areteSelectionne = (Arete) this.ddlstArete.getSelectedItem();
+				for (Arete arete : this.alAretes)
+				{
+					if (areteSelectionne.getNoeud1().equals(arete.getNoeud1()) && areteSelectionne.getNoeud2().equals(arete.getNoeud2())) // Determination de l'arete
+					{
+						// Trouver si l'arete selectionne est la voie simple ou double
+						if (areteSelectionne.getCouleurVoieSimple() != null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurVoieSimple())
+							arete.setJoueurVoieSimple(joueurActuelle);
+						if (areteSelectionne.getCouleurVoieSimple() != null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurDoubleVoie())
+							arete.setJoueurVoieDouble(joueurActuelle);
+						/* TO DO
+						 * - Gestion des cartesWagon de la main du joueur
+						 * - Gestion du score du joueur
+						 */
+						this.frameJeu.majIHM();
+						break;
+					}
+				}
 			}
 		}
 

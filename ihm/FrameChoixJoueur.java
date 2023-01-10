@@ -144,7 +144,7 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		this.panelCreationJoueurs.add(this.lblJoueurSolo);
 		this.lblJoueurSolo.setBounds(this.largeur/2 - 250, 20, 150, 30);
 		
-		this.txtJoueurSolo = new JTextField(10);
+		this.txtJoueurSolo = new JTextField("Joueur", 10);
 		this.txtJoueurSolo.setEnabled(false);
 		this.panelCreationJoueurs.add(this.txtJoueurSolo);
 		this.txtJoueurSolo.setBounds(this.largeur/2 - 250, 50, 150, 30);
@@ -162,7 +162,7 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 			this.panelCreationJoueurs.add(lblJoueur);
 			lblJoueur.setBounds(this.largeur/2 - 250, 105 + i*50, 150, 30);
 
-			JTextField txtJoueur = new JTextField(10);
+			JTextField txtJoueur = new JTextField("Joueur" + (i+1), 10);
 			txtJoueur.setEnabled(false);
 			this.panelCreationJoueurs.add(txtJoueur);
 			txtJoueur.setBounds(this.largeur/2 - 250, 130 + i*50, 150, 30);

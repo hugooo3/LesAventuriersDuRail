@@ -171,7 +171,7 @@ public class Metier {
 				pw.println("\t<arete>");
 				pw.println("\t\t<noeud1>" + arete.getNoeud1().getNom() + "</noeud1>");
 				pw.println("\t\t<noeud2>" + arete.getNoeud2().getNom() + "</noeud2>");
-				pw.println("\t\t<couleur>" + arete.getCouleur() + "</couleur>");
+				pw.println("\t\t<couleur>" + arete.getCouleurVoieSimple() + "</couleur>");
 				pw.println("\t\t<troncons>" + arete.getTroncons() + "</troncons>");
 				pw.println("\t\t<voieDouble>" + arete.getVoieDouble() + "</voieDouble>");
 				pw.println("\t\t<couleurVoieDouble>" + arete.getCouleurDoubleVoie() + "</couleurVoieDouble>");
@@ -341,12 +341,11 @@ public class Metier {
 		int tronconsMin = 100;
 
 		for (Arete arete : this.alAretes) {
-			if (!arete.getVoieSimplePossede() && !arete.getVoieDoublePossede())
+			// Si au moins une des aretes n'est pas possede par un joueur alors il compare le troncon minimum
+			if (arete.getJoueurVoieSimple() == null || arete.getJoueurVoieDouble() == null)
 			{
 				if (tronconsMin > arete.getTroncons())
-				{
 					tronconsMin = arete.getTroncons();
-				}
 			}
 		}
 
@@ -354,9 +353,7 @@ public class Metier {
 
 		for (Joueur joueur : this.alJoueurs) {
 			if (nbWagonJoueurMin > joueur.getNbWagonJoueur())
-			{
 				nbWagonJoueurMin = joueur.getNbWagonJoueur();
-			}
 		}
 
 		if (tronconsMin > nbWagonJoueurMin) { return true;}

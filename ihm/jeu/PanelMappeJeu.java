@@ -57,7 +57,7 @@ public class PanelMappeJeu extends JPanel
 			int x2 = noeud2.getX();
 			int y2 = noeud2.getY();
 
-			Color couleurVoieSimple = arete.getCouleur().getCouleur();
+			Color couleurVoieSimple = arete.getCouleurVoieSimple().getCouleur();
 			Color couleurVoieDouble = (arete.getCouleurDoubleVoie() != null ? arete.getCouleurDoubleVoie().getCouleur() : null);
 
 			Joueur joueurVoieSimple = arete.getJoueurVoieSimple();

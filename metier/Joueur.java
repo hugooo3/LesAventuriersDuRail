@@ -1,7 +1,8 @@
 package metier;
 
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.Comparator;
+import java.util.LinkedHashMap;
 import java.awt.Color;
 
 // Posssesion d'un joueur :
@@ -15,7 +16,7 @@ public class Joueur {
 	private static int nbJoueur = 0;
 	private int idJoueur;
 	private String nomJoueur;
-	private HashMap<CarteWagon, Integer> hmWagon;
+	private LinkedHashMap<CarteWagon, Integer> hmWagon;
 	private ArrayList<CarteDestination> alCarteDestination;
 	private int score;
 	private boolean estEnJeu;
@@ -36,8 +37,18 @@ public class Joueur {
 		this.alAretePossede = new ArrayList<Arete>();
 	}
 
-	public HashMap<CarteWagon, Integer> initHmWagon( ArrayList<CarteWagon> alCarteWagon) {
-		HashMap<CarteWagon, Integer> retour = new HashMap<CarteWagon, Integer>();
+	public LinkedHashMap<CarteWagon, Integer> initHmWagon( ArrayList<CarteWagon> alCarteWagon) {
+		alCarteWagon.sort(new Comparator<CarteWagon>() {
+			@Override
+			public int compare(CarteWagon o1, CarteWagon o2) {
+				if (o1.getNomCouleur().equals("Neutre")) return -1;
+				if (o2.getNomCouleur().equals("Neutre")) return 1;
+				if (o1.getNomCouleur().equals("Joker")) return -1;
+				if (o2.getNomCouleur().equals("Joker")) return 1;
+				return o1.getNomCouleur().compareTo(o2.getNomCouleur());
+			}			
+		});
+		LinkedHashMap<CarteWagon, Integer> retour = new LinkedHashMap<CarteWagon, Integer>();
 		for (CarteWagon carteWagon : alCarteWagon) {
 			if (!carteWagon.getNomCouleur().equals("Neutre"))
 				retour.put(carteWagon, 0);
@@ -50,7 +61,7 @@ public class Joueur {
 	public int     getScore() {return this.score;}
 	public boolean getEstEnJeu() {return this.estEnJeu;}
 	public ArrayList<Arete> getAlAretePossede() {return this.alAretePossede;}
-	public HashMap<CarteWagon, Integer> getHmWagon() {return this.hmWagon;}	
+	public LinkedHashMap<CarteWagon, Integer> getHmWagon() {return this.hmWagon;}	
 	public ArrayList<CarteDestination> getAlCarteDestination() {return this.alCarteDestination;}
 	public Color getCouleur() {return this.couleur;}
 	public int   getNbWagonJoueur() {return this.nbWagonJoueur;}
