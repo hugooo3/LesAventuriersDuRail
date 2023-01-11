@@ -354,11 +354,18 @@ public class PanelAction extends JPanel implements ActionListener
 							int n2 = JOptionPane.showOptionDialog(this, this.panelPopupNeutre, "Couleur à utiliser pour prendre l'arête neutre", JOptionPane.OK_CANCEL_OPTION,  JOptionPane.QUESTION_MESSAGE, null, null, null);
 							if (n2 == JOptionPane.OK_OPTION) { // Validation
 								couleurTerritoire = (CarteWagon) this.ddlstNeutreArete.getSelectedItem();
-								if (joueurActuelle.getHmWagon().get(couleurTerritoire) >= nbWagonArete)
+								if (joueurActuelle.getHmWagon().get(couleurTerritoire) >= nbWagonArete)	{
+									// Retire les cartes couleurTerritoire de la main du joueur et les defausses
 									joueurActuelle.removeCarteWagon(couleurTerritoire, nbWagonArete);
+									this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, nbWagonArete);
+								}
 								else if (joueurActuelle.getHmWagon().get(couleurTerritoire) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete) {
+									// Retire les cartes Joker de la main du joueur et les defausses
 									joueurActuelle.removeCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuelle.getHmWagon().get(couleurTerritoire));
+									this.frameJeu.getMetier().getPioche().defausserCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuelle.getHmWagon().get(couleurTerritoire));
+									// Retire les cartes couleurTerritoire de la main du joueur et les defausses
 									joueurActuelle.removeCarteWagon(couleurTerritoire, joueurActuelle.getHmWagon().get(couleurTerritoire));
+									this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, joueurActuelle.getHmWagon().get(couleurTerritoire));
 								}
 							}
 							else // Annulation de la pioche
