@@ -50,8 +50,8 @@ public class FrameScenario extends JFrame implements ActionListener
 		this.setTitle("Scénario");
 		this.setResizable(true);
 		this.setBackground(Color.BLACK);
-		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 250,
-				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 250));
+		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 450,
+				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350));
 		this.setJMenuBar(new MenuBarScenario(this));
 		
 
@@ -95,7 +95,10 @@ public class FrameScenario extends JFrame implements ActionListener
 
 		// Creation de la FrameJeu -> Jeu
 		if (action[0].equals("Jeu"))
+		{
 			new FrameJeu(this.appli, this.mappeXML, this.alJoueur.size(), this.alJoueur);
+			this.dispose();
+		}
 
 		// Creation d'un joueur -> Joueur;nom;r;g;b
 		if (action[0].equals("Joueur"))

@@ -43,7 +43,7 @@ public class FrameManager extends JFrame implements ActionListener
 		GridBagLayout layout = new GridBagLayout();
 		GridBagConstraints layoutCons = new GridBagConstraints();
 		layoutCons.fill = GridBagConstraints.HORIZONTAL;
-		layoutCons.insets = new Insets(0, 150, 0, 150);
+		layoutCons.insets = new Insets(0, 100, 0, 100);
 		layout.setConstraints(this, layoutCons);
 
 		// Contenu de la Frame
