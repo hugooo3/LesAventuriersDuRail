@@ -8,6 +8,7 @@ import java.awt.Color;
 import java.awt.Dimension;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.awt.BorderLayout;
 
 import ihm.FrameJeu;
 import ihm.jeu.util.BoutonCarteWagon;
@@ -33,6 +34,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 	private int largeur;
 	private int hauteur;
 
+	private JPanel panelContenu;
 
 
 	public PanelPioche(FrameJeu jeu, PanelAction parent, int largeur, int hauteur, Pioche pioche) {
@@ -42,15 +44,13 @@ public class PanelPioche extends JFrame implements ActionListener {
 		this.largeur = largeur;
 		this.hauteur = hauteur;
 
-		this.alBtnCartes = new ArrayList<BoutonCarteWagon>();
-
 
 		// Contenu PanelPopupPioche
 		// ------------------------ //
 		this.setTitle("Pioche");
 		this.setResizable(false);
 		this.setMinimumSize(new Dimension(600, 300));
-		this.setLayout(null);
+		this.setLayout(new BorderLayout());
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2 - 25);
@@ -59,14 +59,18 @@ public class PanelPioche extends JFrame implements ActionListener {
 		this.alCartesCourantes = new ArrayList<CarteWagon>();
 		this.alLblCartes = new ArrayList<JLabel>();
 
+		this.panelContenu = new JPanel();
+		this.panelContenu.setLayout(null);
+		this.panelContenu.setPreferredSize(dim);
+
 
 		for(int i=0; i < 5; i++) {
 			this.alCartesCourantes.add(pioche.piocherCarteWagon());
 			this.alLblCartes.add(new JLabel(new ImageIcon(this.alCartesCourantes.get(i).getImgRecto().getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH))));
 			this.alBtnCartes.add(new BoutonCarteWagon(this.alCartesCourantes.get(i) ,"Piocher"));
 
-			this.add(this.alLblCartes.get(i));
-			this.add(this.alBtnCartes.get(i));
+			this.panelContenu.add(this.alLblCartes.get(i));
+			this.panelContenu.add(this.alBtnCartes.get(i));
 			this.alLblCartes.get(i).setBounds(25 + (i*110), 10, 70, 70);
 			this.alBtnCartes.get(i).setBounds(10 + (i*110), 80, 100, 35);
 			this.alBtnCartes.get(i).setFocusPainted(false);
@@ -79,8 +83,8 @@ public class PanelPioche extends JFrame implements ActionListener {
 				this.lblNonVisible.setBackground(Color.BLACK);
 				this.lblNonVisible.setOpaque(true);
 
-				this.add(this.lblNonVisible);
-				this.add(this.btnNonVisible);
+				this.panelContenu.add(this.lblNonVisible);
+				this.panelContenu.add(this.btnNonVisible);
 				this.lblNonVisible.setBounds(300 - 35, 135, 70, 70);
 				this.btnNonVisible.setBounds(300 - 50, 205, 100, 30);
 				this.btnNonVisible.setFocusPainted(false);
@@ -91,6 +95,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 		this.aPioche = false;
 		this.aPiocheUneFois = false;
 
+		this.add(this.panelContenu, BorderLayout.CENTER);
 
 		this.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
 		this.setVisible(true);
@@ -116,7 +121,9 @@ public class PanelPioche extends JFrame implements ActionListener {
 				this.alLblCartes.set(0, new JLabel(new ImageIcon(carteRemplacee.getImgRecto().getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH))));
 
 				this.aPiocheUneFois = false;
+				this.majUI();
 				this.jeu.majIHM();
+				this.majUI();
 				this.dispose();
 			} 
 			else { // Pioche classique
@@ -136,6 +143,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 					}
 
 					this.jeu.majIHM();
+					this.majUI();
 				} 
 				else { // Deuxième Pioche
 					this.jeu.getMetier().getJoueurEnJeu().addCarteWagon(this.alBtnCartes.get(0).getCarteWagon());
@@ -153,6 +161,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 					this.aPiocheUneFois = false;
 					this.jeu.majIHM();
+					this.majUI();
 					this.dispose();
 				}
 			}
@@ -174,6 +183,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 				this.aPiocheUneFois = false;
 				this.jeu.majIHM();
+				this.majUI();
 				this.dispose();
 			} 
 			else { // Pioche classique
@@ -193,6 +203,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 					}
 
 					this.jeu.majIHM();
+					this.majUI();
 				} 
 				else { // Deuxième Pioche
 					this.jeu.getMetier().getJoueurEnJeu().addCarteWagon(this.alBtnCartes.get(1).getCarteWagon());
@@ -210,6 +221,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 					this.aPiocheUneFois = false;
 					this.jeu.majIHM();
+					this.majUI();
 					this.dispose();
 				}
 			}
@@ -232,6 +244,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 				this.aPiocheUneFois = false;
 				this.jeu.majIHM();
+				this.majUI();
 				this.dispose();
 			} 
 			else { // Pioche classique
@@ -251,6 +264,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 					}
 
 					this.jeu.majIHM();
+					this.majUI();
 				} 
 				else { // Deuxième Pioche
 					this.jeu.getMetier().getJoueurEnJeu().addCarteWagon(this.alBtnCartes.get(2).getCarteWagon());
@@ -268,6 +282,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 					this.aPiocheUneFois = false;
 					this.jeu.majIHM();
+					this.majUI();
 					this.dispose();
 				}
 			}
@@ -288,6 +303,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 				this.aPiocheUneFois = false;
 				this.jeu.majIHM();
+				this.majUI();
 				this.dispose();
 			} 
 			else { // Pioche classique
@@ -307,6 +323,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 					}
 
 					this.jeu.majIHM();
+					this.majUI();
 				} 
 				else { // Deuxième Pioche
 					this.jeu.getMetier().getJoueurEnJeu().addCarteWagon(this.alBtnCartes.get(3).getCarteWagon());
@@ -324,6 +341,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 					this.aPiocheUneFois = false;
 					this.jeu.majIHM();
+					this.majUI();
 					this.dispose();
 				}
 			}
@@ -346,6 +364,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 				this.aPiocheUneFois = false;
 				this.jeu.majIHM();
+				this.majUI();
 				this.dispose();
 			} 
 			else { // Pioche classique
@@ -364,6 +383,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 						this.verifierTripleJoker();
 					}
 
+					this.majUI();
 					this.jeu.majIHM();
 				} 
 				else { // Deuxième Pioche
@@ -382,6 +402,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 					this.aPiocheUneFois = false;
 					this.jeu.majIHM();
+					this.majUI();
 					this.dispose();
 				}
 			}
@@ -399,9 +420,9 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 				CarteWagon carteRemplacee = getCarteDispo();
 				this.btnNonVisible = new BoutonCarteWagon(carteRemplacee, "Piocher");
-				this.alCartesCourantes.set(5, carteRemplacee);
 
 				this.jeu.majIHM();
+				this.majUI();
 				this.dispose();
 			}
 		}
@@ -422,5 +443,14 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 			// Penser aux alLabels, alCartesCourantes, alBtnCartes
 		}
+	}
+
+	public void majUI() {
+		for(JLabel lbl : this.alLblCartes) { lbl.updateUI(); lbl.repaint(); lbl.revalidate(); }
+		for(BoutonCarteWagon btn : this.alBtnCartes) { btn.updateUI(); btn.repaint(); btn.revalidate(); }
+
+		this.panelContenu.repaint();
+		this.panelContenu.revalidate();
+		this.panelContenu.updateUI();
 	}
 }
