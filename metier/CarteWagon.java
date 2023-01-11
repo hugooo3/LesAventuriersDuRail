@@ -8,7 +8,7 @@ import java.awt.Image;
 import java.io.InputStream;
 import java.io.File;
 
-public class CarteWagon {
+public class CarteWagon implements Comparable<CarteWagon> {
 	private String nomCouleur;
 	private Color couleur;
 	private ImageIcon imgRecto;
@@ -126,4 +126,12 @@ public class CarteWagon {
 		return this.nomCouleur;
 	} 
 
+	@Override
+	public int compareTo(CarteWagon o) {
+		if (this.getNomCouleur().equals("Neutre")) return -1;
+		if (o.getNomCouleur().equals("Neutre")) return 1;
+		if (this.getNomCouleur().equals("Joker")) return -1;
+		if (o.getNomCouleur().equals("Joker")) return 1;
+		return this.getNomCouleur().compareTo(o.getNomCouleur());
+	}	
 }

@@ -46,5 +46,9 @@ public class Arete implements Comparable<Arete>{
 	}
 
 	@Override
-	public int compareTo(Arete arg0) {return this.noeud1.getNom().compareTo(arg0.getNoeud1().getNom());}
+	public int compareTo(Arete arg0) {
+		if (this.noeud1.getNom().compareTo(arg0.getNoeud1().getNom()) == 0)
+			return this.noeud2.getNom().compareTo(arg0.getNoeud2().getNom());
+		return this.noeud1.getNom().compareTo(arg0.getNoeud1().getNom());
+	}
 }
