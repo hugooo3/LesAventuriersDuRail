@@ -335,7 +335,7 @@ public class PanelAction extends JPanel implements ActionListener
 
 		if(e.getSource() == this.btnPossessionRoute) {
 			ArrayList<Arete> alAretesPopUp = new ArrayList<Arete>();
-			Joueur joueurActuelle = this.frameJeu.getMetier().getJoueurEnJeu();
+			Joueur joueurActuel = this.frameJeu.getMetier().getJoueurEnJeu();
 
 			Arete arete1;
 			Arete arete2;
@@ -352,7 +352,7 @@ public class PanelAction extends JPanel implements ActionListener
 				
 				NbWagonArete1Ok = false;
 				NbWagonArete2Ok = false;
-				if (joueurActuelle.getNbWagonJoueur() < nbWagonArete)
+				if (joueurActuel.getNbWagonJoueur() < nbWagonArete)
 					continue;
 
 				// Division des voies double en voie simple
@@ -366,12 +366,12 @@ public class PanelAction extends JPanel implements ActionListener
 
 				// Gestion du neutre
 				if (arete1 != null && arete1.getCouleurVoieSimple().getNomCouleur().equals("Neutre")) {
-					for (Map.Entry<CarteWagon, Integer> entry : joueurActuelle.getHmWagon().entrySet()) {
+					for (Map.Entry<CarteWagon, Integer> entry : joueurActuel.getHmWagon().entrySet()) {
 						if (entry.getKey().getNomCouleur().equals("Joker") && entry.getValue() >= nbWagonArete) {
 							NbWagonArete1Ok = true;
 							break;
 						}
-						else if (entry.getValue() + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete) {
+						else if (entry.getValue() + joueurActuel.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete) {
 							NbWagonArete1Ok = true;
 							break;
 						}
@@ -379,16 +379,16 @@ public class PanelAction extends JPanel implements ActionListener
 				}
 				else if (arete1 != null 
 							&& !arete1.getCouleurVoieSimple().getNomCouleur().equals("Neutre") 
-							&& (joueurActuelle.getHmWagon().get(arete1.getCouleurVoieSimple()) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1))) >= nbWagonArete)
+							&& (joueurActuel.getHmWagon().get(arete1.getCouleurVoieSimple()) + joueurActuel.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1))) >= nbWagonArete)
 					NbWagonArete1Ok = true;
 
 				if (arete2 != null && arete2.getCouleurVoieSimple().getNomCouleur().equals("Neutre")) {
-					for (Map.Entry<CarteWagon, Integer> entry : joueurActuelle.getHmWagon().entrySet()) {
+					for (Map.Entry<CarteWagon, Integer> entry : joueurActuel.getHmWagon().entrySet()) {
 						if (entry.getKey().getNomCouleur().equals("Joker") && entry.getValue() >= nbWagonArete)	{
 							NbWagonArete1Ok = true;
 							break;
 						}
-						else if (entry.getValue() + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete) {
+						else if (entry.getValue() + joueurActuel.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete) {
 							NbWagonArete2Ok = true;
 							break;
 						}
@@ -396,7 +396,7 @@ public class PanelAction extends JPanel implements ActionListener
 				}
 				else if (arete2 != null 
 							&& !arete2.getCouleurVoieSimple().getNomCouleur().equals("Neutre") 
-							&& ((joueurActuelle.getHmWagon().get(arete2.getCouleurVoieSimple()) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)))) >= nbWagonArete)
+							&& ((joueurActuel.getHmWagon().get(arete2.getCouleurVoieSimple()) + joueurActuel.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)))) >= nbWagonArete)
 					NbWagonArete2Ok = true;
 
 				if (arete1 != null && NbWagonArete1Ok)
@@ -421,12 +421,12 @@ public class PanelAction extends JPanel implements ActionListener
 					if (areteSelectionne.getNoeud1().equals(arete.getNoeud1()) && areteSelectionne.getNoeud2().equals(arete.getNoeud2())) { // Determination de l'arete
 						// Trouver si l'arete selectionne est la voie simple ou double
 						if (areteSelectionne.getCouleurVoieSimple() != null && arete.getJoueurVoieSimple() == null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurVoieSimple()) {
-							arete.setJoueurVoieSimple(joueurActuelle);
-							joueurActuelle.addArete(arete);
+							arete.setJoueurVoieSimple(joueurActuel);
+							joueurActuel.addArete(arete);
 						}
 						else if (areteSelectionne.getCouleurVoieSimple() != null &&  arete.getJoueurVoieDouble() == null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurDoubleVoie()) {
-							arete.setJoueurVoieDouble(joueurActuelle);
-							joueurActuelle.addArete(arete);
+							arete.setJoueurVoieDouble(joueurActuel);
+							joueurActuel.addArete(arete);
 						}
 						
 						CarteWagon couleurTerritoire = arete.getCouleurVoieSimple();
@@ -437,11 +437,11 @@ public class PanelAction extends JPanel implements ActionListener
 						if (arete.getCouleurVoieSimple().getNomCouleur().equals("Neutre")) {
 							// creation d'une arrayList de couleur de wagon pour lui dire avec quelle couleur il peut prendre l'arete
 							ArrayList<CarteWagon> alCouleurWagonPopUpNeutre = new ArrayList<CarteWagon>();
-							for (Map.Entry<CarteWagon, Integer> entry : joueurActuelle.getHmWagon().entrySet()) {
+							for (Map.Entry<CarteWagon, Integer> entry : joueurActuel.getHmWagon().entrySet()) {
 								if (entry.getKey().getNomCouleur().equals("Joker") && entry.getValue() >= nbWagonArete)	{
 									alCouleurWagonPopUpNeutre.add(entry.getKey());
 								}
-								else if ((!entry.getKey().getNomCouleur().equals("Joker") && entry.getValue() != 0 && (entry.getValue() + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1))) >= nbWagonArete)) {
+								else if ((!entry.getKey().getNomCouleur().equals("Joker") && entry.getValue() != 0 && (entry.getValue() + joueurActuel.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1))) >= nbWagonArete)) {
 									alCouleurWagonPopUpNeutre.add(entry.getKey());
 								}
 							}
@@ -453,29 +453,37 @@ public class PanelAction extends JPanel implements ActionListener
 							int n2 = JOptionPane.showOptionDialog(this, this.panelPopupNeutre, "Couleur à utiliser pour prendre l'arête neutre", JOptionPane.OK_CANCEL_OPTION,  JOptionPane.QUESTION_MESSAGE, null, null, null);
 							if (n2 == JOptionPane.OK_OPTION) { // Validation
 								couleurTerritoire = (CarteWagon) this.ddlstNeutreArete.getSelectedItem();
-								if (joueurActuelle.getHmWagon().get(couleurTerritoire) >= nbWagonArete)	{
+								if (joueurActuel.getHmWagon().get(couleurTerritoire) >= nbWagonArete) {
 									// Retire les cartes couleurTerritoire de la main du joueur et les defausses
-									joueurActuelle.removeCarteWagon(couleurTerritoire, nbWagonArete);
+									joueurActuel.removeCarteWagon(couleurTerritoire, nbWagonArete);
 									this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, nbWagonArete);
 								}
-								else if (joueurActuelle.getHmWagon().get(couleurTerritoire) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete) {
+								else if (joueurActuel.getHmWagon().get(couleurTerritoire) + joueurActuel.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete) {
 									// Retire les cartes Joker de la main du joueur et les defausses
-									joueurActuelle.removeCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuelle.getHmWagon().get(couleurTerritoire));
-									this.frameJeu.getMetier().getPioche().defausserCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuelle.getHmWagon().get(couleurTerritoire));
+									joueurActuel.removeCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuel.getHmWagon().get(couleurTerritoire));
+									this.frameJeu.getMetier().getPioche().defausserCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuel.getHmWagon().get(couleurTerritoire));
 									// Retire les cartes couleurTerritoire de la main du joueur et les defausses
-									joueurActuelle.removeCarteWagon(couleurTerritoire, joueurActuelle.getHmWagon().get(couleurTerritoire));
-									this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, joueurActuelle.getHmWagon().get(couleurTerritoire));
+									joueurActuel.removeCarteWagon(couleurTerritoire, joueurActuel.getHmWagon().get(couleurTerritoire));
+									this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, joueurActuel.getHmWagon().get(couleurTerritoire));
 								}
 							}
 							else // Annulation de la pioche
 								return;
 						}
 						else {
-							if (joueurActuelle.getHmWagon().get(couleurTerritoire) >= nbWagonArete)
-								joueurActuelle.removeCarteWagon(couleurTerritoire, nbWagonArete);
-							else if (joueurActuelle.getHmWagon().get(couleurTerritoire) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete) {
-								joueurActuelle.removeCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuelle.getHmWagon().get(couleurTerritoire));
-								joueurActuelle.removeCarteWagon(couleurTerritoire, joueurActuelle.getHmWagon().get(couleurTerritoire));
+							if (joueurActuel.getHmWagon().get(couleurTerritoire) >= nbWagonArete)
+							{
+								// Retire les cartes couleurTerritoire de la main du joueur et les defausses
+								joueurActuel.removeCarteWagon(couleurTerritoire, nbWagonArete);
+								this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, nbWagonArete);
+							}
+							else if (joueurActuel.getHmWagon().get(couleurTerritoire) + joueurActuel.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete) {
+								// Retire les cartes Joker de la main du joueur et les defausses
+								joueurActuel.removeCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuel.getHmWagon().get(couleurTerritoire));
+								this.frameJeu.getMetier().getPioche().defausserCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuel.getHmWagon().get(couleurTerritoire));
+								// Retire les cartes couleurTerritoire de la main du joueur et les defausses
+								joueurActuel.removeCarteWagon(couleurTerritoire, joueurActuel.getHmWagon().get(couleurTerritoire));
+								this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, joueurActuel.getHmWagon().get(couleurTerritoire));
 							}
 						}
 						this.frameJeu.getMetier().calculScore();
