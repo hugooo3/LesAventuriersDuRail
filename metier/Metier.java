@@ -299,7 +299,7 @@ public class Metier {
 		/* Initialisation de la main du joueur */
 
 		// Carte wagon
-		for (int i = 0; i < 90; i++) {
+		for (int i = 0; i < 4; i++) {
 			joueur.addCarteWagon(this.pioche.piocherCarteWagon());
 		}
 
@@ -314,7 +314,7 @@ public class Metier {
 			joueur.addCarteDestination(this.pioche.piocherCarteDestination());
 		}
 		
-		joueur.setNbWagonJoueur(this.nbWagonJoueur);
+		//joueur.setNbWagonJoueur(this.nbWagonJoueur);
 		return true;
 	}
 
@@ -338,6 +338,17 @@ public class Metier {
 		this.alJoueurs.get((int)(Math.random() * this.alJoueurs.size())).setEstEnJeu(true);
 		this.alLogs.add("Premier joueur : " + this.getJoueurEnJeu().getNomJoueur());
 
+		System.out.println("CarteWagon pioche");
+		for (CarteWagon carteWagon : this.pioche.getCarteWagon()) 
+		{
+			System.out.println(carteWagon.getNomCouleur());
+		}
+
+		System.out.println("CarteWagon defausse");
+		for (CarteWagon carteWagon : this.pioche.getCarteWagonDefausse()) 
+		{
+			System.out.println(carteWagon.getNomCouleur());
+		}
 		return true;
 	}
 

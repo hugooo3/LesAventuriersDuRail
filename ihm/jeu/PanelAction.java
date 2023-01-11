@@ -1,14 +1,9 @@
 package ihm.jeu;
 
 import ihm.FrameJeu;
+import ihm.FrameManager;
 import metier.*;
-import ihm.jeu.util.BoutonCarteWagon;
-
 import java.awt.event.*;
-import java.io.File;
-import java.security.cert.TrustAnchor;
-
-import javax.imageio.ImageIO;
 import javax.swing.*;
 
 import java.awt.*;
@@ -176,7 +171,6 @@ public class PanelAction extends JPanel implements ActionListener
 		gbcPopUp.insets = new Insets(5, 2, 5, 2);
 		this.lblPiocheDestiConseil = new JLabel("Piocher au moins une carte.");
 
-		ArrayList<CarteDestination> alDestiVerif = frameJeu.getMetier().getAlCartesDestination();
 		this.alPiocheDesti = new ArrayList<CarteDestination>();// liste des carte piocher (a remettre si il annule)
 		for(int i = 0; i < 3; i++) {
 			CarteDestination carte = pioche.piocherCarteDestination();
@@ -186,16 +180,16 @@ public class PanelAction extends JPanel implements ActionListener
 		}
 
 		if( this.alPiocheDesti.size() > 0) {
-			this.cbPiocheDesti      = new JCheckBox(this.alPiocheDesti.get(0).toString()); this.cbPiocheDesti.addActionListener(this);
+			this.cbPiocheDesti = new JCheckBox(this.alPiocheDesti.get(0).toString()); this.cbPiocheDesti.addActionListener(this);
 		}
-		else this.cbPiocheDesti      = new JCheckBox();
+		else this.cbPiocheDesti = new JCheckBox();
 
 		
 		if (this.alPiocheDesti.size() > 1) {
-			this.cbPiocheDestiDeux  = new JCheckBox(this.alPiocheDesti.get(1).toString());this.cbPiocheDestiDeux.addActionListener(this);
+			this.cbPiocheDestiDeux = new JCheckBox(this.alPiocheDesti.get(1).toString());this.cbPiocheDestiDeux.addActionListener(this);
 			
 		}
-		else this.cbPiocheDestiDeux  = new JCheckBox();
+		else this.cbPiocheDestiDeux = new JCheckBox();
 			
 		if (this.alPiocheDesti.size() > 2) {
 			this.cbPiocheDestiTrois = new JCheckBox(this.alPiocheDesti.get(2).toString());this.cbPiocheDestiTrois.addActionListener(this);
@@ -212,26 +206,20 @@ public class PanelAction extends JPanel implements ActionListener
 		gbcPopUp.gridx = 0;
 		gbcPopUp.gridy = 0;
 		gbcPopUp.fill = GridBagConstraints.HORIZONTAL;
-		if( this.alPiocheDesti.size() > 0) {
-			System.err.println("UN"+ this.alPiocheDesti.size());
+		if( this.alPiocheDesti.size() > 0) 
 			this.panelPopupPiocheDesti.add(cbPiocheDesti, gbcPopUp);
-		}
 
 		gbcPopUp.gridx = 1;
 		gbcPopUp.gridy = 0;
 		gbcPopUp.fill = GridBagConstraints.HORIZONTAL;
-		if (this.alPiocheDesti.size() > 1 ) {
-			System.err.println("DEUX");
+		if (this.alPiocheDesti.size() > 1 ) 
 			this.panelPopupPiocheDesti.add(cbPiocheDestiDeux, gbcPopUp);
-		}
 
 		gbcPopUp.gridx = 2;
 		gbcPopUp.gridy = 0;
 		gbcPopUp.fill = GridBagConstraints.HORIZONTAL;
-		if (this.alPiocheDesti.size() > 2) {
-			System.err.println("TROIS");
+		if (this.alPiocheDesti.size() > 2) 
 			this.panelPopupPiocheDesti.add(cbPiocheDestiTrois, gbcPopUp);
-		}
 
 		gbcPopUp.gridx = 1;
 		gbcPopUp.gridy = 1;
@@ -309,15 +297,17 @@ public class PanelAction extends JPanel implements ActionListener
 
 		if(e.getSource() == this.btnPioche) {
 
-			int nbCartes = 0;
+			if(this.alCartesCourantes.size() < 6)
+				for(int i=0; i < 6; i ++)
+					if(this.alCartesCourantes.size() > i) { this.alCartesCourantes.set(i, this.getCarteDispo()); }
+					else { this.alCartesCourantes.add(this.getCarteDispo()); }
+
+			int nbCarte = 0;
 			for(CarteWagon carte : this.alCartesCourantes) {
-				if(carte != null) 
-					nbCartes += carte.getNbCarteWagon();
+				if(carte != null) nbCarte += carte.getNbCarteWagon();
 			}
 
-			System.out.println(nbCartes);
-
-			if(nbCartes > 5) { 
+			if(nbCarte > 0) {
 				this.panelPioche = new PanelPioche(frameJeu, this, largeur, hauteur, pioche, this.alCartesCourantes);
 				this.panelPioche.addWindowListener(new WindowAdapter(){
 						@Override
@@ -325,13 +315,12 @@ public class PanelAction extends JPanel implements ActionListener
 							if(!e.getWindow().isVisible()) { PanelAction.this.reactiverBoutons(); }
 						}
 					});
-			}
-			else { 
-				JOptionPane.showMessageDialog(this.frameJeu, "Nombre insuffisant de cartes dans la Pioche !");
-				this.reactiverBoutons(); 
+			} else {
+				this.btnPiocheDesti.setEnabled(true);
+				this.btnPossessionRoute.setEnabled(true);
+				JOptionPane.showMessageDialog(this.frameJeu, "Pioche vide !");
 			}
 		}
-
 
 		if(e.getSource() == this.btnPossessionRoute) {
 			ArrayList<Arete> alAretesPopUp = new ArrayList<Arete>();
@@ -431,9 +420,6 @@ public class PanelAction extends JPanel implements ActionListener
 						
 						CarteWagon couleurTerritoire = arete.getCouleurVoieSimple();
 						// Retirer les cartes wagons de la main du joueur
-				
-
- 						// Cas du neutre
 						if (arete.getCouleurVoieSimple().getNomCouleur().equals("Neutre")) {
 							// creation d'une arrayList de couleur de wagon pour lui dire avec quelle couleur il peut prendre l'arete
 							ArrayList<CarteWagon> alCouleurWagonPopUpNeutre = new ArrayList<CarteWagon>();
@@ -455,16 +441,13 @@ public class PanelAction extends JPanel implements ActionListener
 								couleurTerritoire = (CarteWagon) this.ddlstNeutreArete.getSelectedItem();
 								if (joueurActuel.getHmWagon().get(couleurTerritoire) >= nbWagonArete) {
 									// Retire les cartes couleurTerritoire de la main du joueur et les defausses
-									joueurActuel.removeCarteWagon(couleurTerritoire, nbWagonArete);
-									this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, nbWagonArete);
+									this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, nbWagonArete, joueurActuel);
 								}
 								else if (joueurActuel.getHmWagon().get(couleurTerritoire) + joueurActuel.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete) {
 									// Retire les cartes Joker de la main du joueur et les defausses
-									joueurActuel.removeCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuel.getHmWagon().get(couleurTerritoire));
-									this.frameJeu.getMetier().getPioche().defausserCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuel.getHmWagon().get(couleurTerritoire));
+									this.frameJeu.getMetier().getPioche().defausserCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuel.getHmWagon().get(couleurTerritoire), joueurActuel);
 									// Retire les cartes couleurTerritoire de la main du joueur et les defausses
-									joueurActuel.removeCarteWagon(couleurTerritoire, joueurActuel.getHmWagon().get(couleurTerritoire));
-									this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, joueurActuel.getHmWagon().get(couleurTerritoire));
+									this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, joueurActuel.getHmWagon().get(couleurTerritoire), joueurActuel);
 								}
 							}
 							else // Annulation de la pioche
@@ -474,16 +457,13 @@ public class PanelAction extends JPanel implements ActionListener
 							if (joueurActuel.getHmWagon().get(couleurTerritoire) >= nbWagonArete)
 							{
 								// Retire les cartes couleurTerritoire de la main du joueur et les defausses
-								joueurActuel.removeCarteWagon(couleurTerritoire, nbWagonArete);
-								this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, nbWagonArete);
+								this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, nbWagonArete, joueurActuel);
 							}
 							else if (joueurActuel.getHmWagon().get(couleurTerritoire) + joueurActuel.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete) {
 								// Retire les cartes Joker de la main du joueur et les defausses
-								joueurActuel.removeCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuel.getHmWagon().get(couleurTerritoire));
-								this.frameJeu.getMetier().getPioche().defausserCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuel.getHmWagon().get(couleurTerritoire));
+								this.frameJeu.getMetier().getPioche().defausserCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuel.getHmWagon().get(couleurTerritoire), joueurActuel);
 								// Retire les cartes couleurTerritoire de la main du joueur et les defausses
-								joueurActuel.removeCarteWagon(couleurTerritoire, joueurActuel.getHmWagon().get(couleurTerritoire));
-								this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, joueurActuel.getHmWagon().get(couleurTerritoire));
+								this.frameJeu.getMetier().getPioche().defausserCarteWagon(couleurTerritoire, joueurActuel.getHmWagon().get(couleurTerritoire), joueurActuel);
 							}
 						}
 						this.frameJeu.getMetier().calculScore();
@@ -513,26 +493,21 @@ public class PanelAction extends JPanel implements ActionListener
 					if ( ! (cbPiocheDesti.isSelected() || cbPiocheDestiDeux.isSelected() || cbPiocheDestiTrois.isSelected()))
 						JOptionPane.showMessageDialog(null, "Veuillez en selectionner au moins un. ", "Erreur",JOptionPane.ERROR_MESSAGE);
 					else {
-						if(this.alPiocheDesti.size() > 0) {
-							if(cbPiocheDesti.isSelected()) {
+						if(this.alPiocheDesti.size() > 0) 
+							if(cbPiocheDesti.isSelected()) 
 								frameJeu.getMetier().getJoueurEnJeu().addCarteDestination(this.alPiocheDesti.get(0));
-							}
 							else pioche.addCarteDestination(this.alPiocheDesti.get(0));
-						}
 						
-						if(this.alPiocheDesti.size() > 1) {
-							if(cbPiocheDestiDeux.isSelected() ) {
+						if(this.alPiocheDesti.size() > 1) 
+							if(cbPiocheDestiDeux.isSelected() ) 
 								frameJeu.getMetier().getJoueurEnJeu().addCarteDestination(this.alPiocheDesti.get(1));
-							}
 							else pioche.addCarteDestination(this.alPiocheDesti.get(1));
-						}
 						
-						if(this.alPiocheDesti.size() > 2) {
-							if(cbPiocheDestiTrois.isSelected()) {
+						if(this.alPiocheDesti.size() > 2) 
+							if(cbPiocheDestiTrois.isSelected()) 
 								frameJeu.getMetier().getJoueurEnJeu().addCarteDestination(this.alPiocheDesti.get(2));
-							}
 							else pioche.addCarteDestination(this.alPiocheDesti.get(2));
-						}
+						
 						//refait la pioche d'après
 						this.alPiocheDesti.clear();
 						for (int i = 0; i < 3; i++) {
@@ -569,6 +544,8 @@ public class PanelAction extends JPanel implements ActionListener
 
 		if (this.finDePartie) {
 			JOptionPane.showMessageDialog(frameJeu, "Fin de la partie !", "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
+			new FrameManager(this.frameJeu.getApp());
+			this.frameJeu.dispose();
 		}
 	}
 }

@@ -2,7 +2,7 @@ package ihm;
 
 import application.Application;
 import ihm.scenario.MenuBarScenario;
-import metier.Joueur;
+import metier.*;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
@@ -126,6 +126,30 @@ public class FrameScenario extends JFrame implements ActionListener
 		{
 			this.mappeXML = new File("." + action[1]);
 			this.appli.getMetier().importMappe(this.mappeXML);
+		}
+
+		// Prendre une arete -> PrendreArete;idJoueur;idArete
+		if (action[0].equals("PrendreArete"))
+		{
+			Joueur joueur = this.alJoueur.get(Integer.parseInt(action[1]));
+			Arete arete = this.appli.getMetier().getAlAretes().get(Integer.parseInt(action[2] ));
+			arete.setJoueurVoieSimple(joueur);
+			arete.setJoueurVoieDouble(joueur);
+			joueur.addArete(arete);
+		}
+
+		// Definir le nombre de wagon pour un joueur -> WagonJoueur;idJoueur;nbWagon
+		if (action[0].equals("WagonJoueur"))
+		{
+			Joueur joueur = this.alJoueur.get(Integer.parseInt(action[1]));
+			joueur.setNbWagonJoueur(Integer.parseInt(action[2]));
+		}
+
+		// Definir les cartes de la pioche -> Pioche;emplacement[0-5];carteWagon
+		if (action[0].equals("Pioche"))
+		{
+			CarteWagon carte = this.appli.getMetier().getAlCartesWagon().get(Integer.parseInt(action[2]));
+			// pioche.set(Integer.parseInt(action[1]), carte);
 		}
 	}
 

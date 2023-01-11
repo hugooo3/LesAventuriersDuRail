@@ -33,8 +33,8 @@ public class Joueur {
 		this.alCarteDestination = new ArrayList<CarteDestination>();
 		this.score = 0;
 		this.couleur = couleur;
-
 		this.alAretePossede = new ArrayList<Arete>();
+		this.nbWagonJoueur = 40;
 	}
 
 	public LinkedHashMap<CarteWagon, Integer> initHmWagon( ArrayList<CarteWagon> alCarteWagon) {

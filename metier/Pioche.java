@@ -24,19 +24,16 @@ public class Pioche {
 		this.alCarteWagonDefausse.add(new CarteWagon("Verte" , null, ""	, "", 0));
 		this.alCarteWagonDefausse.add(new CarteWagon("Violet", null, ""	, "", 0));
 		this.alCarteWagonDefausse.add(new CarteWagon("Joker" , null, ""	, "", 0));
+
+		this.alCarteWagonDefausse.sort(null);
 	}
 
 	public CarteWagon piocherCarteWagon () {
 		int r = 0;
 
-		for(CarteWagon carteWagon : this.alCarteWagon)
-		{
-			r += carteWagon.getNbCarteWagon();
-		}
-		System.out.println("Nombre de carte dans la pioche : " + r);
-		if (r < 6)
-		{
-			System.out.println("Pioche vide, on remet la defausse dans la pioche");
+		for(CarteWagon carteWagon : this.alCarteWagon) { r += carteWagon.getNbCarteWagon(); }
+		
+		if (r <= 6) {
 			if (!this.defausseVersPiocheWagon())
 				return null;
 		}
@@ -63,7 +60,7 @@ public class Pioche {
 		return carteDestination;
 	}
 
-	public boolean defausseVersPiocheWagon() 
+	public boolean defausseVersPiocheWagon()
 	{
 		//Verification si la defausse est vide
 		int r = 0;
@@ -74,35 +71,54 @@ public class Pioche {
 		}
 		if (r == 0)
 		{
-			System.out.println("Pioche vide et defausse vide");
 			return false;
 		}
 
+
 		//Transfert defausse vers pioche
-		for (CarteWagon carteWagon : this.alCarteWagon)
+		for (int i=0; i < this.alCarteWagonDefausse.size(); i++)
 		{
-			int index = this.alCarteWagon.indexOf(carteWagon);
-			
-			carteWagon.setNbCarteWagon(this.alCarteWagonDefausse.get(index).getNbCarteWagon());
-			this.alCarteWagonDefausse.get(this.alCarteWagonDefausse.indexOf(index)).setNbCarteWagon(0);
+			this.alCarteWagon.get(i).setNbCarteWagon(this.alCarteWagonDefausse.get(i).getNbCarteWagon());
+			this.alCarteWagonDefausse.get(i).setNbCarteWagon(0);
 		}
 		return true;
 	}
 
-	public boolean defausserCarteWagon (CarteWagon carteWagon, int indice) {
+	public boolean defausserCarteWagon (CarteWagon carteWagon, int indice)
+	{
+		return defausserCarteWagon(carteWagon, indice, null);
+	}
+
+	public boolean defausserCarteWagon (CarteWagon carteWagon, int indice, Joueur joueur) {
 		int index = this.alCarteWagon.indexOf(carteWagon);
 
-		//On retire la carte de la pioche
-		int nb = this.alCarteWagon.get(index).getNbCarteWagon() - indice;
-		this.alCarteWagon.get(index).setNbCarteWagon(nb);
+		//Defausse de la pioche
+		if (joueur == null)
+		{
+			//On retire la carte de la pioche
+			int nb = this.alCarteWagon.get(index).getNbCarteWagon() - indice;
+			this.alCarteWagon.get(index).setNbCarteWagon(nb);
 
-		//On ajoute la carte à la defausse
-		nb = this.alCarteWagonDefausse.get(index).getNbCarteWagon() + indice;
-		this.alCarteWagonDefausse.get(index).setNbCarteWagon(nb);
-		
-		System.out.println("Carte défaussée : " + carteWagon.getNomCouleur() + ", nb : " + indice);
+			//On ajoute la carte à la defausse
+			nb = this.alCarteWagonDefausse.get(index).getNbCarteWagon() + indice;
+			this.alCarteWagonDefausse.get(index).setNbCarteWagon(nb);
+			
+			
+		}
+		//Defausse de la main d'un joueur
+		else {
+			//On retire la carte de la main du joueur
+			joueur.removeCarteWagon(carteWagon, indice);
+
+			//On ajoute la carte à la defausse
+			int nb = this.alCarteWagonDefausse.get(index).getNbCarteWagon() + indice;
+			this.alCarteWagonDefausse.get(index).setNbCarteWagon(nb);
+		}
 		return true;
 	}
+
+	public ArrayList<CarteWagon> getCarteWagon() {return this.alCarteWagon; }
+	public ArrayList<CarteWagon> getCarteWagonDefausse() {return this.alCarteWagonDefausse; }
 
 	public void addCarteWagon(CarteWagon carteWagon)                           { this.alCarteWagon.get(this.alCarteWagon.indexOf(carteWagon)).addNbCarteWagon(1); }
 	public void addCarteWagonDefausse(CarteWagon carteWagon)                   { this.alCarteWagonDefausse.get(this.alCarteWagonDefausse.indexOf(carteWagon)).addNbCarteWagon(1); }

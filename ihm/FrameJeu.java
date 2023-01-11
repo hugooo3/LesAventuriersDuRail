@@ -8,7 +8,6 @@ import javax.swing.*;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
-import java.awt.Color;
 import java.awt.Image;
 import java.awt.Toolkit;
 import java.io.File;
@@ -107,4 +106,6 @@ public class FrameJeu extends JFrame {
 
 	public ArrayList<Joueur> getLstJoueurMetier() {return this.appli.getLstJoueurMetier();}
 	public boolean preparationJeu(ArrayList<Joueur> lstJoueur) { return this.appli.preparationJeu(lstJoueur); }
+
+	public Application getApp() { return this.appli; }
 }

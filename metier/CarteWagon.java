@@ -52,7 +52,7 @@ public class CarteWagon implements Comparable<CarteWagon> {
 	}
 
 	private ImageIcon creerImageIcon(File imgFile) {
-		if (imgFile == null || imgFile.equals("") )
+		if (imgFile == null)
 			return null;
 
 		ImageIcon image = null;

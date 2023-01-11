@@ -63,11 +63,19 @@ public class PanelPioche extends JFrame implements ActionListener {
 		this.panelContenu.setPreferredSize(dim);
 
 		this.alCartesCourantes = alCartesCourantes;
-		for(int i=0; i < 6; i++) {
+
+		this.btnNonVisible = null;
+
+		System.out.println(this.alCartesCourantes.size() + " TAILLE DES MORTS LE RETOUR");
+
+		for(int i=0; i < this.alCartesCourantes.size(); i++) {
 			
-			if(i < 5) {
+			if(i < 5 && this.alCartesCourantes.size() > i && this.alCartesCourantes.get(i) != null && this.alLblCartes.size()+1 > i) {
 				this.alLblCartes.add(new JLabel(new ImageIcon(this.alCartesCourantes.get(i).getImgRecto().getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH))));
-				this.alBtnCartes.add(new BoutonCarteWagon(this.alCartesCourantes.get(i) ,"Piocher"));
+				this.alBtnCartes.add(new BoutonCarteWagon(this.alCartesCourantes.get(i), "Piocher"));
+
+				this.alLblCartes.get(i).setEnabled(true);
+				this.alBtnCartes.get(i).setEnabled(true);
 
 				this.panelContenu.add(this.alLblCartes.get(i));
 				this.panelContenu.add(this.alBtnCartes.get(i));
@@ -77,8 +85,8 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 				this.alBtnCartes.get(i).setFocusPainted(false);
 				this.alBtnCartes.get(i).addActionListener(this);
-			} 
-			else {
+			}
+			else if(this.alCartesCourantes.size() > i && this.alCartesCourantes.get(i) != null) {
 				this.carteCachee = this.alCartesCourantes.get(i);
 				this.btnNonVisible = new BoutonCarteWagon(this.carteCachee, "Piocher");
 				this.lblNonVisible = new JLabel();
@@ -110,7 +118,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 		// Pioche
 
-		if(e.getSource() == this.alBtnCartes.get(0)) {
+		if(this.alCartesCourantes.size() > 0 && this.alBtnCartes.size() > 0 && e.getSource() == this.alBtnCartes.get(0)) {
 
 			this.verifierTripleJoker();
 
@@ -154,7 +162,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 
 
-		if(e.getSource() == this.alBtnCartes.get(1)) {
+		if(this.alCartesCourantes.size() > 1 && this.alBtnCartes.size() > 1 && e.getSource() == this.alBtnCartes.get(1)) {
 
 			this.verifierTripleJoker();
 
@@ -198,7 +206,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 
 
-		if(e.getSource() == this.alBtnCartes.get(2)) {
+		if(this.alCartesCourantes.size() > 2 && this.alBtnCartes.size() > 2 && e.getSource() == this.alBtnCartes.get(2)) {
 
 			this.verifierTripleJoker();
 
@@ -240,7 +248,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 		}
 
-		if(e.getSource() == this.alBtnCartes.get(3)) {
+		if(this.alCartesCourantes.size() > 3 && this.alBtnCartes.size() > 3 && (e.getSource() == this.alBtnCartes.get(3))) {
 
 			this.verifierTripleJoker();
 			
@@ -284,7 +292,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 
 
-		if(e.getSource() == this.alBtnCartes.get(4)) {
+		if(this.alCartesCourantes.size() > 4 && this.alBtnCartes.size() > 4 && e.getSource() == this.alBtnCartes.get(4)) {
 			
 			if(this.alBtnCartes.get(4).getCarteWagon().toString().equals("Joker")) { // Pioche du Joker
 				this.aPioche = true;
@@ -327,27 +335,30 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 
 
-		if(e.getSource() == this.btnNonVisible) {
-			this.jeu.getMetier().getJoueurEnJeu().addCarteWagon(this.btnNonVisible.getCarteWagon());
+		if(this.btnNonVisible != null && e.getSource() == this.btnNonVisible) {
+			if(this.btnNonVisible.getCarteWagon() != null) {
+				this.jeu.getMetier().getJoueurEnJeu().addCarteWagon(this.btnNonVisible.getCarteWagon());
 
-			this.parent.enleverCarteWagon(this.alCartesCourantes.get(5), 5);
-			this.alCartesCourantes = this.parent.getAlCartesCourantes();
+				this.parent.enleverCarteWagon(this.alCartesCourantes.get(5), 5);
+				this.alCartesCourantes = this.parent.getAlCartesCourantes();
 
-			this.btnNonVisible.setCarteWagon(this.alCartesCourantes.get(5));
+				this.btnNonVisible.setCarteWagon(this.alCartesCourantes.get(5));
 
-			this.jeu.majIHM();
-			this.majUI();
-			if(this.aPiocheUneFois) { 
-				this.jeu.getMetier().jeu("pioche CarteWagon face cachée"); 
-				this.majUI();
 				this.jeu.majIHM();
-				this.aPioche = true;
-				this.aPiocheUneFois = false;
-				this.parent.reactiverBoutons();
-				this.dispose(); }
-			else { this.aPiocheUneFois = true; }
-		}
+				this.majUI();
+				if(this.aPiocheUneFois) { 
+					this.jeu.getMetier().jeu("pioche CarteWagon face cachée"); 
+					this.majUI();
+					this.jeu.majIHM();
+					this.aPioche = true;
+					this.aPiocheUneFois = false;
+					this.parent.reactiverBoutons();
+					this.dispose(); }
+				else { this.aPiocheUneFois = true; }
+			}
 
+			this.majUI();
+		}
 	}
 
 
@@ -355,7 +366,7 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 		int nbJoker = 0;
 		for(int i=0; i < 5; i++) {
-			if(this.alCartesCourantes.get(i).toString().equals("Joker")) { nbJoker++; }
+			if(this.alCartesCourantes.get(i) != null && this.alCartesCourantes.get(i).toString().equals("Joker")) { nbJoker++; }
 		}
 
 		while(nbJoker >= 3) {
@@ -393,21 +404,29 @@ public class PanelPioche extends JFrame implements ActionListener {
 			int index = this.alBtnCartes.indexOf(carte);
 			if(index > 0 && index < 5  && this.alBtnCartes.get(index).getCarteWagon() == null) { this.alBtnCartes.get(index).setEnabled(false); }
 		}
+
+		if(this.btnNonVisible != null && this.btnNonVisible.getCarteWagon() == null) { this.btnNonVisible.setEnabled(false); }
+		else if(this.btnNonVisible != null) { this.btnNonVisible.setEnabled(true); }
 	}
 
 
 	public void enleverCarte(CarteWagon carte, int index) {
 
-		if(carte != null) {
+		if(carte != null && this.alBtnCartes.size() > index) {
 			this.jeu.getMetier().getJoueurEnJeu().addCarteWagon(this.alBtnCartes.get(index).getCarteWagon());
 			this.parent.enleverCarteWagon(this.alBtnCartes.get(index).getCarteWagon(), index);
 			this.alCartesCourantes = this.parent.getAlCartesCourantes();
 
 			CarteWagon carteRemplacee = this.alCartesCourantes.get(index);
-			this.alBtnCartes.get(index).setCarteWagon(carteRemplacee);
-			this.alLblCartes.get(index).setIcon(new ImageIcon(carteRemplacee.getImgRecto().getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
-
-			if(carteRemplacee.toString().equals("Joker")) { this.verifierTripleJoker(); }
+			if(carteRemplacee != null) {
+				this.alBtnCartes.get(index).setCarteWagon(carteRemplacee);
+				this.alLblCartes.get(index).setIcon(new ImageIcon(carteRemplacee.getImgRecto().getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH)));
+				if(carteRemplacee.toString().equals("Joker")) { this.verifierTripleJoker(); }
+			}
+			else {
+				this.alBtnCartes.get(index).setEnabled(false);
+				this.alLblCartes.get(index).setEnabled(false);
+			}
 		}
 		else {
 			this.alBtnCartes.get(index).setEnabled(false);

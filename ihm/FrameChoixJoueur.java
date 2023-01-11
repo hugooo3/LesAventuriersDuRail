@@ -2,7 +2,6 @@ package ihm;
 
 import application.Application;
 import metier.Joueur;
-import metier.CarteWagon;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
