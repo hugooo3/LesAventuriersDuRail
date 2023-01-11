@@ -33,7 +33,6 @@ public class FrameScenario extends JFrame implements ActionListener
 
 
 	private File mappeXML;
-	private int nbJoueur;
 	private ArrayList<Joueur> alJoueur;
 
 	public FrameScenario(Application appli) 
@@ -96,7 +95,7 @@ public class FrameScenario extends JFrame implements ActionListener
 
 		// Creation de la FrameJeu -> Jeu
 		if (action[0].equals("Jeu"))
-			new FrameJeu(this.appli, this.mappeXML, this.nbJoueur, this.alJoueur);
+			new FrameJeu(this.appli, this.mappeXML, this.alJoueur.size(), this.alJoueur);
 
 		// Creation d'un joueur -> Joueur;nom;r;g;b
 		if (action[0].equals("Joueur"))
@@ -121,7 +120,7 @@ public class FrameScenario extends JFrame implements ActionListener
 		
 		// Charger un xml -> ChargerXML;chemin
 		if (action[0].equals("ChargerXML"))
-			this.mappeXML = new File(action[1]);
+			this.mappeXML = new File("." + action[1]);
 	}
 
 	private void lireDonnee(String chemin)
