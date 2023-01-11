@@ -61,6 +61,14 @@ public class Joueur {
 	public void setNbWagonJoueur (int nbWagonJoueur) {this.nbWagonJoueur = nbWagonJoueur;}
 	public void setScore (int score) {this.score = score;}
 
+	public void setMain(Integer[] main) {
+		int i = 0;
+		for (CarteWagon carteWagon : this.hmWagon.keySet()) {
+			this.hmWagon.put(carteWagon, main[i]);
+			i++;
+		}
+	}
+
 	public void addCarteWagon(CarteWagon carteWagon) { this.hmWagon.put(carteWagon, this.hmWagon.get(carteWagon) + 1);}
 	public void addCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.add(carteDestination);}
 	public void addScore(int score) {this.score += score;}

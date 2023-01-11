@@ -19,8 +19,7 @@ public class FrameManager extends JFrame implements ActionListener
 {
 	private Application app;
 	private FrameChoixJoueur frameChoixJoueur;
-	private JButton btnConcepteur;
-	private JButton btnJeu;
+	private JButton btnConcepteur, btnJeu, btnScenario;
 
 	public FrameManager(Application app) {
 		this.app = app;
@@ -51,12 +50,15 @@ public class FrameManager extends JFrame implements ActionListener
 
 		this.btnConcepteur = new JButton("Concepteur");
 		this.btnJeu = new JButton("Jouer");
+		this.btnScenario = new JButton("Scénario");
 
 		this.btnConcepteur.setPreferredSize(new Dimension(240, 80));
 		this.btnJeu.setPreferredSize(new Dimension(240, 80));
+		this.btnScenario.setPreferredSize(new Dimension(240, 80));
 
 		this.btnConcepteur.setBackground(Color.GRAY);
 		this.btnJeu.setBackground(Color.GRAY);
+		this.btnScenario.setBackground(Color.GRAY);
 
 		this.btnConcepteur.setBorderPainted(false);
 		this.btnConcepteur.setFocusPainted(false);
@@ -64,15 +66,21 @@ public class FrameManager extends JFrame implements ActionListener
 		this.btnJeu.setBorderPainted(false);
 		this.btnJeu.setFocusPainted(false);
 
+		this.btnScenario.setBorderPainted(false);
+		this.btnScenario.setFocusPainted(false);
+
 		// Ajout des composants
 		layout.addLayoutComponent(this.btnConcepteur, layoutCons);
 		layout.addLayoutComponent(this.btnJeu, layoutCons);
+		layout.addLayoutComponent(this.btnScenario, layoutCons);
 
 		this.btnConcepteur.addActionListener(this);
 		this.btnJeu.addActionListener(this);
+		this.btnScenario.addActionListener(this);
 
 		this.add(this.btnConcepteur);
 		this.add(this.btnJeu);
+		this.add(this.btnScenario);
 
 		// Options pour la fermeture/apparence de la Frame
 		this.setLayout(layout);
@@ -95,6 +103,12 @@ public class FrameManager extends JFrame implements ActionListener
 		if (e.getSource() == this.btnJeu)
 		{
 			this.frameChoixJoueur = new FrameChoixJoueur(this.app);
+			this.dispose();
+		}
+
+		if (e.getSource() == this.btnScenario)
+		{
+			new FrameScenario(this.app);
 			this.dispose();
 		}
 	}
