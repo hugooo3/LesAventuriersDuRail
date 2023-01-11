@@ -44,8 +44,8 @@ public class FrameJeu extends JFrame {
 		this.setTitle("Jeu : Les Aventuriers du Rail (USA)");
 		this.setLayout(new BorderLayout());
 		this.setResizable(false);
-		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 450,
-				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350));
+		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 250,
+				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 250));
 
 		this.setJMenuBar(new MenuBarJeu(this)); // Obliger de mettre la barre de menu pour avoir la meme taille de mappe que dans le concepteur (sinon decalage y d'une dizaine de pixel)
 

@@ -317,7 +317,7 @@ public class Metier {
 
 	public void jeu(String actionJoueur) {
 		Joueur joueurEnJeu = this.getJoueurEnJeu();
-		System.out.println("Joueur " + joueurEnJeu.getNomJoueur() + " fait " + actionJoueur);
+		System.out.println(joueurEnJeu.getNomJoueur() + " fait " + actionJoueur);
 
 		//Prochain joueur
 		this.prochainJoueur(joueurEnJeu);
