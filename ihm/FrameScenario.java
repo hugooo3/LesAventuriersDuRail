@@ -123,7 +123,10 @@ public class FrameScenario extends JFrame implements ActionListener
 		
 		// Charger un xml -> ChargerXML;chemin
 		if (action[0].equals("ChargerXML"))
+		{
 			this.mappeXML = new File("." + action[1]);
+			this.appli.getMetier().importMappe(this.mappeXML);
+		}
 	}
 
 	private void lireDonnee(String chemin)
