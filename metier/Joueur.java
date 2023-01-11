@@ -68,10 +68,12 @@ public class Joueur {
 
 	public void setEstEnJeu(boolean bool) {this.estEnJeu = bool;}
 	public void setNbWagonJoueur (int nbWagonJoueur) {this.nbWagonJoueur = nbWagonJoueur;}
+	public void setScore (int score) {this.score = score;}
 
 	public void addCarteWagon(CarteWagon carteWagon) { this.hmWagon.put(carteWagon, this.hmWagon.get(carteWagon) + 1);}
 	public void addCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.add(carteDestination);}
 	public void addScore(int score) {this.score += score;}
+	public void addArete(Arete arete) {this.alAretePossede.add(arete);}
 
 	public void removeCarteWagon(CarteWagon carteWagon, int nbCarte) {this.hmWagon.put(carteWagon, this.hmWagon.get(carteWagon) - nbCarte);}
 	public void removeCarteDestination(CarteDestination carteDestination) {this.alCarteDestination.remove(carteDestination);}

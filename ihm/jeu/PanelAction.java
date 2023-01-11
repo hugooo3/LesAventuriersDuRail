@@ -20,7 +20,8 @@ public class PanelAction extends JPanel implements ActionListener
 	private FrameJeu frameJeu;
 	private Pioche pioche;
 
-	
+	private Boolean finDePartie;
+
 	private int largeur;
 	private int hauteur;
 
@@ -67,6 +68,7 @@ public class PanelAction extends JPanel implements ActionListener
 		this.alBtnCartes = new ArrayList<BoutonCarteWagon>();
 		this.alJoueurs = alJoueursMetier;
 		this.pioche = pioche;
+		this.finDePartie = false;
 		this.setLayout(new GridLayout(2, 1));
 
 		//Contenu Panel
@@ -248,17 +250,13 @@ public class PanelAction extends JPanel implements ActionListener
 
 	public CarteWagon getCarteDispo() { return this.pioche.piocherCarteWagon(); }
 
-	public void majIHM() 
-	{
-		/*  MAJ panelInfo
-		for (int i = 0; i < this.alJoueurs.size(); i++)
-		{
+	public void majIHM() {
+		for (int i = 0; i < this.alJoueurs.size(); i++) {
 			Joueur joueur = this.alJoueurs.get(i);
 
 			this.alLblNbWagonJoueur.get(i).setText(Integer.toString(joueur.getNbWagonJoueur()));
 			this.alLblScore.get(i).setText(Integer.toString(joueur.getScore()));
-		}
-		*/
+		}		
 	}
 
 	@Override
@@ -277,7 +275,7 @@ public class PanelAction extends JPanel implements ActionListener
 
 			Arete arete1;
 			Arete arete2;
-			int nbWagonArete;
+			int nbWagonArete = 0;
 			boolean NbWagonArete1Ok;
 			boolean NbWagonArete2Ok;
 
@@ -290,6 +288,8 @@ public class PanelAction extends JPanel implements ActionListener
 				
 				NbWagonArete1Ok = false;
 				NbWagonArete2Ok = false;
+				if (joueurActuelle.getNbWagonJoueur() < nbWagonArete)
+					continue;
 
 				// Division des voies double en voie simple
 				if (arete.getVoieDouble())
@@ -358,16 +358,37 @@ public class PanelAction extends JPanel implements ActionListener
 						if (areteSelectionne.getCouleurVoieSimple() != null && arete.getJoueurVoieSimple() == null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurVoieSimple())
 						{
 							arete.setJoueurVoieSimple(joueurActuelle);
+							joueurActuelle.addArete(arete);
 							joueurActuelle = null; // Pour empecher le joueur de prendre une deuxieme fois si la deuxieme voie de l'arete est de la meme couleur
 						}
-						if (areteSelectionne.getCouleurVoieSimple() != null &&  arete.getJoueurVoieDouble() == null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurDoubleVoie())
+						if (joueurActuelle != null && areteSelectionne.getCouleurVoieSimple() != null &&  arete.getJoueurVoieDouble() == null && areteSelectionne.getCouleurVoieSimple() == arete.getCouleurDoubleVoie())
+						{
 							arete.setJoueurVoieDouble(joueurActuelle);
-						/* TO DO
+							joueurActuelle.addArete(arete);
+						}
+						
+						CarteWagon couleurTerritoire = arete.getCouleurVoieSimple();
+						// Retirer les cartes wagons de la main du joueur
+
+						
+/* 
+						if (joueurActuelle.getHmWagon().get(couleurTerritoire) >= nbWagonArete)
+						{
+							joueurActuelle.removeCarteWagon(couleurTerritoire, nbWagonArete);
+						}
+						else if (joueurActuelle.getHmWagon().get(couleurTerritoire) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete)
+						{
+							joueurActuelle.removeCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuelle.getHmWagon().get(couleurTerritoire));
+							joueurActuelle.removeCarteWagon(couleurTerritoire, joueurActuelle.getHmWagon().get(couleurTerritoire));
+						} */
+						// removePetitWagon(nbWagonArete);
+						/* TODO
 						 * - Gestion des cartesWagon de la main du joueur
 						 * - Gestion du score du joueur
 						 */
+						this.frameJeu.getMetier().calculScore();
+						this.finDePartie = this.frameJeu.jeu("Possession");
 						this.frameJeu.majIHM();
-						this.frameJeu.jeu("Possession");;
 						break;
 					}
 				}
@@ -434,14 +455,14 @@ public class PanelAction extends JPanel implements ActionListener
 				else
 					this.cbPiocheDestiTrois.setVisible(false);
 
-				this.frameJeu.jeu("Piocher Carte Destination");
+				this.finDePartie = this.frameJeu.jeu("Piocher Carte Destination");
 				this.frameJeu.majIHM();
 			}
 			
 		}
 
-		if(e.getSource() == this.btnPossessionRoute) {
-			
+		if (this.finDePartie) {
+			JOptionPane.showMessageDialog(frameJeu, "Fin de la partie !", "Fin de la partie", JOptionPane.INFORMATION_MESSAGE);
 		}
 	}
 }

@@ -75,6 +75,14 @@ public class Pioche {
 		}
 	}
 
+	public boolean defausserCarteWagon (CarteWagon carteWagon, int nb) {
+		int index = this.alCarteWagon.indexOf(carteWagon);
+		
+		this.alCarteDestination.get(index);
+		/*à suivre je mange*/
+		return true;
+	}
+
 	public void addCarteWagon(CarteWagon carteWagon)                           { this.alCarteWagon.get(this.alCarteWagon.indexOf(carteWagon)).addNbCarteWagon(1); }
 	public void addCarteWagonDefausse(CarteWagon carteWagon)                   { this.alCarteWagonDefausse.get(this.alCarteWagonDefausse.indexOf(carteWagon)).addNbCarteWagon(1); }
 	public void addCarteDestination(CarteDestination carteDestination)         { this.alCarteDestination.add(carteDestination);         }

@@ -88,9 +88,7 @@ public class FrameJeu extends JFrame {
 		this.majJoueur();
 	}
 
-	public void jeu(String action) {
-		this.appli.jeu(action);
-	}
+	public boolean jeu(String action) { return this.appli.jeu(action); }
 
 	public void quitter() {
 		new FrameManager(this.appli);

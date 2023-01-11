@@ -315,7 +315,7 @@ public class Metier {
 		return true;
 	}
 
-	public void jeu(String actionJoueur) {
+	public boolean jeu(String actionJoueur) {
 		Joueur joueurEnJeu = this.getJoueurEnJeu();
 		System.out.println("Joueur " + joueurEnJeu.getNomJoueur() + " fait " + actionJoueur);
 
@@ -325,15 +325,14 @@ public class Metier {
 		if (finJeu()) {
 			this.calculScoreFin();
 			Joueur gagnant = this.alJoueurs.get(0);
-			for (Joueur joueur : this.alJoueurs)
-			{
+			for (Joueur joueur : this.alJoueurs) {
 				if (joueur.getScore() > gagnant.getScore())
-				{
 					gagnant = joueur;
-				}
 			}
 			System.out.println("Fin du jeu, " + gagnant.getNomJoueur() + " a gagné avec " + gagnant.getScore() + " points");
+			return true;
 		}
+		return false;
 	}
 
 	private void prochainJoueur(Joueur joueurEnJeu)
@@ -369,35 +368,29 @@ public class Metier {
 	}
 
 	private void calculScoreFin() {
+		// TO DO :
+		// Ajout des points de destination
+	}
+
+	// Changer de calculScoreFin en calculScore car on l'utilise aussi pour le calcul du score intermédiaire
+	public void calculScore() {
 		// Calcul du score
 		for (Joueur joueur : this.alJoueurs) {
 			int score = 0;
+			int nbWagonJoueur = this.nbWagonJoueur;
 			for (Arete arete : joueur.getAlAretePossede()) {
 				switch (arete.getTroncons()) {
-					case 1:
-						score += 1;
-						break;
-					case 2:
-						score += 2;
-						break;
-					case 3:
-						score += 4;
-						break;
-					case 4:
-						score += 7;
-						break;
-					case 5:
-						score += 10;
-						break;
-					case 6:
-						score += 15;
-						break;
-					default:
-						System.out.println("Erreur calcul score");
-						break;
+					case 1 -> {score += 1;  nbWagonJoueur -= 1;}
+					case 2 -> {score += 2;  nbWagonJoueur -= 2;}
+					case 3 -> {score += 4;  nbWagonJoueur -= 3;}
+					case 4 -> {score += 7;  nbWagonJoueur -= 4;}
+					case 5 -> {score += 10; nbWagonJoueur -= 5;}
+					case 6 -> {score += 15; nbWagonJoueur -= 6;}
+					default -> {System.out.println("Erreur calcul score");}
 				}
 			}
-			joueur.addScore(score);
+			joueur.setScore(score);
+			joueur.setNbWagonJoueur(nbWagonJoueur);
 		}
 	}
 

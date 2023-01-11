@@ -21,10 +21,7 @@ public class Application
 	public Metier getMetier() {return this.metier;}
 
 	public boolean preparationJeu(ArrayList<Joueur> lstJoueur) {return this.metier.preparationJeu(lstJoueur);}
-	public void    jeu(String actionJoueur) 
-	{ 
-		this.metier.jeu(actionJoueur); 
-	}
+	public boolean jeu(String actionJoueur) { return this.metier.jeu(actionJoueur); }
 
 	public File getMappeXML() { return this.frameManager.getMappeXML();}
 	public ArrayList<Joueur> getLstJoueurIHM   () {return this.frameManager.getLstJoueur();}
