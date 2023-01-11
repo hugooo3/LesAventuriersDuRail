@@ -865,7 +865,7 @@
 		<couleur>-3881788</couleur>
 		<imgRectoPath></imgRectoPath>
 		<imgVersoPath></imgVersoPath>
-		<nbCarteWagon>12</nbCarteWagon>
+		<nbCarteWagon>0</nbCarteWagon>
 	</carteWagon>
 	<carteWagon>
 		<nomCouleur>Blanc</nomCouleur>

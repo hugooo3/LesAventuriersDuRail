@@ -75,8 +75,8 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		this.setTitle("Import Mappe XML");
 		this.setLayout(null);
 		this.setResizable(false);
-		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 250,
-				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 250));
+		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 450,
+				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350));
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2 - 25);
@@ -249,7 +249,7 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 			
 		}
 
-		if(e.getSource() == this.btnConfirmer && this.mappeXML != null) {
+ 		if(e.getSource() == this.btnConfirmer && this.mappeXML != null) {
 			
 			for(int i=0; i < this.panelImportXML.getComponentCount(); i++)
 				if(this.panelImportXML.getComponent(i) != this.lblPathXML)

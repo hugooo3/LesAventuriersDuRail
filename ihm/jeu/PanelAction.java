@@ -6,6 +6,7 @@ import ihm.jeu.util.BoutonCarteWagon;
 
 import java.awt.event.*;
 import java.io.File;
+import java.security.cert.TrustAnchor;
 
 import javax.imageio.ImageIO;
 import javax.swing.*;
@@ -39,6 +40,8 @@ public class PanelAction extends JPanel implements ActionListener
 	private ArrayList<JLabel> alLblScore;
 	private ArrayList<Color> alCouleur;
 
+	private ArrayList<CarteWagon> alCartesCourantes;
+
 	private PanelPioche panelPioche;
 
 	private JPanel panelPopupPossession;
@@ -51,6 +54,10 @@ public class PanelAction extends JPanel implements ActionListener
 	private JCheckBox cbPiocheDestiDeux;
 	private JCheckBox cbPiocheDestiTrois;
 	private JLabel lblPiocheDestiConseil;
+
+	private JList<String> lstLog;
+	private JScrollPane   scrollPane;
+	private DefaultListModel<String> modelListLogs;
 
 	
 	public PanelAction(FrameJeu frameJeu, int largeur, int hauteur, ArrayList<Joueur> alJoueursMetier, Pioche pioche) 
@@ -99,17 +106,22 @@ public class PanelAction extends JPanel implements ActionListener
 		this.alLblJoueurs 		= new ArrayList<JLabel>();
 		this.alLblNbWagonJoueur = new ArrayList<JLabel>();
 		this.alLblScore 		= new ArrayList<JLabel>();
-		this.alCouleur 		= new ArrayList<Color>();
+		this.alCouleur 			= new ArrayList<Color>();
+		this.scrollPane			= new JScrollPane();
 		this.panelInfo.setLayout(null);
 
 		this.alAretes = frameJeu.getMetier().getAlAretes();
-		//this.alPiocheDesti = frameJeu.getMetier().getAlCartesDestination();
 
 		// Paramètres Panel
 		this.frameJeu = frameJeu;
 		this.largeur  = largeur;
 		this.hauteur  = hauteur;
 		
+		this.modelListLogs = new DefaultListModel<String>();
+		this.lstLog        = new JList<String>(this.modelListLogs);
+		ArrayList<String> alLogs = frameJeu.getMetier().getAlLogs();
+		for (String logs : alLogs)
+			this.modelListLogs.addElement(logs);
 		this.setPreferredSize(new Dimension(this.largeur, this.hauteur));
 
 		//Contenu panelInfos
@@ -125,6 +137,12 @@ public class PanelAction extends JPanel implements ActionListener
 
 		this.panelInfo.add(lblJoueur);
 		lblJoueur.setBounds(10, 10, this.largeur/3, 20);
+
+		this.scrollPane.setViewportView(lstLog);
+		this.panelInfo.add(scrollPane);
+		scrollPane.setBounds((this.largeur/2)-100, 100, 200, 220);
+		this.lstLog.ensureIndexIsVisible(this.modelListLogs.getSize()-1);
+		//lstLog.setFont(new Font(getFont().getName(), Font.PLAIN, 15));
 
 
 		for(Joueur joueur : this.alJoueurs) {
@@ -146,7 +164,6 @@ public class PanelAction extends JPanel implements ActionListener
 			this.alLblNbWagonJoueur.get(i).setBounds(this.largeur/3, (40 + 15*i), this.largeur/3, 20);
 			this.alLblScore.get(i).setBounds((this.largeur/3)*2, (40 + 15*i), this.largeur/3, 20);
 		}
-		//ex :label.setFont(new Font("Serif", Font.BOLD, 20));
 
 
 		//Contenu panelPopupDesti
@@ -156,31 +173,62 @@ public class PanelAction extends JPanel implements ActionListener
 		gbcPopUp.insets = new Insets(5, 2, 5, 2);
 		this.lblPiocheDestiConseil = new JLabel("Piocher au moins une carte.");
 
+		ArrayList<CarteDestination> alDestiVerif = frameJeu.getMetier().getAlCartesDestination();
 		this.alPiocheDesti = new ArrayList<CarteDestination>();// liste des carte piocher (a remettre si il annule)
 		for(int i = 0; i < 3; i++) {
-			this.alPiocheDesti.add(pioche.piocherCarteDestination());
+			CarteDestination carte = pioche.piocherCarteDestination();
+			if (carte != null) {
+				this.alPiocheDesti.add(carte);
+			}
 		}
-		this.cbPiocheDesti      = new JCheckBox(this.alPiocheDesti.get(0).toString());
-		this.cbPiocheDestiDeux  = new JCheckBox(this.alPiocheDesti.get(1).toString());
-		this.cbPiocheDestiTrois = new JCheckBox(this.alPiocheDesti.get(2).toString());
+
+		if( this.alPiocheDesti.size() > 0) {
+			this.cbPiocheDesti      = new JCheckBox(this.alPiocheDesti.get(0).toString()); this.cbPiocheDesti.addActionListener(this);
+		}
+		else this.cbPiocheDesti      = new JCheckBox();
+
+		
+		if (this.alPiocheDesti.size() > 1) {
+			this.cbPiocheDestiDeux  = new JCheckBox(this.alPiocheDesti.get(1).toString());this.cbPiocheDestiDeux.addActionListener(this);
+			
+		}
+		else this.cbPiocheDestiDeux  = new JCheckBox();
+			
+		if (this.alPiocheDesti.size() > 2) {
+			this.cbPiocheDestiTrois = new JCheckBox(this.alPiocheDesti.get(2).toString());this.cbPiocheDestiTrois.addActionListener(this);
+			
+		}
+		else this.cbPiocheDestiTrois = new JCheckBox();
 		this.cbPiocheDesti.addActionListener(this);
 		this.cbPiocheDestiDeux.addActionListener(this);
 		this.cbPiocheDestiTrois.addActionListener(this);
+		
+		
+		
 
 		gbcPopUp.gridx = 0;
 		gbcPopUp.gridy = 0;
 		gbcPopUp.fill = GridBagConstraints.HORIZONTAL;
-		this.panelPopupPiocheDesti.add(cbPiocheDesti, gbcPopUp);
+		if( this.alPiocheDesti.size() > 0) {
+			System.err.println("UN"+ this.alPiocheDesti.size());
+			this.panelPopupPiocheDesti.add(cbPiocheDesti, gbcPopUp);
+		}
 
 		gbcPopUp.gridx = 1;
 		gbcPopUp.gridy = 0;
 		gbcPopUp.fill = GridBagConstraints.HORIZONTAL;
-		this.panelPopupPiocheDesti.add(cbPiocheDestiDeux, gbcPopUp);
+		if (this.alPiocheDesti.size() > 1 ) {
+			System.err.println("DEUX");
+			this.panelPopupPiocheDesti.add(cbPiocheDestiDeux, gbcPopUp);
+		}
 
 		gbcPopUp.gridx = 2;
 		gbcPopUp.gridy = 0;
 		gbcPopUp.fill = GridBagConstraints.HORIZONTAL;
-		this.panelPopupPiocheDesti.add(cbPiocheDestiTrois, gbcPopUp);
+		if (this.alPiocheDesti.size() > 2) {
+			System.err.println("TROIS");
+			this.panelPopupPiocheDesti.add(cbPiocheDestiTrois, gbcPopUp);
+		}
 
 		gbcPopUp.gridx = 1;
 		gbcPopUp.gridy = 1;
@@ -198,7 +246,20 @@ public class PanelAction extends JPanel implements ActionListener
 		this.add(this.panelHaut);
 		this.add(this.panelInfo);
 
+		this.alCartesCourantes = new ArrayList<CarteWagon>();
+		for(int i=0; i < 6; i++) {
+			this.alCartesCourantes.add(this.getCarteDispo());
+		}
+
 	}
+
+
+	public ArrayList<CarteWagon> getAlCartesCourantes() { return this.alCartesCourantes; }
+
+	public void enleverCarteWagon(CarteWagon carte, int index) {
+		this.alCartesCourantes.set(index, this.getCarteDispo());
+	}
+
 
 
 	public CarteWagon getCarteDispo() { return this.pioche.piocherCarteWagon(); }
@@ -209,15 +270,53 @@ public class PanelAction extends JPanel implements ActionListener
 
 			this.alLblNbWagonJoueur.get(i).setText(Integer.toString(joueur.getNbWagonJoueur()));
 			this.alLblScore.get(i).setText(Integer.toString(joueur.getScore()));
-		}		
+		}
+		this.modelListLogs.clear();
+		ArrayList<String> alLogs = frameJeu.getMetier().getAlLogs();
+		for (String logs : alLogs)
+			this.modelListLogs.addElement(logs);
 	}
+
+	
+	public void reactiverBoutons() { 
+		this.btnPioche.setEnabled(true);
+		this.btnPossessionRoute.setEnabled(true);
+		this.btnPiocheDesti.setEnabled(true);
+	}
+
 
 	@Override
 	public void actionPerformed(ActionEvent e) {
-		// TODO Auto-generated method stub
+
+		if(e.getSource() == this.btnPioche || e.getSource() == this.btnPossessionRoute || e.getSource() == this.btnPiocheDesti) {
+			this.btnPioche.setEnabled(false);
+			this.btnPossessionRoute.setEnabled(false);
+			this.btnPiocheDesti.setEnabled(false);
+		}
 
 		if(e.getSource() == this.btnPioche) {
-			new PanelPioche(frameJeu, this, largeur, hauteur, pioche);
+
+			int nbCartes = 0;
+			for(CarteWagon carte : this.alCartesCourantes) {
+				if(carte != null) 
+					nbCartes += carte.getNbCarteWagon();
+			}
+
+			System.out.println(nbCartes);
+
+			if(nbCartes > 5) { 
+				this.panelPioche = new PanelPioche(frameJeu, this, largeur, hauteur, pioche, this.alCartesCourantes);
+				this.panelPioche.addWindowListener(new WindowAdapter(){
+						@Override
+						public void windowDeactivated(WindowEvent e) {
+							if(!e.getWindow().isVisible()) { PanelAction.this.reactiverBoutons(); }
+						}
+					});
+			}
+			else { 
+				JOptionPane.showMessageDialog(this.frameJeu, "Nombre insuffisant de cartes dans la Pioche !");
+				this.reactiverBoutons(); 
+			}
 		}
 
 
@@ -325,9 +424,7 @@ public class PanelAction extends JPanel implements ActionListener
 						
 /* 
 						if (joueurActuelle.getHmWagon().get(couleurTerritoire) >= nbWagonArete)
-						{
 							joueurActuelle.removeCarteWagon(couleurTerritoire, nbWagonArete);
-						}
 						else if (joueurActuelle.getHmWagon().get(couleurTerritoire) + joueurActuelle.getHmWagon().get(this.frameJeu.getMetier().getAlCartesWagon().get(1)) >= nbWagonArete)
 						{
 							joueurActuelle.removeCarteWagon(this.frameJeu.getMetier().getAlCartesWagon().get(1), nbWagonArete - joueurActuelle.getHmWagon().get(couleurTerritoire));
@@ -339,11 +436,16 @@ public class PanelAction extends JPanel implements ActionListener
 						 * - Gestion du score du joueur
 						 */
 						this.frameJeu.getMetier().calculScore();
-						this.finDePartie = this.frameJeu.jeu("Possession");
+						this.finDePartie = this.frameJeu.jeu(" prend possession de l'arete " + arete.getNoeud1().getNom() + " - " + arete.getNoeud2().getNom());
 						this.frameJeu.majIHM();
+						reactiverBoutons();
 						break;
 					}
 				}
+			}
+			else if (n == JOptionPane.CANCEL_OPTION) // Annulation
+			{
+				reactiverBoutons();
 			}
 		}
 
@@ -407,8 +509,9 @@ public class PanelAction extends JPanel implements ActionListener
 				else
 					this.cbPiocheDestiTrois.setVisible(false);
 
-				this.finDePartie = this.frameJeu.jeu("Piocher Carte Destination");
+				this.finDePartie = this.frameJeu.jeu("pioche une carte Destination");
 				this.frameJeu.majIHM();
+				reactiverBoutons();
 			}
 			
 		}

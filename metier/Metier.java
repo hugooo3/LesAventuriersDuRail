@@ -21,6 +21,10 @@ import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.Base64;
 import java.util.Comparator;
+import java.util.HashSet;
+import java.util.LinkedList;
+import java.util.Queue;
+import java.util.Set;
 
 public class Metier {
 	// Constantes Couleurs pâles
@@ -55,6 +59,7 @@ public class Metier {
 	// Jeu
 	private Pioche pioche;
 	private ArrayList<Joueur> alJoueurs;
+	private ArrayList<String> alLogs;
 
 	public Metier(Application app) {	
 		this.alNoeuds = new ArrayList<Noeud>();
@@ -79,6 +84,7 @@ public class Metier {
 
 		// Jeu
 		this.alJoueurs = new ArrayList<Joueur>();
+		this.alLogs = new ArrayList<String>();		
 	}
 
 	/***************************/
@@ -96,6 +102,25 @@ public class Metier {
 	public int getNbWagonJoueur() {return this.nbWagonJoueur;}
 	public String getVersoCartePath() {return this.versoCartePath;}
 	public ArrayList<Joueur> getLstJoueur() {return this.alJoueurs;}
+	public ArrayList<String> getAlLogs() {return this.alLogs;}
+
+	public Noeud getNoeud(String nom) {
+		for (Noeud noeud : this.alNoeuds) {
+			if (noeud.getNom().equals(nom)) {
+				return noeud;
+			}
+		}
+		return null;
+	}
+
+	public Joueur getJoueurEnJeu () {
+		for (Joueur joueur : this.alJoueurs) {
+			if (joueur.getEstEnJeu()) {
+				return joueur;
+			}
+		}
+		return null;
+	}
 
 	public void setImgMappePath(String imgMappePath) {this.imgMappePath = imgMappePath;}
 	public void setImgMappe(Image imgMappe) {this.imgMappe = imgMappe;}
@@ -274,7 +299,7 @@ public class Metier {
 		/* Initialisation de la main du joueur */
 
 		// Carte wagon
-		for (int i = 0; i < 4; i++) {
+		for (int i = 0; i < 90; i++) {
 			joueur.addCarteWagon(this.pioche.piocherCarteWagon());
 		}
 
@@ -311,13 +336,16 @@ public class Metier {
 
 		// Choix aléatoire du premier joueur
 		this.alJoueurs.get((int)(Math.random() * this.alJoueurs.size())).setEstEnJeu(true);
+		this.alLogs.add("Premier joueur : " + this.getJoueurEnJeu().getNomJoueur());
 
 		return true;
 	}
 
 	public boolean jeu(String actionJoueur) {
 		Joueur joueurEnJeu = this.getJoueurEnJeu();
-		System.out.println(joueurEnJeu.getNomJoueur() + " fait " + actionJoueur);
+
+		//Enregistrement de l'action, pour les logs
+		this.alLogs.add(joueurEnJeu.getNomJoueur() + " " + actionJoueur);
 
 		//Prochain joueur
 		this.prochainJoueur(joueurEnJeu);
@@ -329,7 +357,7 @@ public class Metier {
 				if (joueur.getScore() > gagnant.getScore())
 					gagnant = joueur;
 			}
-			System.out.println("Fin du jeu, " + gagnant.getNomJoueur() + " a gagné avec " + gagnant.getScore() + " points");
+			this.alLogs.add("Fin du jeu, " + gagnant.getNomJoueur() + " a gagné avec " + gagnant.getScore() + " points");
 			return true;
 		}
 		return false;
@@ -340,11 +368,27 @@ public class Metier {
 		// Prochain joueur
 		joueurEnJeu.setEstEnJeu(false);
 		this.alJoueurs.get((this.alJoueurs.indexOf(joueurEnJeu) + 1) % this.alJoueurs.size()).setEstEnJeu(true);
-
-		System.out.println("Joueur actuel : " + this.alJoueurs.get((this.alJoueurs.indexOf(joueurEnJeu) + 1) % this.alJoueurs.size()).getNomJoueur());
 	}
 
 	private boolean finJeu() {
+		boolean areteDisponible = false;
+		// Si il n'y a plus d'arete disponible
+		for (Arete arete : this.alAretes)
+		{
+			// Si au moins une des aretes n'est pas possede par un joueur alors il compare le troncon minimum
+			if (arete.getJoueurVoieSimple() == null || arete.getJoueurVoieDouble() == null)
+			{
+				//Arete disponible, on passe à la seconde verification
+				areteDisponible = true;
+				break;
+			}
+		}
+
+		//Fin du jeu si pas d'arete disponible
+		if (!areteDisponible)
+			return true;
+
+		// Si un joueur n'a plus assez de wagons pour prendre possession d'une arete disponible
 		int tronconsMin = 100;
 
 		for (Arete arete : this.alAretes) {
@@ -364,12 +408,36 @@ public class Metier {
 		}
 
 		if (tronconsMin > nbWagonJoueurMin) { return true;}
+
 		return false;
 	}
 
 	private void calculScoreFin() {
-		// TO DO :
-		// Ajout des points de destination
+		for (Joueur joueur : this.alJoueurs)
+		{
+			for (CarteDestination carteDestination : joueur.getAlCarteDestination())
+			{
+				Noeud noeud1 = carteDestination.getNoeud1();
+				Noeud noeud2 = carteDestination.getNoeud2();
+				ArrayList<Arete> alArretePossede = joueur.getAlAretePossede();
+				if (this.estConnecte(noeud1, noeud2, alArretePossede))
+				{
+					joueur.setScore(joueur.getScore() + carteDestination.getPoints());
+					this.alLogs.add(joueur.getNomJoueur() + " a rempli la carte destination " 
+									+ carteDestination.getNoeud1().getNom() + " - " 
+									+ carteDestination.getNoeud2().getNom() + " et gagne " 
+									+ carteDestination.getPoints() + " points");
+				}
+				else
+				{
+					joueur.setScore(joueur.getScore() - carteDestination.getPoints());
+					this.alLogs.add(joueur.getNomJoueur() + " n'a pas rempli la carte destination " 
+									+ carteDestination.getNoeud1().getNom() + " - " 
+									+ carteDestination.getNoeud2().getNom() + " et perd " 
+									+ carteDestination.getPoints() + " points");
+				}
+			}
+		}
 	}
 
 	// Changer de calculScoreFin en calculScore car on l'utilise aussi pour le calcul du score intermédiaire
@@ -394,14 +462,47 @@ public class Metier {
 		}
 	}
 
-	public Joueur getJoueurEnJeu () {
-		for (Joueur joueur : this.alJoueurs) {
-			if (joueur.getEstEnJeu()) {
-				return joueur;
+	public boolean estConnecte(Noeud noeud1, Noeud noeud2, ArrayList<Arete> alAretesPossedes) {
+		// Initialisation de la file de BFS
+		Queue<Noeud> queue = new LinkedList<>();
+		queue.add(noeud1);
+
+		// Initialisation de l'ensemble des noeuds visités
+		Set<Noeud> visite = new HashSet<>();
+		visite.add(noeud1);
+
+		// Tant que la file n'est pas vide
+		while (!queue.isEmpty()) {
+			Noeud courant = queue.poll();
+
+			// Si on a atteint le noeud cible, on retourne vrai
+			if (courant == noeud2) {
+				return true;
+			}
+
+			// Pour chaque arête
+			for (Arete arete : alAretesPossedes) {
+				// Si l'arête relie le noeud courant à un autre noeud
+				Noeud voisin = null;
+				if (arete.getNoeud1() == courant) {
+					voisin = arete.getNoeud2();
+				} else if (arete.getNoeud2() == courant) {
+					voisin = arete.getNoeud1();
+				}
+				if (voisin != null) {
+					// Si on n'a pas déjà visité ce noeud
+					if (!visite.contains(voisin)) {
+						// On l'ajoute à la file de BFS et à l'ensemble des noeuds visités
+						queue.add(voisin);
+						visite.add(voisin);
+					}
+				}
 			}
 		}
-		return null;
+		// Si on a parcouru tous les noeuds sans trouver de chemin vers le noeud cible, on retourne faux
+		return false;
 	}
+
 
 	/****************************************************************/
 	/* PARTIE AUXILIAIRE */

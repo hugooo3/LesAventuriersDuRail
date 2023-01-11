@@ -33,11 +33,12 @@ public class Pioche {
 		{
 			r += carteWagon.getNbCarteWagon();
 		}
-
-		if (r == 0)
+		System.out.println("Nombre de carte dans la pioche : " + r);
+		if (r < 6)
 		{
 			System.out.println("Pioche vide, on remet la defausse dans la pioche");
-			this.defausseVersPiocheWagon();
+			if (!this.defausseVersPiocheWagon())
+				return null;
 		}
 
 		// Verification qu'il reste des cartes de cette couleur
@@ -62,25 +63,43 @@ public class Pioche {
 		return carteDestination;
 	}
 
-	public void defausseVersPiocheWagon() 
+	public boolean defausseVersPiocheWagon() 
 	{
-		for (CarteWagon carteWagon : this.alCarteWagonDefausse)
+		//Verification si la defausse est vide
+		int r = 0;
+
+		for(CarteWagon carteWagonDefausse : this.alCarteWagonDefausse)
 		{
-			carteWagon.setNbCarteWagon(0);
+			r += carteWagonDefausse.getNbCarteWagon();
+		}
+		if (r == 0)
+		{
+			System.out.println("Pioche vide et defausse vide");
+			return false;
 		}
 
+		//Transfert defausse vers pioche
 		for (CarteWagon carteWagon : this.alCarteWagon)
 		{
-			carteWagon.setNbCarteWagon(12);
+			carteWagon.setNbCarteWagon(this.alCarteWagonDefausse.get(this.alCarteWagonDefausse.indexOf(carteWagon)).getNbCarteWagon());
+			this.alCarteWagonDefausse.get(this.alCarteWagonDefausse.indexOf(carteWagon)).setNbCarteWagon(0);
 		}
+		return true;
 	}
 
-	public boolean defausserCarteWagon (CarteWagon carteWagon, int nb) {
+	public boolean defausserCarteWagon (CarteWagon carteWagon, int indice) {
 		int index = this.alCarteWagon.indexOf(carteWagon);
-		
-		this.alCarteDestination.get(index);
-		/*à suivre je mange*/
-		return true;
+		int nb = this.alCarteWagon.get(index).getNbCarteWagon() - indice;
+
+		if (this.alCarteWagon.get(index).setNbCarteWagon(nb))
+		{
+			nb = this.alCarteWagonDefausse.get(index).getNbCarteWagon() + indice;
+			if (this.alCarteWagonDefausse.get(index).setNbCarteWagon(nb))
+			{
+				return true;
+			}
+		}
+		return false;
 	}
 
 	public void addCarteWagon(CarteWagon carteWagon)                           { this.alCarteWagon.get(this.alCarteWagon.indexOf(carteWagon)).addNbCarteWagon(1); }

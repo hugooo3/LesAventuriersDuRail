@@ -75,7 +75,15 @@ public class CarteWagon {
 
 	public void setNomCouleur(String couleur)	  { this.nomCouleur = couleur; }
 	public void setCouleur(Color couleur) 		  { this.couleur = couleur; }
-	public void setNbCarteWagon(int nbCarteWagon) { this.nbCarteWagon = nbCarteWagon; }
+
+	public boolean setNbCarteWagon(int nbCarteWagon) 
+	{ 
+		if (nbCarteWagon < 0 || nbCarteWagon > 12)
+			return false;
+		
+		this.nbCarteWagon = nbCarteWagon;
+		return true;
+	}
 
 	public void setImgRecto(ImageIcon imgRecto, String imgRectoPath)   {
 		this.imgRecto = imgRecto;
