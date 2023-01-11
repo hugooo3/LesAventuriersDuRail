@@ -39,13 +39,7 @@ public class PanelAction extends JPanel implements ActionListener
 	private ArrayList<JLabel> alLblScore;
 	private ArrayList<Color> alCouleur;
 
-	private JPanel panelPopUpPioche;
-	private ArrayList<JLabel> alLblCartes;
-	private ArrayList<BoutonCarteWagon> alBtnCartes;
-	private ArrayList<CarteWagon> alCartesCourantes;
-	private BoutonCarteWagon btnNonVisible;
-	private JLabel lblNonVisible;
-	private CarteWagon carteCachee;
+	private PanelPioche panelPioche;
 
 	private JPanel panelPopupPossession;
 	private ArrayList<Arete> alAretes;
@@ -65,11 +59,11 @@ public class PanelAction extends JPanel implements ActionListener
 		this.pioche = frameJeu.getMetier().getPioche();
 		this.hauteur = hauteur;
 		this.largeur = largeur;
-		this.alBtnCartes = new ArrayList<BoutonCarteWagon>();
 		this.alJoueurs = alJoueursMetier;
 		this.pioche = pioche;
 		this.finDePartie = false;
 		this.setLayout(new GridLayout(2, 1));
+
 
 		//Contenu Panel
 
@@ -113,8 +107,8 @@ public class PanelAction extends JPanel implements ActionListener
 
 		// Paramètres Panel
 		this.frameJeu = frameJeu;
-		this.largeur  =  largeur;
-		this.hauteur  =  hauteur;
+		this.largeur  = largeur;
+		this.hauteur  = hauteur;
 		
 		this.setPreferredSize(new Dimension(this.largeur, this.hauteur));
 
@@ -201,47 +195,6 @@ public class PanelAction extends JPanel implements ActionListener
 		this.ddlstArete = new JComboBox<Arete>();
 		this.panelPopupPossession.add(ddlstArete);
 
-
-
-		// Contenu PanelPopupPioche
-		// ------------------------ //
-		this.panelPopUpPioche = new JPanel();
-		this.panelPopUpPioche.setPreferredSize(new Dimension(550, 300));
-		this.panelPopUpPioche.setLayout(null);
-
-		this.alBtnCartes = new ArrayList<BoutonCarteWagon>();
-		this.alCartesCourantes = new ArrayList<CarteWagon>();
-		this.alLblCartes = new ArrayList<JLabel>();
-
-
-		for(int i=0; i < 5; i++) {
-			this.alCartesCourantes.add(pioche.piocherCarteWagon());
-			this.alLblCartes.add(new JLabel(new ImageIcon(this.alCartesCourantes.get(i).getImgRecto().getImage().getScaledInstance(70, 70, Image.SCALE_SMOOTH))));
-			this.alBtnCartes.add(new BoutonCarteWagon(this.alCartesCourantes.get(i) ,"Piocher"));
-
-			this.panelPopUpPioche.add(this.alLblCartes.get(i));
-			this.panelPopUpPioche.add(this.alBtnCartes.get(i));
-			this.alLblCartes.get(i).setBounds(25 + (i*110), 10, 70, 70);
-			this.alBtnCartes.get(i).setBounds(10 + (i*110), 80, 100, 35);
-			this.alBtnCartes.get(i).addActionListener(this);
-
-			if(i == 4) {
-				this.carteCachee = pioche.piocherCarteWagon();
-				this.btnNonVisible = new BoutonCarteWagon(this.carteCachee, "Piocher");
-				this.lblNonVisible = new JLabel(new ImageIcon());
-
-				try {
-					this.lblNonVisible.setBackground(Color.BLACK);
-					this.lblNonVisible.setOpaque(true);
-				} catch(Exception e) { e.printStackTrace(); }
-
-				this.panelPopUpPioche.add(this.lblNonVisible);
-				this.panelPopUpPioche.add(this.btnNonVisible);
-				this.lblNonVisible.setBounds(275 - 35, 135, 70, 70);
-				this.btnNonVisible.setBounds(275 - 50, 205, 100, 30);
-			}
-		}
-
 		this.add(this.panelHaut);
 		this.add(this.panelInfo);
 
@@ -264,8 +217,7 @@ public class PanelAction extends JPanel implements ActionListener
 		// TODO Auto-generated method stub
 
 		if(e.getSource() == this.btnPioche) {
-			int ret = JOptionPane.showOptionDialog(this.frameJeu, this.panelPopUpPioche, "Pioche", JOptionPane.OK_CANCEL_OPTION, JOptionPane.QUESTION_MESSAGE, null, null, null);
-			if(ret != JOptionPane.OK_CANCEL_OPTION) { return; }
+			new PanelPioche(frameJeu, this, largeur, hauteur, pioche);
 		}
 
 

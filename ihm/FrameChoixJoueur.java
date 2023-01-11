@@ -75,8 +75,8 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 		this.setTitle("Import Mappe XML");
 		this.setLayout(null);
 		this.setResizable(false);
-		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 450,
-				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 350));
+		this.setMinimumSize(new Dimension((int) Toolkit.getDefaultToolkit().getScreenSize().getWidth() - 250,
+				(int) Toolkit.getDefaultToolkit().getScreenSize().getHeight() - 250));
 
 		Dimension dim = Toolkit.getDefaultToolkit().getScreenSize();
 		this.setLocation(dim.width / 2 - this.getSize().width / 2, dim.height / 2 - this.getSize().height / 2 - 25);
