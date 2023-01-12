@@ -66,8 +66,6 @@ public class PanelPioche extends JFrame implements ActionListener {
 
 		this.btnNonVisible = null;
 
-		System.out.println(this.alCartesCourantes.size() + " TAILLE DES MORTS LE RETOUR");
-
 		for(int i=0; i < this.alCartesCourantes.size(); i++) {
 			
 			if(i < 5 && this.alCartesCourantes.size() > i && this.alCartesCourantes.get(i) != null && this.alLblCartes.size()+1 > i) {

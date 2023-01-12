@@ -237,7 +237,6 @@ public class FrameChoixJoueur extends JFrame implements ActionListener {
 				if(this.txtJoueurSolo.getText() != null && !this.txtJoueurSolo.getText().equals("")) {
 					this.alJoueurs.add(new Joueur(this.txtJoueurSolo.getText(), this.appli.getMetier().getAlCartesWagon(), this.alCouleur.get(0)));
 					this.frameJeu = new FrameJeu(this.appli, this.mappeXML, 1, this.alJoueurs);
-					System.out.println(this.frameJeu);
 					this.dispose();
 				}
 				else {

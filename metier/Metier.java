@@ -338,17 +338,6 @@ public class Metier {
 		this.alJoueurs.get((int)(Math.random() * this.alJoueurs.size())).setEstEnJeu(true);
 		this.alLogs.add("Premier joueur : " + this.getJoueurEnJeu().getNomJoueur());
 
-		System.out.println("CarteWagon pioche");
-		for (CarteWagon carteWagon : this.pioche.getCarteWagon()) 
-		{
-			System.out.println(carteWagon.getNomCouleur());
-		}
-
-		System.out.println("CarteWagon defausse");
-		for (CarteWagon carteWagon : this.pioche.getCarteWagonDefausse()) 
-		{
-			System.out.println(carteWagon.getNomCouleur());
-		}
 		return true;
 	}
 
